@@ -1,1041 +1,866 @@
-# Plano de Estudos — CI Brasil Inovação 2
+# Plano de Estudos Revisado — CI Brasil Inovação 2
 ## Trilha: Sistemas Digitais — UFCG
 
-**Período:** 22/05/2026 a 27/06/2026  
-**Prova:** 28/06/2026, domingo, das 14h às 18h  
-**Foco:** Conhecimento técnico da trilha de Sistemas Digitais  
-**Inglês:** manutenção leve, sem foco principal
+**Plano atualizado em:** 24/05/2026, domingo  
+**Período restante de estudo:** 24/05/2026 a 27/06/2026  
+**Prova objetiva:** 28/06/2026, domingo, das 14h às 18h  
+**Foco deste plano:** conteúdo técnico de Sistemas Digitais  
+**Situação inicial:** as aulas `1` a `5` da pasta `aulas` já foram estudadas.
 
 ---
 
-## 1. Base do plano
+# 1. Leitura do Edital
 
-A prova tem **40 questões objetivas** de **Conhecimento Técnico e Inglês**.
+Fonte analisada:
 
-O edital prevê:
-- prova presencial;
-- duração de 4 horas;
-- pontuação final igual ao número de acertos;
-- nota mínima de 20 pontos;
-- eliminação se zerar uma ou mais disciplinas da prova.
+```text
+Edital-de-Selecao-CI-Inovador-2026.docx.pdf
+Edital n. 001/2026 — SOFTEX/UFSM, de 21/05/2026
+```
 
-Como você já consome bastante conteúdo em inglês, o plano trata inglês apenas como manutenção para evitar perda de pontos fáceis ou risco de zerar a disciplina.
+## 1.1 Informações confirmadas
+
+| Item | Informação do edital |
+|---|---|
+| Trilha escolhida | Sistemas Digitais |
+| Polo de interesse | UFCG — Campina Grande/PB |
+| Vagas da UFCG em Sistemas Digitais | 18 vagas: 12 AC e 6 ação afirmativa para mulheres |
+| Prova | 40 questões objetivas de Conhecimento Técnico e Inglês |
+| Data e horário | 28/06/2026, das 14h às 18h |
+| Duração | 4 horas, presencial |
+| Pontuação | Número de respostas corretas |
+| Pontuação mínima | 20 pontos |
+| Eliminação adicional | Zerar em uma ou mais disciplinas da prova |
+| Inscrições | Até 15/06/2026 |
+| Consulta obrigatória ao local de prova | 24/06/2026 |
+| Se o nome não estiver na lista | Contatar `falecom@nisa.ufsm.br` até 25/06/2026 |
+
+## 1.2 Decisão sobre inglês neste plano
+
+O edital inclui **Inglês Intermediário/Instrumental (nível B2)** e prevê eliminação se o candidato zerar uma disciplina.
+
+Por decisão sua, este plano **não terá sessões separadas de inglês**, porque o conteúdo técnico já está sendo consumido em inglês. A exposição à língua ocorrerá naturalmente nas leituras, vídeos, datasheets e exercícios técnicos.
+
+Importante:
+
+```text
+O plano não agenda inglês à parte, mas a prova real contém inglês.
+```
 
 ---
 
-## 2. Estratégia geral
+# 2. Conteúdo Oficial de Sistemas Digitais
 
-Você tem **37 dias reais de estudo**, contando de 22/05 até 27/06.
+O Anexo III do edital organiza o conteúdo digital em três blocos técnicos.
 
-A estratégia será:
+## 2.1 Matemática e Fundamentos da Computação
 
-1. Cobrir todo o conteúdo técnico pelo menos uma vez.
-2. Priorizar os assuntos mais prováveis e mais conectados entre si.
-3. Fazer revisão ativa toda semana.
-4. Reservar os últimos dois dias para simulado e revisão leve.
-5. Estudar inglês de forma indireta, usando textos técnicos da própria área.
+- sistema numérico binário, operações aritméticas e conversão para decimal;
+- códigos binários: BCD, Gray, ASCII, checksum etc.;
+- portas lógicas: inversor, NAND, NOR etc.;
+- álgebra booleana: axiomas, funções e teoremas;
+- Teorema de DeMorgan e dualidade;
+- valores lógicos `H`, `L`, `Z` e `don't care`;
+- multiplexador, codificador, decodificador e outros blocos lógicos básicos;
+- combinação de portas e avaliação de expressões lógicas;
+- minimização lógica, mintermos e maxtermos;
+- mapas de Karnaugh;
+- síntese de circuito lógico;
+- máquinas de estados finitos Moore e Mealy;
+- síntese de máquinas de estados.
+
+## 2.2 Arquitetura de Computadores
+
+- operandos em instruções assembly;
+- formatos de instruções assembly;
+- instruções aritméticas/lógicas, condicionais, desvios e chamadas de funções;
+- modos de endereçamento;
+- implementação da microarquitetura: controle e datapath.
+
+## 2.3 Circuitos Digitais
+
+- lógica CMOS combinacional: transistores MOS `p` e `n` como chaves;
+- comportamentos elétricos: estático, dinâmico e consumo de potência;
+- atraso de propagação e caminho crítico;
+- glitches e hazards estáticos e dinâmicos;
+- lógica sequencial: estabilidade, latches e flip-flops;
+- temporização sequencial: hold, setup e atraso de propagação;
+- somadores: half-adder, full-adder, ripple-carry e look-ahead;
+- subtrator, comparador, shifter e ULA;
+- contadores;
+- ponto fixo e ponto flutuante;
+- memórias: banco de registradores, ROM, SRAM e DRAM;
+- PLA, PAL e PROM;
+- CPLDs e FPGAs.
+
+## 2.4 Pré-requisitos do item 2.7.1 que merecem cobertura
+
+Além do conteúdo programático, o edital declara como pré-requisitos para Sistemas Digitais:
+
+- noção de algoritmos e programação em linguagem procedural;
+- noções básicas de arquitetura e organização de computadores;
+- conhecimentos básicos de física: tensão, corrente, potência e energia.
+
+Esses itens serão incluídos de modo focado no cronograma, pois estavam pouco explícitos no plano anterior.
 
 ---
 
-## 3. Prioridade dos assuntos
+# 3. Auditoria do Plano Anterior
 
-| Prioridade | Assunto | Motivo |
+## 3.1 O que estava condizente
+
+| Tema do plano anterior | Avaliação |
+|---|---|
+| Binário, BCD, Gray, ASCII e checksum | Alinhado ao edital |
+| Portas, álgebra booleana, DeMorgan e dualidade | Alinhado ao edital |
+| Karnaugh, mintermos, maxtermos e síntese | Alinhado ao edital |
+| MUX, decoder, encoder e circuitos combinacionais | Alinhado ao edital |
+| FSM Moore/Mealy e síntese de FSM | Alinhado ao edital |
+| Assembly, datapath e controle | Alinhado ao edital |
+| CMOS, hazards, temporização e memórias | Alinhado ao edital |
+| PLA/PAL/PROM, CPLD e FPGA | Alinhado ao edital |
+
+## 3.2 Melhorias aplicadas nesta versão
+
+| Ajuste | Motivo |
+|---|---|
+| Retirar agenda própria de inglês | Você já estuda os materiais técnicos em inglês |
+| Começar o plano em `24/05` | Essa é a data atual informada e as aulas `1` a `5` já foram concluídas |
+| Não repetir teoria já estudada como se estivesse pendente | Usar o avanço conquistado para aumentar prática e revisão |
+| Adicionar `H`, `L`, `Z` e `don't care` de modo explícito | Item nominal do Anexo III |
+| Adicionar estabilidade em lógica sequencial | Item nominal do Anexo III |
+| Adicionar programação procedural/algoritmos | Pré-requisito oficial do item 2.7.1 |
+| Adicionar tensão, corrente, potência e energia | Pré-requisito oficial do item 2.7.1 |
+| Tratar NAND/NOR como ferramenta de síntese | É útil e compatível, mas não precisa ocupar um bloco desproporcional |
+| Aumentar simulados acumulativos | Há apenas uma prova classificatória; retenção e velocidade importam |
+| Remover distribuição presumida de questões por área | O edital informa 40 questões, mas não fixa quantas por tópico |
+
+---
+
+# 4. Conteúdo Já Concluído Até 24/05
+
+As cinco aulas já estudadas cobrem a base inicial do edital.
+
+| Aula concluída | Conteúdo coberto | Status no edital |
 |---|---|---|
-| Altíssima | Álgebra booleana, Karnaugh, portas, MUX, decoder e FSM | Base de quase toda lógica digital |
-| Alta | Flip-flops, temporização, contadores e circuitos sequenciais | Muito provável em prova de digitais |
-| Alta | Arquitetura: assembly, instruções, datapath e controle | Bloco próprio no edital |
-| Média-alta | Somadores, ULA e representação numérica | Conecta digitais e arquitetura |
-| Média | CMOS, atraso, potência e hazards | Mais específico, mas está no edital |
-| Média | Memórias, PLA, PAL, PROM, CPLD e FPGA | Pode aparecer de forma conceitual |
-| Baixa-moderada | Inglês | Manutenção, não foco principal |
+| `1-binarios_operacoes_sinal_complemento2.md` | binário, hexadecimal de apoio, operações, sinal, complemento de 2 e overflow | Coberto |
+| `2-codigos_binarios_bcd_gray_ascii_checksum.md` | BCD, Gray, ASCII e checksum | Coberto |
+| `3-portas_logicas_operacoes_booleanas.md` | NOT, AND, OR, NAND, NOR, XOR, XNOR, tabelas-verdade | Coberto |
+| `4-algebra_booleana_axiomas_leis_simplificacao.md` | axiomas, leis e simplificação | Coberto |
+| `5-demorgan_dualidade_nand_nor_simplificacao.md` | DeMorgan, dualidade e conversão com NAND/NOR | Coberto |
+
+Você também já possui:
+
+```text
+resumos/resumo_semana_1_aulas_1_a_5_revisao_geral.md
+simulados/simulado_01_semana_1_aulas_1_a_5_40_questoes.html
+```
+
+## 4.1 Como tratar o conteúdo concluído
+
+Ele não deve ser reestudado do zero agora. O ciclo será:
+
+```text
+simulado → identificar falhas → revisão pontual → refazer erros
+```
 
 ---
 
-## 4. Rotina diária recomendada
+# 5. Prioridade a Partir de Agora
 
-### Segunda a sexta
+| Prioridade | Conteúdo pendente | Por quê |
+|---|---|---|
+| Altíssima | Karnaugh, mintermos/maxtermos, síntese lógica e blocos combinacionais | Continuação direta da base já dominada e grande potencial de questão operacional |
+| Altíssima | Latches, flip-flops, temporização, contadores e FSM | Núcleo completo de lógica sequencial e máquinas de estados |
+| Alta | Assembly, modos de endereçamento, datapath e controle | Bloco oficial separado de arquitetura |
+| Alta | Somadores, ULA, ponto fixo/flutuante | Parte explícita de circuitos digitais |
+| Alta | CMOS, potência, atrasos e hazards | Parte explícita do edital, não apenas detalhe complementar |
+| Média-alta | Memórias, PLA/PAL/PROM, CPLD e FPGA | Bloco oficial amplo, majoritariamente conceitual |
+| Média | Algoritmos procedurais e física elétrica básica | Pré-requisitos oficiais; cobrir de modo direcionado |
 
-Estudar entre **2h e 3h por dia**.
+---
 
-Sugestão:
+# 6. Rotina de Estudo
 
-| Bloco | Tempo | Atividade |
+## Dias comuns — 2h30 a 3h
+
+| Bloco | Tempo | Ação |
 |---|---:|---|
-| Revisão curta | 20 min | Rever erros e conceitos do dia anterior |
-| Teoria | 1h20 a 1h40 | Estudar o assunto principal do dia |
-| Exercícios | 40 min a 1h | Resolver questões e problemas |
-| Registro de erros | 10 min | Anotar o que errou e por quê |
+| Recuperação ativa | 15 min | Escrever de memória fórmulas/conceitos do dia anterior |
+| Teoria do assunto novo | 60 a 75 min | Aula, capítulo ou leitura técnica |
+| Problemas | 50 a 65 min | Questões, circuitos, tabelas ou cálculos |
+| Registro de erros | 10 min | Anotar erro, motivo e regra correta |
+| Revisão espaçada | 15 min | Refazer 2 a 4 erros antigos |
 
-### Sábado
+## Dias de simulado — 3h a 4h
 
-Estudar entre **3h e 5h**.
+| Etapa | Tempo |
+|---|---:|
+| Resolver sem consulta | 1h30 a 2h30 |
+| Corrigir | 30 a 45 min |
+| Classificar erros | 15 min |
+| Refazer as erradas sem olhar | 30 min |
 
-Foco:
-- listas maiores;
-- revisão acumulada;
-- simulados parciais.
+## Formato dos simulados
 
-### Domingo
+Todo novo simulado deste plano deve ser produzido como:
 
-Estudar entre **2h e 4h**.
+```text
+um unico arquivo .html com CSS e JavaScript embutidos
+```
 
-Foco:
-- revisar erros;
-- simulado curto;
-- leitura leve em inglês técnico.
+Recursos mínimos:
+
+- alternativas marcáveis na própria página;
+- botão para finalizar e corrigir;
+- resultado total e desempenho por bloco;
+- indicação visual das questões certas e erradas;
+- exportação de relatório textual com respostas, gabarito e erros para análise posterior por IA.
+
+## Regra de avanço
+
+| Desempenho em um bloco | Decisão |
+|---:|---|
+| `80%` ou mais | Prosseguir e manter revisão espaçada |
+| `70%` a `79%` | Prosseguir, mas fazer 10 questões adicionais |
+| Abaixo de `70%` | Revisar o assunto antes do próximo bloco correlato |
 
 ---
 
-# 5. Cronograma completo
+# 7. Cronograma Atualizado — 24/05 a 27/06
 
----
+## Fase 1 — Diagnóstico e Lógica Combinacional
+### 24/05 a 31/05
 
-## Semana 1 — 22/05 a 28/05
-### Tema: Fundamentos de lógica digital e sistemas numéricos
+**Objetivo:** consolidar o que já foi estudado e terminar o restante da lógica combinacional exigida no edital.
 
-**Objetivo:** dominar a base da prova.
+### 24/05 — Domingo — Diagnóstico da base já concluída
 
-### 22/05 — Sexta
-- Ler o conteúdo programático da trilha digital.
-- Montar checklist dos tópicos.
+- Resolver o simulado interativo já criado:
+  - `simulados/simulado_01_semana_1_aulas_1_a_5_40_questoes.html`.
+- Ao finalizar, exportar o relatório de acertos e erros para orientar a revisão.
+- Corrigir e separar erros em:
+  - sistemas numéricos/códigos;
+  - portas e expressões;
+  - álgebra/DeMorgan/NAND/NOR.
+- Revisar apenas os itens errados usando o resumo da semana.
+
+Meta:
+
+```text
+30/40 ou mais; nenhum bloco abaixo de 70%.
+```
+
+### 25/05 — Segunda — Valores lógicos e formas canônicas
+
+- Valores `H`, `L`, `Z` e `don't care`.
+- Diferença entre:
+  - nível lógico alto/baixo;
+  - alta impedância;
+  - valor indiferente para minimização.
+- Mintermos e maxtermos.
+- Soma de produtos (`SOP`) e produto de somas (`POS`).
+- Sair de tabela-verdade para expressão canônica.
+
+Exercícios:
+
+- 10 identificações de mintermos/maxtermos;
+- 5 tabelas para `SOP`;
+- 5 tabelas para `POS`.
+
+### 26/05 — Terça — Mapas de Karnaugh de 2 e 3 variáveis
+
+- Ordem Gray no mapa.
+- Adjacência horizontal e vertical.
+- Grupos de tamanho potência de 2.
+- Grupos máximos e sobreposição útil.
+- Obter expressão mínima em soma de produtos.
+
+Exercícios:
+
+- 6 mapas de 2 variáveis;
+- 10 mapas de 3 variáveis.
+
+### 27/05 — Quarta — Karnaugh de 4 variáveis e `don't care`
+
+- Linhas e colunas em ordem Gray.
+- Bordas conectadas.
+- Quartetos e oitavas envolvendo extremidades.
+- Uso estratégico de `don't care`.
+
+Exercícios:
+
+- 12 mapas de 4 variáveis;
+- pelo menos 4 com `don't care`.
+
+### 28/05 — Quinta — Síntese lógica completa
+
+- Caminho completo:
+
+```text
+tabela-verdade → mintermos/maxtermos → Karnaugh → equação mínima → circuito
+```
+
+- Reforço da escolha:
+  - `SOP` para NAND–NAND;
+  - `POS` para NOR–NOR.
+- Avaliar expressões lógicas combinadas.
+
+Exercícios:
+
+- 5 funções completas da tabela ao circuito;
+- implementar 2 usando NAND e 2 usando NOR.
+
+### 29/05 — Sexta — MUX, decoder e encoder
+
+- Multiplexador:
+  - seleção de entrada;
+  - relação `n` seletores para `2^n` entradas;
+  - implementar função lógica com MUX.
+- Decoder:
+  - ativação de uma saída;
+  - implementação de funções por soma de saídas.
+- Encoder:
+  - codificação de entrada ativa;
+  - encoder prioritário em nível conceitual.
+
+Exercícios:
+
+- 6 questões de MUX;
+- 5 de decoder;
+- 3 de encoder.
+
+### 30/05 — Sábado — Outros blocos e simulado combinacional
+
 - Revisar:
-  - binário;
-  - decimal;
-  - hexadecimal;
-  - conversão entre bases;
-  - soma e subtração binária;
-  - complemento de 2.
+  - demultiplexador como bloco adicional;
+  - comparador simples como ponte para unidades funcionais;
+  - composição com MUX/decoder.
+- Resolver simulado parcial de lógica combinacional:
+  - 30 questões;
+  - conteúdo de aulas `1` a `5`, Karnaugh e blocos combinacionais.
 
-### 23/05 — Sábado
-- Sistemas numéricos:
-  - binário;
-  - hexadecimal;
-  - complemento de 1;
-  - complemento de 2;
-  - overflow;
-  - representação com sinal e sem sinal.
-- Exercícios:
-  - 20 conversões;
-  - 10 somas/subtrações binárias;
-  - 10 questões de overflow/complemento de 2.
+### 31/05 — Domingo — Correção e introdução a FSM
 
-### 24/05 — Domingo
-- Códigos binários:
-  - BCD;
-  - Gray;
-  - ASCII;
-  - checksum em nível conceitual.
-- Exercícios:
-  - converter binário para Gray;
-  - converter Gray para binário;
-  - reconhecer ASCII;
-  - entender checksum de forma geral.
-
-### 25/05 — Segunda
-- Portas lógicas:
-  - NOT;
-  - AND;
-  - OR;
-  - NAND;
-  - NOR;
-  - XOR;
-  - XNOR.
-- Construir tabelas-verdade.
-- Ver equivalências entre portas.
-
-### 26/05 — Terça
-- Álgebra booleana:
-  - axiomas;
-  - identidade;
-  - complemento;
-  - absorção;
-  - distributiva;
-  - associativa;
-  - comutativa.
-
-### 27/05 — Quarta
-- Teorema de DeMorgan.
-- Dualidade.
-- Transformação de expressões:
-  - implementação com NAND;
-  - implementação com NOR;
-  - simplificação algébrica.
-
-### 28/05 — Quinta
-- Revisão da semana.
-- Mini-simulado:
-  - 20 questões misturando bases, portas, álgebra booleana e DeMorgan.
-- Meta:
-  - pelo menos 70% de acerto.
+- Refazer as questões erradas do simulado parcial.
+- Introdução a máquinas de estados:
+  - estado atual;
+  - próxima transição;
+  - entradas e saídas;
+  - Moore vs Mealy.
+- Construir 2 diagramas simples de estado.
 
 ---
 
-## Semana 2 — 29/05 a 04/06
-### Tema: Circuitos combinacionais, Karnaugh e síntese lógica
+## Fase 2 — Lógica Sequencial, Temporização e FSM
+### 01/06 a 07/06
 
-**Objetivo:** conseguir sair de tabela-verdade para expressão e circuito.
+**Objetivo:** cobrir todo o bloco de sequencial e síntese de máquinas de estados.
 
-### 29/05 — Sexta
-- Mintermos.
-- Maxtermos.
-- Soma de produtos.
-- Produto de somas.
-- Como sair de tabela-verdade para equação lógica.
+### 01/06 — Segunda — Estabilidade, latch SR e latch D
 
-### 30/05 — Sábado
-- Mapas de Karnaugh:
-  - 2 variáveis;
-  - 3 variáveis;
-  - 4 variáveis.
-- Agrupamentos:
-  - pares;
-  - quartetos;
-  - oitavas;
-  - bordas conectadas.
+- Diferença entre lógica combinacional e sequencial.
+- Estabilidade e armazenamento de estado.
+- Latch SR:
+  - tabela característica;
+  - condição inválida.
+- Latch D e transparência por nível.
 
-### 31/05 — Domingo
-- Karnaugh com `don't care`.
-- Valores:
-  - H;
-  - L;
-  - Z;
-  - X / don't care.
-- Exercícios intensivos de mapa de Karnaugh.
+### 02/06 — Terça — Flip-flops e registradores
 
-### 01/06 — Segunda
-- Síntese de circuito lógico:
-  - equação para portas;
-  - tabela para Karnaugh;
-  - Karnaugh para equação;
-  - equação para circuito.
-- Implementação usando NAND e NOR.
+- Latch sensível a nível vs flip-flop sensível a borda.
+- Flip-flop D como foco central.
+- JK e T como extensões úteis.
+- Registradores e habilitação.
 
-### 02/06 — Terça
-- Blocos combinacionais:
-  - multiplexador;
-  - demultiplexador;
-  - codificador;
-  - decodificador.
+Exercícios:
 
-### 03/06 — Quarta
-- Composição de circuitos:
-  - usar MUX para implementar função lógica;
-  - usar decoder com portas;
-  - comparadores simples.
+- completar tabelas de transição;
+- prever saída após bordas de clock.
 
-### 04/06 — Quinta
-- Simulado parcial:
-  - 25 questões de lógica combinacional.
-- Corrigir erros.
-- Refazer todos os mapas de Karnaugh que errou.
+### 03/06 — Quarta — Contadores
 
----
+- Contadores assíncronos e síncronos.
+- Contagem crescente/decrescente em nível conceitual.
+- Divisão de frequência.
+- Número de estados com `n` flip-flops.
 
-## Semana 3 — 05/06 a 11/06
-### Tema: FSM, lógica sequencial e temporização
+### 04/06 — Quinta — Temporização
 
-**Objetivo:** dominar Moore/Mealy, flip-flops e timing.
+- `setup time`;
+- `hold time`;
+- `clock-to-Q`;
+- atraso combinacional;
+- caminho crítico;
+- frequência máxima.
 
-### 05/06 — Sexta
-- Latches e flip-flops:
-  - SR;
-  - D;
-  - JK;
-  - T.
-- Diferença entre latch e flip-flop.
-- Borda de subida e borda de descida.
-
-### 06/06 — Sábado
-- Circuitos sequenciais:
-  - registradores;
-  - contadores síncronos;
-  - contadores assíncronos;
-  - divisão de frequência.
-
-### 07/06 — Domingo
-- Temporização:
-  - setup time;
-  - hold time;
-  - clock-to-Q;
-  - atraso de propagação;
-  - caminho crítico;
-  - frequência máxima.
-
-Fórmula central:
+Fórmula principal:
 
 ```text
 Tclock mínimo ≥ Tclk-to-Q + Tcombinacional + Tsetup
-```
-
-Frequência máxima:
-
-```text
 Fmax = 1 / Tclock mínimo
 ```
 
-### 08/06 — Segunda
-- Hazards:
-  - hazard estático;
-  - hazard dinâmico;
-  - glitches;
-  - por que aparecem em circuitos combinacionais.
+Exercícios:
 
-### 09/06 — Terça
-- Máquinas de Estados Finitos:
-  - Moore;
-  - Mealy;
-  - tabela de estados;
-  - diagrama de estados.
+- 10 cálculos de `Tclock`/`Fmax`;
+- identificar violações de setup e hold.
 
-Resumo:
+### 05/06 — Sexta — FSM Moore e Mealy
 
-| Tipo | Saída depende de |
-|---|---|
-| Moore | Estado atual |
-| Mealy | Estado atual + entrada |
+- Diagramas e tabelas de transição.
+- Saída em Moore:
 
-### 10/06 — Quarta
-- Síntese de FSM:
-  - codificação de estados;
-  - tabela de transição;
-  - extração de equações;
-  - implementação com flip-flops.
+```text
+depende somente do estado
+```
 
-### 11/06 — Quinta
-- Simulado parcial:
-  - 10 questões de flip-flops/contadores;
-  - 10 de temporização;
-  - 10 de FSM.
-- Meta:
-  - pelo menos 70% de acerto.
-- Se ficar abaixo disso, revisar FSM antes de avançar.
+- Saída em Mealy:
+
+```text
+depende do estado e da entrada
+```
+
+- Detectores simples de sequência.
+
+### 06/06 — Sábado — Síntese de FSM
+
+- Extrair tabela de estados do enunciado.
+- Codificar estados.
+- Obter equações de próximo estado e saída.
+- Implementar com flip-flops D e lógica combinacional.
+
+Exercícios:
+
+- 2 FSM completas, uma Moore e uma Mealy.
+
+### 07/06 — Domingo — Simulado parcial sequencial
+
+- Simulado de 35 questões:
+  - combinacional e Karnaugh;
+  - latches/flip-flops;
+  - temporização;
+  - contadores;
+  - FSM.
+- Corrigir no mesmo dia.
+
+Meta:
+
+```text
+70% ou mais em sequencial/FSM; se abaixo disso, revisar em 08/06 antes de arquitetura.
+```
 
 ---
 
-## Semana 4 — 12/06 a 18/06
-### Tema: Arquitetura de computadores e aritmética digital
+## Fase 3 — Arquitetura e Aritmética Digital
+### 08/06 a 14/06
 
-**Objetivo:** cobrir arquitetura e circuitos aritméticos.
+**Objetivo:** cobrir o bloco oficial de arquitetura e as unidades aritméticas de circuitos digitais.
 
-### 12/06 — Sexta
-- Assembly em nível conceitual:
-  - operandos;
+### 08/06 — Segunda — Algoritmos procedurais e assembly básico
+
+- Pré-requisito oficial:
+  - variáveis;
+  - atribuição;
+  - condição `if`;
+  - laço;
+  - leitura sequencial de pseudocódigo.
+- Operandos assembly:
   - registradores;
   - imediatos;
-  - memória;
-  - instruções aritméticas;
-  - instruções lógicas.
+  - dados em memória.
+- Instruções aritméticas e lógicas.
 
-### 13/06 — Sábado
-- Formatos de instrução:
-  - tipo R;
-  - tipo I;
-  - tipo J, se usar referência tipo MIPS/RISC.
-- Campos:
-  - opcode;
-  - registradores;
-  - imediato;
-  - endereço.
+### 09/06 — Terça — Formatos e tipos de instrução
 
-### 14/06 — Domingo
-- Tipos de instrução:
-  - aritméticas;
-  - lógicas;
-  - load/store;
-  - branch;
-  - jump;
-  - chamada de função.
+- Campo de opcode.
+- Campos de registradores e imediato.
+- Tipos:
+  - aritméticas/lógicas;
+  - condicionais;
+  - desvios;
+  - chamadas de funções.
 
-### 15/06 — Segunda
-- Modos de endereçamento:
-  - imediato;
-  - direto;
-  - indireto;
-  - por registrador;
-  - base + deslocamento;
-  - relativo ao PC.
+Observação:
 
-### 16/06 — Terça
-- Datapath e controle:
-  - ULA;
-  - banco de registradores;
-  - memória de instruções;
-  - memória de dados;
-  - sinais de controle.
+```text
+O edital pede formatos de instrução, mas não fixa uma ISA específica.
+Use exemplos RISC/Harris sem depender de decorar particularidades excessivas de MIPS.
+```
 
-### 17/06 — Quarta
-- Somadores:
-  - half-adder;
-  - full-adder;
-  - ripple-carry;
-  - carry look-ahead.
-- Subtrator.
-- Complemento de 2.
+### 10/06 — Quarta — Modos de endereçamento
 
-### 18/06 — Quinta
-- ULA.
+- Imediato.
+- Por registrador.
+- Base + deslocamento.
+- Relativo ao PC.
+- Direto/indireto em nível conceitual.
+- Relacionar modo ao acesso de dado ou desvio.
+
+### 11/06 — Quinta — Datapath e controle
+
+- Caminho de uma instrução:
+
+```text
+PC → memória de instruções → banco de registradores → ULA → memória de dados/escrita
+```
+
+- Sinais de controle.
+- Seleção de caminhos por MUX.
+- Diferença entre datapath e unidade de controle.
+
+### 12/06 — Sexta — Somadores e subtrator
+
+- Half-adder:
+  - soma e carry.
+- Full-adder:
+  - entrada de carry.
+- Ripple-carry:
+  - simplicidade e atraso acumulado.
+- Carry look-ahead:
+  - ideia de gerar/propagar carry.
+- Subtração com complemento de 2.
+
+### 13/06 — Sábado — ULA, comparador, shifter e representação numérica
+
+- ULA e seleção de operação.
 - Comparador.
-- Shifter.
+- Shifts lógicos e aritméticos.
 - Ponto fixo.
 - Ponto flutuante:
   - sinal;
   - expoente;
-  - mantissa;
-  - erros de representação.
-- Simulado parcial de arquitetura e aritmética.
+  - significando/mantissa;
+  - limitações de precisão.
+
+### 14/06 — Domingo — Simulado de arquitetura e aritmética
+
+- 35 questões:
+  - assembly, formatos e modos;
+  - datapath e controle;
+  - somadores, ULA e representação numérica;
+  - revisão cumulativa curta de lógica.
+- Criar lista de erros de arquitetura para a semana final.
 
 ---
 
-## Semana 5 — 19/06 a 25/06
-### Tema: CMOS, memórias, PLDs, FPGA e revisão pesada
+## Fase 4 — Circuitos Digitais, CMOS, Memórias e Lógica Programável
+### 15/06 a 21/06
 
-**Objetivo:** fechar os assuntos restantes e começar revisão geral.
+**Objetivo:** concluir todos os tópicos oficiais restantes, dando peso adequado ao bloco de circuitos digitais.
 
-### 19/06 — Sexta
-- Lógica CMOS:
-  - NMOS como chave;
-  - PMOS como chave;
-  - pull-up network;
-  - pull-down network;
-  - inversor CMOS.
+### 15/06 — Segunda — Física básica e transistores MOS como chaves
 
-### 20/06 — Sábado
-- Comportamento elétrico:
-  - consumo estático;
-  - consumo dinâmico;
-  - atraso de propagação;
-  - caminho crítico.
-- Revisar hazards.
+- Pré-requisitos oficiais:
+  - tensão;
+  - corrente;
+  - potência;
+  - energia.
+- Relações mínimas:
 
-### 21/06 — Domingo
-- Memórias:
-  - registradores;
-  - banco de registradores;
-  - ROM;
-  - SRAM;
-  - DRAM.
-- Diferenças principais e uso típico.
+```text
+P = V·I
+E = P·t
+```
 
-### 22/06 — Segunda
-- Arranjos lógicos:
-  - PLA;
-  - PAL;
-  - PROM.
-- CPLD e FPGA:
+- NMOS e PMOS como chaves.
+- Inversor CMOS:
+  - pull-up;
+  - pull-down;
+  - por que há baixo consumo estático ideal.
+
+Também neste dia:
+
+- confirmar que a inscrição foi solicitada até o prazo oficial de `15/06/2026`, se ainda não tiver sido feita.
+
+### 16/06 — Terça — CMOS combinacional e comportamento estático
+
+- Implementar NAND/NOR em CMOS em nível conceitual:
+  - rede pull-up;
+  - rede pull-down.
+- Estados estáveis.
+- Margens conceituais de nível lógico, sem aprofundamento além do edital.
+
+### 17/06 — Quarta — Comportamento dinâmico, potência e atraso
+
+- Capacitância de carga em nível conceitual.
+- Consumo dinâmico por comutação.
+- Atraso de propagação.
+- Caminho crítico em blocos lógicos.
+- Relacionar atraso combinacional à frequência de circuitos sequenciais.
+
+Também neste dia:
+
+- consultar resultado preliminar das inscrições homologadas, conforme cronograma oficial.
+
+### 18/06 — Quinta — Glitches e hazards
+
+- Glitch.
+- Hazard estático-0 e estático-1.
+- Hazard dinâmico.
+- Origem em caminhos com atrasos diferentes.
+- Relação com simplificação/Karnaugh e termos de consenso em nível de prova.
+
+### 19/06 — Sexta — Memórias
+
+- Banco de registradores.
+- ROM.
+- SRAM.
+- DRAM.
+- Comparar:
+  - volatilidade;
+  - velocidade;
+  - densidade;
+  - necessidade de refresh.
+
+Também neste dia:
+
+- se necessário, prazo para recurso quanto a inscrição não homologada: até `19/06/2026`.
+
+### 20/06 — Sábado — Lógica programável
+
+- PROM, PLA e PAL.
+- CPLD.
+- FPGA:
   - LUT;
   - blocos lógicos;
-  - interconexões programáveis;
-  - diferenças gerais entre CPLD e FPGA.
+  - interconexões programáveis.
+- Diferença geral CPLD vs FPGA.
 
-### 23/06 — Terça
-- Revisão geral 1:
-  - sistemas numéricos;
-  - álgebra booleana;
-  - Karnaugh;
-  - combinacional.
+### 21/06 — Domingo — Simulado técnico acumulativo
 
-### 24/06 — Quarta
-- Revisão geral 2:
-  - flip-flops;
-  - temporização;
+- Resolver 40 questões técnicas envolvendo todo o Anexo III:
+  - fundamentos e combinacional;
+  - sequencial/FSM;
+  - arquitetura e aritmética;
+  - CMOS, memória e FPGA.
+- Corrigir e gerar ranking de fraquezas.
+
+Meta:
+
+```text
+30/40 ou mais em conteúdo técnico.
+```
+
+---
+
+## Fase 5 — Revisão e Reta Final
+### 22/06 a 27/06
+
+**Objetivo:** transformar erros em acertos sem iniciar assuntos grandes novos.
+
+### 22/06 — Segunda — Fechamento administrativo e correção dirigida
+
+- Consultar resultado definitivo das inscrições homologadas.
+- Corrigir profundamente o simulado de `21/06`.
+- Para cada erro:
+  - escrever por que errou;
+  - escrever a regra correta;
+  - resolver 3 questões do mesmo tipo.
+
+### 23/06 — Terça — Revisão 1: fundamentos e combinacional
+
+- Binário, complemento de 2 e códigos.
+- Portas, álgebra, DeMorgan e dualidade.
+- Mintermos, maxtermos e Karnaugh.
+- MUX, decoder, encoder e síntese lógica.
+
+Prática:
+
+- 25 a 30 questões;
+- pelo menos 6 mapas de Karnaugh.
+
+### 24/06 — Quarta — Revisão 2: sequencial e FSM
+
+- Consulta **obrigatória** da lista de inscritos com local de prova.
+- Confirmar prédio, sala, cidade e rota.
+- Revisar:
+  - latch/flip-flop;
+  - estabilidade;
+  - setup, hold, propagação e `Fmax`;
   - contadores;
-  - FSM.
-- Conferir a lista de inscritos com local de prova.
+  - Moore/Mealy;
+  - síntese de FSM.
 
-### 25/06 — Quinta
-- Revisão geral 3:
-  - arquitetura;
-  - assembly;
+Prática:
+
+- 25 questões;
+- 1 FSM completa.
+
+### 25/06 — Quinta — Revisão 3: arquitetura e circuitos digitais
+
+- Caso o nome não apareça na lista do local de prova, contatar `falecom@nisa.ufsm.br` até este dia.
+- Revisar:
+  - assembly, modos, datapath e controle;
+  - somadores, ULA, ponto fixo/flutuante;
+  - CMOS, atraso, potência e hazards;
+  - memórias, PLA/PAL/PROM, CPLD e FPGA.
+
+Prática:
+
+- 30 questões curtas;
+- refazer cálculos de timing e atraso errados.
+
+### 26/06 — Sexta — Simulado técnico final
+
+- Resolver um simulado técnico de 40 questões em tempo controlado.
+- Não consultar material durante a resolução.
+- Corrigir imediatamente.
+- Revisar somente erros de alto retorno.
+
+Observação:
+
+```text
+A prova oficial também inclui inglês; este simulado segue sua escolha de dedicar o planejamento ao conteúdo técnico.
+```
+
+Meta:
+
+```text
+30/40 ou mais; nenhum macrobloco técnico abaixo de 70%.
+```
+
+### 27/06 — Sábado — Revisão leve e logística
+
+Não iniciar teoria nova.
+
+- Ler resumos e folha de erros.
+- Refazer apenas 10 a 15 questões previamente erradas.
+- Rever:
+  - leis booleanas/DeMorgan;
+  - Karnaugh;
+  - tabelas de flip-flops;
+  - timing;
+  - Moore vs Mealy;
   - datapath;
-  - ULA;
-  - memórias;
-  - CMOS;
-  - FPGA/CPLD.
+  - diferenças SRAM/DRAM e CPLD/FPGA.
+- Separar documento original com foto e caneta preta.
+- Conferir rota e horário.
+- Dormir em horário adequado.
 
 ---
 
-## Reta final — 26/06 a 27/06
+# 8. Dia da Prova — 28/06/2026
 
----
-
-### 26/06 — Sexta
-## Simulado completo
-
-Fazer um simulado de **40 questões em até 4 horas**.
-
-Distribuição sugerida:
-
-| Bloco | Questões |
-|---|---:|
-| Inglês instrumental | 5 |
-| Sistemas numéricos e códigos | 5 |
-| Álgebra, Karnaugh e combinacional | 9 |
-| FSM, sequencial e timing | 8 |
-| Arquitetura, assembly e datapath | 7 |
-| CMOS, memórias e FPGA | 6 |
-
-Depois de corrigir, classificar os erros:
-
-| Tipo de erro | Ação |
-|---|---|
-| Não sabia o conteúdo | Revisar teoria |
-| Sabia, mas confundiu | Fazer 5 exercícios parecidos |
-| Erro de atenção | Criar alerta pessoal |
-| Demorou demais | Marcar como questão de revisão rápida |
-
----
-
-### 27/06 — Sábado
-## Revisão leve e checklist
-
-Não tentar aprender assunto grande novo.
-
-Fazer:
-- revisar fórmulas e conceitos;
-- refazer questões erradas;
-- revisar tabelas de flip-flops;
-- revisar Karnaugh;
-- revisar setup/hold;
-- revisar FSM Moore/Mealy;
-- revisar datapath;
-- separar documento e caneta preta;
-- conferir horário e rota para o local de prova.
-
----
-
-## 28/06 — Domingo
-# Dia da prova
-
-Checklist:
-
-- [ ] Documento original com foto
-- [ ] Caneta esferográfica preta
-- [ ] Local de prova conferido
-- [ ] Chegar antes das 13h30
-- [ ] Evitar depender de celular no local
-- [ ] Levar água e lanche simples, se quiser
-
-Horários:
+## Horários oficiais
 
 | Atividade | Horário |
-|---|---|
-| Abertura dos portões | 13h30 |
+|---|---:|
+| Comparecer ao local / abertura dos portões | 13h30 |
 | Fechamento dos portões | 14h |
 | Início da prova | 14h |
 | Término da prova | 18h |
 
----
+## Levar
 
-# 6. Plano por assunto
+- [ ] Documento original com foto aceito pelo edital.
+- [ ] Caneta esferográfica de tinta preta.
+- [ ] Confirmação mental do prédio e sala consultados em `24/06`.
 
----
+## Lembretes do edital
 
-## 6.1 Sistemas numéricos e códigos
-
-Você precisa saber fazer rapidamente:
-
-- decimal para binário;
-- binário para decimal;
-- binário para hexadecimal;
-- hexadecimal para binário;
-- soma binária;
-- subtração com complemento de 2;
-- detectar overflow;
-- BCD;
-- Gray;
-- ASCII;
-- checksum conceitual.
-
-Treino mínimo:
-
-- [ ] 30 conversões de base
-- [ ] 20 operações binárias
-- [ ] 10 questões de complemento de 2
-- [ ] 10 questões de BCD/Gray
+- Não é permitida entrada após o fechamento dos portões.
+- A folha-resposta definitiva e o caderno devem ser entregues.
+- Marcações indevidas, rasuras, dupla marcação ou caneta de outra cor podem anular respostas.
+- Relógios e equipamentos eletrônicos devem ser guardados conforme orientação fiscal.
 
 ---
 
-## 6.2 Álgebra booleana e portas
+# 9. Checklist de Cobertura do Edital
 
-Dominar:
+## Já estudado
 
-- AND;
-- OR;
-- NOT;
-- NAND;
-- NOR;
-- XOR;
-- XNOR;
-- DeMorgan;
-- dualidade;
-- simplificação algébrica;
-- tabela-verdade;
-- implementação com portas.
+- [x] Sistema binário, operações e conversão.
+- [x] Complemento de 2 e overflow como suporte.
+- [x] BCD, Gray, ASCII e checksum.
+- [x] Portas lógicas.
+- [x] Álgebra booleana.
+- [x] DeMorgan e dualidade.
+- [x] Implementação inicial com NAND/NOR.
 
-Ponto crítico:
+## A concluir no cronograma revisado
 
-> NAND e NOR são portas universais.
-
----
-
-## 6.3 Karnaugh e minimização
-
-Você precisa conseguir:
-
-- montar mapa de 2 variáveis;
-- montar mapa de 3 variáveis;
-- montar mapa de 4 variáveis;
-- agrupar corretamente;
-- usar don't care;
-- sair de tabela para expressão simplificada;
-- sair de expressão para circuito.
-
-Treino mínimo:
-
-- [ ] 25 mapas de Karnaugh antes da prova
+- [ ] `H`, `L`, `Z` e `don't care`.
+- [ ] Mintermos, maxtermos, `SOP` e `POS`.
+- [ ] Karnaugh e minimização.
+- [ ] MUX, encoder, decoder e outros blocos lógicos básicos.
+- [ ] Síntese lógica completa.
+- [ ] Estabilidade, latches, flip-flops e registradores.
+- [ ] Contadores.
+- [ ] Temporização sequencial.
+- [ ] Moore, Mealy e síntese de FSM.
+- [ ] Algoritmos/procedural em nível de pré-requisito.
+- [ ] Assembly, formatos, tipos, endereçamento, datapath e controle.
+- [ ] Somadores, subtrator, comparador, shifter e ULA.
+- [ ] Ponto fixo e ponto flutuante.
+- [ ] Tensão, corrente, potência e energia em nível de pré-requisito.
+- [ ] CMOS combinacional.
+- [ ] Comportamentos estático, dinâmico e potência.
+- [ ] Atrasos, caminho crítico, glitches e hazards.
+- [ ] Memórias.
+- [ ] PLA, PAL, PROM, CPLD e FPGA.
 
 ---
 
-## 6.4 Circuitos combinacionais
+# 10. Metas de Simulado
 
-Estudar:
+O edital exige no mínimo `20/40`, mas atingir apenas o mínimo não é uma meta competitiva para 18 vagas na UFCG.
 
-- MUX;
-- decoder;
-- encoder;
-- demux;
-- comparador;
-- shifter;
-- half-adder;
-- full-adder;
-- ripple-carry;
-- carry look-ahead;
-- ULA.
+| Data | Avaliação | Meta |
+|---|---|---:|
+| 24/05 | Simulado das aulas já concluídas | `30/40` |
+| 30/05 | Parcial de lógica combinacional | `70%` |
+| 07/06 | Parcial sequencial/FSM | `70%` |
+| 14/06 | Parcial arquitetura/aritmética | `70%` |
+| 21/06 | Técnico acumulativo | `30/40` |
+| 26/06 | Técnico final | `30/40`, idealmente `34+` |
 
-Resumo:
+## Registro obrigatório de erros
 
-| Circuito | Saber |
+| Data | Questão/assunto | Erro cometido | Regra correta | Refiz? |
+|---|---|---|---|:---:|
+|  |  |  |  |  |
+
+---
+
+# 11. Material de Referência
+
+Bibliografia sugerida pelo edital para a trilha digital:
+
+> HARRIS, David; HARRIS, Sarah. **Digital Design and Computer Architecture**. 2nd Edition. Morgan Kaufmann, 2012.
+
+Use o livro de modo dirigido, acompanhando o cronograma:
+
+| Tema | Usar para |
 |---|---|
-| MUX | Seleciona uma entrada |
-| Decoder | Ativa saída conforme código |
-| Encoder | Codifica entrada ativa |
-| Half-adder | Soma 2 bits sem carry-in |
-| Full-adder | Soma 2 bits com carry-in |
-| Ripple-carry | Simples, mas lento |
-| Carry look-ahead | Mais rápido, mais complexo |
+| Representação e lógica combinacional | Fixar expressões, Karnaugh e blocos |
+| Lógica sequencial e FSM | Tabelas, timing e síntese |
+| Arquitetura | Assembly, datapath e controle |
+| Circuitos digitais | CMOS, atraso, memória e lógica programável |
 
----
-
-## 6.5 Circuitos sequenciais
-
-Estudar:
-
-- latch vs flip-flop;
-- flip-flop D;
-- flip-flop JK;
-- flip-flop T;
-- flip-flop SR;
-- registradores;
-- contadores;
-- setup time;
-- hold time;
-- clock-to-Q;
-- frequência máxima;
-- caminho crítico.
-
-Fórmula central:
+Materiais já produzidos:
 
 ```text
-Tclock mínimo ≥ Tclk-to-Q + Tcombinacional + Tsetup
-```
-
-Frequência máxima:
-
-```text
-Fmax = 1 / Tclock mínimo
+aulas/1-binarios_operacoes_sinal_complemento2.md
+aulas/2-codigos_binarios_bcd_gray_ascii_checksum.md
+aulas/3-portas_logicas_operacoes_booleanas.md
+aulas/4-algebra_booleana_axiomas_leis_simplificacao.md
+aulas/5-demorgan_dualidade_nand_nor_simplificacao.md
+resumos/resumo_semana_1_aulas_1_a_5_revisao_geral.md
+simulados/simulado_01_semana_1_aulas_1_a_5_40_questoes.html
 ```
 
 ---
 
-## 6.6 FSM — Moore e Mealy
+# 12. Meta Final
 
-Você precisa saber:
+O plano agora parte do avanço real já conquistado em `24/05/2026`: fundamentos numéricos e álgebra inicial não são mais pendências, mas base de revisão ativa.
 
-- diferença entre Moore e Mealy;
-- desenhar diagrama de estados;
-- montar tabela de transição;
-- codificar estados;
-- extrair equações;
-- implementar com flip-flops.
-
-Resumo:
-
-| Tipo | Saída depende de |
-|---|---|
-| Moore | Estado atual |
-| Mealy | Estado atual + entrada |
-
----
-
-## 6.7 Arquitetura de computadores
-
-Foco em:
-
-- operandos em assembly;
-- formato de instrução;
-- tipos de instrução;
-- modos de endereçamento;
-- datapath;
-- controle;
-- banco de registradores;
-- ULA;
-- memória de instruções;
-- memória de dados.
-
-Não precisa virar especialista em assembly.  
-Precisa entender o que uma instrução faz e como ela passa pelo processador.
-
----
-
-## 6.8 CMOS e microeletrônica digital
-
-Estudar em nível conceitual e intermediário:
-
-- NMOS;
-- PMOS;
-- inversor CMOS;
-- pull-up;
-- pull-down;
-- consumo estático;
-- consumo dinâmico;
-- atraso de propagação;
-- caminho crítico;
-- hazards;
-- glitches.
-
-Prioridade:
-
-> Entender o comportamento geral, não decorar física profunda.
-
----
-
-## 6.9 Memórias e lógica programável
-
-Estudar:
-
-- ROM;
-- SRAM;
-- DRAM;
-- banco de registradores;
-- PLA;
-- PAL;
-- PROM;
-- CPLD;
-- FPGA.
-
-Resumo:
-
-| Item | Ideia principal |
-|---|---|
-| ROM | Memória não volátil, leitura |
-| SRAM | Rápida, cara, usa células estáticas |
-| DRAM | Densa, precisa refresh |
-| PLA | AND e OR programáveis |
-| PAL | Geralmente AND programável e OR fixo |
-| PROM | Programável uma vez ou conforme tecnologia |
-| CPLD | Mais previsível, bom para lógica de controle |
-| FPGA | Lógica reconfigurável com LUTs |
-
----
-
-# 7. Inglês — manutenção mínima
-
-Como você já consome conteúdo em inglês, faça apenas:
-
-## 3 vezes por semana — 20 minutos
-
-- ler um trecho técnico de digitais ou arquitetura em inglês;
-- marcar termos técnicos;
-- responder mentalmente:
-  - qual é o assunto?
-  - qual é a conclusão?
-  - quais palavras técnicas aparecem?
-
-Vocabulário útil:
-
-| Inglês | Português |
-|---|---|
-| latch | latch/trava |
-| flip-flop | flip-flop |
-| propagation delay | atraso de propagação |
-| setup time | tempo de setup |
-| hold time | tempo de hold |
-| finite state machine | máquina de estados finitos |
-| instruction format | formato de instrução |
-| addressing mode | modo de endereçamento |
-| datapath | caminho de dados |
-| control unit | unidade de controle |
-| register file | banco de registradores |
-| combinational logic | lógica combinacional |
-| sequential logic | lógica sequencial |
-| critical path | caminho crítico |
-| overflow | estouro |
-| carry | vai-um |
-| branch | desvio condicional |
-| jump | salto |
-
----
-
-# 8. Fonte principal de estudo
-
-A bibliografia indicada para a trilha digital é:
-
-> HARRIS, David; HARRIS, Sarah. **Digital Design and Computer Architecture**. 2ª edição. Morgan Kaufmann, 2012.
-
-Use como referência, mas não leia o livro inteiro.  
-Priorize os tópicos diretamente ligados ao edital.
-
-Temas para priorizar:
-
-- sistemas numéricos;
-- portas lógicas;
-- álgebra booleana;
-- circuitos combinacionais;
-- circuitos sequenciais;
-- FSM;
-- assembly básico;
-- datapath;
-- memória;
-- CMOS básico.
-
----
-
-# 9. Ordem de revisão na última semana
-
-Revisar nesta ordem:
-
-1. Karnaugh e álgebra booleana
-2. FSM
-3. Flip-flops e temporização
-4. Arquitetura e datapath
-5. Somadores e ULA
-6. CMOS, hazards e memórias
-7. Inglês instrumental
-
-Motivo:
-
-- Karnaugh, FSM e temporização geram muitos erros de procedimento.
-- Arquitetura exige interpretação.
-- CMOS, memórias e FPGA tendem a aparecer mais conceitualmente.
-- Inglês pode ser mantido com revisão curta.
-
----
-
-# 10. Metas de desempenho
-
-Como a prova tem 40 questões:
-
-| Meta | Acertos |
-|---|---:|
-| Mínimo do edital | 20/40 |
-| Zona razoável | 26/40 |
-| Competitivo | 30/40 |
-| Muito forte | 34+/40 |
-
-Meta prática recomendada:
-
-> Buscar **30+ acertos**.
-
----
-
-# 11. Checklist semanal
-
-## Até 28/05
-
-- [ ] Bases numéricas
-- [ ] Códigos binários
-- [ ] Portas lógicas
-- [ ] DeMorgan
-- [ ] Álgebra booleana básica
-
-## Até 04/06
-
-- [ ] Mintermos
-- [ ] Maxtermos
-- [ ] Karnaugh
-- [ ] Don't care
-- [ ] MUX
-- [ ] Decoder
-- [ ] Encoder
-- [ ] Síntese lógica
-
-## Até 11/06
-
-- [ ] Latches
-- [ ] Flip-flops
-- [ ] Contadores
-- [ ] Setup/hold
-- [ ] FSM Moore/Mealy
-
-## Até 18/06
-
-- [ ] Assembly básico
-- [ ] Formatos de instrução
-- [ ] Modos de endereçamento
-- [ ] Datapath
-- [ ] Somadores
-- [ ] ULA
-
-## Até 25/06
-
-- [ ] CMOS
-- [ ] Hazards
-- [ ] Memórias
-- [ ] PLA/PAL/PROM
-- [ ] CPLD/FPGA
-- [ ] Revisão geral
-
-## 26/06 e 27/06
-
-- [ ] Simulado completo
-- [ ] Correção dos erros
-- [ ] Revisão leve
-- [ ] Documento
-- [ ] Caneta preta
-- [ ] Local de prova conferido
-
----
-
-# 12. Resumo do cronograma
-
-| Período | Foco |
-|---|---|
-| 22/05 a 28/05 | Bases numéricas, códigos, portas e álgebra booleana |
-| 29/05 a 04/06 | Karnaugh, mintermos, maxtermos, MUX, decoder e síntese |
-| 05/06 a 11/06 | Flip-flops, contadores, temporização e FSM |
-| 12/06 a 18/06 | Arquitetura, assembly, datapath, ULA e somadores |
-| 19/06 a 25/06 | CMOS, hazards, memórias, FPGA/CPLD e revisão geral |
-| 26/06 | Simulado completo |
-| 27/06 | Revisão leve e checklist |
-| 28/06 | Prova |
-
----
-
-# 13. Como estudar cada sessão
-
-Para cada tópico, usar este ciclo:
-
-1. **Entender**
-   - Ler ou assistir uma explicação curta.
-   - Anotar as definições principais.
-
-2. **Aplicar**
-   - Resolver exemplos simples.
-   - Refazer sem olhar.
-
-3. **Aumentar dificuldade**
-   - Resolver questões misturadas.
-   - Marcar as que errou.
-
-4. **Revisar**
-   - No dia seguinte, refazer apenas as erradas.
-   - No fim da semana, refazer as mais difíceis.
-
----
-
-# 14. Lista de erros
-
-Mantenha uma lista com este formato:
-
-| Data | Assunto | Erro | Correção |
-|---|---|---|---|
-|  |  |  |  |
-
-Exemplo:
-
-| Data | Assunto | Erro | Correção |
-|---|---|---|---|
-| 30/05 | Karnaugh | Agrupei 3 células, o que não pode | Agrupamentos devem ter potência de 2 |
-| 07/06 | Timing | Esqueci o setup time | Tclock mínimo inclui Tclk-to-Q + Tcomb + Tsetup |
-
----
-
-# 15. Fórmulas e lembretes rápidos
-
-## Complemento de 2
-
-Para representar `-N`:
-
-1. Escreva `N` em binário.
-2. Inverta os bits.
-3. Some 1.
-
-## Overflow em complemento de 2
-
-Ocorre quando:
-- soma de dois positivos dá negativo;
-- soma de dois negativos dá positivo.
-
-## MUX
-
-Um MUX com `n` linhas de seleção escolhe entre:
+A meta é chegar a `28/06/2026` com:
 
 ```text
-2^n entradas
+todo o Anexo III técnico coberto;
+pré-requisitos oficiais não esquecidos;
+cinco simulados parciais/acumulativos corrigidos;
+30/40 ou mais de forma consistente nos simulados técnicos finais.
 ```
-
-## Flip-flop
-
-- Latch: sensível a nível.
-- Flip-flop: sensível à borda.
-
-## Moore vs Mealy
-
-- Moore: saída depende só do estado.
-- Mealy: saída depende do estado e da entrada.
-
-## Frequência máxima
-
-```text
-Fmax = 1 / (Tclk-to-Q + Tcombinacional + Tsetup)
-```
-
----
-
-# 16. Conduta na prova
-
-Durante a prova:
-
-1. Fazer primeiro as questões fáceis.
-2. Não travar em questão longa.
-3. Marcar dúvidas e voltar depois.
-4. Reservar pelo menos 20 minutos finais para conferir gabarito.
-5. Conferir se marcou todas as questões na folha definitiva.
-6. Evitar deixar inglês para o fim absoluto se estiver cansado.
-
-Estratégia de tempo:
-
-| Tempo | Ação |
-|---|---|
-| 0h–1h | Questões fáceis e médias |
-| 1h–2h30 | Questões técnicas mais trabalhosas |
-| 2h30–3h20 | Questões marcadas para revisão |
-| 3h20–3h40 | Inglês e questões rápidas restantes |
-| 3h40–4h | Conferir folha-resposta |
-
----
-
-# 17. Meta final
-
-A meta não deve ser apenas atingir o mínimo de 20 pontos.
-
-Meta recomendada:
-
-> Chegar na prova com desempenho de **30/40 ou mais** em simulado.
-
-Isso dá margem para:
-- erro de atenção;
-- questão mal interpretada;
-- assunto que venha mais específico;
-- cansaço no dia da prova.
-

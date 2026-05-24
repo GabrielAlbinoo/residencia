@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulado 01 - Semana 1 | Sistemas Digitais</title>
+  <style>
+    :root {
+      --bg: #f5f6f2;
+      --surface: #ffffff;
+      --surface-alt: #f1f5f4;
+      --ink: #172320;
+      --muted: #52645f;
+      --line: #d8e0dc;
+      --primary: #006a63;
+      --primary-dark: #004f4b;
+      --primary-soft: #dff2ef;
+      --correct: #167043;
+      --correct-soft: #e1f4e7;
+      --wrong: #b43a31;
+      --wrong-soft: #fde9e6;
+      --warning: #9a6500;
+      --warning-soft: #fff3d4;
+      --shadow: 0 2px 14px rgba(18, 38, 34, 0.07);
+      --radius: 16px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--bg);
+      font: 16px/1.5 "Segoe UI", Arial, sans-serif;
+    }
+
+    code {
+      padding: 0.12rem 0.36rem;
+      border-radius: 5px;
+      background: #edf1f0;
+      font: 0.95em Consolas, "Courier New", monospace;
+    }
+
+    .hero {
+      padding: 40px 20px 28px;
+      color: white;
+      background: linear-gradient(132deg, #013b39, #00766d);
+    }
+
+    .container {
+      width: min(1040px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: clamp(1.7rem, 4vw, 2.4rem);
+      line-height: 1.15;
+    }
+
+    .subtitle {
+      max-width: 740px;
+      margin: 0;
+      color: #d4ece9;
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(125px, 1fr));
+      gap: 10px;
+      margin-top: 24px;
+    }
+
+    .meta-card {
+      padding: 12px 14px;
+      border: 1px solid rgba(255, 255, 255, 0.21);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.09);
+    }
+
+    .meta-card span {
+      display: block;
+      color: #cae6e3;
+      font-size: 0.83rem;
+    }
+
+    .meta-card strong { font-size: 1.05rem; }
+
+    .toolbar {
+      position: sticky;
+      z-index: 10;
+      top: 0;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.97);
+      backdrop-filter: blur(8px);
+    }
+
+    .toolbar-inner {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px 18px;
+      align-items: center;
+      padding: 13px 0;
+    }
+
+    .progress-group {
+      flex: 1 1 280px;
+      min-width: 230px;
+    }
+
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 6px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 8px;
+      overflow: hidden;
+      border-radius: 99px;
+      background: #e5ebe9;
+    }
+
+    .progress-fill {
+      width: 0;
+      height: 100%;
+      border-radius: inherit;
+      background: var(--primary);
+      transition: width 160ms ease;
+    }
+
+    .toolbar-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    button {
+      cursor: pointer;
+      padding: 10px 15px;
+      border: 1px solid transparent;
+      border-radius: 9px;
+      color: white;
+      background: var(--primary);
+      font: inherit;
+      font-weight: 600;
+      transition: background 120ms ease, transform 120ms ease;
+    }
+
+    button:hover { background: var(--primary-dark); }
+    button:active { transform: translateY(1px); }
+    button:disabled { cursor: not-allowed; opacity: 0.5; transform: none; }
+
+    .button-secondary {
+      border-color: var(--line);
+      color: var(--primary-dark);
+      background: white;
+    }
+
+    .button-secondary:hover { background: var(--surface-alt); }
+
+    main { padding: 25px 0 54px; }
+
+    .notice {
+      margin-bottom: 20px;
+      padding: 16px 18px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+      box-shadow: var(--shadow);
+    }
+
+    .notice h2 {
+      margin: 0 0 7px;
+      font-size: 1.1rem;
+    }
+
+    .notice p { margin: 6px 0; color: var(--muted); }
+
+    .block-heading {
+      margin: 34px 0 15px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #dbe6e3;
+      color: var(--primary-dark);
+      font-size: 1.35rem;
+    }
+
+    .question {
+      margin: 0 0 14px;
+      padding: 20px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+      box-shadow: var(--shadow);
+    }
+
+    .question.correct {
+      border-color: #acd5b8;
+      background: #fcfffd;
+    }
+
+    .question.wrong, .question.unanswered {
+      border-color: #efb9b3;
+      background: #fffdfc;
+    }
+
+    .question-title {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      margin-bottom: 12px;
+    }
+
+    .number {
+      flex: none;
+      min-width: 40px;
+      padding: 4px 7px;
+      border-radius: 8px;
+      color: var(--primary-dark);
+      background: var(--primary-soft);
+      text-align: center;
+      font-weight: 700;
+    }
+
+    .prompt {
+      margin: 0;
+      font-weight: 600;
+    }
+
+    .topic {
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 0.83rem;
+      font-weight: normal;
+    }
+
+    .options {
+      display: grid;
+      gap: 8px;
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+
+    .option {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      padding: 10px 12px;
+      border: 1px solid #e3e8e6;
+      border-radius: 9px;
+      transition: background 100ms ease, border-color 100ms ease;
+    }
+
+    .option:hover { background: #f6faf9; }
+
+    .option input {
+      flex: none;
+      width: 17px;
+      height: 17px;
+      margin: 3px 0 0;
+      accent-color: var(--primary);
+    }
+
+    .option.selected { border-color: #9dc9c4; background: #edf8f6; }
+    .option.answer-correct { border-color: #89c29b; background: var(--correct-soft); }
+    .option.answer-wrong { border-color: #df9c96; background: var(--wrong-soft); }
+
+    .feedback {
+      display: none;
+      margin-top: 14px;
+      padding: 11px 13px;
+      border-radius: 9px;
+      font-size: 0.95rem;
+    }
+
+    .correct .feedback {
+      display: block;
+      color: var(--correct);
+      background: var(--correct-soft);
+    }
+
+    .wrong .feedback, .unanswered .feedback {
+      display: block;
+      color: var(--wrong);
+      background: var(--wrong-soft);
+    }
+
+    .feedback p { margin: 4px 0; }
+
+    .result {
+      display: none;
+      margin: 0 0 26px;
+      padding: 23px;
+      border: 1px solid #b3d8d4;
+      border-radius: var(--radius);
+      background: var(--surface);
+      box-shadow: var(--shadow);
+    }
+
+    .result.visible { display: block; }
+
+    .score-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .score {
+      min-width: 152px;
+      padding: 16px;
+      border-radius: 12px;
+      color: white;
+      background: var(--primary);
+      text-align: center;
+    }
+
+    .score strong {
+      display: block;
+      font-size: 2.25rem;
+      line-height: 1.15;
+    }
+
+    .diagnostic h2 { margin: 0 0 6px; }
+    .diagnostic p { margin: 0; color: var(--muted); }
+
+    .results-table {
+      width: 100%;
+      margin: 16px 0 20px;
+      border-collapse: collapse;
+      font-size: 0.95rem;
+    }
+
+    .results-table th, .results-table td {
+      padding: 9px 10px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+    }
+
+    .results-table th { color: var(--muted); }
+
+    .export-help {
+      margin: 12px 0 0;
+      color: var(--muted);
+      font-size: 0.93rem;
+    }
+
+    .toast {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 20;
+      display: none;
+      padding: 12px 16px;
+      border-radius: 10px;
+      color: white;
+      background: var(--primary-dark);
+      box-shadow: var(--shadow);
+    }
+
+    .toast.visible { display: block; }
+
+    @media (max-width: 700px) {
+      .meta-grid { grid-template-columns: repeat(2, minmax(120px, 1fr)); }
+      .question { padding: 16px; }
+      .toolbar-buttons { width: 100%; }
+      .toolbar-buttons button { flex: 1; }
+    }
+
+    @media print {
+      .toolbar, .result .toolbar-buttons, .toast { display: none !important; }
+      body { background: white; }
+      .question { break-inside: avoid; box-shadow: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="container">
+      <h1>Simulado 01 - Semana 1</h1>
+      <p class="subtitle">Sistemas Digitais - UFCG | Fundamentos, portas, algebra booleana, DeMorgan, NAND e NOR</p>
+      <div class="meta-grid" aria-label="Informacoes do simulado">
+        <div class="meta-card"><span>Questoes</span><strong>40 objetivas</strong></div>
+        <div class="meta-card"><span>Tempo sugerido</span><strong>1h40</strong></div>
+        <div class="meta-card"><span>Meta</span><strong>30/40</strong></div>
+        <div class="meta-card"><span>Salvamento</span><strong>Automatico</strong></div>
+      </div>
+    </div>
+  </header>
+
+  <div class="toolbar">
+    <div class="container toolbar-inner">
+      <div class="progress-group">
+        <div class="progress-label">
+          <span id="answeredLabel">0 de 40 respondidas</span>
+          <span id="saveLabel">Progresso salvo localmente</span>
+        </div>
+        <div class="progress-track" aria-hidden="true"><div class="progress-fill" id="progressFill"></div></div>
+      </div>
+      <div class="toolbar-buttons">
+        <button type="button" id="finishButton">Finalizar e corrigir</button>
+        <button type="button" class="button-secondary" id="resetButton">Reiniciar</button>
+      </div>
+    </div>
+  </div>
+
+  <main class="container">
+    <section class="notice" aria-label="Instrucoes">
+      <h2>Como usar</h2>
+      <p>Marque uma alternativa em cada questao. Suas escolhas ficam salvas neste navegador. O gabarito e as explicacoes so aparecem quando voce clicar em <strong>Finalizar e corrigir</strong>.</p>
+      <p>Depois da correcao, use <strong>Copiar relatorio para IA</strong> ou <strong>Baixar relatorio</strong> para exportar seus acertos e erros.</p>
+    </section>
+
+    <section id="result" class="result" aria-live="polite"></section>
+    <form id="quizForm"></form>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    "use strict";
+
+    const STORAGE_KEY = "simulado01_semana1_sistemas_digitais_v1";
+    const letters = ["A", "B", "C", "D", "E"];
+
+    const blocks = [
+      { id: 1, title: "Sistemas Numericos, Sinal e Complemento de 2", range: "1 a 9", review: "aulas/1-binarios_operacoes_sinal_complemento2.md" },
+      { id: 2, title: "BCD, Gray, ASCII e Checksum", range: "10 a 16", review: "aulas/2-codigos_binarios_bcd_gray_ascii_checksum.md" },
+      { id: 3, title: "Portas Logicas e Expressoes", range: "17 a 23", review: "aulas/3-portas_logicas_operacoes_booleanas.md" },
+      { id: 4, title: "Algebra Booleana e Simplificacao", range: "24 a 31", review: "aulas/4-algebra_booleana_axiomas_leis_simplificacao.md" },
+      { id: 5, title: "DeMorgan, Dualidade, NAND e NOR", range: "32 a 40", review: "aulas/5-demorgan_dualidade_nand_nor_simplificacao.md" }
+    ];
+
+    const questions = [
+      { id: 1, block: 1, topic: "Binario para decimal", prompt: "O valor decimal de <code>110101₂</code> e:", options: ["<code>45</code>", "<code>49</code>", "<code>51</code>", "<code>53</code>", "<code>57</code>"], correct: "D", explanation: "<code>110101₂ = 32 + 16 + 4 + 1 = 53</code>." },
+      { id: 2, block: 1, topic: "Hexadecimal para binario", prompt: "A representacao binaria de <code>3A₁₆</code> e:", options: ["<code>0011 1000</code>", "<code>0011 1010</code>", "<code>1010 0011</code>", "<code>0010 1110</code>", "<code>0011 1100</code>"], correct: "B", explanation: "<code>3 = 0011</code> e <code>A = 1010</code>, portanto <code>3A₁₆ = 0011 1010₂</code>." },
+      { id: 3, block: 1, topic: "Decimal para binario", prompt: "O numero decimal <code>45₁₀</code> em binario e:", options: ["<code>101101₂</code>", "<code>101011₂</code>", "<code>110101₂</code>", "<code>101110₂</code>", "<code>110011₂</code>"], correct: "A", explanation: "<code>45 = 32 + 8 + 4 + 1</code>, logo <code>101101₂</code>." },
+      { id: 4, block: 1, topic: "Soma sem sinal e overflow", prompt: "Em um sistema <strong>sem sinal</strong> de 4 bits, a operacao <code>1110 + 0011</code> produz:", options: ["<code>0001</code>, sem overflow", "<code>1111</code>, com overflow", "<code>0001</code>, com overflow", "<code>10001</code>, sem overflow", "<code>0010</code>, com overflow"], correct: "C", explanation: "<code>14 + 3 = 17 = 1 0001₂</code>. Em 4 bits armazena-se <code>0001</code> e ocorre overflow sem sinal." },
+      { id: 5, block: 1, topic: "Intervalo em complemento de 2", prompt: "O intervalo representavel em complemento de 2 com 6 bits e:", options: ["<code>-32</code> ate <code>+31</code>", "<code>-31</code> ate <code>+32</code>", "<code>0</code> ate <code>63</code>", "<code>-64</code> ate <code>+63</code>", "<code>-16</code> ate <code>+15</code>"], correct: "A", explanation: "Com <code>n</code> bits em complemento de 2: <code>-2^(n-1)</code> ate <code>2^(n-1)-1</code>. Para 6 bits: <code>-32</code> ate <code>+31</code>." },
+      { id: 6, block: 1, topic: "Numero negativo em complemento de 2", prompt: "A representacao de <code>-13</code> em complemento de 2 com 8 bits e:", options: ["<code>10001101</code>", "<code>11110010</code>", "<code>00001101</code>", "<code>11110011</code>", "<code>11101101</code>"], correct: "D", explanation: "<code>+13 = 00001101</code>; invertendo: <code>11110010</code>; somando 1: <code>11110011</code>." },
+      { id: 7, block: 1, topic: "Interpretacao em complemento de 2", prompt: "Interprete <code>11010</code> como um numero em complemento de 2 com 5 bits.", options: ["<code>-6</code>", "<code>-5</code>", "<code>+26</code>", "<code>-10</code>", "<code>+10</code>"], correct: "A", explanation: "O bit inicial indica negativo. Invertendo <code>11010</code> e somando 1: <code>00110 = 6</code>; portanto o valor e <code>-6</code>." },
+      { id: 8, block: 1, topic: "Overflow com sinal", prompt: "Em complemento de 2 com 4 bits, qual e o resultado armazenado de <code>0101 + 0100</code>, e o que ocorre?", options: ["<code>1001</code>, sem overflow", "<code>0001</code>, com overflow", "<code>1000</code>, sem overflow", "<code>0111</code>, com overflow", "<code>1001</code>, com overflow"], correct: "E", explanation: "<code>+5 + +4 = +9</code>, que nao cabe no intervalo <code>-8</code> a <code>+7</code>. O padrao armazenado e <code>1001</code>, interpretado como negativo: overflow." },
+      { id: 9, block: 1, topic: "Subtracao em complemento de 2", prompt: "Usando complemento de 2 com 5 bits, o resultado de <code>7 - 10</code> e:", options: ["<code>00011</code>", "<code>10101</code>", "<code>11101</code>", "<code>11011</code>", "<code>00111</code>"], correct: "C", explanation: "<code>7 - 10 = -3</code>. Em 5 bits, <code>-3</code> e <code>11101</code>." },
+
+      { id: 10, block: 2, topic: "BCD", prompt: "O numero decimal <code>58</code> em BCD 8421 e:", options: ["<code>0101 1000</code>", "<code>0011 1010</code>", "<code>111010</code>", "<code>0101 1010</code>", "<code>1000 0101</code>"], correct: "A", explanation: "No BCD cada digito e codificado separadamente: <code>5 = 0101</code> e <code>8 = 1000</code>." },
+      { id: 11, block: 2, topic: "BCD invalido", prompt: "Qual sequencia <strong>nao</strong> representa um BCD 8421 valido?", options: ["<code>0010 0101</code>", "<code>1001 0000</code>", "<code>0100 0111</code>", "<code>0010 1100</code>", "<code>0000 1001</code>"], correct: "D", explanation: "Um digito BCD so pode ir de <code>0000</code> a <code>1001</code>. O grupo <code>1100</code> e invalido." },
+      { id: 12, block: 2, topic: "Binario para Gray", prompt: "O codigo Gray correspondente ao binario <code>1101</code> e:", options: ["<code>1101</code>", "<code>1111</code>", "<code>1011</code>", "<code>1001</code>", "<code>0111</code>"], correct: "C", explanation: "Mantenha o primeiro bit e aplique XOR entre vizinhos: <code>1, 1 XOR 1 = 0, 1 XOR 0 = 1, 0 XOR 1 = 1</code>; resultado <code>1011</code>." },
+      { id: 13, block: 2, topic: "Gray para binario", prompt: "A sequencia Gray <code>1110</code>, convertida para binario, resulta em:", options: ["<code>1011</code>", "<code>1101</code>", "<code>1110</code>", "<code>1001</code>", "<code>0111</code>"], correct: "A", explanation: "A conversao usa XOR acumulado: <code>1, 1 XOR 1 = 0, 0 XOR 1 = 1, 1 XOR 0 = 1</code>; resultado <code>1011</code>." },
+      { id: 14, block: 2, topic: "ASCII", prompt: "Sabendo que o caractere ASCII <code>'0'</code> vale <code>0x30</code>, o caractere <code>'5'</code> vale:", options: ["<code>0x05</code>", "<code>0x30</code>", "<code>0x35</code>", "<code>0x41</code>", "<code>0x55</code>"], correct: "C", explanation: "Os caracteres numericos sao sequenciais: <code>'0' + 5 = 0x35</code>." },
+      { id: 15, block: 2, topic: "Limitacao de checksum", prompt: "Um checksum simples por soma foi calculado para os dados <code>4, 7, 2</code>, resultando em <code>13</code>. No recebimento, os dados chegam como <code>5, 6, 2</code>. O que acontece?", options: ["O checksum simples nao detecta a alteracao, pois a soma continua <code>13</code>.", "O checksum detecta e corrige automaticamente o primeiro valor.", "O checksum detecta a alteracao, pois a nova soma e <code>14</code>.", "Os dados nao podem ser comparados sem converte-los para Gray.", "A alteracao so seria detectada em ASCII."], correct: "A", explanation: "Os dois conjuntos somam <code>13</code>. Checksum simples pode nao perceber alteracoes que conservam a soma." },
+      { id: 16, block: 2, topic: "Uso do codigo Gray", prompt: "O principal motivo para o uso de codigo Gray em encoders de posicao e:", options: ["Representar numeros negativos sem complemento de 2.", "Reduzir a quantidade total de bits necessaria.", "Detectar qualquer erro por meio de soma.", "Fazer apenas um bit mudar entre posicoes consecutivas, reduzindo leituras transitorias ambiguas.", "Codificar diretamente letras ASCII."], correct: "D", explanation: "Em Gray, transicoes consecutivas alteram somente um bit, reduzindo erros momentaneos de leitura." },
+
+      { id: 17, block: 3, topic: "NAND", prompt: "Para uma porta NAND de duas entradas, com <code>A=1</code> e <code>B=1</code>, a saida e:", options: ["<code>1</code>, pois ao menos uma entrada esta ativa.", "<code>0</code>, pois a NAND nega o resultado da AND.", "<code>1</code>, pois as entradas sao iguais.", "<code>0</code>, pois a NAND so ativa com duas entradas em zero.", "Indeterminada."], correct: "B", explanation: "AND de <code>1,1</code> vale <code>1</code>; a NAND inverte esse resultado para <code>0</code>." },
+      { id: 18, block: 3, topic: "XOR", prompt: "Qual expressao representa <code>A XOR B</code> usando apenas AND, OR e NOT?", options: ["<code>A'B + AB'</code>", "<code>AB + A'B'</code>", "<code>A+B</code>", "<code>(AB)'</code>", "<code>(A+B)'</code>"], correct: "A", explanation: "XOR vale 1 quando as entradas diferem: <code>A'B + AB'</code>." },
+      { id: 19, block: 3, topic: "Avaliacao de expressao", prompt: "Para <code>Y = A + B'C</code>, com <code>A=0</code>, <code>B=0</code> e <code>C=1</code>, o valor de <code>Y</code> e:", options: ["<code>0</code>, pois <code>A=0</code>.", "<code>0</code>, pois <code>B'=0</code>.", "<code>0</code>, pois AND tem prioridade sobre OR.", "Indefinido sem uma tabela completa.", "<code>1</code>."], correct: "E", explanation: "<code>B'=1</code>, entao <code>B'C = 1</code> e <code>A + B'C = 0 + 1 = 1</code>." },
+      { id: 20, block: 3, topic: "NOR", prompt: "Uma porta NOR de duas entradas fornece saida <code>1</code>:", options: ["Apenas quando as duas entradas sao <code>0</code>.", "Apenas quando as duas entradas sao <code>1</code>.", "Quando as entradas sao diferentes.", "Quando pelo menos uma entrada e <code>1</code>.", "Em todas as combinacoes exceto <code>00</code>."], correct: "A", explanation: "NOR e NOT OR: a OR vale 0 somente para <code>00</code>, e a NOR a inverte para 1." },
+      { id: 21, block: 3, topic: "XNOR", prompt: "A saida de uma porta XNOR para <code>A=1</code> e <code>B=0</code> e:", options: ["<code>1</code>, pois ha uma entrada ativa.", "<code>1</code>, pois XOR e XNOR tem a mesma tabela.", "<code>0</code>, pois XNOR vale <code>1</code> apenas quando as entradas sao iguais.", "<code>1</code>, pois a saida foi negada.", "Indeterminada."], correct: "C", explanation: "XNOR detecta igualdade. Como <code>1</code> e <code>0</code> sao diferentes, a saida e <code>0</code>." },
+      { id: 22, block: 3, topic: "Tabela-verdade", prompt: "Uma funcao booleana com quatro variaveis de entrada possui uma tabela-verdade com:", options: ["<code>16</code> linhas", "<code>4</code> linhas", "<code>8</code> linhas", "<code>32</code> linhas", "<code>64</code> linhas"], correct: "A", explanation: "Uma tabela com <code>n</code> entradas possui <code>2^n</code> linhas; para quatro entradas, <code>2^4 = 16</code>." },
+      { id: 23, block: 3, topic: "Circuito para expressao", prompt: "Um circuito inverte <code>A</code>, faz AND do resultado com <code>B</code> e, por fim, faz OR com <code>C</code>. Sua expressao e:", options: ["<code>(AB+C)'</code>", "<code>A(B+C)'</code>", "<code>AB'+C</code>", "<code>A'B+C</code>", "<code>(A+B)C'</code>"], correct: "D", explanation: "O inversor gera <code>A'</code>, a AND gera <code>A'B</code> e a OR final gera <code>A'B+C</code>." },
+
+      { id: 24, block: 4, topic: "Identidade e dominacao", prompt: "Simplifique: <code>F = A·1 + A·0</code>", options: ["<code>0</code>", "<code>1</code>", "<code>A'</code>", "<code>A+A'</code>", "<code>A</code>"], correct: "E", explanation: "<code>A·1 = A</code> e <code>A·0 = 0</code>; portanto <code>A+0 = A</code>." },
+      { id: 25, block: 4, topic: "Fatoracao e complemento", prompt: "Simplifique: <code>F = AB + AB'</code>", options: ["<code>A+B</code>", "<code>A</code>", "<code>B</code>", "<code>AB</code>", "<code>1</code>"], correct: "B", explanation: "<code>AB+AB' = A(B+B') = A·1 = A</code>." },
+      { id: 26, block: 4, topic: "Produto de somas", prompt: "Simplifique: <code>F = (A+B)(A+B')</code>", options: ["<code>B</code>", "<code>A+B</code>", "<code>AB</code>", "<code>A</code>", "<code>1</code>"], correct: "D", explanation: "<code>(A+B)(A+B') = A+BB' = A+0 = A</code>." },
+      { id: 27, block: 4, topic: "Simplificacao booleana", prompt: "Simplifique: <code>F = A + A'B</code>", options: ["<code>AB</code>", "<code>A+B</code>", "<code>A</code>", "<code>B</code>", "<code>1</code>"], correct: "B", explanation: "<code>A+A'B = (A+A')(A+B) = 1·(A+B) = A+B</code>." },
+      { id: 28, block: 4, topic: "Absorcao", prompt: "A equivalencia <code>A + AB = A</code> e conhecida principalmente como lei da:", options: ["Identidade", "Comutatividade", "Distributividade", "Idempotencia", "Absorcao"], correct: "E", explanation: "O termo <code>A</code> ja cobre todos os casos em que <code>AB</code> vale 1; por isso ele absorve <code>AB</code>." },
+      { id: 29, block: 4, topic: "Distributiva e absorcao", prompt: "Simplifique: <code>F = A(B+C) + AB'</code>", options: ["<code>B+C</code>", "<code>AB</code>", "<code>A</code>", "<code>A+B+C</code>", "<code>AC</code>"], correct: "C", explanation: "<code>A(B+C)+AB' = AB+AC+AB' = A(B+B')+AC = A+AC = A</code>." },
+      { id: 30, block: 4, topic: "Complemento e identidade", prompt: "Simplifique: <code>F = (A+A')(B+0)</code>", options: ["<code>B</code>", "<code>A</code>", "<code>0</code>", "<code>1</code>", "<code>A+B</code>"], correct: "A", explanation: "<code>A+A'=1</code> e <code>B+0=B</code>; logo <code>1·B=B</code>." },
+      { id: 31, block: 4, topic: "Distributiva booleana", prompt: "Qual expressao e equivalente a <code>X+YZ</code>, pela lei distributiva booleana?", options: ["<code>XY+XZ</code>", "<code>(X+Y)+Z</code>", "<code>X(Y+Z)</code>", "<code>(X+Y)(X+Z)</code>", "<code>(X'Y)(X'Z)</code>"], correct: "D", explanation: "Na algebra booleana, <code>X+YZ = (X+Y)(X+Z)</code>." },
+
+      { id: 32, block: 5, topic: "DeMorgan", prompt: "Aplicando DeMorgan: <code>(A+B+C)' =</code>", options: ["<code>A'+B'+C'</code>", "<code>A'B'C'</code>", "<code>ABC</code>", "<code>(A'B')+C'</code>", "<code>A+B+C</code>"], correct: "B", explanation: "O complemento de uma soma vira o produto dos complementos: <code>(A+B+C)' = A'B'C'</code>." },
+      { id: 33, block: 5, topic: "DeMorgan em camadas", prompt: "Aplicando DeMorgan corretamente: <code>(AB+C'D)' =</code>", options: ["<code>(A'B')(CD')</code>", "<code>(A+B)(C'+D)</code>", "<code>A'B'+CD'</code>", "<code>(A'+B')+(C+D')</code>", "<code>(A'+B')(C+D')</code>"], correct: "E", explanation: "<code>(AB+C'D)' = (AB)'(C'D)' = (A'+B')(C+D')</code>." },
+      { id: 34, block: 5, topic: "Dualidade", prompt: "Qual e a identidade dual de <code>A+BC = (A+B)(A+C)</code>?", options: ["<code>A(B+C)=AB+AC</code>", "<code>A'+B'C'=(A'+B')(A'+C')</code>", "<code>(A+BC)'=(A+B)'(A+C)'</code>", "<code>AB+C=(A+C)(B+C)</code>", "<code>A+BC=A(B+C)</code>"], correct: "A", explanation: "A dual troca OR por AND e AND por OR, preservando variaveis: <code>A(B+C)=AB+AC</code>." },
+      { id: 35, block: 5, topic: "Conceito de dualidade", prompt: "Sobre dualidade, assinale a alternativa correta.", options: ["Toda expressao e sempre igual a sua dual.", "A dual e obtida negando todas as variaveis.", "Se uma identidade booleana e valida, sua identidade dual tambem e valida; uma funcao isolada nao precisa ser igual a sua dual.", "Dualidade troca somente <code>0</code> e <code>1</code>, mantendo os operadores.", "Dualidade e outro nome para complemento de 2."], correct: "C", explanation: "O principio da dualidade vale para identidades; a expressao dual de uma funcao nao precisa implementar a mesma funcao." },
+      { id: 36, block: 5, topic: "NOT somente com NAND", prompt: "Usando somente portas NAND, a forma correta de implementar <code>A'</code> e:", options: ["<code>A NAND 0</code>", "<code>A NAND 1</code>", "<code>(A NAND A) NAND A</code>", "<code>A NAND A</code>", "<code>A NAND A'</code>"], correct: "D", explanation: "<code>A NAND A = (AA)' = A'</code>." },
+      { id: 37, block: 5, topic: "NAND-NAND", prompt: "Uma implementacao somente com NAND para <code>F = AB + CD</code> e:", options: ["<code>(A NAND B) AND (C NAND D)</code>", "<code>(A NOR B) NOR (C NOR D)</code>", "<code>(A NAND B) NAND (C NAND D)</code>", "<code>(A NAND A) NAND (B NAND B)</code>", "<code>(A+B) NAND (C+D)</code>"], correct: "C", explanation: "<code>[(AB)'(CD)']' = AB+CD</code>; portanto a estrutura NAND-NAND implementa a soma de produtos." },
+      { id: 38, block: 5, topic: "NOR-NOR", prompt: "Uma implementacao somente com NOR para <code>F = (A+B)(C+D)</code> e:", options: ["<code>(A NOR B) AND (C NOR D)</code>", "<code>(A NAND B) NAND (C NAND D)</code>", "<code>(A NOR A) NOR (B NOR B)</code>", "<code>(A+B) NOR (C+D)</code>", "<code>(A NOR B) NOR (C NOR D)</code>"], correct: "E", explanation: "<code>[(A+B)' + (C+D)']' = (A+B)(C+D)</code>; portanto a estrutura NOR-NOR implementa o produto de somas." },
+      { id: 39, block: 5, topic: "Transformacao para NOR", prompt: "Para implementar <code>F = A+BC</code> em dois niveis usando apenas NOR, a transformacao mais adequada e:", options: ["<code>F = (A+B)(A+C)</code>, seguida de uma estrutura NOR-NOR.", "<code>F = AB+AC</code>, seguida de uma estrutura NAND-NAND.", "<code>F = A(B+C)</code>, seguida de uma estrutura NOR-NOR.", "<code>F = (AB)'(AC)'</code>, sem porta final.", "<code>F = A+B+C</code>, seguida de uma unica NOR."], correct: "A", explanation: "<code>A+BC=(A+B)(A+C)</code>, forma produto de somas naturalmente implementada por NOR-NOR." },
+      { id: 40, block: 5, topic: "Complemento de XOR / XNOR", prompt: "Simplifique: <code>F = (A'B+AB')'</code>", options: ["<code>AB+A'B'</code>", "<code>A'B+AB'</code>", "<code>A+B</code>", "<code>A'B'</code>", "<code>AB</code>"], correct: "A", explanation: "A expressao interna e XOR; seu complemento e XNOR: <code>AB+A'B'</code>." }
+    ];
+
+    let state = loadState();
+
+    function loadState() {
+      try {
+        const stored = JSON.parse(localStorage.getItem(STORAGE_KEY) || "null");
+        if (stored && stored.answers) return stored;
+      } catch (error) {
+        console.warn("Nao foi possivel restaurar o progresso.", error);
+      }
+      return { answers: {}, finalized: false, startedAt: new Date().toISOString(), finalizedAt: null };
+    }
+
+    function saveState() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        document.getElementById("saveLabel").textContent = state.finalized ? "Simulado finalizado" : "Progresso salvo localmente";
+      } catch (error) {
+        document.getElementById("saveLabel").textContent = "Salvamento indisponivel; mantenha a pagina aberta";
+      }
+    }
+
+    function plainText(html) {
+      const element = document.createElement("div");
+      element.innerHTML = html;
+      return element.textContent.replace(/\s+/g, " ").trim();
+    }
+
+    function optionText(question, letter) {
+      if (!letter) return "Nao respondida";
+      return letter + ") " + plainText(question.options[letters.indexOf(letter)]);
+    }
+
+    function renderQuiz() {
+      const form = document.getElementById("quizForm");
+      form.innerHTML = "";
+
+      blocks.forEach((block) => {
+        const heading = document.createElement("h2");
+        heading.className = "block-heading";
+        heading.textContent = "Bloco " + block.id + " - " + block.title;
+        form.appendChild(heading);
+
+        questions.filter((question) => question.block === block.id).forEach((question) => {
+          const article = document.createElement("article");
+          article.className = "question";
+          article.id = "question-" + question.id;
+
+          const chosen = state.answers[question.id] || "";
+          const options = question.options.map((option, index) => {
+            const letter = letters[index];
+            const checked = chosen === letter ? " checked" : "";
+            const disabled = state.finalized ? " disabled" : "";
+            return `
+              <label class="option${chosen === letter ? " selected" : ""}" data-option="${letter}">
+                <input type="radio" name="question-${question.id}" value="${letter}"${checked}${disabled}>
+                <span><strong>${letter})</strong> ${option}</span>
+              </label>`;
+          }).join("");
+
+          article.innerHTML = `
+            <div class="question-title">
+              <div class="number">${question.id}</div>
+              <div>
+                <p class="prompt">${question.prompt}</p>
+                <div class="topic">${question.topic}</div>
+              </div>
+            </div>
+            <div class="options">${options}</div>
+            <div class="feedback"></div>`;
+
+          form.appendChild(article);
+        });
+      });
+
+      if (!state.finalized) {
+        form.addEventListener("change", handleAnswerChange);
+      } else {
+        applyCorrection();
+      }
+      updateProgress();
+    }
+
+    function handleAnswerChange(event) {
+      const input = event.target;
+      if (!input.matches("input[type=radio]") || state.finalized) return;
+      const id = Number(input.name.replace("question-", ""));
+      state.answers[id] = input.value;
+      document.querySelectorAll("#question-" + id + " .option").forEach((option) => {
+        option.classList.toggle("selected", option.dataset.option === input.value);
+      });
+      saveState();
+      updateProgress();
+    }
+
+    function updateProgress() {
+      const answered = Object.keys(state.answers).filter((key) => state.answers[key]).length;
+      document.getElementById("answeredLabel").textContent = answered + " de " + questions.length + " respondidas";
+      document.getElementById("progressFill").style.width = ((answered / questions.length) * 100) + "%";
+      document.getElementById("finishButton").disabled = state.finalized;
+    }
+
+    function getResults() {
+      const details = questions.map((question) => {
+        const selected = state.answers[question.id] || "";
+        return { question, selected, correct: selected === question.correct };
+      });
+      const score = details.filter((detail) => detail.correct).length;
+      const answered = details.filter((detail) => detail.selected).length;
+      const byBlock = blocks.map((block) => {
+        const blockDetails = details.filter((detail) => detail.question.block === block.id);
+        return {
+          block,
+          score: blockDetails.filter((detail) => detail.correct).length,
+          total: blockDetails.length,
+          percentage: Math.round((blockDetails.filter((detail) => detail.correct).length / blockDetails.length) * 100)
+        };
+      });
+      return { details, score, answered, percentage: Math.round((score / questions.length) * 100), byBlock };
+    }
+
+    function diagnostic(score) {
+      if (score >= 36) return "Dominio muito forte: revise somente erros pontuais e mantenha a pratica.";
+      if (score >= 30) return "Bom dominio: corrija os erros e revise os blocos com menor desempenho.";
+      if (score >= 24) return "Base razoavel, mas instavel: revise todo bloco abaixo de 70%.";
+      return "Conteudo ainda nao consolidado: retome as aulas dos blocos com erros antes de novo simulado.";
+    }
+
+    function finishQuiz() {
+      if (state.finalized) return;
+      const missing = questions.filter((question) => !state.answers[question.id]);
+      if (missing.length && !window.confirm("Ha " + missing.length + " questoes sem resposta. Deseja finalizar mesmo assim?")) {
+        return;
+      }
+      state.finalized = true;
+      state.finalizedAt = new Date().toISOString();
+      saveState();
+      renderQuiz();
+      renderResult();
+      document.getElementById("result").scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function applyCorrection() {
+      const results = getResults();
+      results.details.forEach((detail) => {
+        const article = document.getElementById("question-" + detail.question.id);
+        const selected = detail.selected;
+        article.classList.add(detail.correct ? "correct" : selected ? "wrong" : "unanswered");
+
+        article.querySelectorAll(".option").forEach((option) => {
+          const letter = option.dataset.option;
+          option.classList.remove("selected");
+          if (letter === detail.question.correct) option.classList.add("answer-correct");
+          if (selected && letter === selected && !detail.correct) option.classList.add("answer-wrong");
+        });
+
+        const feedback = article.querySelector(".feedback");
+        feedback.innerHTML = detail.correct
+          ? `<p><strong>Correta.</strong> ${detail.question.explanation}</p>`
+          : `<p><strong>${selected ? "Incorreta" : "Nao respondida"}.</strong> Resposta correta: ${optionText(detail.question, detail.question.correct)}.</p><p>${detail.question.explanation}</p>`;
+      });
+    }
+
+    function renderResult() {
+      if (!state.finalized) return;
+      const results = getResults();
+      const result = document.getElementById("result");
+      const wrongCount = questions.length - results.score;
+      result.classList.add("visible");
+      result.innerHTML = `
+        <div class="score-row">
+          <div class="score">
+            <strong>${results.score}/40</strong>
+            <span>${results.percentage}% de acerto</span>
+          </div>
+          <div class="diagnostic">
+            <h2>Resultado final</h2>
+            <p>${diagnostic(results.score)}</p>
+            <p>${results.answered} respondidas; ${wrongCount} erradas ou nao respondidas.</p>
+          </div>
+        </div>
+        <table class="results-table">
+          <thead><tr><th>Bloco</th><th>Acertos</th><th>Percentual</th><th>Revisar se necessario</th></tr></thead>
+          <tbody>
+            ${results.byBlock.map(({ block, score, total, percentage }) =>
+              `<tr><td>${block.id}. ${block.title}</td><td>${score}/${total}</td><td>${percentage}%</td><td>${percentage < 70 ? block.review : "Manter revisao espacada"}</td></tr>`
+            ).join("")}
+          </tbody>
+        </table>
+        <div class="toolbar-buttons">
+          <button type="button" id="copyButton">Copiar relatorio para IA</button>
+          <button type="button" class="button-secondary" id="downloadButton">Baixar relatorio (.txt)</button>
+        </div>
+        <p class="export-help">O relatorio inclui sua resposta e o gabarito em todas as questoes, destacando as erradas para orientar a revisao.</p>`;
+      document.getElementById("copyButton").addEventListener("click", copyReport);
+      document.getElementById("downloadButton").addEventListener("click", downloadReport);
+    }
+
+    function buildReport() {
+      const results = getResults();
+      const date = new Date(state.finalizedAt || Date.now()).toLocaleString("pt-BR");
+      const wrong = results.details.filter((detail) => !detail.correct);
+      const correct = results.details.filter((detail) => detail.correct);
+      const lines = [
+        "RESULTADO - SIMULADO 01 - SEMANA 1 - SISTEMAS DIGITAIS (UFCG)",
+        "Finalizado em: " + date,
+        "Nota: " + results.score + "/40 (" + results.percentage + "%)",
+        "Respondidas: " + results.answered + "/40",
+        "",
+        "DESEMPENHO POR BLOCO"
+      ];
+
+      results.byBlock.forEach(({ block, score, total, percentage }) => {
+        lines.push("- Bloco " + block.id + " - " + block.title + ": " + score + "/" + total + " (" + percentage + "%)" + (percentage < 70 ? " | Revisar: " + block.review : ""));
+      });
+
+      lines.push("", "QUESTOES ERRADAS OU NAO RESPONDIDAS (" + wrong.length + ")");
+      if (!wrong.length) {
+        lines.push("- Nenhuma. Todas as questoes foram respondidas corretamente.");
+      } else {
+        wrong.forEach(({ question, selected }) => {
+          lines.push("");
+          lines.push("Questao " + question.id + " - " + question.topic);
+          lines.push("Enunciado: " + plainText(question.prompt));
+          lines.push("Minha resposta: " + optionText(question, selected));
+          lines.push("Resposta correta: " + optionText(question, question.correct));
+          lines.push("Explicacao: " + plainText(question.explanation));
+        });
+      }
+
+      lines.push("", "QUESTOES CORRETAS (" + correct.length + ")");
+      lines.push(correct.length ? correct.map(({ question }) => question.id + " (" + question.topic + ")").join(", ") : "- Nenhuma.");
+      lines.push("", "PEDIDO PARA REVISAO COM IA");
+      lines.push("Analise meus erros neste simulado de Sistemas Digitais. Para cada questao errada, explique o conceito, resolva passo a passo e proponha 2 exercicios semelhantes para eu fixar. Priorize os blocos abaixo de 70%.");
+      return lines.join("\n");
+    }
+
+    async function copyReport() {
+      const report = buildReport();
+      try {
+        await navigator.clipboard.writeText(report);
+        showToast("Relatorio copiado. Pronto para enviar a IA.");
+      } catch (error) {
+        const area = document.createElement("textarea");
+        area.value = report;
+        document.body.appendChild(area);
+        area.select();
+        document.execCommand("copy");
+        area.remove();
+        showToast("Relatorio copiado. Pronto para enviar a IA.");
+      }
+    }
+
+    function downloadReport() {
+      const blob = new Blob([buildReport()], { type: "text/plain;charset=utf-8" });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = "resultado_simulado_01_semana_1.txt";
+      link.click();
+      URL.revokeObjectURL(link.href);
+      showToast("Relatorio baixado.");
+    }
+
+    function resetQuiz() {
+      if (!window.confirm("Apagar respostas e resultado deste simulado para recomecar?")) return;
+      try {
+        localStorage.removeItem(STORAGE_KEY);
+      } catch (error) {
+        console.warn("Nao foi possivel limpar o progresso salvo.", error);
+      }
+      state = { answers: {}, finalized: false, startedAt: new Date().toISOString(), finalizedAt: null };
+      document.getElementById("result").classList.remove("visible");
+      document.getElementById("result").innerHTML = "";
+      saveState();
+      renderQuiz();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    let toastTimer;
+    function showToast(message) {
+      const toast = document.getElementById("toast");
+      toast.textContent = message;
+      toast.classList.add("visible");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove("visible"), 2800);
+    }
+
+    document.getElementById("finishButton").addEventListener("click", finishQuiz);
+    document.getElementById("resetButton").addEventListener("click", resetQuiz);
+
+    renderQuiz();
+    saveState();
+    if (state.finalized) renderResult();
+  </script>
+</body>
+</html>

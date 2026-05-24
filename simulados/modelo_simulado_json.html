@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modelo de Simulado por JSON</title>
+  <style>
+    :root {
+      --bg: #f4f6f5;
+      --card: #fff;
+      --text: #152420;
+      --muted: #586963;
+      --line: #d6dfdc;
+      --primary: #006c63;
+      --primary-dark: #00524b;
+      --success: #14723e;
+      --success-bg: #e3f4e8;
+      --error: #b23a31;
+      --error-bg: #fde9e6;
+      --radius: 12px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      color: var(--text);
+      background: var(--bg);
+      font: 16px/1.5 "Segoe UI", Arial, sans-serif;
+    }
+
+    header {
+      padding: 34px 18px;
+      color: #fff;
+      background: var(--primary-dark);
+    }
+
+    .container {
+      width: min(900px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    h1 { margin: 0 0 8px; }
+    header p { margin: 0; color: #d6eeeb; }
+
+    main { padding: 24px 0 48px; }
+
+    .panel, .question, #result {
+      margin-bottom: 16px;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--card);
+    }
+
+    .panel h2, #result h2 { margin: 0 0 10px; font-size: 1.15rem; }
+
+    input[type="file"] {
+      display: block;
+      margin: 12px 0;
+      font: inherit;
+    }
+
+    pre {
+      overflow-x: auto;
+      padding: 12px;
+      border-radius: 8px;
+      background: #edf2f0;
+      font: 0.9rem Consolas, "Courier New", monospace;
+    }
+
+    button {
+      cursor: pointer;
+      padding: 10px 16px;
+      border: 0;
+      border-radius: 8px;
+      color: #fff;
+      background: var(--primary);
+      font: inherit;
+      font-weight: 600;
+    }
+
+    button:hover { background: var(--primary-dark); }
+    button:disabled { cursor: not-allowed; opacity: 0.5; }
+
+    #quizHeader {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: flex-start;
+      margin: 26px 0 14px;
+    }
+
+    #quizHeader h2 { margin: 0; }
+
+    #progress {
+      margin: 5px 0 0;
+      color: var(--muted);
+    }
+
+    .actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .secondary {
+      color: var(--primary-dark);
+      border: 1px solid var(--line);
+      background: #fff;
+    }
+
+    .secondary:hover { background: #edf2f0; }
+
+    .block-heading {
+      margin: 28px 0 12px;
+      padding-bottom: 7px;
+      border-bottom: 2px solid var(--primary);
+      color: var(--primary-dark);
+      font-size: 1.18rem;
+    }
+
+    .question h3 {
+      margin: 0 0 5px;
+      font-size: 1rem;
+    }
+
+    .topic {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: 0.92rem;
+      font-weight: 600;
+    }
+
+    .option {
+      display: block;
+      margin: 7px 0;
+      padding: 9px 11px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+    }
+
+    .option input { margin-right: 9px; }
+    .option.correct { border-color: #91c7a1; background: var(--success-bg); }
+    .option.wrong { border-color: #e2aaa5; background: var(--error-bg); }
+
+    .feedback {
+      display: none;
+      margin: 12px 0 0;
+      font-weight: 600;
+    }
+
+    .question.reviewed .feedback { display: block; }
+    .feedback.ok { color: var(--success); }
+    .feedback.bad { color: var(--error); }
+    .explanation {
+      display: block;
+      margin-top: 6px;
+      color: var(--text);
+      font-weight: 400;
+    }
+
+    #message {
+      margin: 8px 0 0;
+      color: var(--error);
+    }
+
+    #result {
+      display: none;
+      border-color: #a8d1cb;
+    }
+
+    #result.visible { display: block; }
+
+    table {
+      width: 100%;
+      margin-top: 14px;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 8px;
+      border: 1px solid var(--line);
+      text-align: left;
+    }
+
+    th { background: #edf2f0; }
+
+    @media (max-width: 600px) {
+      #quizHeader { display: block; }
+      .actions {
+        display: block;
+        margin-top: 12px;
+      }
+      #quizHeader button {
+        width: 100%;
+        margin-top: 8px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <h1>Modelo de Simulado</h1>
+      <p>Carregue um JSON, responda as questões e finalize para conferir o resultado.</p>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="panel">
+      <h2>Carregar perguntas</h2>
+      <input id="fileInput" type="file" accept=".json,application/json">
+      <p>O JSON importado e suas respostas ficam salvos neste navegador, mesmo se voce atualizar ou fechar a pagina.</p>
+      <p id="message" role="alert"></p>
+      <details>
+        <summary>Formato esperado do JSON</summary>
+        <pre>{
+  "titulo": "Simulado - Semana 1",
+  "blocos": [
+    {
+      "id": 1,
+      "titulo": "Sistemas Numericos",
+      "revisao": "aulas/1-binarios.md"
+    }
+  ],
+  "questoes": [
+    {
+      "id": 1,
+      "bloco": 1,
+      "tema": "Conversao binaria",
+      "pergunta": "Quanto vale 1010 em decimal?",
+      "opcoes": ["8", "9", "10", "12"],
+      "correta": "C",
+      "explicacao": "1010 = 8 + 2 = 10."
+    }
+  ]
+}</pre>
+        <p>Os campos <strong>blocos</strong>, <strong>tema</strong>, <strong>explicacao</strong> e <strong>revisao</strong> sao opcionais. O modelo tambem aceita os nomes em ingles usados no simulado existente: <code>blocks</code>, <code>questions</code>, <code>topic</code>, <code>prompt</code>, <code>options</code>, <code>correct</code> e <code>explanation</code>.</p>
+      </details>
+    </section>
+
+    <section id="result" aria-live="polite"></section>
+
+    <section id="quiz" hidden>
+      <div id="quizHeader">
+        <div>
+          <h2 id="quizTitle"></h2>
+          <p id="progress"></p>
+        </div>
+        <div class="actions">
+          <button id="finishButton" type="button">Finalizar e corrigir</button>
+          <button id="resetButton" class="secondary" type="button">Resetar respostas</button>
+        </div>
+      </div>
+      <form id="questions"></form>
+    </section>
+  </main>
+
+  <script>
+    "use strict";
+
+    const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    const QUIZ_STORAGE_KEY = "modelo_simulado_json_conteudo_v1";
+    const PROGRESS_STORAGE_KEY = "modelo_simulado_json_progresso_v1";
+    let quizData = null;
+    let state = newState();
+
+    const fileInput = document.getElementById("fileInput");
+    const message = document.getElementById("message");
+    const quiz = document.getElementById("quiz");
+    const quizTitle = document.getElementById("quizTitle");
+    const progress = document.getElementById("progress");
+    const questionsElement = document.getElementById("questions");
+    const finishButton = document.getElementById("finishButton");
+    const resetButton = document.getElementById("resetButton");
+    const result = document.getElementById("result");
+
+    fileInput.addEventListener("change", async function (event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      try {
+        quizData = normalizeJson(JSON.parse(await file.text()));
+        state = newState();
+        saveQuiz();
+        saveProgress();
+        renderQuiz();
+        message.textContent = "Simulado carregado e salvo neste navegador.";
+      } catch (error) {
+        message.textContent = "Nao foi possivel carregar o JSON: " + error.message;
+      }
+      fileInput.value = "";
+    });
+
+    finishButton.addEventListener("click", correctQuiz);
+    resetButton.addEventListener("click", resetQuiz);
+    questionsElement.addEventListener("change", saveAnswer);
+
+    function newState() {
+      return { answers: {}, finalized: false };
+    }
+
+    function normalizeJson(data) {
+      const sourceQuestions = data && (data.questoes || data.questions);
+      const sourceBlocks = data && (data.blocos || data.blocks || []);
+
+      if (!Array.isArray(sourceQuestions) || sourceQuestions.length === 0) {
+        throw new Error("use uma lista nao vazia em \"questoes\".");
+      }
+      if (!Array.isArray(sourceBlocks)) {
+        throw new Error("\"blocos\" deve ser uma lista.");
+      }
+
+      const blocks = sourceBlocks.map(function (block, index) {
+        const id = block.id === undefined ? index + 1 : block.id;
+        const title = block.titulo || block.title;
+        if ((typeof id !== "number" && typeof id !== "string") || typeof title !== "string") {
+          throw new Error("bloco " + (index + 1) + " invalido.");
+        }
+        return {
+          id: id,
+          titulo: title,
+          revisao: String(block.revisao || block.review || "")
+        };
+      });
+
+      const questions = sourceQuestions.map(function (question, index) {
+        const prompt = question.pergunta || question.prompt;
+        const options = question.opcoes || question.options;
+        const correct = question.correta === undefined ? question.correct : question.correta;
+        if (typeof prompt !== "string" || !Array.isArray(options) ||
+            options.length < 2 || options.length > letters.length ||
+            options.some(function (option) { return typeof option !== "string"; })) {
+          throw new Error("questao " + (index + 1) + " invalida.");
+        }
+
+        const answer = normalizeAnswer(correct, options.length);
+        if (!answer) {
+          throw new Error("resposta correta invalida na questao " + (index + 1) + ".");
+        }
+
+        const blockId = question.bloco === undefined ? question.block : question.bloco;
+        if (blocks.length && !blocks.some(function (block) { return block.id === blockId; })) {
+          throw new Error("bloco da questao " + (index + 1) + " nao encontrado.");
+        }
+        return {
+          id: question.id === undefined ? index + 1 : question.id,
+          bloco: blockId,
+          tema: String(question.tema || question.topic || ""),
+          pergunta: prompt,
+          opcoes: options,
+          correta: answer,
+          explicacao: String(question.explicacao || question.explanation || "")
+        };
+      });
+
+      return {
+        titulo: String(data.titulo || data.title || "Simulado"),
+        blocos: blocks,
+        questoes: questions
+      };
+    }
+
+    function normalizeAnswer(answer, optionCount) {
+      if (typeof answer === "string") {
+        const letter = answer.trim().toUpperCase();
+        return letters.slice(0, optionCount).includes(letter) ? letter : null;
+      }
+      return null;
+    }
+
+    function renderQuiz() {
+      quiz.hidden = false;
+      result.classList.remove("visible");
+      result.innerHTML = "";
+      quizTitle.textContent = quizData.titulo || "Simulado";
+      finishButton.disabled = state.finalized;
+      questionsElement.innerHTML = "";
+
+      if (quizData.blocos.length) {
+        quizData.blocos.forEach(function (block) {
+          const heading = document.createElement("h2");
+          heading.className = "block-heading";
+          heading.textContent = "Bloco " + block.id + " - " + block.titulo;
+          questionsElement.appendChild(heading);
+
+          quizData.questoes.forEach(function (question, questionIndex) {
+            if (question.bloco === block.id) renderQuestion(question, questionIndex);
+          });
+        });
+      } else {
+        quizData.questoes.forEach(renderQuestion);
+      }
+
+      updateProgress();
+      if (state.finalized) applyCorrection();
+    }
+
+    function renderQuestion(question, questionIndex) {
+        const card = document.createElement("article");
+        card.className = "question";
+        card.dataset.index = questionIndex;
+
+        const heading = document.createElement("h3");
+        heading.textContent = (questionIndex + 1) + ". " + question.pergunta;
+        card.appendChild(heading);
+
+        if (question.tema) {
+          const topic = document.createElement("p");
+          topic.className = "topic";
+          topic.textContent = question.tema;
+          card.appendChild(topic);
+        }
+
+        question.opcoes.forEach(function (option, optionIndex) {
+          const letter = letters[optionIndex];
+          const label = document.createElement("label");
+          label.className = "option";
+
+          const radio = document.createElement("input");
+          radio.type = "radio";
+          radio.name = "question-" + questionIndex;
+          radio.value = letter;
+          radio.checked = state.answers[questionIndex] === letter;
+          radio.disabled = state.finalized;
+
+          label.appendChild(radio);
+          label.appendChild(document.createTextNode(letter + ") " + String(option)));
+          card.appendChild(label);
+        });
+
+        const feedback = document.createElement("p");
+        feedback.className = "feedback";
+        card.appendChild(feedback);
+        questionsElement.appendChild(card);
+    }
+
+    function saveAnswer(event) {
+      const input = event.target;
+      if (!input.matches("input[type=\"radio\"]") || state.finalized) return;
+
+      const index = input.name.replace("question-", "");
+      state.answers[index] = input.value;
+      saveProgress();
+      updateProgress();
+    }
+
+    function updateProgress() {
+      const answered = quizData.questoes.filter(function (question, index) {
+        return Boolean(state.answers[index]);
+      }).length;
+      progress.textContent = answered + " de " + quizData.questoes.length + " respondidas" +
+        (state.finalized ? " - simulado finalizado" : "");
+    }
+
+    function correctQuiz() {
+      if (!quizData || state.finalized) return;
+      state.finalized = true;
+      saveProgress();
+      renderQuiz();
+      result.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function applyCorrection() {
+      let score = 0;
+      quizData.questoes.forEach(function (question, index) {
+        const card = questionsElement.querySelector('[data-index="' + index + '"]');
+        const chosen = state.answers[index] || "";
+        const isCorrect = chosen === question.correta;
+        question._isCorrect = isCorrect;
+        if (isCorrect) score++;
+
+        card.classList.add("reviewed");
+        card.querySelectorAll(".option").forEach(function (label) {
+          const input = label.querySelector("input");
+          input.disabled = true;
+          if (input.value === question.correta) label.classList.add("correct");
+          if (input.checked && input.value !== question.correta) label.classList.add("wrong");
+        });
+
+        const feedback = card.querySelector(".feedback");
+        feedback.classList.add(isCorrect ? "ok" : "bad");
+        feedback.textContent = isCorrect
+          ? "Correta."
+          : "Incorreta. Resposta correta: " + question.correta + ".";
+        if (question.explicacao) {
+          const explanation = document.createElement("span");
+          explanation.className = "explanation";
+          explanation.textContent = question.explicacao;
+          feedback.appendChild(explanation);
+        }
+      });
+
+      const percentage = Math.round(score * 100 / quizData.questoes.length);
+      result.innerHTML = "<h2>Resultado final</h2><p><strong>" + score + "/" +
+        quizData.questoes.length + "</strong> questoes corretas (" + percentage + "%).</p>";
+      if (quizData.blocos.length) renderBlockResult();
+      result.classList.add("visible");
+    }
+
+    function renderBlockResult() {
+      const table = document.createElement("table");
+      const head = document.createElement("thead");
+      const headerRow = document.createElement("tr");
+      ["Bloco", "Acertos", "Revisao"].forEach(function (text) {
+        const cell = document.createElement("th");
+        cell.textContent = text;
+        headerRow.appendChild(cell);
+      });
+      head.appendChild(headerRow);
+      table.appendChild(head);
+
+      const body = document.createElement("tbody");
+      quizData.blocos.forEach(function (block) {
+        const blockQuestions = quizData.questoes.filter(function (question) {
+          return question.bloco === block.id;
+        });
+        const score = blockQuestions.filter(function (question) {
+          return question._isCorrect;
+        }).length;
+        const row = document.createElement("tr");
+        [block.titulo, score + "/" + blockQuestions.length, block.revisao || "-"].forEach(function (text) {
+          const cell = document.createElement("td");
+          cell.textContent = text;
+          row.appendChild(cell);
+        });
+        body.appendChild(row);
+      });
+      table.appendChild(body);
+      result.appendChild(table);
+    }
+
+    function saveQuiz() {
+      try {
+        localStorage.setItem(QUIZ_STORAGE_KEY, JSON.stringify(quizData));
+      } catch (error) {
+        message.textContent = "O simulado foi aberto, mas o navegador nao permitiu salvar o JSON.";
+      }
+    }
+
+    function saveProgress() {
+      try {
+        localStorage.setItem(PROGRESS_STORAGE_KEY, JSON.stringify(state));
+      } catch (error) {
+        message.textContent = "O navegador nao permitiu salvar seu progresso.";
+      }
+    }
+
+    function restoreQuiz() {
+      try {
+        const savedQuiz = localStorage.getItem(QUIZ_STORAGE_KEY);
+        if (!savedQuiz) return;
+
+        quizData = normalizeJson(JSON.parse(savedQuiz));
+        state = restoreProgress();
+        renderQuiz();
+        message.textContent = "Simulado restaurado com seu progresso salvo.";
+      } catch (error) {
+        localStorage.removeItem(QUIZ_STORAGE_KEY);
+        localStorage.removeItem(PROGRESS_STORAGE_KEY);
+        message.textContent = "O simulado salvo nao pode ser restaurado: " + error.message;
+      }
+    }
+
+    function restoreProgress() {
+      const savedProgress = localStorage.getItem(PROGRESS_STORAGE_KEY);
+      if (!savedProgress) return newState();
+
+      const savedState = JSON.parse(savedProgress);
+      const restored = newState();
+      if (!savedState || typeof savedState.answers !== "object") return restored;
+
+      quizData.questoes.forEach(function (question, index) {
+        const answer = normalizeAnswer(savedState.answers[index], question.opcoes.length);
+        if (answer) restored.answers[index] = answer;
+      });
+      restored.finalized = Boolean(savedState.finalized);
+      return restored;
+    }
+
+    function resetQuiz() {
+      if (!quizData) return;
+      if (!window.confirm("Tem certeza que deseja apagar todas as respostas e o resultado? As perguntas continuarao salvas.")) {
+        return;
+      }
+      state = newState();
+      saveProgress();
+      renderQuiz();
+      message.textContent = "Respostas resetadas. As perguntas continuam salvas neste navegador.";
+    }
+
+    restoreQuiz();
+  </script>
+</body>
+</html>
