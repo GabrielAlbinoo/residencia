@@ -6,6 +6,7 @@
 |---|---|
 | 22/05/2026 e 23/05/2026 | Aulas 1 a 3 |
 | 24/05/2026 | Aulas 4 e 5 |
+| 25/05/2026 | Aula 6 — Valores lógicos, mintermos, maxtermos, SOP e POS |
 
 ## Simulados Realizados
 

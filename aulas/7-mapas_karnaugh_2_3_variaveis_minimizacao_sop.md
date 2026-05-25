@@ -113,14 +113,12 @@ F = C
 
 Em notação matemática, a redução completa fica:
 
-\[
-\begin{aligned}
-F &= A'B'C + A'BC + AB'C + ABC \\
-  &= C(A'B' + A'B + AB' + AB) \\
-  &= C \cdot 1 \\
-  &= C
-\end{aligned}
-\]
+```text
+F = A'B'C + A'BC + AB'C + ABC
+  = C(A'B' + A'B + AB' + AB)
+  = C · 1
+  = C
+```
 
 Uma porta ou fio substitui uma expressão com quatro mintermos. Essa é a finalidade prática da minimização:
 
@@ -181,9 +179,9 @@ F = A'C(B' + B)
 
 De forma compacta:
 
-\[
+```text
 A'B'C + A'BC = A'C(B' + B) = A'C
-\]
+```
 
 O termo `B` desapareceu porque o grupo inclui:
 
@@ -892,22 +890,18 @@ grupo de 2 células nunca deve gerar termo com 3 literais
 
 Essa relação também pode ser representada por:
 
-\[
-\text{literais restantes} = n - \log_2(\text{tamanho do grupo})
-\]
+```text
+literais restantes = n - log2(tamanho do grupo)
+```
 
 Para uma função de `3` variáveis:
 
-\[
-\begin{array}{c|c}
-\text{grupo} & \text{literais restantes} \\
-\hline
-1 & 3 - \log_2(1) = 3 \\
-2 & 3 - \log_2(2) = 2 \\
-4 & 3 - \log_2(4) = 1 \\
-8 & 3 - \log_2(8) = 0
-\end{array}
-\]
+| Tamanho do grupo | Cálculo | Literais restantes |
+|---:|---:|---:|
+| `1` | `3 - log2(1)` | `3` |
+| `2` | `3 - log2(2)` | `2` |
+| `4` | `3 - log2(4)` | `1` |
+| `8` | `3 - log2(8)` | `0` |
 
 Você não precisa calcular logaritmos na prova. A fórmula apenas explica o padrão:
 
