@@ -632,9 +632,11 @@
       artifacts: [{
         type: "table",
         variant: "kmap",
+        rowVariable: "AB",
+        columnVariable: "CD",
         rowHeader: true,
         caption: "Mapa fornecido",
-        headers: ["AB / CD", "00", "01", "11", "10"],
+        headers: ["00", "01", "11", "10"],
         rows: [["00", "1", "0", "0", "1"], ["01", "0", "0", "0", "0"],
           ["11", "0", "0", "0", "0"], ["10", "1", "0", "0", "1"]]
       }]
@@ -649,483 +651,257 @@
       Tabelas também servem para estados Moore/Mealy, sinais de temporização,
       decoders, codificadores e resultados de blocos lógicos.
     */
-    const CONFIG = {
-      numero: "02",
-      titulo: "Simulado 02 - Aulas 6 a 8",
-      subtitulo: "Sistemas Digitais - UFCG | Formas canônicas e Mapas de Karnaugh",
-      tempoSugerido: "1h30",
-      meta: "24/30 ou mais; nenhum bloco abaixo de 70%",
-      storageKey: "simulado_02_aulas_6_a_8_30_questoes_v1",
-      nomeRelatorio: "resultado_simulado_02_aulas_6_a_8.txt"
+    const TEMPLATE_CONFIG = {
+      numero: "MODELO",
+      titulo: "Modelo de Simulado - Substituir ao gerar",
+      subtitulo: "Sistemas Digitais - UFCG | Substitua pelos assuntos avaliados",
+      tempoSugerido: "Definir",
+      meta: "Definir",
+      storageKey: "modelo_simulado_base_substituir_v2",
+      nomeRelatorio: "resultado_simulado_MODELO.txt"
     };
 
     const letters = ["A", "B", "C", "D", "E"];
 
-    const blocks = [
+    const TEMPLATE_BLOCKS = [
       {
         id: 1,
-        title: "Parte 1 - Questões 1 a 10",
-        review: "aulas/6-valores_logicos_formas_canonicas_mintermos_maxtermos.md"
-      },
-      {
-        id: 2,
-        title: "Parte 2 - Questões 11 a 20",
-        review: "aulas/7-mapas_karnaugh_2_3_variaveis_minimizacao_sop.md"
-      },
-      {
-        id: 3,
-        title: "Parte 3 - Questões 21 a 30",
-        review: "aulas/8-mapas_karnaugh_4_variaveis_dont_care.md"
+        title: "Bloco de exemplo - substituir",
+        review: "aulas/arquivo_da_aula.md"
       }
     ];
 
-    const questions = [
+    const TEMPLATE_QUESTIONS = [
       {
         id: 1,
         block: 1,
-        difficulty: "facil",
-        topic: "Valores lógicos - alta impedância",
-        prompt: "Qual símbolo representa uma saída em alta impedância?",
-        options: ["<code>H</code>", "<code>L</code>", "<code>Z</code>", "<code>X</code>"],
-        correct: "C",
-        explanation: "<code>Z</code> indica alta impedância: a saída não força nível lógico alto nem baixo no barramento."
+        topic: "Questão de exemplo",
+        prompt: "Ao gerar um novo simulado, esta questão deve ser substituída. Quanto vale <code>1 + 1</code> em OR booleano?",
+        options: ["<code>0</code>", "<code>1</code>", "<code>2</code>", "Indeterminado"],
+        correct: "B",
+        explanation: "Na álgebra booleana, a soma representa OR: <code>1 + 1 = 1</code>."
       },
       {
         id: 2,
         block: 1,
-        difficulty: "facil",
-        topic: "Mintermo",
-        prompt: "Qual é o mintermo correspondente à combinação <code>ABC=101</code>?",
-        options: ["<code>A'BC</code>", "<code>AB'C</code>", "<code>ABC'</code>", "<code>(A'+B+C')</code>"],
+        topic: "Exemplo com tabela-verdade",
+        prompt: "Considere a tabela fornecida. Qual expressão representa a saída <code>F</code>?",
+        artifacts: [{
+          type: "table",
+          caption: "Tabela fornecida",
+          headers: ["A", "B", "F"],
+          rows: [["0", "0", "0"], ["0", "1", "1"], ["1", "0", "1"], ["1", "1", "1"]]
+        }],
+        options: ["<code>A·B</code>", "<code>A+B</code>", "<code>A XOR B</code>", "<code>A XNOR B</code>"],
         correct: "B",
-        explanation: "Em um mintermo, o bit <code>1</code> aparece direto e o bit <code>0</code> aparece complementado: <code>101 → AB'C</code>."
+        explanation: "A saída vale <code>1</code> quando pelo menos uma entrada vale <code>1</code>; portanto, <code>F=A+B</code>."
       },
       {
         id: 3,
         block: 1,
-        difficulty: "facil",
-        topic: "Tabela-verdade",
-        prompt: "Quantas linhas possui a tabela-verdade completa de uma função com quatro entradas?",
-        options: ["<code>4</code>", "<code>8</code>", "<code>12</code>", "<code>16</code>"],
-        correct: "D",
-        explanation: "Uma função de <code>n</code> entradas possui <code>2^n</code> combinações; com quatro entradas, <code>2^4=16</code>."
-      },
-      {
-        id: 4,
-        block: 1,
-        difficulty: "media",
-        topic: "Maxtermo",
-        prompt: "Qual é o maxtermo correspondente à combinação <code>ABC=101</code>?",
-        options: ["<code>(A+B'+C)</code>", "<code>(A+B+C')</code>", "<code>(A'+B+C')</code>", "<code>(A'+B'+C)</code>"],
-        correct: "C",
-        explanation: "Em um maxtermo, o bit <code>0</code> aparece direto e o bit <code>1</code> complementado: <code>101 → (A'+B+C')</code>."
-      },
-      {
-        id: 5,
-        block: 1,
-        difficulty: "media",
-        topic: "SOP e POS canônicas",
-        prompt: "Se <code>F(A,B,C)=Σm(1,2,4,6,7)</code>, qual notação POS canônica descreve a mesma função?",
-        options: ["<code>ΠM(0,3,5)</code>", "<code>ΠM(1,2,4,6,7)</code>", "<code>ΠM(0,1,2)</code>", "<code>ΠM(3,5,7)</code>"],
-        correct: "A",
-        explanation: "A forma POS canônica lista as linhas onde a função vale <code>0</code>. O complemento da lista <code>1,2,4,6,7</code> é <code>0,3,5</code>."
-      },
-      {
-        id: 6,
-        block: 1,
-        difficulty: "media",
-        topic: "Tabela para notação sigma",
-        prompt: "Qual notação sigma representa a função da tabela?",
-        artifacts: [{
-          type: "table",
-          caption: "Tabela fornecida",
-          headers: ["A", "B", "C", "F"],
-          rows: [
-            ["0", "0", "0", "0"], ["0", "0", "1", "0"],
-            ["0", "1", "0", "1"], ["0", "1", "1", "1"],
-            ["1", "0", "0", "0"], ["1", "0", "1", "0"],
-            ["1", "1", "0", "1"], ["1", "1", "1", "1"]
-          ]
-        }],
-        options: ["<code>Σm(0,1,4,5)</code>", "<code>Σm(2,3,6,7)</code>", "<code>Σm(1,3,5,7)</code>", "<code>Σm(0,2,4,6)</code>"],
-        correct: "B",
-        explanation: "A saída vale <code>1</code> nas combinações <code>010, 011, 110, 111</code>, isto é, nos mintermos <code>m2,m3,m6,m7</code>."
-      },
-      {
-        id: 7,
-        block: 1,
-        difficulty: "dificil",
-        topic: "POS canônica expandida",
-        prompt: "Qual é a POS canônica da função apresentada na tabela?",
-        artifacts: [{
-          type: "table",
-          caption: "Tabela fornecida",
-          headers: ["A", "B", "C", "F"],
-          rows: [
-            ["0", "0", "0", "0"], ["0", "0", "1", "1"],
-            ["0", "1", "0", "1"], ["0", "1", "1", "0"],
-            ["1", "0", "0", "1"], ["1", "0", "1", "0"],
-            ["1", "1", "0", "1"], ["1", "1", "1", "1"]
-          ]
-        }],
-        options: [
-          "<code>(A'+B'+C')(A'+B+C)(A+B'+C)</code>",
-          "<code>(A+B+C)(A+B+C')(A'+B'+C')</code>",
-          "<code>(A+B+C)(A+B'+C')(A'+B+C')</code>",
-          "<code>(A'+B'+C')(A+B'+C')(A'+B+C')</code>"
-        ],
-        correct: "C",
-        explanation: "Os zeros estão em <code>m0, m3, m5</code>. Seus maxtermos são <code>(A+B+C)</code>, <code>(A+B'+C')</code> e <code>(A'+B+C')</code>."
-      },
-      {
-        id: 8,
-        block: 1,
-        difficulty: "dificil",
-        topic: "Função com don't care",
-        prompt: "Para <code>F(A,B,C,D)=Σm(0,2,5,8,10,13)+d(1,9)</code>, em quais índices a saída é obrigatoriamente <code>0</code>?",
-        options: [
-          "<code>1,3,4,6,7,9,11,12,14,15</code>",
-          "<code>3,4,6,7,11,12,14,15</code>",
-          "<code>0,2,5,8,10,13</code>",
-          "<code>1,9</code>"
-        ],
-        correct: "B",
-        explanation: "Os índices <code>0,2,5,8,10,13</code> são obrigatoriamente <code>1</code>, e <code>1,9</code> são indiferentes. Os índices restantes devem ser <code>0</code>."
-      },
-      {
-        id: 9,
-        block: 1,
-        difficulty: "dificil",
-        topic: "Forma canônica com don't care",
-        prompt: "Qual notação descreve corretamente os valores obrigatórios e indiferentes da tabela?",
-        artifacts: [{
-          type: "table",
-          caption: "Tabela fornecida",
-          headers: ["A", "B", "C", "F"],
-          rows: [
-            ["0", "0", "0", "0"], ["0", "0", "1", "1"],
-            ["0", "1", "0", "0"], ["0", "1", "1", "1"],
-            ["1", "0", "0", "0"], ["1", "0", "1", "X"],
-            ["1", "1", "0", "0"], ["1", "1", "1", "X"]
-          ]
-        }],
-        options: ["<code>Σm(1,3,5,7)</code>", "<code>Σm(1,3)+d(5,7)</code>", "<code>ΠM(1,3)+d(5,7)</code>", "<code>Σm(0,2,4,6)+d(5,7)</code>"],
-        correct: "B",
-        explanation: "A saída obrigatoriamente igual a <code>1</code> aparece em <code>m1,m3</code>; <code>m5,m7</code> são células <code>X</code>."
-      },
-      {
-        id: 10,
-        block: 1,
-        difficulty: "dificil",
-        topic: "Mintermo e maxtermo em quatro variáveis",
-        prompt: "Para a combinação <code>ABCD=1101</code>, qual alternativa apresenta corretamente o mintermo e o maxtermo correspondentes?",
-        options: [
-          "<code>m13=AB'CD</code> e <code>M13=(A+B'+C+D)</code>",
-          "<code>m13=ABC'D'</code> e <code>M13=(A'+B'+C+D)</code>",
-          "<code>m13=A'BC'D</code> e <code>M13=(A+B'+C+D')</code>",
-          "<code>m13=ABC'D</code> e <code>M13=(A'+B'+C+D')</code>"
-        ],
-        correct: "D",
-        explanation: "Em <code>1101</code>, o mintermo é <code>ABC'D</code>. No maxtermo a regra se inverte: <code>(A'+B'+C+D')</code>."
-      },
-      {
-        id: 11,
-        block: 2,
-        difficulty: "facil",
-        topic: "Ordem Gray em mapa de três variáveis",
-        prompt: "Qual é a ordem correta das colunas <code>BC</code> em um mapa de Karnaugh de três variáveis?",
-        options: ["<code>00, 01, 10, 11</code>", "<code>00, 01, 11, 10</code>", "<code>00, 10, 01, 11</code>", "<code>01, 00, 11, 10</code>"],
-        correct: "B",
-        explanation: "O mapa utiliza ordem Gray: <code>00, 01, 11, 10</code>, de modo que colunas adjacentes diferem em apenas um bit."
-      },
-      {
-        id: 12,
-        block: 2,
-        difficulty: "facil",
-        topic: "Tamanho de agrupamentos",
-        prompt: "Quais tamanhos de agrupamento são válidos em um mapa de Karnaugh de três variáveis?",
-        options: ["<code>1, 2, 3 e 4</code>", "<code>2, 4 e 6</code>", "<code>1, 3, 6 e 8</code>", "<code>1, 2, 4 e 8</code>"],
-        correct: "D",
-        explanation: "Grupos válidos sempre possuem tamanho potência de dois; em um mapa com oito células, podem ter <code>1,2,4</code> ou <code>8</code> células."
-      },
-      {
-        id: 13,
-        block: 2,
-        difficulty: "facil",
-        topic: "Adjacência pelas laterais",
-        prompt: "Qual termo SOP corresponde ao agrupamento dos mintermos <code>m0</code> e <code>m2</code>?",
-        options: ["<code>A'B'</code>", "<code>A'C</code>", "<code>A'C'</code>", "<code>B'C'</code>"],
-        correct: "C",
-        explanation: "<code>m0=000</code> e <code>m2=010</code>. A variável <code>B</code> muda; <code>A=0</code> e <code>C=0</code> permanecem, resultando em <code>A'C'</code>."
-      },
-      {
-        id: 14,
-        block: 2,
-        difficulty: "media",
-        topic: "Quarteto em mapa de três variáveis",
-        prompt: "Qual é a expressão mínima correspondente ao mapa fornecido?",
+        topic: "Exemplo com mapa de Karnaugh",
+        prompt: "Considere o mapa de Karnaugh fornecido. Qual é a expressão mínima de <code>F</code>?",
         artifacts: [{
           type: "table",
           variant: "kmap",
+          rowVariable: "AB",
+          columnVariable: "CD",
           rowHeader: true,
           caption: "Mapa fornecido",
-          headers: ["A / BC", "00", "01", "11", "10"],
-          rows: [["0", "0", "1", "1", "0"], ["1", "0", "1", "1", "0"]]
-        }],
-        options: ["<code>B</code>", "<code>C</code>", "<code>C'</code>", "<code>A'C</code>"],
-        correct: "B",
-        explanation: "As quatro células com <code>1</code> ocupam as colunas <code>01</code> e <code>11</code>; nelas apenas <code>C=1</code> é constante, logo <code>F=C</code>."
-      },
-      {
-        id: 15,
-        block: 2,
-        difficulty: "media",
-        topic: "Agrupamento pelas bordas",
-        prompt: "Qual é a expressão mínima correspondente ao mapa fornecido?",
-        artifacts: [{
-          type: "table",
-          variant: "kmap",
-          rowHeader: true,
-          caption: "Mapa fornecido",
-          headers: ["A / BC", "00", "01", "11", "10"],
-          rows: [["0", "1", "0", "0", "1"], ["1", "1", "0", "0", "1"]]
-        }],
-        options: ["<code>B'</code>", "<code>C</code>", "<code>C'</code>", "<code>AC'</code>"],
-        correct: "C",
-        explanation: "A primeira e a última coluna são adjacentes. Em suas quatro células, apenas <code>C=0</code> permanece constante: <code>F=C'</code>."
-      },
-      {
-        id: 16,
-        block: 2,
-        difficulty: "media",
-        topic: "POS em mapa de Karnaugh",
-        prompt: "Agrupando os zeros do mapa para obter POS, qual é a expressão mínima da função?",
-        artifacts: [{
-          type: "table",
-          variant: "kmap",
-          rowHeader: true,
-          caption: "Mapa fornecido",
-          headers: ["A / BC", "00", "01", "11", "10"],
-          rows: [["0", "0", "1", "1", "0"], ["1", "0", "1", "1", "0"]]
-        }],
-        options: ["<code>C'</code>", "<code>C</code>", "<code>B+C</code>", "<code>(A+C)(A'+C)</code>"],
-        correct: "B",
-        explanation: "Os zeros formam um quarteto nas colunas onde <code>C=0</code>. Na leitura POS, constante <code>0</code> aparece direta: o termo é <code>(C)</code>, ou simplesmente <code>F=C</code>."
-      },
-      {
-        id: 17,
-        block: 2,
-        difficulty: "dificil",
-        topic: "Sobreposição em mapa de três variáveis",
-        prompt: "Qual é a SOP mínima da função indicada?",
-        artifacts: [{
-          type: "table",
-          variant: "kmap",
-          rowHeader: true,
-          caption: "Mapa fornecido",
-          headers: ["A / BC", "00", "01", "11", "10"],
-          rows: [["0", "1", "1", "1", "1"], ["1", "0", "0", "1", "1"]]
-        }],
-        options: ["<code>A'+B</code>", "<code>A+B'</code>", "<code>A'C'+AB</code>", "<code>A'+C</code>"],
-        correct: "A",
-        explanation: "A linha superior forma um quarteto <code>A'</code>. As colunas <code>11</code> e <code>10</code> formam outro quarteto, sobreposto ao primeiro, produzindo <code>B</code>. Assim, <code>F=A'+B</code>."
-      },
-      {
-        id: 18,
-        block: 2,
-        difficulty: "dificil",
-        topic: "Função com único zero",
-        prompt: "Qual é a expressão mínima de <code>F(A,B,C)=Σm(1,2,3,4,5,6,7)</code>?",
-        options: ["<code>A+B+C</code>", "<code>A'B'C'</code>", "<code>A+B+C'</code>", "<code>AB+AC+BC</code>"],
-        correct: "A",
-        explanation: "A função vale <code>0</code> somente em <code>000</code>. A expressão <code>A+B+C</code> vale <code>0</code> apenas nessa combinação e <code>1</code> em todas as outras."
-      },
-      {
-        id: 19,
-        block: 2,
-        difficulty: "dificil",
-        topic: "Grupos inválidos e sobreposição",
-        prompt: "No mapa em que os <code>1s</code> estão em <code>m0,m1,m2,m3,m6,m7</code>, qual estratégia de agrupamento é válida e mínima?",
-        options: [
-          "Um único grupo com as seis células.",
-          "Um quarteto com <code>m0,m1,m2,m3</code> e um quarteto com <code>m2,m3,m6,m7</code>.",
-          "Um trio com <code>m0,m1,m3</code> e um trio com <code>m2,m6,m7</code>.",
-          "Seis grupos isolados, pois não se permite sobreposição."
-        ],
-        correct: "B",
-        explanation: "Não existem grupos de seis ou de três células. A sobreposição de <code>m2,m3</code> permite formar dois quartetos, obtendo <code>F=A'+B</code>."
-      },
-      {
-        id: 20,
-        block: 2,
-        difficulty: "dificil",
-        topic: "Tabela para minimização em três variáveis",
-        prompt: "Qual é a SOP mínima da função apresentada?",
-        artifacts: [{
-          type: "table",
-          caption: "Tabela fornecida",
-          headers: ["A", "B", "C", "F"],
+          headers: ["00", "01", "11", "10"],
           rows: [
-            ["0", "0", "0", "0"], ["0", "0", "1", "1"],
-            ["0", "1", "0", "1"], ["0", "1", "1", "1"],
-            ["1", "0", "0", "0"], ["1", "0", "1", "1"],
-            ["1", "1", "0", "0"], ["1", "1", "1", "1"]
-          ]
-        }],
-        options: ["<code>B+C</code>", "<code>C+A'B</code>", "<code>A+C'</code>", "<code>A'B'+AC</code>"],
-        correct: "B",
-        explanation: "Os mintermos <code>m1,m3,m5,m7</code> formam o quarteto <code>C</code>. O mintermo restante <code>m2</code> agrupa com <code>m3</code>, produzindo <code>A'B</code>."
-      },
-      {
-        id: 21,
-        block: 3,
-        difficulty: "facil",
-        topic: "Tamanho do mapa de quatro variáveis",
-        prompt: "Quantas células possui um mapa de Karnaugh de quatro variáveis?",
-        options: ["<code>4</code>", "<code>8</code>", "<code>12</code>", "<code>16</code>"],
-        correct: "D",
-        explanation: "Quatro variáveis produzem <code>2^4=16</code> combinações e, portanto, 16 células no mapa."
-      },
-      {
-        id: 22,
-        block: 3,
-        difficulty: "facil",
-        topic: "Localização de mintermo em mapa de quatro variáveis",
-        prompt: "Em um mapa com <code>AB</code> nas linhas e <code>CD</code> nas colunas, onde fica o mintermo <code>m13</code>?",
-        options: ["Linha <code>AB=10</code>, coluna <code>CD=01</code>", "Linha <code>AB=11</code>, coluna <code>CD=01</code>", "Linha <code>AB=01</code>, coluna <code>CD=11</code>", "Linha <code>AB=11</code>, coluna <code>CD=10</code>"],
-        correct: "B",
-        explanation: "<code>13</code> em binário é <code>1101</code>; separando em <code>AB|CD</code>, temos linha <code>11</code> e coluna <code>01</code>."
-      },
-      {
-        id: 23,
-        block: 3,
-        difficulty: "facil",
-        topic: "Quarteto nos cantos",
-        prompt: "Qual termo SOP corresponde ao agrupamento dos quatro cantos do mapa?",
-        artifacts: [{
-          type: "table",
-          variant: "kmap",
-          rowHeader: true,
-          caption: "Mapa fornecido",
-          headers: ["AB / CD", "00", "01", "11", "10"],
-          rows: [
-            ["00", "1", "0", "0", "1"], ["01", "0", "0", "0", "0"],
-            ["11", "0", "0", "0", "0"], ["10", "1", "0", "0", "1"]
+            ["00", "1", "0", "0", "1"],
+            ["01", "0", "0", "0", "0"],
+            ["11", "0", "0", "0", "0"],
+            ["10", "1", "0", "0", "1"]
           ]
         }],
         options: ["<code>A'C'</code>", "<code>B'D'</code>", "<code>BD</code>", "<code>C'D'</code>"],
         correct: "B",
-        explanation: "Nos cantos, <code>B=0</code> e <code>D=0</code> são constantes; <code>A</code> e <code>C</code> mudam. O termo é <code>B'D'</code>."
+        explanation: "Os quatro cantos formam um quarteto. Neles, <code>B=0</code> e <code>D=0</code> permanecem constantes; portanto, <code>F=B'D'</code>."
       },
       {
-        id: 24,
-        block: 3,
-        difficulty: "media",
-        topic: "Oitava pela borda superior e inferior",
-        prompt: "Qual é a expressão mínima de <code>F(A,B,C,D)=Σm(0,1,2,3,8,9,10,11)</code>?",
-        options: ["<code>A'</code>", "<code>B'</code>", "<code>C'</code>", "<code>D'</code>"],
-        correct: "B",
-        explanation: "Os mintermos formam uma oitava nas linhas <code>AB=00</code> e <code>AB=10</code>, adjacentes pelas bordas. Apenas <code>B=0</code> permanece constante: <code>F=B'</code>."
-      },
-      {
-        id: 25,
-        block: 3,
-        difficulty: "media",
-        topic: "Oitava pelas colunas laterais",
-        prompt: "Qual é a expressão mínima de <code>F(A,B,C,D)=Σm(0,2,4,6,8,10,12,14)</code>?",
-        options: ["<code>B'</code>", "<code>C'</code>", "<code>D'</code>", "<code>A'</code>"],
-        correct: "C",
-        explanation: "A oitava ocupa as colunas <code>CD=00</code> e <code>CD=10</code>, ligadas pelas bordas. Apenas <code>D=0</code> é constante: <code>F=D'</code>."
-      },
-      {
-        id: 26,
-        block: 3,
-        difficulty: "media",
-        topic: "Uso de don't care",
-        prompt: "Em uma minimização por Karnaugh, qual afirmação sobre uma célula <code>X</code> é correta?",
-        options: [
-          "Ela deve ser incluída em algum grupo como se fosse sempre <code>1</code>.",
-          "Ela deve ser tratada sempre como <code>0</code>.",
-          "Ela pode ser usada para ampliar um grupo de <code>1s</code> ou ignorada se não ajudar.",
-          "Ela invalida qualquer agrupamento vizinho."
-        ],
-        correct: "C",
-        explanation: "Uma célula <code>X</code> é indiferente: pode ser assumida como <code>1</code> quando aumenta grupos úteis, ou ignorada."
-      },
-      {
-        id: 27,
-        block: 3,
-        difficulty: "dificil",
-        topic: "Don't care em BCD",
-        prompt: "Qual é a expressão mínima correspondente ao mapa fornecido?",
+        id: 4,
+        block: 1,
+        topic: "Exemplo com circuito textual",
+        prompt: "Considere as ligações abaixo. Qual expressão representa a saída <code>F</code>?",
         artifacts: [{
-          type: "table",
-          variant: "kmap",
-          rowHeader: true,
-          caption: "Mapa fornecido",
-          headers: ["AB / CD", "00", "01", "11", "10"],
-          rows: [
-            ["00", "0", "0", "0", "0"], ["01", "0", "0", "0", "0"],
-            ["11", "X", "X", "X", "X"], ["10", "1", "1", "X", "X"]
-          ]
+          type: "code",
+          caption: "Circuito descrito por sinais",
+          content: "N1 = A AND B\nN2 = C AND D\nF  = N1 OR N2"
         }],
-        options: ["<code>A</code>", "<code>B</code>", "<code>A'B</code>", "<code>C+D</code>"],
+        options: ["<code>AB+CD</code>", "<code>(A+B)(C+D)</code>", "<code>(AB)' + (CD)'</code>", "<code>A+B+C+D</code>"],
         correct: "A",
-        explanation: "Usando os <code>X</code>, as linhas <code>AB=10</code> e <code>AB=11</code> formam uma oitava. Apenas <code>A=1</code> permanece constante: <code>F=A</code>."
-      },
-      {
-        id: 28,
-        block: 3,
-        difficulty: "dificil",
-        topic: "Oitava com don't care",
-        prompt: "Qual é a SOP mínima de <code>F(A,B,C,D)=Σm(1,3,5,7,9,11)+d(13,15)</code>?",
-        options: ["<code>A+C</code>", "<code>B+D</code>", "<code>D</code>", "<code>C'D</code>"],
-        correct: "C",
-        explanation: "Os seis <code>1s</code> e os dois <code>X</code> ocupam as colunas em que <code>D=1</code>, formando uma oitava: <code>F=D</code>."
-      },
-      {
-        id: 29,
-        block: 3,
-        difficulty: "dificil",
-        topic: "Dois quartetos em mapa de quatro variáveis",
-        prompt: "Qual é a SOP mínima da função apresentada?",
-        artifacts: [{
-          type: "table",
-          variant: "kmap",
-          rowHeader: true,
-          caption: "Mapa fornecido",
-          headers: ["AB / CD", "00", "01", "11", "10"],
-          rows: [
-            ["00", "1", "1", "0", "0"], ["01", "1", "1", "0", "0"],
-            ["11", "0", "0", "1", "1"], ["10", "0", "0", "1", "1"]
-          ]
-        }],
-        options: ["<code>A'C'+AC</code>", "<code>B'D'+BD</code>", "<code>A'C+AC'</code>", "<code>B'C'+BC</code>"],
-        correct: "A",
-        explanation: "O quarteto superior esquerdo mantém <code>A=0,C=0</code>, gerando <code>A'C'</code>. O quarteto inferior direito mantém <code>A=1,C=1</code>, gerando <code>AC</code>."
-      },
-      {
-        id: 30,
-        block: 3,
-        difficulty: "dificil",
-        topic: "Agrupamento com don't care e sobreposição",
-        prompt: "Qual é a SOP mínima da função apresentada?",
-        artifacts: [{
-          type: "table",
-          variant: "kmap",
-          rowHeader: true,
-          caption: "Mapa fornecido",
-          headers: ["AB / CD", "00", "01", "11", "10"],
-          rows: [
-            ["00", "1", "1", "1", "1"], ["01", "0", "1", "1", "0"],
-            ["11", "0", "0", "0", "0"], ["10", "X", "X", "X", "X"]
-          ]
-        }],
-        options: ["<code>A'+D</code>", "<code>B'+A'D</code>", "<code>B+D'</code>", "<code>A'B'+D</code>"],
-        correct: "B",
-        explanation: "A linha <code>AB=00</code> com a linha <code>AB=10</code> marcada <code>X</code> forma a oitava <code>B'</code>. As quatro células centrais das linhas <code>00</code> e <code>01</code> formam <code>A'D</code>. Logo, <code>F=B'+A'D</code>."
+        explanation: "Os sinais intermediários são <code>N1=AB</code> e <code>N2=CD</code>; a porta OR final produz <code>F=AB+CD</code>."
       }
     ];
+
+    const CONFIG = {
+      numero: "03",
+      titulo: "Simulado 03 - Aulas 1 a 9 - Nível de Prova",
+      subtitulo: "Sistemas Digitais - UFCG | Revisão completa de lógica combinacional",
+      tempoSugerido: "4h00",
+      meta: "63/90 ou mais; nenhum bloco abaixo de 70%",
+      storageKey: "simulado_03_aulas_1_a_9_nivel_prova_90_questoes_v1",
+      nomeRelatorio: "resultado_simulado_03_aulas_1_a_9_nivel_prova.txt"
+    };
+
+    const blocks = [
+      { id: 1, title: "Parte 1 - Questões 1 a 10", review: "aulas/1-binarios_operacoes_sinal_complemento2.md" },
+      { id: 2, title: "Parte 2 - Questões 11 a 20", review: "aulas/2-codigos_binarios_bcd_gray_ascii_checksum.md" },
+      { id: 3, title: "Parte 3 - Questões 21 a 30", review: "aulas/3-portas_logicas_operacoes_booleanas.md" },
+      { id: 4, title: "Parte 4 - Questões 31 a 40", review: "aulas/4-algebra_booleana_axiomas_leis_simplificacao.md" },
+      { id: 5, title: "Parte 5 - Questões 41 a 50", review: "aulas/5-demorgan_dualidade_nand_nor_simplificacao.md" },
+      { id: 6, title: "Parte 6 - Questões 51 a 60", review: "aulas/6-valores_logicos_formas_canonicas_mintermos_maxtermos.md" },
+      { id: 7, title: "Parte 7 - Questões 61 a 70", review: "aulas/7-mapas_karnaugh_2_3_variaveis_minimizacao_sop.md" },
+      { id: 8, title: "Parte 8 - Questões 71 a 80", review: "aulas/8-mapas_karnaugh_4_variaveis_dont_care.md" },
+      { id: 9, title: "Parte 9 - Questões 81 a 90", review: "aulas/9-sintese_logica_completa_sop_pos_nand_nor.md" }
+    ];
+
+    function tableArtifact(caption, headers, rows) {
+      return [{ type: "table", caption: caption, headers: headers, rows: rows }];
+    }
+
+    function codeArtifact(caption, content) {
+      return [{ type: "code", caption: caption, content: content }];
+    }
+
+    function kmap2(rows) {
+      return [{ type: "table", variant: "kmap", rowVariable: "A", columnVariable: "B", rowHeader: true, caption: "Mapa fornecido", headers: ["0", "1"], rows: rows }];
+    }
+
+    function kmap3(rows) {
+      return [{ type: "table", variant: "kmap", rowVariable: "A", columnVariable: "BC", rowHeader: true, caption: "Mapa fornecido", headers: ["00", "01", "11", "10"], rows: rows }];
+    }
+
+    function kmap4(rows) {
+      return [{ type: "table", variant: "kmap", rowVariable: "AB", columnVariable: "CD", rowHeader: true, caption: "Mapa fornecido", headers: ["00", "01", "11", "10"], rows: rows }];
+    }
+
+    function question(id, block, topic, prompt, options, correct, explanation, artifacts) {
+      const entry = { id: id, block: block, difficulty: "difícil", topic: topic, prompt: prompt, options: options, correct: correct, explanation: explanation };
+      if (artifacts) entry.artifacts = artifacts;
+      return entry;
+    }
+
+    const questions = [];
+
+    questions.push(
+      question(1, 1, "Soma sem sinal e carry", "Em aritmética binária sem sinal de 8 bits, qual é o resultado de <code>11010110 + 01110101</code> e a interpretação correta?", ["<code>01001011</code>, sem carry", "<code>01001011</code>, com carry e estouro sem sinal", "<code>10100111</code>, com carry", "<code>01001010</code>, com estouro"], "B", "Os operandos representam 214 e 117. A soma é 331 = 256 + 75; em 8 bits fica <code>01001011</code> com carry, indicando overflow sem sinal."),
+      question(2, 1, "Overflow em complemento de 2", "Considere números de 8 bits em complemento de 2. O resultado de <code>01101010 + 00111101</code> deve ser interpretado como:", ["<code>10100111</code>, correspondente a <code>-89</code>, sem overflow", "<code>00100111</code>, correspondente a <code>+39</code>, com overflow", "<code>10100111</code>, com overflow de soma com sinal", "<code>10100111</code>, correspondente a <code>+167</code> representável"], "C", "Os valores são +106 e +61, cuja soma matemática é +167, fora do intervalo de 8 bits com sinal. Os bits resultantes são <code>10100111</code>, mas houve overflow."),
+      question(3, 1, "Subtração em complemento de 2", "Em 8 bits com sinal, qual é o resultado correto de <code>00110101 - 01101110</code>?", ["<code>11000111</code>, que representa <code>-57</code>, sem overflow", "<code>11000111</code>, que representa <code>-57</code>, com overflow", "<code>00111001</code>, que representa <code>+57</code>", "<code>10111001</code>, que representa <code>-71</code>"], "A", "<code>00110101=53</code> e <code>01101110=110</code>. Assim, <code>53-110=-57</code>, representado por <code>11000111</code>; o valor cabe no intervalo."),
+      question(4, 1, "Representação negativa", "Qual palavra de 8 bits representa <code>-73</code> em complemento de 2?", ["<code>11001001</code>", "<code>10110110</code>", "<code>10110111</code>", "<code>01001001</code>"], "C", "<code>+73=01001001</code>; invertendo obtém-se <code>10110110</code> e somando 1, <code>10110111</code>."),
+      question(5, 1, "Interpretação com e sem sinal", "A palavra <code>10010110</code> possui quais valores quando lida, respectivamente, como inteiro sem sinal e como complemento de 2 de 8 bits?", ["150 e -105", "149 e -106", "150 e -150", "150 e -106"], "D", "Sem sinal, vale 150. Em complemento de 2, inverter e somar 1 produz magnitude 106; portanto, vale -106."),
+      question(6, 1, "Intervalo em complemento de 2", "Qual é a menor quantidade de bits em complemento de 2 capaz de representar simultaneamente <code>-70</code> e <code>+60</code>?", ["6 bits", "7 bits", "8 bits", "9 bits"], "C", "Com 7 bits, o intervalo é -64 a +63 e não inclui -70. Com 8 bits, o intervalo é -128 a +127."),
+      question(7, 1, "Soma hexadecimal com sinal", "As palavras hexadecimais <code>E9</code> e <code>2F</code> são números de 8 bits em complemento de 2. Qual é o resultado da soma?", ["<code>18</code>, sem overflow com sinal", "<code>18</code>, com overflow com sinal", "<code>D8</code>, sem overflow", "<code>118</code>, armazenado integralmente em 8 bits"], "A", "<code>E9</code> representa -23 e <code>2F</code> representa +47. A soma é +24, isto é, <code>18</code> hexadecimal, sem overflow."),
+      question(8, 1, "Overflow em subtração", "Em complemento de 2 de 8 bits, avalie <code>10010000 - 00110001</code>.", ["O resultado é <code>01011111</code> e representa corretamente +95.", "O resultado em bits é <code>01011111</code>, mas ocorreu overflow.", "O resultado é <code>11011111</code> e não há overflow.", "O resultado é <code>10111111</code> e representa -65."], "B", "<code>10010000=-112</code> e <code>00110001=49</code>. A diferença matemática é -161, fora do intervalo; os 8 bits retornam <code>01011111</code>, com overflow."),
+      question(9, 1, "Extensão de sinal", "Uma palavra de 6 bits em complemento de 2 é <code>101101</code>. Qual é sua extensão correta para 8 bits e seu valor decimal?", ["<code>00101101</code>, +45", "<code>11101101</code>, -19", "<code>10110100</code>, -12", "<code>11101101</code>, -45"], "B", "Como o bit de sinal é 1, ele é replicado: <code>101101 → 11101101</code>. A magnitude negativa é 19."),
+      question(10, 1, "Ordenação signed versus unsigned", "Considere <code>P=11110000</code> e <code>Q=00010001</code>, ambos com 8 bits. Qual afirmação está correta?", ["<code>P&lt;Q</code> nas duas interpretações", "<code>P&gt;Q</code> sem sinal, mas <code>P&lt;Q</code> em complemento de 2", "<code>P&lt;Q</code> sem sinal, mas <code>P&gt;Q</code> em complemento de 2", "<code>P=Q</code> apenas em complemento de 2"], "B", "Sem sinal, P=240 e Q=17. Com sinal, P=-16 e Q=+17; a ordem se inverte.")
+    );
+
+    questions.push(
+      question(11, 2, "Adição em BCD", "Dois valores decimais estão representados em BCD: <code>0101 1001</code> e <code>0011 0111</code>. Qual é o resultado BCD correto da soma?", ["<code>1001 0110</code>", "<code>1001 0000</code>", "<code>0110 0000</code>", "<code>1000 1110</code>"], "A", "As palavras representam 59 e 37. Como <code>59+37=96</code>, o BCD é <code>1001 0110</code>."),
+      question(12, 2, "Adição BCD com propagação de carry", "Some, em BCD, os valores <code>1001 0111</code> e <code>0101 1000</code>. Qual palavra representa corretamente o resultado?", ["<code>1110 1111</code>", "<code>0001 0101 0101</code>", "<code>0001 0100 0101</code>", "<code>1001 0101</code>"], "B", "As palavras BCD representam 97 e 58; a soma decimal é 155, cujo BCD é <code>0001 0101 0101</code>."),
+      question(13, 2, "Conversão binário para Gray", "Qual é o código Gray correspondente ao binário <code>10110110</code>?", ["<code>11011001</code>", "<code>11101101</code>", "<code>10101101</code>", "<code>11110100</code>"], "B", "Mantém-se o primeiro bit e aplica-se XOR entre bits binários vizinhos: o resultado é <code>11101101</code>."),
+      question(14, 2, "Conversão Gray para binário", "Qual é o binário correspondente ao código Gray <code>11010110</code>?", ["<code>10110110</code>", "<code>11001101</code>", "<code>10011101</code>", "<code>10011011</code>"], "D", "No caminho inverso, cada bit binário é o XOR entre o bit binário anterior e o Gray atual, resultando em <code>10011011</code>."),
+      question(15, 2, "Uso do código Gray", "Em um encoder de posição, por que a ordem Gray reduz leituras ambíguas na passagem entre posições adjacentes?", ["Porque elimina qualquer necessidade de sensores.", "Porque posições adjacentes diferem em apenas um bit, reduzindo combinações transitórias incorretas.", "Porque cada palavra Gray possui paridade par.", "Porque Gray corrige automaticamente qualquer bit invertido."], "B", "Na transição Gray ideal somente um bit muda. Em binário comum, vários bits poderiam mudar quase simultaneamente e gerar leitura intermediária indevida."),
+      question(16, 2, "Operação com dígitos ASCII", "Um sistema recebe os bytes ASCII <code>0x37</code> e <code>0x34</code>, soma os valores decimais dos dígitos e transmite o resultado novamente em ASCII decimal. Quais bytes devem ser transmitidos?", ["<code>0x0B</code>", "<code>0x31 0x31</code>", "<code>0x37 0x34</code>", "<code>0x34 0x37</code>"], "B", "Os bytes representam os caracteres 7 e 4. A soma numérica é 11, que em ASCII decimal é formada pelos caracteres <code>'1''1'</code>: <code>0x31 0x31</code>."),
+      question(17, 2, "Sequência ASCII", "Quais bytes hexadecimais codificam a sequência de caracteres ASCII <code>A9</code>?", ["<code>41 39</code>", "<code>41 09</code>", "<code>65 57</code>", "<code>0A 09</code>"], "A", "Em ASCII, <code>'A'=0x41</code> e <code>'9'=0x39</code>. O caractere 9 não é o valor binário 9."),
+      question(18, 2, "Checksum módulo 256", "Um checksum aditivo de 8 bits conserva apenas os 8 bits menos significativos da soma. Para os bytes <code>F2</code>, <code>38</code> e <code>A7</code>, qual checksum é obtido?", ["<code>71</code>", "<code>C1</code>", "<code>D0</code>", "<code>D1</code>"], "D", "A soma é <code>0xF2+0x38+0xA7=0x1D1</code>. Mantendo oito bits, o checksum é <code>0xD1</code>."),
+      question(19, 2, "Limitação de checksum", "Um checksum simples é a soma dos bytes módulo 256. Qual alteração pode não ser detectada por esse checksum?", ["Trocar <code>[15, 83]</code> por <code>[16, 82]</code>", "Trocar <code>[15, 83]</code> por <code>[16, 83]</code>", "Trocar <code>[15, 83]</code> por <code>[15, 84]</code>", "Acrescentar um byte <code>01</code> sem remover nenhum byte"], "A", "Na alternativa A, um byte aumenta em 1 e o outro diminui em 1; a soma permanece a mesma."),
+      question(20, 2, "BCD e Gray do mesmo valor", "O valor decimal <code>9</code> é representado em BCD e, separadamente, seu binário <code>1001</code> é convertido para Gray. Qual par está correto?", ["BCD <code>1001</code>; Gray <code>1101</code>", "BCD <code>1101</code>; Gray <code>1001</code>", "BCD <code>1001</code>; Gray <code>1011</code>", "BCD <code>1111</code>; Gray <code>1101</code>"], "A", "BCD de um dígito 9 é <code>1001</code>. Em Gray, <code>1001</code> converte-se em <code>1101</code>.")
+    );
+
+    questions.push(
+      question(21, 3, "Avaliação de rede lógica", "Para o circuito descrito, determine <code>F</code> quando <code>A=1</code>, <code>B=0</code>, <code>C=1</code> e <code>D=0</code>.", ["<code>0</code>", "<code>Z</code>", "<code>1</code>", "Indeterminado"], "C", "<code>N1=1 XOR 0=1</code>; <code>N2=1 NAND 1=0</code>; <code>F=0 XNOR 0=1</code>.", codeArtifact("Circuito descrito por sinais", "N1 = A XOR B\nN2 = N1 NAND C\nF  = N2 XNOR D")),
+      question(22, 3, "Equivalência por portas", "Qual função é realizada por <code>F=(A NOR B) NAND (A XOR B)</code>?", ["<code>0</code>", "<code>1</code>", "<code>A+B</code>", "<code>A XOR B</code>"], "B", "Para entradas iguais ou diferentes, nunca as duas entradas da NAND são simultaneamente 1: em <code>00</code>, NOR=1 e XOR=0; nos demais casos, NOR=0. Logo, F é sempre 1."),
+      question(23, 3, "Reconhecimento de XOR", "A saída de uma rede é <code>F=(A NAND B)(A+B)</code>. A qual porta de duas entradas ela equivale?", ["NOR", "XNOR", "XOR", "NAND"], "C", "A expressão vale 1 quando pelo menos uma entrada é 1, mas exclui o caso <code>AB=11</code>; esse é exatamente o XOR."),
+      question(24, 3, "Paridade com XOR e XNOR", "A expressão <code>F=(A XOR B) XNOR (C XOR D)</code> vale <code>1</code> em qual situação?", ["Quando há quantidade ímpar de entradas iguais a 1.", "Quando há quantidade par de entradas iguais a 1.", "Somente quando todas as entradas são 0.", "Somente quando exatamente duas entradas são 1 e são adjacentes."], "B", "Os dois XORs devem ter a mesma paridade para o XNOR valer 1; isso ocorre quando o total de bits 1 entre as quatro entradas é par."),
+      question(25, 3, "Identificação por tabela-verdade", "A tabela mostra uma função de três entradas. Qual porta ou operação a representa?", ["XOR de três entradas", "XNOR de três entradas", "AND de três entradas", "NOR de três entradas"], "B", "A saída vale 1 quando o número de entradas iguais a 1 é par: é o complemento da paridade XOR.", tableArtifact("Tabela fornecida", ["A", "B", "C", "F"], [["0","0","0","1"],["0","0","1","0"],["0","1","0","0"],["0","1","1","1"],["1","0","0","0"],["1","0","1","1"],["1","1","0","1"],["1","1","1","0"]])),
+      question(26, 3, "Cadeia XNOR XOR", "Simplifique funcionalmente <code>(A XNOR B) XOR (B XNOR C)</code>.", ["<code>A XNOR C</code>", "<code>A XOR C</code>", "<code>B XOR C</code>", "<code>A XOR B</code>"], "B", "Complementar simultaneamente as duas entradas de um XOR não muda o resultado; os termos em B se cancelam na paridade, restando <code>A XOR C</code>."),
+      question(27, 3, "Portas como inversores", "Qual função resulta da rede descrita?", ["<code>A+B</code>", "<code>A XOR B</code>", "<code>AB</code>", "<code>(AB)'</code>"], "C", "<code>N1=A'</code> e <code>N2=B'</code>. Assim, <code>F=(A'+B')'=AB</code>.", codeArtifact("Circuito descrito por sinais", "N1 = A NAND A\nN2 = B NOR B\nF  = N1 NOR N2")),
+      question(28, 3, "Comparação por portas lógicas", "Dois números binários de 2 bits são <code>AB</code> e <code>CD</code>, com A e C como bits mais significativos. Qual expressão vale 1 exatamente quando os números são iguais?", ["<code>(A XOR C)+(B XOR D)</code>", "<code>(A XNOR C)(B XNOR D)</code>", "<code>(A XNOR B)(C XNOR D)</code>", "<code>(A+C)(B+D)</code>"], "B", "Os bits correspondentes devem ser iguais simultaneamente: XNOR compara cada par e AND exige as duas igualdades."),
+      question(29, 3, "Rede com negações agrupadas", "A qual função equivale <code>F=((A+B)' + A'B')'</code>?", ["<code>A+B</code>", "<code>AB</code>", "<code>A XOR B</code>", "<code>A'B'</code>"], "A", "Por DeMorgan, <code>(A+B)'=A'B'</code>. A soma interna continua <code>A'B'</code>; negando-a, obtém-se <code>A+B</code>."),
+      question(30, 3, "Rede NAND NOR", "A expressão <code>F=(A NAND B) NOR (A NOR B)</code> equivale a:", ["<code>A+B</code>", "<code>A XOR B</code>", "<code>AB</code>", "<code>(A+B)'</code>"], "C", "A saída é <code>[(AB)' + (A+B)']'=AB(A+B)=AB</code>.")
+    );
+
+    questions.push(
+      question(31, 4, "Produto de somas e absorção", "Simplifique <code>(A+B)(A+B')(A'+C)</code>.", ["<code>A+C</code>", "<code>AC</code>", "<code>A'C</code>", "<code>AB+C</code>"], "B", "<code>(A+B)(A+B')=A</code>; portanto, <code>A(A'+C)=AC</code>."),
+      question(32, 4, "Simplificação de quatro mintermos", "Simplifique <code>A'BC + ABC + AB'C + ABC'</code>.", ["<code>A+B+C</code>", "<code>AB+AC+BC</code>", "<code>ABC</code>", "<code>A'B+AC</code>"], "B", "A função vale 1 quando pelo menos duas variáveis são 1, cuja forma mínima é <code>AB+AC+BC</code>."),
+      question(33, 4, "Absorção sucessiva", "A expressão <code>A + A'B + A'B'C</code> é equivalente a:", ["<code>A+B+C</code>", "<code>A+BC</code>", "<code>A'+B+C</code>", "<code>AB+C</code>"], "A", "<code>A+A'B=A+B</code>. O termo restante cobre o caso em que A=0 e B=0 com C=1, produzindo <code>A+B+C</code>."),
+      question(34, 4, "Distributiva em POS", "Simplifique <code>(A+B+C)(A+B+C')(A+B'+C)</code>.", ["<code>A+B+C</code>", "<code>A+BC</code>", "<code>AB+C</code>", "<code>A+BC'</code>"], "B", "Os dois primeiros fatores resultam em <code>A+B</code>. Então <code>(A+B)(A+B'+C)=A+B(B'+C)=A+BC</code>."),
+      question(35, 4, "Combinação SOP e POS", "Qual é a forma mínima de <code>(A+B')(A'+B') + AB</code>?", ["<code>A+B'</code>", "<code>A'+B</code>", "<code>AB'</code>", "<code>B'</code>"], "A", "Os primeiros fatores produzem <code>B'</code>. Depois, <code>B'+AB=B'+A</code>."),
+      question(36, 4, "Teorema do consenso", "Elimine o termo redundante em <code>AB + A'C + BC</code>.", ["<code>AB+A'C</code>", "<code>AB+BC</code>", "<code>A'C+BC</code>", "<code>A+B+C</code>"], "A", "<code>BC</code> é o termo de consenso de <code>AB</code> e <code>A'C</code>; ele não altera a função."),
+      question(37, 4, "Consenso em produto de somas", "Simplifique <code>(A+B)(A'+C)(B+C)</code> removendo o fator redundante.", ["<code>(A+B)(A'+C)</code>", "<code>(A+B)(B+C)</code>", "<code>(A'+C)(B+C)</code>", "<code>A+B+C</code>"], "A", "Na forma POS, <code>(B+C)</code> é o fator de consenso e pode ser removido."),
+      question(38, 4, "Fatoração e absorção", "Simplifique <code>A(B+C)+A'(B+C)+BC'</code>.", ["<code>B+C</code>", "<code>B+C'</code>", "<code>BC</code>", "<code>A+B+C</code>"], "A", "Os dois primeiros termos fatoram para <code>(A+A')(B+C)=B+C</code>, que absorve <code>BC'</code>."),
+      question(39, 4, "Produto com termos complementares", "Qual forma reduzida representa <code>(A+B)(A'+B)(A+C)</code>?", ["<code>B(A+C)</code>", "<code>A(B+C)</code>", "<code>AB+C</code>", "<code>B+C</code>"], "A", "<code>(A+B)(A'+B)=B</code>; mantendo o último fator, resulta <code>B(A+C)</code>."),
+      question(40, 4, "Simplificação completa", "Simplifique <code>A'B' + A'B + AB' + ABC</code>.", ["<code>A'+B'+C</code>", "<code>A+B+C</code>", "<code>A'+BC</code>", "<code>B'+AC'</code>"], "A", "Os dois primeiros termos produzem <code>A'</code>; aplicando absorção com os termos restantes chega-se a <code>A'+B'+C</code>, que só zera em <code>ABC=110</code>.")
+    );
+
+    questions.push(
+      question(41, 5, "DeMorgan em níveis", "Qual é a forma equivalente de <code>[(A+B')C + D']'</code>?", ["<code>D'(A+B'C)</code>", "<code>D(A'B+C')</code>", "<code>D'(A'B+C')</code>", "<code>D(A+B'+C)</code>"], "B", "Negando a soma externa: <code>[(A+B')C]'D</code>. Negando o produto: <code>[(A+B')'+C']D=(A'B+C')D</code>."),
+      question(42, 5, "Dualidade de identidade", "A identidade <code>A + A'B = A+B</code> possui qual dual correto?", ["<code>A(A'+B)=AB</code>", "<code>A(A'+B)=A+B</code>", "<code>A+A'B=AB</code>", "<code>A'(A+B)=A'B</code>"], "A", "Na dualidade, troca-se soma por produto e produto por soma, mantendo complementos: <code>A(A'+B)=AB</code>."),
+      question(43, 5, "Implementação NAND NAND", "Supondo disponíveis os literais complementados, qual expressão representa uma implementação NAND-NAND de <code>F=A'B+CD'</code>?", ["<code>[(A'B)'(CD')']'</code>", "<code>[(A'+B)'(C+D')']'</code>", "<code>(A'B)' + (CD')'</code>", "<code>[(A'B)+(CD')]'</code>"], "A", "A primeira camada NAND produz os complementos dos produtos; a NAND final aplica DeMorgan e recupera a soma dos produtos."),
+      question(44, 5, "Implementação NOR NOR", "Supondo disponíveis os literais complementados, qual rede NOR-NOR implementa <code>F=(A+B')(C'+D)</code>?", ["<code>[(A+B')'(C'+D)']'</code>", "<code>[(A+B')' + (C'+D)']'</code>", "<code>(A+B')' + (C'+D)'</code>", "<code>[(AB')' + (C'D)']'</code>"], "B", "As NORs iniciais negam cada soma; a NOR final nega a soma dessas negações, gerando o produto das somas originais."),
+      question(45, 5, "Rede NAND multinível", "Uma rede usa <code>N1=(AB)'</code>, <code>N2=(AC)'</code>, <code>N3=(BC)'</code> e <code>F=(N1N2N3)'</code>. Qual função ela implementa?", ["<code>AB+AC+BC</code>", "<code>(A+B)(A+C)(B+C)</code> negada", "<code>A XOR B XOR C</code>", "<code>ABC</code>"], "A", "A NAND final aplica DeMorgan ao produto das saídas negadas: <code>F=AB+AC+BC</code>, a função maioria."),
+      question(46, 5, "Rede NOR multinível", "Uma rede usa <code>N1=(A+B)'</code>, <code>N2=(A+C)'</code>, <code>N3=(B+C)'</code> e <code>F=(N1+N2+N3)'</code>. Qual forma representa <code>F</code>?", ["<code>(A+B)(A+C)(B+C)</code>", "<code>A'B'+A'C'+B'C'</code>", "<code>(AB+AC+BC)'</code>", "<code>A XOR B XOR C</code>"], "A", "A NOR final inverte a soma das saídas das NORs iniciais, resultando em <code>(A+B)(A+C)(B+C)</code>, equivalente à função maioria."),
+      question(47, 5, "DeMorgan com produtos internos", "Simplifique <code>[(AB)'(C+D)']'</code>.", ["<code>AB+C+D</code>", "<code>(A+B)CD</code>", "<code>A'B'+C'D'</code>", "<code>AB(C+D)</code>"], "A", "Aplicando DeMorgan ao produto externo, obtém-se <code>AB+(C+D)=AB+C+D</code>."),
+      question(48, 5, "Leitura de rede NAND", "A rede <code>F=[(A'B)'(AC)'(BC')']'</code> representa:", ["<code>(A'+B)(A+C)(B+C')</code>", "<code>A'B+AC+BC'</code>", "<code>(A'B+AC+BC')'</code>", "<code>A'B' + A'C' + B'C</code>"], "B", "A NAND final transforma o produto dos termos negados na soma dos produtos originais."),
+      question(49, 5, "Dual dos teoremas de DeMorgan", "Qual igualdade é dual de <code>(A+B)'=A'B'</code>?", ["<code>(AB)'=A'+B'</code>", "<code>(A+B)'=A'+B'</code>", "<code>(AB)'=A'B'</code>", "<code>A+B=AB</code>"], "A", "Trocando OR por AND e AND por OR, obtém-se a outra lei de DeMorgan."),
+      question(50, 5, "XOR somente com NAND", "Qual rede de portas NAND implementa <code>A XOR B</code>?", ["<code>(A NAND A) NAND (B NAND B)</code>", "<code>[A NAND (A NAND B)] NAND [B NAND (A NAND B)]</code>", "<code>(A NAND B) NAND (A NAND B)</code>", "<code>A NAND (B NAND B)</code>"], "B", "A estrutura com quatro NANDs gera 1 apenas quando A e B diferem, implementando XOR.")
+    );
+
+    questions.push(
+      question(51, 6, "Contenção em barramento tri-state", "Dois buffers tri-state ativos em nível alto dirigem o mesmo barramento. O primeiro está habilitado com dado <code>1</code>; o segundo está habilitado com dado <code>0</code>. Qual interpretação é correta?", ["O barramento assume <code>Z</code>.", "O barramento assume necessariamente <code>1</code>.", "Há contenção: o valor lógico não é uma operação booleana válida e pode causar problema elétrico.", "O barramento executa automaticamente XOR e assume <code>1</code>."], "C", "Alta impedância ocorre quando o driver está desabilitado. Dois drivers habilitados com valores opostos entram em conflito."),
+      question(52, 6, "Notação sigma por tabela", "Qual notação canônica SOP representa a função da tabela?", ["<code>Σm(1,4,6,11,14)</code>", "<code>Σm(0,2,5,7,15)</code>", "<code>ΠM(1,4,6,11,14)</code>", "<code>Σm(1,4,7,11,14)</code>"], "A", "A notação <code>Σm</code> lista os índices das linhas em que F vale 1: 1, 4, 6, 11 e 14.", tableArtifact("Tabela fornecida", ["A","B","C","D","F"], [["0","0","0","0","0"],["0","0","0","1","1"],["0","0","1","0","0"],["0","0","1","1","0"],["0","1","0","0","1"],["0","1","0","1","0"],["0","1","1","0","1"],["0","1","1","1","0"],["1","0","0","0","0"],["1","0","0","1","0"],["1","0","1","0","0"],["1","0","1","1","1"],["1","1","0","0","0"],["1","1","0","1","0"],["1","1","1","0","1"],["1","1","1","1","0"]])),
+      question(53, 6, "Maxtermo de quatro variáveis", "Qual maxtermo <code>M10</code> zera exatamente na combinação <code>ABCD=1010</code>?", ["<code>A+B'+C+D'</code>", "<code>A'BC'D</code>", "<code>A'+B+C'+D</code>", "<code>A'B+CD'</code>"], "C", "Em um maxtermo, a variável aparece negada quando a linha possui bit 1 e direta quando possui bit 0: <code>A'+B+C'+D</code>."),
+      question(54, 6, "Relação entre Pi e Sigma", "Para uma função de três variáveis, <code>F=ΠM(0,2,5,7)</code>. Qual forma canônica SOP descreve a mesma função?", ["<code>Σm(0,2,5,7)</code>", "<code>Σm(1,3,4,6)</code>", "<code>Σm(0,1,2,3)</code>", "<code>Σm(4,5,6,7)</code>"], "B", "Os maxtermos listam os zeros. As demais linhas, 1, 3, 4 e 6, são os mintermos em que F vale 1."),
+      question(55, 6, "Expansão para forma canônica", "Qual é a SOP canônica de <code>F=A+B'C</code>, considerando variáveis na ordem <code>A,B,C</code>?", ["<code>Σm(1,4,5,6,7)</code>", "<code>Σm(0,2,3,4)</code>", "<code>Σm(1,2,4,6)</code>", "<code>ΠM(1,4,5,6,7)</code>"], "A", "Quando A=1, entram m4 a m7; com A=0, <code>B'C</code> acrescenta apenas m1."),
+      question(56, 6, "Enable ativo baixo em tri-state", "Dois drivers compartilham um barramento e possuem habilitação ativa em nível baixo, indicada por <code>OE'</code>. O driver 1 tem <code>OE1'=0</code> e dado <code>1</code>; o driver 2 tem <code>OE2'=1</code> e dado <code>0</code>. Qual é o nível do barramento?", ["<code>0</code>", "<code>1</code>", "<code>Z</code>", "Contenção"], "B", "Nível 0 em <code>OE'</code> habilita o driver 1, que conduz 1. Nível 1 desabilita o driver 2, que fica em Z."),
+      question(57, 6, "POS canônica expandida", "A função de três variáveis vale zero apenas nos índices <code>1</code>, <code>2</code> e <code>6</code>. Qual é sua POS canônica expandida?", ["<code>(A+B+C')(A+B'+C)(A'+B'+C)</code>", "<code>(A'+B'+C)(A'+B+C')(A+B+C')</code>", "<code>A'B'C+A'BC'+ABC'</code>", "<code>(A+B+C)(A'+B'+C')</code>"], "A", "Os zeros correspondem a <code>M1=(A+B+C')</code>, <code>M2=(A+B'+C)</code> e <code>M6=(A'+B'+C)</code>."),
+      question(58, 6, "Interpretação de dont care", "Para <code>F(A,B,C)=Σm(1,2,7)+d(3,5)</code>, qual afirmação sobre os índices 3 e 5 está correta?", ["Devem obrigatoriamente ser incluídos como 1 no circuito final.", "Devem obrigatoriamente ser forçados a 0.", "Podem ser tratados como 0 ou 1 durante a minimização, desde que os mintermos obrigatórios permaneçam corretos.", "Representam saídas em alta impedância <code>Z</code>."], "C", "Um <code>don't care</code> pode ser usado se ajudar a reduzir a expressão; não especifica uma saída obrigatória."),
+      question(59, 6, "Minimização com dont care", "Considere <code>F(A,B,C)=Σm(1,3,7)+d(5)</code>. Qual expressão mínima pode ser obtida utilizando estrategicamente o <code>don't care</code>?", ["<code>A+C</code>", "<code>C</code>", "<code>B'C</code>", "<code>A'B+C</code>"], "B", "Os mintermos obrigatórios e o índice indiferente ocupam todas as combinações com <code>C=1</code>, permitindo <code>F=C</code>."),
+      question(60, 6, "Avaliação de Pi maxtermos", "Para <code>F(A,B,C)=ΠM(1,2,6)</code>, o que ocorre na entrada <code>ABC=110</code> e qual maxtermo corresponde a essa linha?", ["<code>F=1</code> e <code>M6=A+B+C</code>", "<code>F=0</code> e <code>M6=A'+B'+C</code>", "<code>F=0</code> e <code>M6=AB'C</code>", "<code>F=1</code> e <code>M6=A'+B'+C</code>"], "B", "O índice 6 aparece em <code>ΠM</code>, logo é uma linha zero. Para <code>110</code>, o maxtermo é <code>A'+B'+C</code>.")
+    );
+
+    questions.push(
+      question(61, 7, "Mapa de três variáveis com três implicantes", "Qual é uma expressão mínima em SOP para o mapa apresentado?", ["<code>A'C' + B'C + AB</code>", "<code>A'B + AC + BC'</code>", "<code>A'C + B'C' + A'B'</code>", "<code>A+B+C</code>"], "A", "Os pares podem ser lidos como <code>A'C'</code> cobrindo m0/m2, <code>B'C</code> cobrindo m1/m5 e <code>AB</code> cobrindo m6/m7.", kmap3([["0","1","1","0","1"],["1","0","1","1","1"]])),
+      question(62, 7, "POS em mapa de três variáveis", "Agrupando os zeros do mapa, qual é a expressão mínima em POS?", ["<code>(A+C)(A'+C')</code>", "<code>A'C+AC'</code>", "<code>(A+C')(A'+C)</code>", "<code>B+C</code>"], "A", "Os zeros m0/m2 produzem <code>(A+C)</code>; os zeros m5/m7 produzem <code>(A'+C')</code>.", kmap3([["0","0","1","1","0"],["1","1","0","0","1"]])),
+      question(63, 7, "Agrupamento principal e termo restante", "Qual é a SOP mínima do mapa?", ["<code>C+AB'</code>", "<code>C+A'B</code>", "<code>B'+AC</code>", "<code>A+C'</code>"], "A", "O quarteto onde <code>C=1</code> produz <code>C</code>; o 1 restante em m4 agrupa com m5 e produz <code>AB'</code>.", kmap3([["0","0","1","1","0"],["1","1","1","1","0"]])),
+      question(64, 7, "Grupo de quatro e borda", "Determine a expressão mínima em SOP.", ["<code>A+B'C</code>", "<code>B+A'C'</code>", "<code>B+C'</code>", "<code>A'B'+BC</code>"], "B", "O quarteto m2/m3/m6/m7 gera <code>B</code>. O par pelas bordas m0/m2 gera <code>A'C'</code>.", kmap3([["0","1","0","1","1"],["1","0","0","1","1"]])),
+      question(65, 7, "Validade de agrupamento", "Em um mapa de Karnaugh de três variáveis, seis células adjacentes contêm <code>1</code>. Por que não é permitido formar um único grupo com as seis?", ["Porque um grupo só pode conter células de uma mesma linha.", "Porque grupos devem possuir quantidade de células igual a potência de dois.", "Porque mapas de três variáveis aceitam apenas pares.", "Porque grupos não podem tocar as bordas."], "B", "Os tamanhos permitidos são 1, 2, 4 ou 8; é possível cobrir seis uns com grupos válidos, inclusive sobrepostos."),
+      question(66, 7, "Minimização de expressão por mapa", "Ao colocar <code>F=A'B+B'C+AC</code> em um mapa de três variáveis, qual redução mínima é obtida?", ["<code>A+B+C</code>", "<code>AB+C'</code>", "<code>C+A'B</code>", "<code>A'C+B'C'</code>"], "C", "Os quatro mintermos com C=1 formam um quarteto, gerando <code>C</code>; resta o par correspondente a <code>A'B</code>."),
+      question(67, 7, "Leitura de zeros no mapa", "O mapa possui apenas dois zeros, agrupados verticalmente na coluna indicada. Qual é a expressão mínima da função ao ler esses zeros?", ["<code>B'C</code>", "<code>B'+C</code>", "<code>B+C'</code>", "<code>BC'</code>"], "B", "Nos zeros, <code>B=1</code> aparece negado e <code>C=0</code> aparece direto no maxtermo: <code>F=B'+C</code>.", kmap3([["0","1","1","1","0"],["1","1","1","1","0"]])),
+      question(68, 7, "Mapa de duas variáveis diagonal", "Qual é a expressão mínima para o mapa?", ["<code>A XOR B</code>", "<code>A'B'+AB</code>", "<code>A+B</code>", "<code>A'B+AB'</code>"], "B", "Os dois uns estão em diagonal e não são adjacentes; a expressão é a função XNOR: <code>A'B'+AB</code>.", kmap2([["0","1","0"],["1","0","1"]])),
+      question(69, 7, "Sobreposição em mapa de três variáveis", "Qual expressão mínima cobre todos os uns do mapa?", ["<code>A'+B</code>", "<code>A+B'</code>", "<code>A'C+BC</code>", "<code>B+C</code>"], "A", "A linha superior completa produz <code>A'</code>; as duas colunas da direita nas duas linhas produzem <code>B</code>.", kmap3([["0","1","1","1","1"],["1","0","0","1","1"]])),
+      question(70, 7, "Uso útil de sobreposição", "Qual é a expressão mínima do mapa, permitindo que uma célula participe de mais de um grupo?", ["<code>C+A'B</code>", "<code>C+AB'</code>", "<code>A'+BC</code>", "<code>B'+A'C'</code>"], "A", "O quarteto de C cobre m1, m3, m5 e m7. O mintermo m2 se agrupa com m3, que pode ser reutilizado, produzindo <code>A'B</code>.", kmap3([["0","0","1","1","1"],["1","0","1","1","0"]]))
+    );
+
+    questions.push(
+      question(71, 8, "Quarteto nos cantos", "Qual é a expressão mínima em SOP para o mapa de quatro variáveis?", ["<code>B'D'</code>", "<code>A'C'</code>", "<code>BD</code>", "<code>B+D</code>"], "A", "Os quatro cantos são adjacentes pelas bordas. Neles, apenas <code>B=0</code> e <code>D=0</code> permanecem constantes, gerando <code>B'D'</code>.", kmap4([["00","1","0","0","1"],["01","0","0","0","0"],["11","0","0","0","0"],["10","1","0","0","1"]])),
+      question(72, 8, "Cantos agrupados em POS", "Os zeros ocupam os quatro cantos. Qual é a expressão mínima obtida agrupando-os em POS?", ["<code>B'D'</code>", "<code>B+D</code>", "<code>B'+D'</code>", "<code>BD</code>"], "B", "No grupo de zeros, <code>B=0</code> e <code>D=0</code> aparecem diretos no termo-soma: <code>F=B+D</code>.", kmap4([["00","0","1","1","0"],["01","1","1","1","1"],["11","1","1","1","1"],["10","0","1","1","0"]])),
+      question(73, 8, "Padrão alternado em quatro variáveis", "Qual expressão mínima representa o mapa?", ["<code>B XOR D</code>", "<code>B'D'+BD</code>", "<code>A'C'+AC</code>", "<code>C'D'+CD</code>"], "B", "O mapa independe de A e C: a saída vale 1 quando B e D são iguais, isto é, <code>B XNOR D=B'D'+BD</code>.", kmap4([["00","1","0","0","1"],["01","0","1","1","0"],["11","0","1","1","0"],["10","1","0","0","1"]])),
+      question(74, 8, "Oitava com dont care", "Usando os <code>X</code> apenas quando favorecerem a minimização, qual é a menor SOP para o mapa?", ["<code>B'</code>", "<code>D</code>", "<code>A'+D</code>", "<code>B'D</code>"], "A", "Os quatro uns e os quatro <code>don't care</code> formam uma oitava nas linhas em que <code>B=0</code>, gerando <code>B'</code>.", kmap4([["00","X","1","1","X"],["01","0","0","0","0"],["11","0","0","0","0"],["10","X","1","1","X"]])),
+      question(75, 8, "Cobertura por oitava e quarteto", "Determine a SOP mínima do mapa.", ["<code>C'+A'B'</code>", "<code>D'+AB</code>", "<code>B'+C</code>", "<code>A'+C'</code>"], "A", "As duas colunas com <code>C=0</code> formam uma oitava, produzindo <code>C'</code>; os uns restantes na primeira linha formam o quarteto <code>A'B'</code>.", kmap4([["00","1","1","1","1"],["01","1","1","0","0"],["11","1","1","0","0"],["10","1","1","0","0"]])),
+      question(76, 8, "Função XNOR em mapa maior", "Qual expressão mínima descreve o mapa?", ["<code>A'D'+AD</code>", "<code>A'D+AD'</code>", "<code>B'C'+BC</code>", "<code>C'D'+CD</code>"], "A", "A função independe de B e C. Os quartetos mostram saída 1 quando A e D são iguais: <code>A'D'+AD</code>.", kmap4([["00","1","0","0","1"],["01","1","0","0","1"],["11","0","1","1","0"],["10","0","1","1","0"]])),
+      question(77, 8, "POS com grupo de zeros interno", "Agrupando os zeros, qual é a expressão mínima em POS?", ["<code>A+C</code>", "<code>A'C'</code>", "<code>A'+C'</code>", "<code>AC</code>"], "A", "O quarteto de zeros possui <code>A=0</code> e <code>C=0</code>; na leitura POS isso produz o termo <code>(A+C)</code>.", kmap4([["00","0","0","1","1"],["01","0","0","1","1"],["11","1","1","1","1"],["10","1","1","1","1"]])),
+      question(78, 8, "Dont care ampliando grupo", "Qual é a menor SOP permitida pelo mapa?", ["<code>B'</code>", "<code>C'</code>", "<code>D'</code>", "<code>A'D'</code>"], "C", "Os uns obrigatórios e os quatro X preenchem as duas colunas em que <code>D=0</code>, formando uma oitava: <code>D'</code>.", kmap4([["00","1","0","0","1"],["01","X","0","0","X"],["11","X","0","0","X"],["10","1","0","0","1"]])),
+      question(79, 8, "Dont care completando oitava", "Qual expressão mínima pode ser escolhida para a função?", ["<code>D</code>", "<code>C</code>", "<code>B'D</code>", "<code>A+D</code>"], "A", "Todos os pontos com <code>D=1</code> são uns ou <code>don't care</code>, permitindo formar uma oitava e obter <code>F=D</code>.", kmap4([["00","0","1","1","0"],["01","0","1","1","0"],["11","0","X","X","0"],["10","0","1","X","0"]])),
+      question(80, 8, "Minimização POS em quatro variáveis", "Qual é a expressão mínima em POS ao agrupar os zeros do mapa?", ["<code>(A+B')(C'+D)</code>", "<code>(A'+B)(C+D')</code>", "<code>A'B'+C'D</code>", "<code>(A+B)(C+D)</code>"], "A", "A linha de zeros <code>AB=01</code> produz <code>(A+B')</code>; a coluna de zeros <code>CD=10</code> produz <code>(C'+D)</code>.", kmap4([["00","1","1","1","0"],["01","0","0","0","0"],["11","1","1","1","0"],["10","1","1","1","0"]]))
+    );
+
+    questions.push(
+      question(81, 9, "Síntese NAND NAND por mapa", "A função fornecida deve ser implementada em dois níveis NAND-NAND, supondo literais complementados disponíveis. Qual rede realiza a função mínima?", ["<code>[(A'C)'(AC')']'</code>", "<code>[(A'+C)'(A+C')']'</code>", "<code>[(A'C)+(AC')]'</code>", "<code>(A'C)' + (AC')'</code>"], "A", "O mapa produz <code>F=A'C+AC'</code>. Em NAND-NAND, os produtos são negados na primeira camada e somados pela NAND final.", kmap3([["0","0","1","1","0"],["1","1","0","0","1"]])),
+      question(82, 9, "Síntese NOR NOR direta", "Uma função mínima em POS é <code>F=(A+C')(B'+D)</code>. Qual implementação de dois níveis com NOR, assumindo complementos disponíveis, está correta?", ["<code>[(A+C')' + (B'+D)']'</code>", "<code>[(A+C')'(B'+D)']'</code>", "<code>(A+C')' + (B'+D)'</code>", "<code>[(AC')' + (B'D)']'</code>"], "A", "Uma NOR gera o complemento de cada termo-soma; a NOR de saída gera o produto dos termos-soma."),
+      question(83, 9, "Da especificação ao NOR", "Uma função de quatro variáveis é dada por <code>F=ΠM(0,2,8,10)</code>. Qual expressão mínima e uma implementação somente com NOR para ela?", ["<code>F=B'D'</code>; <code>(B NOR D) NOR (B NOR D)</code>", "<code>F=B+D</code>; <code>(B NOR D) NOR (B NOR D)</code>", "<code>F=B+D</code>; <code>B NOR D</code>", "<code>F=(B+D)'</code>; <code>(B NOR D) NOR (B NOR D)</code>"], "B", "Os zeros ocorrem quando <code>B=0</code> e <code>D=0</code>, portanto <code>F=B+D</code>. Uma NOR seguida de inversão por NOR implementa OR."),
+      question(84, 9, "Síntese com dont care", "Considere <code>F(A,B,C)=Σm(0,2,5,7)+d(1,3)</code>. Se <code>C'</code> estiver disponível, qual implementação mínima com NAND é válida?", ["Uma NAND com entradas <code>A</code> e <code>C'</code>, produzindo <code>(AC')'=A'+C</code>", "Uma NAND com entradas <code>A'</code> e <code>C</code>, produzindo <code>A+C'</code>", "Uma NAND com entradas <code>B</code> e <code>C</code>, produzindo <code>B'+C'</code>", "Uma AND com entradas <code>A</code> e <code>C'</code>, produzindo <code>AC'</code>"], "A", "Usando os indiferentes, o mapa reduz para <code>F=A'+C</code>. Por DeMorgan, <code>A'+C=(AC')'</code>, uma NAND."),
+      question(85, 9, "Síntese sem literais complementados", "Sem complementos prontos, qual sequência somente com NAND implementa <code>F=A'B</code>?", ["<code>NA=NAND(A,A)</code>; <code>F=NAND(NA,B)</code>", "<code>NA=NAND(A,A)</code>; <code>T=NAND(NA,B)</code>; <code>F=NAND(T,T)</code>", "<code>NB=NAND(B,B)</code>; <code>F=NAND(A,NB)</code>", "<code>T=NAND(A,B)</code>; <code>F=NAND(T,T)</code>"], "B", "<code>NA=A'</code>. A NAND com B gera <code>(A'B)'</code>; a NAND final usada como inversor devolve <code>A'B</code>."),
+      question(86, 9, "Reconhecimento de circuito universal", "Qual função é implementada pela rede NAND apresentada?", ["<code>A XNOR B</code>", "<code>A XOR B</code>", "<code>AB</code>", "<code>A+B</code>"], "B", "A rede padrão de quatro NANDs produz 1 exatamente quando A e B diferem.", codeArtifact("Rede NAND", "N1 = NAND(A, B)\nN2 = NAND(A, N1)\nN3 = NAND(B, N1)\nF  = NAND(N2, N3)")),
+      question(87, 9, "POS para portas NOR", "A expressão mínima <code>F=(A+B')(C+D')</code> deve ser implementada apenas com NOR em dois níveis, dispondo de <code>B'</code> e <code>D'</code>. Escolha a rede correta.", ["<code>F=[(A+B')' + (C+D')']'</code>", "<code>F=[(AB')' + (CD')']'</code>", "<code>F=(A+B')' + (C+D')'</code>", "<code>F=[(A+B')(C+D')]'</code>"], "A", "A estrutura NOR-NOR corresponde diretamente a uma POS: NOR em cada soma e NOR final."),
+      question(88, 9, "Escolha SOP ou POS para síntese", "Para o mapa apresentado, qual estratégia produz diretamente a forma de dois níveis mais compacta entre as alternativas?", ["Agrupar os uns para obter <code>A'B'+C'D</code> e usar NAND-NAND.", "Agrupar os zeros para obter <code>(A+B')(C'+D)</code> e usar NOR-NOR.", "Usar a forma canônica SOP completa sem minimizar.", "Tratar os zeros como <code>don't care</code> e implementar <code>1</code>."], "B", "Os zeros formam dois grupos grandes e geram a POS mínima <code>(A+B')(C'+D)</code>, apropriada para NOR-NOR.", kmap4([["00","1","1","1","0"],["01","0","0","0","0"],["11","1","1","1","0"],["10","1","1","1","0"]])),
+      question(89, 9, "OR usando apenas NAND", "Sem literais complementados disponíveis, qual rede formada somente por NAND implementa <code>F=A+B</code>?", ["<code>F=NAND(A,B)</code>", "<code>F=NAND(NAND(A,A), NAND(B,B))</code>", "<code>F=NAND(NAND(A,B), NAND(A,B))</code>", "<code>F=NAND(A, NAND(B,B))</code>"], "B", "Geram-se <code>A'</code> e <code>B'</code> por NAND inversora; a NAND final produz <code>(A'B')'=A+B</code>."),
+      question(90, 9, "Circuito final somente NAND", "O mapa corresponde a <code>F=B'D'</code>. Sem complementos prontos, qual sequência somente com NAND implementa a função?", ["<code>NB=NAND(B,B)</code>; <code>ND=NAND(D,D)</code>; <code>F=NAND(NB,ND)</code>", "<code>NB=NAND(B,B)</code>; <code>ND=NAND(D,D)</code>; <code>T=NAND(NB,ND)</code>; <code>F=NAND(T,T)</code>", "<code>T=NAND(B,D)</code>; <code>F=NAND(T,T)</code>", "<code>F=NAND(B,D)</code>"], "B", "<code>NB=B'</code> e <code>ND=D'</code>. A NAND de ambos gera <code>(B'D')'</code>; a última NAND a inverte para <code>B'D'</code>.", kmap4([["00","1","0","0","1"],["01","0","0","0","0"],["11","0","0","0","0"],["10","1","0","0","1"]]))
+    );
 
     let state = loadState();
     let timerInterval = null;

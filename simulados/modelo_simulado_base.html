@@ -174,7 +174,7 @@
 
     main { padding: 25px 0 54px; }
 
-    .notice, .start-panel {
+    .notice, .start-panel, .question-navigator {
       margin-bottom: 20px;
       padding: 16px 18px;
       border: 1px solid var(--line);
@@ -191,6 +191,124 @@
     .notice p, .start-panel p { margin: 6px 0; color: var(--muted); }
     .start-panel.started { display: none; }
 
+    .question-navigator-head {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 10px 18px;
+      align-items: flex-start;
+      margin-bottom: 14px;
+    }
+
+    .question-navigator h2 {
+      margin: 0 0 4px;
+      font-size: 1.1rem;
+    }
+
+    .question-navigator-description {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .question-nav-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 14px;
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    .question-nav-legend-item {
+      display: inline-flex;
+      gap: 6px;
+      align-items: center;
+      white-space: nowrap;
+    }
+
+    .question-nav-swatch {
+      display: inline-block;
+      width: 18px;
+      height: 18px;
+      border: 2px solid;
+      border-radius: 6px;
+    }
+
+    .question-nav-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .question-nav-item {
+      position: relative;
+      display: inline-flex;
+      width: 44px;
+      height: 42px;
+      padding: 0;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      line-height: 1;
+      transition: transform 120ms ease, box-shadow 120ms ease, background 120ms ease;
+    }
+
+    .question-nav-item:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 3px 8px rgba(18, 38, 34, 0.13);
+    }
+
+    .question-nav-item:focus-visible {
+      outline: 3px solid rgba(0, 106, 99, 0.25);
+      outline-offset: 1px;
+    }
+
+    .question-nav-note {
+      position: absolute;
+      top: 2px;
+      right: 4px;
+      font-size: 0.78rem;
+      line-height: 1;
+    }
+
+    .question-nav-item.status-blank,
+    .question-nav-swatch.status-blank {
+      border-color: #aeb8b5;
+      color: #61706d;
+      background: #eef1f0;
+    }
+
+    .question-nav-item.status-answered,
+    .question-nav-swatch.status-answered {
+      border-color: #377dbf;
+      color: #235b91;
+      background: #e6f1fd;
+    }
+
+    .question-nav-item.status-unknown,
+    .question-nav-swatch.status-unknown {
+      border-color: #d49a24;
+      color: #8a5a00;
+      background: var(--warning-soft);
+    }
+
+    .question-nav-item.status-correct,
+    .question-nav-swatch.status-correct {
+      border-color: var(--correct);
+      color: var(--correct);
+      background: var(--correct-soft);
+    }
+
+    .question-nav-item.status-wrong,
+    .question-nav-swatch.status-wrong {
+      border-color: var(--wrong);
+      color: var(--wrong);
+      background: var(--wrong-soft);
+    }
+
     .block-heading {
       margin: 34px 0 15px;
       padding-bottom: 10px;
@@ -206,6 +324,12 @@
       border-radius: var(--radius);
       background: var(--surface);
       box-shadow: var(--shadow);
+      scroll-margin-top: 86px;
+    }
+
+    .question:focus {
+      outline: 3px solid rgba(0, 106, 99, 0.22);
+      outline-offset: 2px;
     }
 
     .question.correct {
@@ -299,6 +423,36 @@
     .artifact-table.kmap-table th, .artifact-table.kmap-table td {
       min-width: 58px;
       height: 43px;
+    }
+
+    .artifact-table.kmap-table .kmap-literal,
+    .artifact-table.kmap-table .kmap-spacer {
+      border: 0;
+      background: transparent;
+      color: var(--primary-dark);
+      font-weight: 700;
+    }
+
+    .artifact-table.kmap-table .kmap-literal-column {
+      height: auto;
+      padding: 2px 12px 5px;
+      font-size: 1rem;
+    }
+
+    .artifact-table.kmap-table .kmap-literal-column-bottom {
+      padding: 5px 12px 2px;
+    }
+
+    .artifact-table.kmap-table .kmap-literal-row-left {
+      padding: 0 11px 0 0;
+      vertical-align: middle;
+      font-size: 1rem;
+    }
+
+    .artifact-table.kmap-table .kmap-literal-row-right {
+      padding: 0 0 0 11px;
+      vertical-align: middle;
+      font-size: 1rem;
     }
 
     .artifact-code {
@@ -518,10 +672,11 @@
       .question { padding: 16px; }
       .toolbar-buttons { width: 100%; }
       .toolbar-buttons button { flex: 1; }
+      .question-nav-item { width: 41px; height: 39px; }
     }
 
     @media print {
-      .toolbar, .result .toolbar-buttons, .toast, .question-actions { display: none !important; }
+      .toolbar, .result .toolbar-buttons, .toast, .question-actions, .question-navigator { display: none !important; }
       body { background: #fff; }
       .question { break-inside: avoid; box-shadow: none; }
     }
@@ -558,6 +713,17 @@
   </div>
 
   <main class="container">
+    <section class="question-navigator" id="questionNavigator" aria-label="Resumo das questões">
+      <div class="question-navigator-head">
+        <div>
+          <h2>Resumo das questões</h2>
+          <p class="question-navigator-description">Clique em um número para ir até a questão. <strong>*</strong> indica OBS salva.</p>
+        </div>
+        <div class="question-nav-legend" id="questionNavLegend" aria-label="Legenda do resumo"></div>
+      </div>
+      <div class="question-nav-grid" id="questionNavGrid"></div>
+    </section>
+
     <section class="start-panel" id="startPanel">
       <h2>Pronto para começar?</h2>
       <p>O cronômetro começa somente ao clicar em <strong>Iniciar prova</strong>. Ele conta o tempo com este arquivo aberto; se você fechar e voltar dias depois, continua do tempo salvo, sem incluir o intervalo fechado.</p>
@@ -602,9 +768,11 @@
       artifacts: [{
         type: "table",
         variant: "kmap",
+        rowVariable: "AB",
+        columnVariable: "CD",
         rowHeader: true,
         caption: "Mapa fornecido",
-        headers: ["AB / CD", "00", "01", "11", "10"],
+        headers: ["00", "01", "11", "10"],
         rows: [["00", "1", "0", "0", "1"], ["01", "0", "0", "0", "0"],
           ["11", "0", "0", "0", "0"], ["10", "1", "0", "0", "1"]]
       }]
@@ -672,9 +840,11 @@
         artifacts: [{
           type: "table",
           variant: "kmap",
+          rowVariable: "AB",
+          columnVariable: "CD",
           rowHeader: true,
           caption: "Mapa fornecido",
-          headers: ["AB / CD", "00", "01", "11", "10"],
+          headers: ["00", "01", "11", "10"],
           rows: [
             ["00", "1", "0", "0", "1"],
             ["01", "0", "0", "0", "0"],
@@ -822,6 +992,25 @@
       });
     }
 
+    function kmapAxes(artifact) {
+      const headers = Array.isArray(artifact.headers) ? artifact.headers : [];
+      const corner = String(headers[0] || "");
+      const embeddedAxes = artifact.variant === "kmap" && corner.includes("/");
+      const pieces = embeddedAxes ? corner.split("/") : [];
+      const row = String(artifact.rowVariable || pieces[0] || "").trim();
+      const column = String(artifact.columnVariable || pieces[1] || "").trim();
+      return {
+        enabled: artifact.variant === "kmap" && Boolean(row) && Boolean(column),
+        embedded: embeddedAxes,
+        row,
+        column
+      };
+    }
+
+    function kmapLiteral(variable, bit) {
+      return bit === "0" ? variable + "'" : variable;
+    }
+
     function renderArtifacts(question) {
       const artifacts = Array.isArray(question.artifacts) ? question.artifacts : [];
       if (!artifacts.length) return "";
@@ -835,19 +1024,42 @@
           const headers = Array.isArray(artifact.headers) ? artifact.headers : [];
           const rows = Array.isArray(artifact.rows) ? artifact.rows : [];
           const tableClass = artifact.variant === "kmap" ? " kmap-table" : "";
-          const head = headers.length
-            ? `<thead><tr>${headers.map(function (cell) {
-                return `<th scope="col">${escapeHtml(cell)}</th>`;
-              }).join("")}</tr></thead>`
-            : "";
-          const body = `<tbody>${rows.map(function (row) {
-            return `<tr>${row.map(function (cell, index) {
-              if (artifact.rowHeader && index === 0) {
-                return `<th scope="row">${escapeHtml(cell)}</th>`;
-              }
-              return `<td>${escapeHtml(cell)}</td>`;
-            }).join("")}</tr>`;
-          }).join("")}</tbody>`;
+          const axes = kmapAxes(artifact);
+          const visibleHeaders = axes.enabled && axes.embedded ? headers.slice(1) : headers;
+          let head;
+          let body;
+          if (axes.enabled && artifact.rowHeader && axes.column.length === 2 && axes.row.length >= 1 && axes.row.length <= 2) {
+            const hasRightLiterals = axes.row.length === 2;
+            const rightSpacer = hasRightLiterals ? `<th class="kmap-spacer"></th>` : "";
+            head = "";
+            body = `<tbody>
+              <tr><th class="kmap-spacer"></th>${visibleHeaders.map(function (cell) {
+                return `<th class="kmap-literal kmap-literal-column">${escapeHtml(kmapLiteral(axes.column[0], cell[0]))}</th>`;
+              }).join("")}${rightSpacer}</tr>
+              ${rows.map(function (row) {
+                return `<tr><th class="kmap-literal kmap-literal-row-left" scope="row">${escapeHtml(kmapLiteral(axes.row[0], row[0][0]))}</th>${row.slice(1).map(function (cell) {
+                  return `<td>${escapeHtml(cell)}</td>`;
+                }).join("")}${hasRightLiterals ? `<th class="kmap-literal kmap-literal-row-right" scope="row">${escapeHtml(kmapLiteral(axes.row[1], row[0][1]))}</th>` : ""}</tr>`;
+              }).join("")}
+              <tr><th class="kmap-spacer"></th>${visibleHeaders.map(function (cell) {
+                return `<th class="kmap-literal kmap-literal-column kmap-literal-column-bottom">${escapeHtml(kmapLiteral(axes.column[1], cell[1]))}</th>`;
+              }).join("")}${rightSpacer}</tr>
+            </tbody>`;
+          } else {
+            head = headers.length
+              ? `<thead><tr>${headers.map(function (cell) {
+                  return `<th scope="col">${escapeHtml(cell)}</th>`;
+                }).join("")}</tr></thead>`
+              : "";
+            body = `<tbody>${rows.map(function (row) {
+              return `<tr>${row.map(function (cell, index) {
+                if (artifact.rowHeader && index === 0) {
+                  return `<th scope="row">${escapeHtml(cell)}</th>`;
+                }
+                return `<td>${escapeHtml(cell)}</td>`;
+              }).join("")}</tr>`;
+            }).join("")}</tbody>`;
+          }
           return `<div class="question-artifact">${caption}<div class="artifact-table-wrap"><table class="artifact-table${tableClass}">${head}${body}</table></div></div>`;
         }
 
@@ -865,8 +1077,13 @@
       artifacts.forEach(function (artifact) {
         if (artifact.type === "table") {
           lines.push("- " + (artifact.caption || "Tabela") + ":");
-          if (Array.isArray(artifact.headers) && artifact.headers.length) {
-            lines.push("  " + artifact.headers.join(" | "));
+          const axes = kmapAxes(artifact);
+          const headers = Array.isArray(artifact.headers) ? artifact.headers : [];
+          if (axes.enabled) {
+            lines.push("  Linhas: " + axes.row + "; colunas: " + axes.column);
+          }
+          if (headers.length) {
+            lines.push("  " + (axes.enabled && axes.embedded ? headers.slice(1) : headers).join(" | "));
           }
           (artifact.rows || []).forEach(function (row) {
             lines.push("  " + row.join(" | "));
@@ -901,6 +1118,51 @@
       document.getElementById("questionCount").textContent = questions.length + " objetivas";
       document.getElementById("suggestedTime").textContent = CONFIG.tempoSugerido;
       document.getElementById("goal").textContent = CONFIG.meta;
+    }
+
+    function questionNavStatus(question) {
+      if (state.unknown[question.id]) return "unknown";
+      if (!state.answers[question.id]) return "blank";
+      if (!state.finalized) return "answered";
+      return state.answers[question.id] === question.correct ? "correct" : "wrong";
+    }
+
+    function renderQuestionNavigator() {
+      const legend = document.getElementById("questionNavLegend");
+      const grid = document.getElementById("questionNavGrid");
+      const items = state.finalized
+        ? [
+            ["correct", "Correta"],
+            ["wrong", "Errada"],
+            ["unknown", "Não sei"],
+            ["blank", "Não respondida"]
+          ]
+        : [
+            ["answered", "Respondida"],
+            ["unknown", "Não sei"],
+            ["blank", "Não respondida"]
+          ];
+
+      legend.innerHTML = items.map(function (item) {
+        return `<span class="question-nav-legend-item"><span class="question-nav-swatch status-${item[0]}"></span>${item[1]}</span>`;
+      }).join("");
+
+      grid.innerHTML = questions.map(function (question) {
+        const status = questionNavStatus(question);
+        const hasObservation = Boolean(String(state.notes[question.id] || "").trim());
+        const observationText = hasObservation ? ", com OBS salva" : "";
+        return `<button type="button" class="question-nav-item status-${status}" data-nav-question="${question.id}" aria-label="Ir para questão ${question.id}${observationText}">${question.id}${hasObservation ? '<span class="question-nav-note" aria-hidden="true">*</span>' : ""}</button>`;
+      }).join("");
+    }
+
+    function handleQuestionNavigatorClick(event) {
+      const button = event.target.closest(".question-nav-item");
+      if (!button) return;
+      const article = document.getElementById("question-" + button.dataset.navQuestion);
+      if (!article) return;
+      article.setAttribute("tabindex", "-1");
+      article.scrollIntoView({ behavior: "smooth", block: "start" });
+      article.focus({ preventScroll: true });
     }
 
     function renderQuiz() {
@@ -973,6 +1235,7 @@
       });
 
       if (state.finalized) applyCorrection();
+      renderQuestionNavigator();
       updateProgress();
     }
 
@@ -1319,6 +1582,7 @@
     document.getElementById("startButton").addEventListener("click", startQuiz);
     document.getElementById("finishButton").addEventListener("click", finishQuiz);
     document.getElementById("resetButton").addEventListener("click", resetQuiz);
+    document.getElementById("questionNavigator").addEventListener("click", handleQuestionNavigatorClick);
     document.getElementById("quizForm").addEventListener("change", handleAnswerChange);
     document.getElementById("quizForm").addEventListener("click", handleUnknownClick);
     document.getElementById("quizForm").addEventListener("click", handleObservationToggle);
