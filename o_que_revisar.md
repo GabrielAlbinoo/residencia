@@ -2,6 +2,34 @@
 
 Use esta lista para registrar pontos que merecem uma nova passada antes da prova.
 
+## Sistemas numéricos
+
+- [ ] **Parte fracionária de números binários**
+
+  Lembrar os pesos depois da vírgula:
+
+  ```text
+  0,101₂ = 1×1/2 + 0×1/4 + 1×1/8
+  ```
+
+  Então:
+
+  ```text
+  0,101₂ = 0,625₁₀
+  ```
+
+  Para converter decimal fracionário para binário, multiplique a parte fracionária por `2` e anote a parte inteira de cada resultado.
+
+  Exemplo:
+
+  ```text
+  0,625 × 2 = 1,25  -> bit 1
+  0,25  × 2 = 0,5   -> bit 0
+  0,5   × 2 = 1,0   -> bit 1
+
+  0,625₁₀ = 0,101₂
+  ```
+
 ## Álgebra booleana
 
 - [ ] **11.2 OR distribuindo sobre AND**

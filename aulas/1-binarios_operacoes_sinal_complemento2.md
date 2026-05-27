@@ -180,6 +180,194 @@ Logo:
 
 ---
 
+## 4.3 Parte fracionária em binário
+
+Até aqui, trabalhamos principalmente com números inteiros. Mas números binários também podem ter parte fracionária.
+
+Em português, normalmente falamos em vírgula:
+
+```text
+101,101₂
+```
+
+Em livros e ferramentas de computação, também é comum aparecer com ponto:
+
+```text
+101.101₂
+```
+
+As duas escritas acima representam a mesma ideia: uma parte inteira antes da vírgula/ponto e uma parte fracionária depois.
+
+## 4.3.1 Pesos antes e depois da vírgula
+
+Antes da vírgula, os pesos crescem para a esquerda:
+
+```text
+8   4   2   1
+2³  2²  2¹  2⁰
+```
+
+Depois da vírgula, os pesos diminuem para a direita:
+
+```text
+1/2   1/4   1/8   1/16   1/32
+2⁻¹   2⁻²   2⁻³   2⁻⁴    2⁻⁵
+```
+
+Então:
+
+```text
+101,101₂
+```
+
+significa:
+
+```text
+1×4 + 0×2 + 1×1 + 1×1/2 + 0×1/4 + 1×1/8
+```
+
+Calculando:
+
+```text
+4 + 1 + 0,5 + 0,125 = 5,625
+```
+
+Logo:
+
+```text
+101,101₂ = 5,625₁₀
+```
+
+## 4.3.2 Convertendo binário fracionário para decimal
+
+Passos:
+
+```text
+1. Separe a parte inteira da parte fracionária.
+2. Converta a parte inteira normalmente.
+3. Na parte fracionária, use os pesos 1/2, 1/4, 1/8, 1/16...
+4. Some tudo.
+```
+
+Exemplo:
+
+```text
+11,01₂
+```
+
+Parte inteira:
+
+```text
+11₂ = 3₁₀
+```
+
+Parte fracionária:
+
+```text
+0,01₂ = 0×1/2 + 1×1/4 = 0,25
+```
+
+Resultado:
+
+```text
+11,01₂ = 3,25₁₀
+```
+
+## 4.3.3 Convertendo decimal fracionário para binário
+
+Para a parte inteira, use divisão por 2 ou pesos, como antes.
+
+Para a parte fracionária, use multiplicações por 2:
+
+```text
+1. Multiplique a parte fracionária por 2.
+2. A parte inteira do resultado vira o próximo bit.
+3. Continue usando a nova parte fracionária.
+4. Pare quando a fração virar 0 ou quando atingir a precisão pedida.
+```
+
+Exemplo: converter `0,625₁₀` para binário.
+
+```text
+0,625 × 2 = 1,25  -> bit 1, sobra 0,25
+0,25  × 2 = 0,5   -> bit 0, sobra 0,5
+0,5   × 2 = 1,0   -> bit 1, sobra 0
+```
+
+Lendo os bits na ordem em que apareceram:
+
+```text
+0,625₁₀ = 0,101₂
+```
+
+Conferindo:
+
+```text
+0,101₂ = 1×1/2 + 0×1/4 + 1×1/8
+       = 0,5 + 0,125
+       = 0,625
+```
+
+## 4.3.4 Exemplo com parte inteira e fracionária
+
+Converter:
+
+```text
+6,25₁₀
+```
+
+Parte inteira:
+
+```text
+6₁₀ = 110₂
+```
+
+Parte fracionária:
+
+```text
+0,25 × 2 = 0,5  -> bit 0, sobra 0,5
+0,5  × 2 = 1,0  -> bit 1, sobra 0
+```
+
+Então:
+
+```text
+0,25₁₀ = 0,01₂
+```
+
+Resultado:
+
+```text
+6,25₁₀ = 110,01₂
+```
+
+## 4.3.5 Nem toda fração decimal termina em binário
+
+Algumas frações decimais têm representação binária infinita.
+
+Exemplo clássico:
+
+```text
+0,1₁₀
+```
+
+Em binário, ele não termina de forma exata com poucos bits:
+
+```text
+0,1₁₀ ≈ 0,0001100110011...₂
+```
+
+Esse ponto é importante em computação porque explica por que alguns números decimais com vírgula podem ter pequenas aproximações quando armazenados em binário.
+
+Para esta parte da prova, o mais importante é dominar:
+
+```text
+binário com vírgula -> decimal
+decimal com fração simples -> binário
+```
+
+---
+
 ## 5. Binário e hexadecimal
 
 O hexadecimal usa 16 símbolos:
@@ -1252,6 +1440,18 @@ Some os pesos onde o bit é 1.
 Divida por 2 e leia os restos de baixo para cima.
 ```
 
+## Parte fracionária
+
+```text
+Depois da vírgula, os pesos são 1/2, 1/4, 1/8, 1/16...
+
+Binário fracionário para decimal:
+some os pesos onde o bit é 1.
+
+Decimal fracionário para binário:
+multiplique a parte fracionária por 2 e anote as partes inteiras.
+```
+
 ## Hexadecimal
 
 ```text
@@ -1342,6 +1542,15 @@ negativo + negativo = positivo → overflow
 19. `0111 + 0011` em 4 bits com sinal tem overflow?
 20. `0101 + 1110` em 4 bits com sinal tem overflow?
 
+## Parte fracionária
+
+21. Converta `101,101₂` para decimal.
+22. Converta `11,01₂` para decimal.
+23. Converta `0,625₁₀` para binário.
+24. Converta `6,25₁₀` para binário.
+25. `0,1₁₀` tem representação binária finita exata?
+26. Converta `101,011₂` para decimal.
+
 ---
 
 # 17. Gabarito
@@ -1366,3 +1575,9 @@ negativo + negativo = positivo → overflow
 18. `-5`
 19. Sim
 20. Não
+21. `5,625`
+22. `3,25`
+23. `0,101₂`
+24. `110,01₂`
+25. Não. Em binário, `0,1₁₀` vira uma dízima periódica aproximada: `0,000110011...₂`
+26. `5,375`

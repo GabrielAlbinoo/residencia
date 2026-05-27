@@ -138,6 +138,32 @@
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
+      align-items: center;
+    }
+
+    .toolbar-timer {
+      display: flex;
+      flex-direction: column;
+      min-width: 103px;
+      padding: 5px 11px;
+      border: 1px solid #cddbd7;
+      border-radius: 9px;
+      color: var(--primary-dark);
+      background: var(--surface-alt);
+      line-height: 1.2;
+    }
+
+    .toolbar-timer span {
+      color: var(--muted);
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.035em;
+    }
+
+    .toolbar-timer strong {
+      font-size: 0.98rem;
+      font-variant-numeric: tabular-nums;
     }
 
     button {
@@ -307,6 +333,36 @@
       border-color: var(--wrong);
       color: var(--wrong);
       background: var(--wrong-soft);
+    }
+
+    .question-navigator-bottom {
+      margin-top: 28px;
+      margin-bottom: 0;
+    }
+
+    .back-to-top {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 15;
+      display: inline-flex;
+      width: 42px;
+      height: 42px;
+      padding: 0;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #bbd8d4;
+      border-radius: 12px;
+      color: var(--primary-dark);
+      background: var(--primary-soft);
+      box-shadow: var(--shadow);
+      font-size: 1.3rem;
+      line-height: 1;
+    }
+
+    .back-to-top:hover {
+      color: #fff;
+      background: var(--primary);
     }
 
     .block-heading {
@@ -672,11 +728,12 @@
       .question { padding: 16px; }
       .toolbar-buttons { width: 100%; }
       .toolbar-buttons button { flex: 1; }
+      .toolbar-timer { flex: 1; }
       .question-nav-item { width: 41px; height: 39px; }
     }
 
     @media print {
-      .toolbar, .result .toolbar-buttons, .toast, .question-actions, .question-navigator { display: none !important; }
+      .toolbar, .result .toolbar-buttons, .toast, .question-actions, .question-navigator, .back-to-top { display: none !important; }
       body { background: #fff; }
       .question { break-inside: avoid; box-shadow: none; }
     }
@@ -706,6 +763,10 @@
         <div class="progress-track" aria-hidden="true"><div class="progress-fill" id="progressFill"></div></div>
       </div>
       <div class="toolbar-buttons">
+        <div class="toolbar-timer" aria-label="Tempo executado na prova">
+          <span>Tempo</span>
+          <strong id="toolbarTimer">00:00:00</strong>
+        </div>
         <button type="button" id="finishButton" disabled>Finalizar e corrigir</button>
         <button type="button" class="button-secondary" id="resetButton">Reiniciar</button>
       </div>
@@ -740,8 +801,20 @@
 
     <section id="result" class="result" aria-live="polite"></section>
     <form id="quizForm"></form>
+
+    <section class="question-navigator question-navigator-bottom" id="questionNavigatorBottom" aria-label="Resumo final das questões">
+      <div class="question-navigator-head">
+        <div>
+          <h2>Resumo das questões</h2>
+          <p class="question-navigator-description">Clique em um número para voltar à questão. <strong>*</strong> indica OBS salva.</p>
+        </div>
+        <div class="question-nav-legend" id="questionNavLegendBottom" aria-label="Legenda do resumo final"></div>
+      </div>
+      <div class="question-nav-grid" id="questionNavGridBottom"></div>
+    </section>
   </main>
 
+  <button type="button" class="back-to-top" id="backToTopButton" aria-label="Voltar ao topo">&uarr;</button>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script>
@@ -971,7 +1044,9 @@
     }
 
     function renderTimer() {
-      document.getElementById("timer").textContent = formatDuration(elapsedMs());
+      const formattedTime = formatDuration(elapsedMs());
+      document.getElementById("timer").textContent = formattedTime;
+      document.getElementById("toolbarTimer").textContent = formattedTime;
     }
 
     function plainText(html) {
@@ -1128,8 +1203,6 @@
     }
 
     function renderQuestionNavigator() {
-      const legend = document.getElementById("questionNavLegend");
-      const grid = document.getElementById("questionNavGrid");
       const items = state.finalized
         ? [
             ["correct", "Correta"],
@@ -1143,16 +1216,23 @@
             ["blank", "Não respondida"]
           ];
 
-      legend.innerHTML = items.map(function (item) {
+      const legendHtml = items.map(function (item) {
         return `<span class="question-nav-legend-item"><span class="question-nav-swatch status-${item[0]}"></span>${item[1]}</span>`;
       }).join("");
 
-      grid.innerHTML = questions.map(function (question) {
+      const gridHtml = questions.map(function (question) {
         const status = questionNavStatus(question);
         const hasObservation = Boolean(String(state.notes[question.id] || "").trim());
         const observationText = hasObservation ? ", com OBS salva" : "";
         return `<button type="button" class="question-nav-item status-${status}" data-nav-question="${question.id}" aria-label="Ir para questão ${question.id}${observationText}">${question.id}${hasObservation ? '<span class="question-nav-note" aria-hidden="true">*</span>' : ""}</button>`;
       }).join("");
+
+      document.querySelectorAll(".question-nav-legend").forEach(function (legend) {
+        legend.innerHTML = legendHtml;
+      });
+      document.querySelectorAll(".question-nav-grid").forEach(function (grid) {
+        grid.innerHTML = gridHtml;
+      });
     }
 
     function handleQuestionNavigatorClick(event) {
@@ -1583,6 +1663,10 @@
     document.getElementById("finishButton").addEventListener("click", finishQuiz);
     document.getElementById("resetButton").addEventListener("click", resetQuiz);
     document.getElementById("questionNavigator").addEventListener("click", handleQuestionNavigatorClick);
+    document.getElementById("questionNavigatorBottom").addEventListener("click", handleQuestionNavigatorClick);
+    document.getElementById("backToTopButton").addEventListener("click", function () {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
     document.getElementById("quizForm").addEventListener("change", handleAnswerChange);
     document.getElementById("quizForm").addEventListener("click", handleUnknownClick);
     document.getElementById("quizForm").addEventListener("click", handleObservationToggle);

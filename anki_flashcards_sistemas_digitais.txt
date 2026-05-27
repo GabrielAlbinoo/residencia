@@ -155,3 +155,80 @@ No mapa de Karnaugh de três variáveis com A nas linhas, a conexão entre as bo
 Quais bordas opostas são conectadas em um mapa de Karnaugh de quatro variáveis?	A borda esquerda com a direita e a borda superior com a inferior.	aula_08 adjacencia nivel_facil
 Qual forma geométrica representa mentalmente a conexão das bordas opostas de um mapa de Karnaugh 4 por 4?	Um toro, pois ambas as direções dão a volta.	aula_08 adjacencia nivel_medio
 Em um mapa de Karnaugh de quatro variáveis, os quatro cantos podem formar um único agrupamento?	Sim. Eles formam um quarteto pelas conexões das bordas.	aula_08 agrupamentos nivel_facil
+Quantos seletores possui um MUX 4:1?	2 seletores.	aula_10 mux nivel_facil
+Quantas entradas de dados possui um MUX 4:1?	4 entradas de dados.	aula_10 mux nivel_facil
+Em um MUX 4:1, qual entrada é selecionada quando S1S0=00?	I0.	aula_10 mux nivel_facil
+Em um MUX 4:1, qual entrada é selecionada quando S1S0=01?	I1.	aula_10 mux nivel_facil
+Em um MUX 4:1, qual entrada é selecionada quando S1S0=10?	I2.	aula_10 mux nivel_facil
+Em um MUX 4:1, qual entrada é selecionada quando S1S0=11?	I3.	aula_10 mux nivel_facil
+Escreva a expressão de um MUX 2:1 com seletor S e entradas I0 e I1.	Y = S'I0 + SI1.	aula_10 mux nivel_medio
+Escreva a expressão de um MUX 4:1 com seletores S1,S0.	Y = S1'S0'I0 + S1'S0I1 + S1S0'I2 + S1S0I3.	aula_10 mux nivel_dificil
+Quantos seletores possui um MUX 8:1?	3 seletores.	aula_10 mux nivel_facil
+Em uma função F(A,B,C) implementada com MUX 4:1 usando A e B como seletores, quais valores podem ser ligados nas entradas do MUX?	0, 1, C ou C'.	aula_10 mux sintese nivel_medio
+Implemente F(A,B,C)=Σm(1,2,6,7) com MUX 4:1 usando S1=A e S0=B.	I0=C, I1=C', I2=0, I3=1.	aula_10 mux sintese nivel_dificil
+Implemente F(A,B,C)=Σm(0,1,2,6,7) com MUX 4:1 usando S1=A e S0=B.	I0=1, I1=C', I2=0, I3=1.	aula_10 mux sintese nivel_dificil
+Implemente F(A,B,C)=Σm(1,2,3,4,6) com MUX 4:1 usando S1=A e S0=B.	I0=C, I1=1, I2=C', I3=C'.	aula_10 mux sintese nivel_dificil
+Em um MUX 8:1 que implementa F(A,B,C)=Σm(1,2,6,7), quais entradas devem receber 1?	I1, I2, I6 e I7.	aula_10 mux sintese nivel_medio
+Em um MUX 8:1 que implementa F(A,B,C)=Σm(1,2,6,7), quais entradas devem receber 0?	I0, I3, I4 e I5.	aula_10 mux sintese nivel_medio
+O que faz um DEMUX 1:4?	Recebe uma entrada de dado e a encaminha para uma entre quatro saídas.	aula_10 demux nivel_facil
+Em um DEMUX 1:4, para qual saída o dado vai quando S1S0=10?	Y2.	aula_10 demux nivel_facil
+Qual é a diferença entre MUX e DEMUX?	MUX escolhe uma entre várias entradas; DEMUX encaminha uma entrada para uma entre várias saídas.	aula_10 mux demux nivel_medio
+O que faz um decoder 2:4 ativo em nível alto?	Recebe 2 bits e ativa uma entre 4 saídas.	aula_10 decoder nivel_facil
+Em um decoder 2:4 ativo em nível alto, qual saída fica ativa quando AB=10?	D2.	aula_10 decoder nivel_facil
+Escreva as saídas de um decoder 2:4 ativo em nível alto.	D0=A'B', D1=A'B, D2=AB', D3=AB.	aula_10 decoder nivel_medio
+Em um decoder 3:8, qual saída corresponde ao mintermo m6?	D6.	aula_10 decoder mintermos nivel_facil
+Como implementar F(A,B,C)=Σm(1,3,6) usando decoder 3:8?	Conecte D1, D3 e D6 a uma porta OR.	aula_10 decoder sintese nivel_medio
+Qual é a diferença entre decoder e DEMUX?	Decoder ativa uma saída a partir de um código; DEMUX encaminha um dado para uma saída escolhida pelos seletores.	aula_10 decoder demux nivel_medio
+O que faz um encoder 4:2 simples?	Transforma a entrada ativa em um código binário de 2 bits.	aula_10 encoder nivel_facil
+Em um encoder 4:2 simples, qual saída aparece quando apenas D2=1?	10.	aula_10 encoder nivel_facil
+Qual problema ocorre em um encoder simples quando mais de uma entrada fica ativa?	A saída fica ambígua.	aula_10 encoder nivel_medio
+Em um encoder prioritário com prioridade D3>D2>D1>D0, qual saída aparece quando D2=1 e D1=1?	10.	aula_10 encoder_prioritario nivel_medio
+Em um encoder prioritário com prioridade D3>D2>D1>D0, qual saída aparece quando D3=1 e D1=1?	11.	aula_10 encoder_prioritario nivel_medio
+O que indica o sinal de validade V em um encoder?	Indica se existe alguma entrada ativa.	aula_10 encoder nivel_facil
+Em um comparador de 1 bit, qual expressão indica A igual a B?	A'B' + AB.	aula_10 comparador nivel_medio
+Em um comparador de 1 bit, qual expressão indica A maior que B?	AB'.	aula_10 comparador nivel_medio
+Em um comparador de 1 bit, qual expressão indica A menor que B?	A'B.	aula_10 comparador nivel_medio
+Qual bloco deve ser usado para ativar uma entre oito saídas a partir de três bits de entrada?	Decoder 3:8.	aula_10 blocos nivel_facil
+Qual bloco deve ser usado para escolher uma entre oito entradas de dados?	MUX 8:1.	aula_10 blocos nivel_facil
+Qual bloco deve ser usado para transformar uma linha ativa em código binário?	Encoder.	aula_10 blocos nivel_facil
+Como converter um número binário para código Gray?	Mantenha o primeiro bit e depois faça XOR entre bits binários vizinhos.	aula_02 gray conversao nivel_facil
+Como converter um código Gray para binário?	Mantenha o primeiro bit e depois faça XOR acumulado com o bit binário anterior.	aula_02 gray conversao nivel_facil
+Converta 1111₂ para código Gray.	1000.	aula_02 gray conversao nivel_medio
+Converta 1001₂ para código Gray.	1101.	aula_02 gray conversao nivel_medio
+Converta 0010₂ para código Gray.	0011.	aula_02 gray conversao nivel_medio
+Converta o código Gray 1111 para binário.	1010₂.	aula_02 gray conversao nivel_medio
+Converta o código Gray 1000 para binário.	1111₂.	aula_02 gray conversao nivel_medio
+Converta o código Gray 0011 para binário.	0010₂.	aula_02 gray conversao nivel_medio
+Por que o código Gray reduz ambiguidade em encoders de posição?	Porque posições consecutivas mudam apenas 1 bit.	aula_02 gray encoder nivel_medio
+Quantos bits mudam entre 0110 e 0111 em uma sequência binária comum?	1 bit.	aula_02 gray comparacao nivel_facil
+Quantos bits mudam entre 0111 e 1000 em uma sequência binária comum?	4 bits.	aula_02 gray comparacao nivel_medio
+O que é o código Excess-3?	Um código decimal em que cada dígito é somado a 3 e codificado em 4 bits.	aula_02 excess_3 nivel_facil
+Como codificar o dígito decimal 0 em Excess-3?	0+3=3, então 0011.	aula_02 excess_3 nivel_facil
+Como codificar o dígito decimal 5 em Excess-3?	5+3=8, então 1000.	aula_02 excess_3 nivel_facil
+Como codificar o dígito decimal 9 em Excess-3?	9+3=12, então 1100.	aula_02 excess_3 nivel_facil
+Converta o decimal 27 para Excess-3.	0101 1010.	aula_02 excess_3 nivel_medio
+Converta o decimal 59 para Excess-3.	1000 1100.	aula_02 excess_3 nivel_medio
+Converta o código Excess-3 0100 0111 para decimal.	14.	aula_02 excess_3 nivel_medio
+Converta o código Excess-3 1000 1011 para decimal.	58.	aula_02 excess_3 nivel_medio
+O código Excess-3 0000 é válido para um dígito decimal?	Não. Em Excess-3, os códigos válidos para dígitos vão de 0011 a 1100.	aula_02 excess_3 nivel_medio
+Qual é a principal diferença entre BCD 8421 e Excess-3?	No BCD o dígito é codificado diretamente; no Excess-3 soma-se 3 ao dígito antes de codificar.	aula_02 bcd excess_3 nivel_medio
+Qual propriedade de complemento o Excess-3 possui?	É autocomplementar: inverter os bits gera o complemento de 9 do dígito.	aula_02 excess_3 nivel_dificil
+Use a propriedade autocomplementar do Excess-3: se 2 é 0101, qual é o código do complemento de 9 de 2?	1010, que representa 7 em Excess-3.	aula_02 excess_3 nivel_dificil
+Qual é o código ASCII decimal do espaço?	32.	aula_02 ascii nivel_facil
+Qual é o código ASCII hexadecimal do espaço?	20h.	aula_02 ascii nivel_facil
+Qual é o código ASCII decimal do caractere '0'?	48.	aula_02 ascii nivel_facil
+Qual é o código ASCII hexadecimal do caractere '0'?	30h.	aula_02 ascii nivel_facil
+Qual é o código ASCII decimal do caractere '9'?	57.	aula_02 ascii nivel_facil
+Qual é o código ASCII hexadecimal do caractere '9'?	39h.	aula_02 ascii nivel_facil
+Qual é o código ASCII decimal do caractere '4'?	52.	aula_02 ascii nivel_facil
+Qual é o código ASCII hexadecimal do caractere '4'?	34h.	aula_02 ascii nivel_facil
+Qual é o código ASCII decimal do caractere 'A'?	65.	aula_02 ascii nivel_facil
+Qual é o código ASCII hexadecimal do caractere 'A'?	41h.	aula_02 ascii nivel_facil
+Qual é o código ASCII decimal do caractere 'a'?	97.	aula_02 ascii nivel_facil
+Qual é o código ASCII hexadecimal do caractere 'a'?	61h.	aula_02 ascii nivel_facil
+Qual é a diferença decimal entre 'a' e 'A' em ASCII?	32.	aula_02 ascii nivel_medio
+Qual é a diferença hexadecimal entre 'a' e 'A' em ASCII?	20h.	aula_02 ascii nivel_medio
+Como encontrar o ASCII decimal de um dígito caractere entre '0' e '9'?	Some o valor do dígito a 48.	aula_02 ascii nivel_medio
+Como encontrar o ASCII hexadecimal de um dígito caractere entre '0' e '9'?	Use 30h + o valor do dígito.	aula_02 ascii nivel_medio
+Qual sequência hexadecimal ASCII representa os caracteres A9?	41h 39h.	aula_02 ascii nivel_medio
+Qual sequência decimal ASCII representa os caracteres A9?	65 57.	aula_02 ascii nivel_medio

@@ -281,7 +281,48 @@ outra expressão lógica
 
 Assim, o MUX pode implementar uma função.
 
-## 7.1 Usando todas as variáveis como seletores
+## 7.1 Primeiro caso: função de 2 variáveis em um MUX `4:1`
+
+Antes de colocar três variáveis em um MUX `4:1`, veja o caso mais direto:
+
+```text
+F(A,B) = Σm(1,2)
+```
+
+A função vale `1` nas combinações:
+
+```text
+AB=01 e AB=10
+```
+
+Um MUX `4:1` tem exatamente duas entradas de seleção. Portanto, ligamos:
+
+```text
+S1=A
+S0=B
+```
+
+Agora cada combinação de `AB` escolhe uma entrada do MUX:
+
+| `AB` | Entrada selecionada | Valor desejado de `F` | Ligação |
+|---|---|---:|---|
+| `00` | `I0` | `0` | `I0=0` |
+| `01` | `I1` | `1` | `I1=1` |
+| `10` | `I2` | `1` | `I2=1` |
+| `11` | `I3` | `0` | `I3=0` |
+
+Então:
+
+```text
+S1=A, S0=B
+I0=0, I1=1, I2=1, I3=0
+```
+
+Aqui não existe mistério: `AB` escolhe uma entrada, e essa entrada contém o valor que `F` deve entregar para aquele `AB`.
+
+---
+
+## 7.2 Função de 3 variáveis usando um MUX `8:1`: caminho direto
 
 Para uma função de três variáveis:
 
@@ -322,22 +363,138 @@ I0=0, I1=1, I2=1, I3=0, I4=0, I5=0, I6=1, I7=1
 
 Essa implementação é direta, mas usa um MUX maior.
 
-## 7.2 Usando um MUX menor
+---
 
-Também podemos implementar a mesma função:
+## 7.3 A dúvida central: como uma função de 3 variáveis cabe em um MUX `4:1`?
+
+Uma função como:
 
 ```text
-F(A,B,C) = Σm(1,2,6,7)
+F(A,B,C)
 ```
 
-com um MUX `4:1`, usando:
+tem `3` variáveis. Já um MUX `4:1` possui apenas `2` seletores:
+
+```text
+S1 e S0
+```
+
+O que acontece com a terceira variável?
+
+```text
+Ela não desaparece.
+Ela deixa de ser seletor e passa a entrar pelos dados I0, I1, I2 ou I3.
+```
+
+Se escolhermos:
 
 ```text
 S1=A
 S0=B
 ```
 
-Agora analisamos o que a saída deve fazer para cada valor de `AB`, deixando `C` como dado:
+o MUX escolhe uma de suas quatro entradas conforme `AB`. Dentro de cada entrada, conectaremos algo que dependa de `C`:
+
+```text
+                 +---------+
+ligação de I0 ---| I0      |
+ligação de I1 ---| I1      |
+ligação de I2 ---| I2 MUX  |--- F
+ligação de I3 ---| I3 4:1  |
+             A --| S1      |
+             B --| S0      |
+                 +---------+
+
+As ligações de I0 a I3 podem ser: 0, 1, C ou C'.
+```
+
+Pense assim:
+
+```text
+AB escolhe qual linha observar.
+C decide o valor dentro daquela linha.
+```
+
+É por isso que um MUX `4:1` consegue implementar uma função de `3` variáveis.
+
+---
+
+## 7.4 Por que as entradas podem ser `0`, `1`, `C` ou `C'`?
+
+Depois que fixamos `AB`, restam somente dois casos:
+
+```text
+C=0
+C=1
+```
+
+Para aquela combinação de `AB`, a função terá um par de valores. Existem apenas quatro pares possíveis:
+
+| Valor necessário quando `C=0` | Valor necessário quando `C=1` | O que ligar na entrada do MUX | Por quê? |
+|---:|---:|---|---|
+| `0` | `0` | `0` | A saída deve ser sempre zero |
+| `1` | `1` | `1` | A saída deve ser sempre um |
+| `0` | `1` | `C` | Quando `C` muda de `0` para `1`, a saída faz o mesmo |
+| `1` | `0` | `C'` | A saída é o contrário de `C` |
+
+Essa tabela é a chave da implementação com MUX `4:1`.
+
+Exemplo isolado:
+
+```text
+Se, para AB=01, a função vale:
+C=0 → F=1
+C=1 → F=0
+
+então a entrada escolhida quando AB=01 deve ser C'.
+```
+
+Como `AB=01` escolhe `I1`, teremos:
+
+```text
+I1=C'
+```
+
+---
+
+## 7.5 Exemplo completo, sem pular etapas
+
+Implemente com um MUX `4:1`:
+
+```text
+F(A,B,C) = Σm(1,2,6,7)
+```
+
+Escolha duas variáveis para serem os seletores. Neste exemplo:
+
+```text
+S1=A
+S0=B
+```
+
+Assim:
+
+| Seleção `AB` | Entrada que o MUX seleciona |
+|---|---|
+| `00` | `I0` |
+| `01` | `I1` |
+| `10` | `I2` |
+| `11` | `I3` |
+
+Agora monte a tabela-verdade da função, lembrando que `Σm(1,2,6,7)` significa que a saída vale `1` apenas nesses índices:
+
+| `A` | `B` | `C` | Índice | `F` | Entrada selecionada pelo MUX |
+|---:|---:|---:|---:|---:|---|
+| `0` | `0` | `0` | `m0` | `0` | `I0` |
+| `0` | `0` | `1` | `m1` | `1` | `I0` |
+| `0` | `1` | `0` | `m2` | `1` | `I1` |
+| `0` | `1` | `1` | `m3` | `0` | `I1` |
+| `1` | `0` | `0` | `m4` | `0` | `I2` |
+| `1` | `0` | `1` | `m5` | `0` | `I2` |
+| `1` | `1` | `0` | `m6` | `1` | `I3` |
+| `1` | `1` | `1` | `m7` | `1` | `I3` |
+
+Repare no agrupamento: como `AB` é a seleção, cada entrada do MUX corresponde a **duas linhas**, uma com `C=0` e outra com `C=1`.
 
 | `AB` | Linhas consideradas | Valores de `F` quando `C=0` e `C=1` | Entrada do MUX |
 |---|---|---|---|
@@ -356,11 +513,167 @@ I2=0
 I3=1
 ```
 
-O MUX `4:1` implementa a função inteira usando apenas um inversor adicional para obter `C'`.
+O desenho das ligações fica:
 
-## 7.3 Padrões para uma variável restante
+```text
+             +----------+
+ C  ---------| I0       |
+ C' ---------| I1       |
+ 0  ---------| I2 MUX   |------ F
+ 1  ---------| I3  4:1  |
+ A  ---------| S1       |
+ B  ---------| S0       |
+             +----------+
+```
 
-Ao escolher duas variáveis como seletores de um MUX `4:1` para implementar uma função de três variáveis, cada par de valores da saída indica uma ligação:
+O MUX `4:1` implementa a função inteira; além do MUX, só é necessário obter `C'` caso o complemento não esteja disponível.
+
+---
+
+## 7.6 Conferindo se a ligação realmente funciona
+
+Não basta montar a tabela; confira alguns casos.
+
+### Caso `A=0`, `B=0`, `C=1`
+
+```text
+AB=00 → o MUX seleciona I0
+I0=C
+C=1 → F=1
+```
+
+Essa é a linha:
+
+```text
+ABC=001 → m1
+```
+
+Como `m1` aparece em `Σm(1,2,6,7)`, a saída realmente deve valer `1`.
+
+### Caso `A=0`, `B=1`, `C=0`
+
+```text
+AB=01 → o MUX seleciona I1
+I1=C'
+C=0 → C'=1 → F=1
+```
+
+Essa é a linha:
+
+```text
+ABC=010 → m2
+```
+
+Correto: `m2` também pertence à função.
+
+### Caso `A=0`, `B=1`, `C=1`
+
+```text
+AB=01 → continua selecionando I1
+I1=C'
+C=1 → C'=0 → F=0
+```
+
+Essa é a linha `m3`, que não aparece na lista de mintermos. Portanto, a ligação está correta.
+
+---
+
+## 7.7 Segundo exemplo resolvido
+
+Implemente com MUX `4:1`, usando `A` e `B` como seletores:
+
+```text
+F(A,B,C)=Σm(0,2,3,5,7)
+```
+
+Primeiro marque os valores da função em cada par:
+
+| `AB` | Índices para `C=0,C=1` | Valores de `F` | Padrão | Ligação |
+|---|---|---|---|---|
+| `00` | `m0,m1` | `1,0` | contrário de `C` | `I0=C'` |
+| `01` | `m2,m3` | `1,1` | sempre `1` | `I1=1` |
+| `10` | `m4,m5` | `0,1` | igual a `C` | `I2=C` |
+| `11` | `m6,m7` | `0,1` | igual a `C` | `I3=C` |
+
+Resultado:
+
+```text
+S1=A, S0=B
+I0=C', I1=1, I2=C, I3=C
+```
+
+Faça uma verificação rápida:
+
+```text
+ABC=100 → AB=10 seleciona I2=C; como C=0, F=0 → m4 não pertence à função.
+ABC=101 → AB=10 seleciona I2=C; como C=1, F=1 → m5 pertence à função.
+```
+
+---
+
+## 7.8 Roteiro de resolução em prova
+
+Quando pedirem uma função de três variáveis em um MUX `4:1`, use sempre esta tabela-modelo:
+
+```text
+Escolha: S1=A, S0=B. A variável restante é C.
+```
+
+| `AB` | Entrada | Linha com `C=0` | Linha com `C=1` | Par de saídas | Ligação |
+|---|---|---|---|---|---|
+| `00` | `I0` | `m0` | `m1` | `__,__` | `0`, `1`, `C` ou `C'` |
+| `01` | `I1` | `m2` | `m3` | `__,__` | `0`, `1`, `C` ou `C'` |
+| `10` | `I2` | `m4` | `m5` | `__,__` | `0`, `1`, `C` ou `C'` |
+| `11` | `I3` | `m6` | `m7` | `__,__` | `0`, `1`, `C` ou `C'` |
+
+Passos:
+
+1. Escreva quais variáveis serão os seletores.
+2. Descubra qual variável sobrou; ela poderá aparecer como dado ou complemento.
+3. Para cada entrada `I0` a `I3`, leia os dois valores da função, na ordem `C=0,C=1`.
+4. Converta o par pela tabela:
+
+```text
+00 → 0
+11 → 1
+01 → C
+10 → C'
+```
+
+5. Verifique uma linha em que a entrada seja uma variável e uma linha em que seja o complemento.
+
+---
+
+## 7.9 Posso escolher outros seletores?
+
+Sim. Para `F(A,B,C)`, você poderia usar:
+
+```text
+S1=A e S0=C → a variável restante seria B
+S1=B e S0=C → a variável restante seria A
+```
+
+Nesse caso, as entradas poderiam ser ligadas a:
+
+```text
+0, 1, B, B'
+```
+
+ou:
+
+```text
+0, 1, A, A'
+```
+
+respectivamente.
+
+Em exercícios iniciais, use os seletores indicados no enunciado. Se a questão permitir escolher, uma escolha pode gerar menos complementos ou ligações mais simples que outra.
+
+---
+
+## 7.10 Tabela que você deve guardar
+
+Ao escolher duas variáveis como seletores de um MUX `4:1` para implementar uma função de três variáveis, cada par de valores da saída indica uma ligação com a variável restante:
 
 | Saídas para `C=0,C=1` | Conectar na entrada do MUX |
 |---|---|
