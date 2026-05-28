@@ -232,3 +232,63 @@ Como encontrar o ASCII decimal de um dígito caractere entre '0' e '9'?	Some o v
 Como encontrar o ASCII hexadecimal de um dígito caractere entre '0' e '9'?	Use 30h + o valor do dígito.	aula_02 ascii nivel_medio
 Qual sequência hexadecimal ASCII representa os caracteres A9?	41h 39h.	aula_02 ascii nivel_medio
 Qual sequência decimal ASCII representa os caracteres A9?	65 57.	aula_02 ascii nivel_medio
+O que é estado em um circuito sequencial?	Uma informação armazenada que representa a situação atual do circuito.	aula_11 fsm estado nivel_facil
+Qual é a diferença essencial entre circuito combinacional e circuito sequencial?	No combinacional a saída depende só das entradas atuais; no sequencial depende também do estado armazenado.	aula_11 fsm sequencial nivel_facil
+O que é uma máquina de estados finitos?	Um modelo com quantidade finita de estados, transições entre estados, entradas e saídas.	aula_11 fsm nivel_facil
+Em uma FSM, o que representa Q?	O estado atual armazenado.	aula_11 fsm estado nivel_facil
+Em uma FSM, o que representa Q+?	O próximo estado que será armazenado após a atualização.	aula_11 fsm estado nivel_facil
+A saída de uma máquina Moore depende de quais informações?	Somente do estado atual.	aula_11 moore nivel_facil
+A saída de uma máquina Mealy depende de quais informações?	Do estado atual e da entrada atual.	aula_11 mealy nivel_facil
+Em um diagrama de Moore, onde a saída costuma aparecer?	Associada ao estado, normalmente dentro do próprio estado.	aula_11 moore diagrama nivel_facil
+Em um diagrama de Mealy, onde a saída costuma aparecer?	Na transição, normalmente no formato entrada/saída.	aula_11 mealy diagrama nivel_facil
+Uma máquina possui saída fixa para cada estado. Ela é Moore ou Mealy?	Moore.	aula_11 moore nivel_facil
+Uma máquina pode gerar saídas diferentes no mesmo estado dependendo da entrada. Ela é Moore ou Mealy?	Mealy.	aula_11 mealy nivel_medio
+Quantos bits são necessários para codificar no mínimo 5 estados?	3 bits.	aula_11 codificacao_estados nivel_facil
+Quantos estados diferentes podem ser representados com 3 bits?	Até 8 estados.	aula_11 codificacao_estados nivel_facil
+Quantos bits são necessários para codificar no mínimo 9 estados?	4 bits.	aula_11 codificacao_estados nivel_medio
+Por que o estado inicial é necessário para rastrear uma FSM?	Porque a mesma sequência de entradas pode produzir respostas diferentes se a máquina começar em estados diferentes.	aula_11 rastreio nivel_medio
+Qual é a sequência básica para rastrear uma FSM?	Começar no estado inicial, ler a entrada, seguir a transição, registrar a saída e repetir.	aula_11 rastreio nivel_medio
+Em uma transição Mealy rotulada como 0/1, o que significa 0/1?	Entrada 0 produz saída 1 naquela transição.	aula_11 mealy diagrama nivel_medio
+Em uma máquina Moore, uma saída é produzida pela transição ou pelo estado alcançado?	Pelo estado alcançado ou estado atual considerado.	aula_11 moore rastreio nivel_medio
+Em uma máquina Mealy, uma saída é produzida pelo estado sozinho ou pela transição?	Pela transição, combinando estado atual e entrada.	aula_11 mealy rastreio nivel_medio
+Uma máquina com estados OFF/L=0 e ON/L=1, em que L depende só de OFF ou ON, é de qual tipo?	Moore.	aula_11 moore nivel_medio
+Uma tabela mostra no estado S1: X=0 gera Z=0 e X=1 gera Z=1. A máquina é de qual tipo?	Mealy.	aula_11 mealy nivel_medio
+O que uma FSM detectora de sequência precisa armazenar nos estados?	O progresso relevante da sequência já reconhecida.	aula_11 fsm detector nivel_medio
+Antes de codificar os estados em binário, o que deve estar bem definido?	O comportamento da máquina: estados, transições e saídas.	aula_11 sintese_fsm nivel_medio
+Qual fórmula resume uma saída Moore?	Z = g(Q).	aula_11 moore formula nivel_medio
+Qual fórmula resume uma saída Mealy?	Z = g(Q, X).	aula_11 mealy formula nivel_medio
+Em uma máquina Moore, dois estados diferentes podem ter a mesma saída?	Sim.	aula_11 moore nivel_medio
+Qual erro comum ocorre ao ler uma seta Mealy?	Tratar a saída da seta como se pertencesse ao estado de chegada.	aula_11 mealy erro_comum nivel_dificil
+O que permite que um latch armazene um bit?	Realimentação estável.	aula_12 latch estabilidade nivel_facil
+O que é realimentação em um circuito sequencial?	É quando a saída volta para a entrada e ajuda a manter o estado.	aula_12 realimentacao nivel_facil
+O que é um estado estável?	Um estado em que, mantendo as entradas, as saídas param de mudar.	aula_12 estabilidade nivel_facil
+Quais são os dois comandos principais de um latch SR?	Set e reset.	aula_12 latch_sr nivel_facil
+Um latch SR com NOR usa entradas ativas em nível alto ou baixo?	Nível alto.	aula_12 latch_sr nor nivel_facil
+Em um latch SR com NOR, o que ocorre com S=0 e R=0?	O latch mantém o estado anterior.	aula_12 latch_sr nor nivel_facil
+Em um latch SR com NOR, o que ocorre com S=1 e R=0?	Q é setado para 1.	aula_12 latch_sr nor nivel_facil
+Em um latch SR com NOR, o que ocorre com S=0 e R=1?	Q é resetado para 0.	aula_12 latch_sr nor nivel_facil
+Em um latch SR com NOR, qual combinação é inválida?	S=1 e R=1.	aula_12 latch_sr nor nivel_facil
+Por que S=1 e R=1 é inválido em um latch SR com NOR?	Porque Q e Q' deixam de ser complementares e o estado após liberar as entradas pode ficar indefinido.	aula_12 latch_sr nor nivel_medio
+No latch SR com NOR, a entrada S atua primeiro sobre qual saída?	S atua primeiro sobre Q'.	aula_12 latch_sr nor nivel_medio
+No latch SR com NOR, a entrada R atua primeiro sobre qual saída?	R atua primeiro sobre Q.	aula_12 latch_sr nor nivel_medio
+Escreva a equação de Q em um latch SR com NOR.	Q = NOR(R, Q').	aula_12 latch_sr nor nivel_medio
+Escreva a equação de Q' em um latch SR com NOR.	Q' = NOR(S, Q).	aula_12 latch_sr nor nivel_medio
+Em um latch SR com NOR, S=1 força primeiro qual valor em Q'?	Q'=0.	aula_12 latch_sr nor nivel_medio
+Em um latch SR com NOR, R=1 força primeiro qual valor em Q?	Q=0.	aula_12 latch_sr nor nivel_medio
+Um latch SR com NAND geralmente usa entradas ativas em nível alto ou baixo?	Nível baixo.	aula_12 latch_sr nand nivel_facil
+Em um latch SR com NAND ativo baixo, qual combinação mantém o estado?	S_N=1 e R_N=1.	aula_12 latch_sr nand nivel_medio
+Em um latch SR com NAND ativo baixo, qual combinação seta Q?	S_N=0 e R_N=1.	aula_12 latch_sr nand nivel_medio
+Em um latch SR com NAND ativo baixo, qual combinação reseta Q?	S_N=1 e R_N=0.	aula_12 latch_sr nand nivel_medio
+Em um latch SR com NAND ativo baixo, qual combinação é inválida?	S_N=0 e R_N=0.	aula_12 latch_sr nand nivel_medio
+O que é um latch D?	Um latch que armazena o valor da entrada D conforme o sinal de enable.	aula_12 latch_d nivel_facil
+Em um latch D ativo alto, o que ocorre quando EN=1?	O latch fica transparente e Q acompanha D.	aula_12 latch_d nivel_facil
+Em um latch D ativo alto, o que ocorre quando EN=0?	O latch mantém o valor anterior de Q.	aula_12 latch_d nivel_facil
+O que significa dizer que um latch D é transparente?	Enquanto o enable está ativo, mudanças em D passam para Q.	aula_12 latch_d nivel_medio
+Como o latch D evita a condição inválida do latch SR?	Ele gera set e reset de modo complementar a partir de D e D'.	aula_12 latch_d nivel_medio
+Qual é a diferença entre latch e flip-flop quanto ao momento de atualização?	Latch é sensível a nível; flip-flop é sensível à borda.	aula_12 latch flip_flop nivel_medio
+O que é metastabilidade em nível conceitual?	Um estado temporariamente indefinido antes de o circuito decidir entre 0 e 1.	aula_12 metastabilidade nivel_medio
+Em um latch D ativo alto com Q=0, EN=1 e D=1, qual será Q?	Q=1.	aula_12 latch_d nivel_medio
+Em um latch D ativo alto com Q=1, EN=0 e D=0, qual será Q?	Q=1, pois o latch mantém o estado.	aula_12 latch_d nivel_medio
+Em um latch SR com NOR com Q=0, S=0 e R=0, qual será Q+?	Q+=0.	aula_12 latch_sr nor nivel_medio
+Em um latch SR com NOR com Q=1, S=0 e R=0, qual será Q+?	Q+=1.	aula_12 latch_sr nor nivel_medio
+Por que Q' não deve ser tratado como uma saída independente de Q?	Porque Q' deve ser o complemento de Q, exceto em condições inválidas ou transitórias.	aula_12 latch_sr nivel_medio
