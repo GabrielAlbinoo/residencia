@@ -1,7 +1,7 @@
 # Aula Detalhada - Somadores
 
 **Tema do dia:** half-adder, full-adder, ripple-carry adder, carry-in, carry-out, diferença entre carry e overflow e ideia de carry look-ahead  
-**Aula na sequência:** 17  
+**Aula na sequência:** 19  
 **Objetivo:** entender como a soma binária é implementada em hardware, desde uma soma de 1 bit até somadores de vários bits, e saber interpretar carry e overflow em questões de prova.
 
 ---
@@ -1271,23 +1271,18 @@ Eles treinam exatamente a parte que mais confunde em prova.
 
 # 19. Conexão Com A Próxima Aula
 
-Na próxima aula, a soma vira parte de um bloco maior.
+Esta aula funciona como reforço operacional para a aula de subtrator, comparador, shifter e ULA.
 
-Vamos estudar:
-
-```text
-subtrator
-comparador
-shifter
-ULA
-```
-
-A ideia principal será:
+Depois dela, a ideia que precisa ficar sólida é:
 
 ```text
-uma ULA escolhe entre várias operações:
-soma, subtração, AND, OR, comparação, deslocamento...
+o mesmo somador pode ser reaproveitado para soma e subtração
 ```
 
-O somador desta aula será reaproveitado para subtração, comparação e operações aritméticas da ULA.
+Isso acontece porque:
 
+```text
+A - B = A + B' + 1
+```
+
+O somador desta aula também será importante nas revisões de ULA, datapath e arquitetura.

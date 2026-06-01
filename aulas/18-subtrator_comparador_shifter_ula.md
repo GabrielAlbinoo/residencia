@@ -2,13 +2,13 @@
 
 **Tema do dia:** subtração em hardware, subtrator, borrow, subtração por complemento de 2, comparador de magnitude, shifters lógicos e aritméticos e ULA como bloco combinacional controlado  
 **Aula na sequência:** 18  
-**Objetivo:** entender como circuitos digitais fazem subtração, comparação, deslocamento de bits e seleção de operações em uma ULA, conectando esses blocos ao somador estudado na Aula 17.
+**Objetivo:** entender como circuitos digitais fazem subtração, comparação, deslocamento de bits e seleção de operações em uma ULA, conectando esses blocos à aula de somadores.
 
 ---
 
 ## 1. Onde Esta Aula Entra No Estudo?
 
-Na Aula 17, você estudou somadores:
+Na aula de somadores, você estudou:
 
 ```text
 half-adder
@@ -252,7 +252,7 @@ Então:
 A - B = A + B' + 1
 ```
 
-Isso é excelente para hardware, porque reaproveita o mesmo somador da Aula 17.
+Isso é excelente para hardware, porque reaproveita o mesmo somador estudado na aula de somadores.
 
 ## 5.2 Como o circuito faz isso
 
@@ -1738,22 +1738,23 @@ shift lógico vs aritmético
 
 # 20. Conexão Com A Próxima Aula
 
-Na próxima aula, vamos continuar em aritmética digital, mas agora com representação de números não inteiros ou números com escala.
+Nesta sequência, a representação de números não inteiros ficou antecipada na aula de ponto fixo e ponto flutuante.
 
-O tema será:
+Depois desta aula, mantenha ligados estes três blocos:
 
 ```text
-ponto fixo
-ponto flutuante
+ponto fixo/flutuante -> como representar valores
+somadores/subtratores -> como operar valores
+ULA -> como selecionar a operação
 ```
 
-Isso conecta com:
+O próximo reforço natural é a aula de somadores:
 
 ```text
-como representar frações em binário
-como interpretar escala
-por que ponto flutuante usa sinal, expoente e mantissa
-quais erros de precisão podem aparecer
+half-adder
+full-adder
+ripple-carry
+carry versus overflow
 ```
 
 Depois desta aula, a ideia é que você já enxergue melhor a base da ULA:
@@ -1765,4 +1766,3 @@ comparar
 deslocar
 selecionar operação
 ```
-

@@ -109,6 +109,68 @@ Evite pegadinhas injustas.
 
 A questão pode ser difícil, mas precisa ser resolvível com o conteúdo estudado.
 
+## 6.1 Padrão De Prova Real
+
+Quando o usuário pedir simulado difícil, nível de prova, revisão acumulativa ou não especificar dificuldade, o simulado deve ser feito no padrão **prova real**, não apenas no padrão revisão.
+
+Nesse padrão:
+
+- pelo menos metade das questões deve exigir **duas ou mais etapas** de raciocínio;
+- uma parte relevante das questões deve misturar assuntos próximos, sem sair do conteúdo estudado;
+- incluir questões do tipo **"assinale a incorreta"**, **"qual alternativa não é verdadeira"**, **"exceto"** ou **"qual afirmação está errada"**;
+- incluir questões com enunciados em que seja necessário interpretar tabela, mapa, circuito textual, sequência temporal ou especificação antes de calcular;
+- evitar que a resposta seja obtida por reconhecimento imediato de fórmula;
+- não transformar dificuldade em texto longo sem necessidade.
+
+Exemplos de questões mais realistas:
+
+```text
+Karnaugh -> expressão mínima -> implementação NAND/NOR
+FSM -> tabela de próximo estado -> equações D -> saída
+temporização -> setup -> Fmax -> checagem de hold
+decoder/MUX/DEMUX -> índice binário -> saída/bloco correto
+ponto fixo -> escala -> valor real -> resolução
+ponto flutuante -> normalização -> expoente com bias
+```
+
+## 6.2 Alternativas Plausíveis E Erros Comuns
+
+As alternativas erradas devem ser construídas a partir de erros prováveis do aluno, não como respostas aleatórias.
+
+Para cada questão difícil, sempre que possível, crie alternativas que correspondam a erros como:
+
+- confundir carry com overflow;
+- esquecer extensão de sinal;
+- contar índice começando de 1 em vez de 0;
+- trocar `C` por `C'`;
+- inverter leitura SOP/POS;
+- agrupar zeros como se fossem uns, ou o contrário;
+- esquecer que `D = Q+` em flip-flop D;
+- usar atraso máximo quando a questão pede hold, ou atraso mínimo quando pede setup;
+- esquecer o bias do IEEE 754;
+- usar `2^m` no lugar de `2^n` em ponto fixo `Qm.n`;
+- errar uma etapa intermediária comum de conta.
+
+Em questões numéricas, pelo menos uma alternativa errada deve ser o resultado de um erro pequeno e plausível de cálculo.
+
+Exemplo:
+
+```text
+resposta correta: 95,2 MHz
+alternativa plausível: 111,1 MHz, caso o aluno esqueça o setup
+alternativa plausível: 10,5 MHz, caso erre a conversão ns -> MHz
+```
+
+Em questões conceituais, use alternativas parcialmente verdadeiras, mas com um detalhe errado.
+
+## 6.3 Distribuição Do Gabarito
+
+O gabarito deve ter distribuição equilibrada entre `A`, `B`, `C` e `D`.
+
+Evite padrões como muitas respostas seguidas na mesma letra ou excesso de uma única alternativa.
+
+Antes de entregar, confira a distribuição das respostas corretas. Se estiver muito concentrada, reorganize as alternativas sem mudar o conteúdo da questão.
+
 ## 7. Revisão Obrigatória Antes De Entregar
 
 Depois de terminar o simulado, revise **todas as questões**.

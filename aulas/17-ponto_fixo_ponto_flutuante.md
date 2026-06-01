@@ -1,7 +1,7 @@
 # Aula Detalhada - Ponto Fixo E Ponto Flutuante
 
 **Tema do dia:** frações em binário, ponto fixo, escala, formato Q, ponto flutuante em nível conceitual, sinal, expoente, mantissa/significando, normalização, precisão e arredondamento  
-**Aula na sequência:** 19  
+**Aula na sequência:** 17  
 **Objetivo:** entender como números com parte fracionária podem ser representados em sistemas digitais, diferenciar ponto fixo de ponto flutuante e reconhecer os principais erros de interpretação em questões de prova.
 
 ---
@@ -320,24 +320,74 @@ Valor:
 
 ## 4.3 Escala
 
-Outra forma de enxergar ponto fixo:
+Escala é a ideia mais importante de ponto fixo.
+
+Pense assim:
+
+```text
+o circuito guarda um inteiro
+mas você interpreta esse inteiro como se ele estivesse dividido por uma escala
+```
+
+Ou seja, o padrão de bits armazenado não "tem vírgula" fisicamente.
+
+Quem coloca a vírgula é o formato.
+
+A fórmula é:
 
 ```text
 valor real = inteiro armazenado / escala
 ```
 
-Se há `F` bits fracionários:
+E a escala vem da quantidade de bits fracionários.
+
+Se o formato tem `F` bits depois do ponto:
 
 ```text
 escala = 2^F
 ```
 
-No exemplo de 4 bits fracionários:
+Então:
+
+```text
+valor real = inteiro armazenado / 2^F
+```
+
+## 4.3.1 Por que a escala é 2^F?
+
+Porque cada bit fracionário aumenta a quantidade de "pedaços" em que uma unidade é dividida.
+
+Veja:
+
+| Bits fracionários | Quantos pedaços cabem em 1 unidade? | Escala |
+|---:|---:|---:|
+| 1 | 2 pedaços | 2 |
+| 2 | 4 pedaços | 4 |
+| 3 | 8 pedaços | 8 |
+| 4 | 16 pedaços | 16 |
+
+Se você tem 4 bits fracionários:
 
 ```text
 F = 4
 escala = 2^4 = 16
 ```
+
+Isso significa:
+
+```text
+16 unidades armazenadas = 1 unidade real
+```
+
+Ou, dito de outro jeito:
+
+```text
+o número guardado está "16 vezes maior" do que o valor real
+```
+
+Por isso, para ler o valor real, você divide por 16.
+
+## 4.3.2 Exemplo de leitura
 
 O padrão:
 
@@ -358,6 +408,85 @@ Valor real:
 ```
 
 Mesmo resultado.
+
+Então existem dois jeitos equivalentes de ler:
+
+```text
+0011,0100 -> 3 + 0,25 = 3,25
+```
+
+ou:
+
+```text
+00110100 = 52
+52 / 16 = 3,25
+```
+
+Os dois estão certos.
+
+## 4.3.3 Exemplo de armazenamento
+
+Agora faça o caminho contrário.
+
+Queremos armazenar:
+
+```text
+2,5 em Q4.4
+```
+
+Como Q4.4 tem 4 bits fracionários:
+
+```text
+escala = 2^4 = 16
+```
+
+Para armazenar, multiplique o valor real pela escala:
+
+```text
+inteiro armazenado = valor real * escala
+inteiro armazenado = 2,5 * 16
+inteiro armazenado = 40
+```
+
+Agora converta 40 para binário:
+
+```text
+40_10 = 00101000_2
+```
+
+Então:
+
+```text
+2,5 em Q4.4 -> 00101000
+```
+
+Conferindo:
+
+```text
+00101000_2 = 40
+40 / 16 = 2,5
+```
+
+## 4.3.4 Regra prática
+
+Para ler ponto fixo:
+
+```text
+bits -> inteiro -> divide pela escala
+```
+
+Para armazenar ponto fixo:
+
+```text
+valor real -> multiplica pela escala -> inteiro -> bits
+```
+
+Resumo:
+
+| Operação | O que fazer |
+|---|---|
+| Ler bits em ponto fixo | dividir por `2^F` |
+| Guardar valor em ponto fixo | multiplicar por `2^F` |
 
 ## 4.4 Formato Q
 
@@ -383,7 +512,64 @@ Qm.n -> m bits antes do ponto e n bits depois do ponto
 
 ## 4.5 Resolução
 
-A menor diferença representável em ponto fixo depende da quantidade de bits fracionários.
+Resolução é o menor passo que o formato consegue representar.
+
+Em ponto fixo, a resolução é o valor real de `1` no inteiro armazenado.
+
+Exemplo em Q4.4:
+
+```text
+escala = 16
+```
+
+Então:
+
+```text
+1 unidade armazenada = 1/16 unidade real
+1 unidade armazenada = 0,0625
+```
+
+Logo:
+
+```text
+resolução = 0,0625
+```
+
+Isso significa que os valores representáveis andam de `0,0625` em `0,0625`.
+
+Exemplo:
+
+| Inteiro armazenado | Valor real em Q4.4 |
+|---:|---:|
+| 0 | 0 / 16 = 0 |
+| 1 | 1 / 16 = 0,0625 |
+| 2 | 2 / 16 = 0,125 |
+| 3 | 3 / 16 = 0,1875 |
+| 4 | 4 / 16 = 0,25 |
+| 5 | 5 / 16 = 0,3125 |
+
+Então, em Q4.4, você consegue representar:
+
+```text
+0
+0,0625
+0,125
+0,1875
+0,25
+...
+```
+
+Mas não consegue representar exatamente:
+
+```text
+0,1
+0,2
+0,3
+```
+
+porque eles não caem exatamente nos passos de `0,0625`.
+
+## 4.5.1 Fórmula da resolução
 
 Se há `F` bits fracionários:
 
@@ -391,21 +577,107 @@ Se há `F` bits fracionários:
 resolução = 1 / 2^F
 ```
 
+Como:
+
+```text
+escala = 2^F
+```
+
+também podemos dizer:
+
+```text
+resolução = 1 / escala
+```
+
+Ou seja:
+
+```text
+escala e resolução são inversas
+```
+
 Exemplos:
 
-| Bits fracionários | Resolução |
+| Bits fracionários `F` | Escala `2^F` | Resolução `1/2^F` |
+|---:|---:|---:|
+| 1 | 2 | 1/2 = 0,5 |
+| 2 | 4 | 1/4 = 0,25 |
+| 3 | 8 | 1/8 = 0,125 |
+| 4 | 16 | 1/16 = 0,0625 |
+| 8 | 256 | 1/256 = 0,00390625 |
+
+## 4.5.2 Diferença entre escala e resolução
+
+Essa é a parte que costuma confundir.
+
+Escala:
+
+```text
+é o número pelo qual você divide o inteiro armazenado
+```
+
+Resolução:
+
+```text
+é o tamanho do menor passo real representável
+```
+
+Exemplo em Q4.4:
+
+```text
+escala = 16
+resolução = 1/16 = 0,0625
+```
+
+Se o inteiro armazenado aumenta de 1:
+
+```text
+40 -> 41
+```
+
+o valor real aumenta só:
+
+```text
+1/16 = 0,0625
+```
+
+Veja:
+
+| Inteiro armazenado | Valor real |
 |---:|---:|
-| 1 | 1/2 = 0,5 |
-| 2 | 1/4 = 0,25 |
-| 3 | 1/8 = 0,125 |
-| 4 | 1/16 = 0,0625 |
-| 8 | 1/256 = 0,00390625 |
+| 40 | 40/16 = 2,5 |
+| 41 | 41/16 = 2,5625 |
+| 42 | 42/16 = 2,625 |
+
+Então:
+
+```text
+escala = divisor
+resolução = passo
+```
+
+## 4.5.3 Troca entre faixa e precisão
 
 Quanto mais bits fracionários:
 
 ```text
 maior precisão fracionária
 menor faixa para a parte inteira, se o total de bits for fixo
+```
+
+Exemplo com 8 bits sem sinal:
+
+| Formato | Bits inteiros | Bits fracionários | Escala | Resolução | Maior valor |
+|---|---:|---:|---:|---:|---:|
+| Q6.2 | 6 | 2 | 4 | 0,25 | 63,75 |
+| Q4.4 | 4 | 4 | 16 | 0,0625 | 15,9375 |
+| Q2.6 | 2 | 6 | 64 | 0,015625 | 3,984375 |
+
+Repare:
+
+```text
+Q6.2 -> alcança valores maiores, mas tem passos maiores
+Q4.4 -> meio termo
+Q2.6 -> passos menores, mas alcança valores menores
 ```
 
 Essa troca é central em ponto fixo.
@@ -1441,6 +1713,12 @@ resolução = 1 / 2^F
 ```
 
 ```text
+escala = divisor usado para ler o inteiro armazenado
+resolução = menor passo real representável
+resolução = 1 / escala
+```
+
+```text
 Qm.n:
 m bits antes do ponto
 n bits depois do ponto
@@ -1505,30 +1783,29 @@ interpretação dependente do formato
 
 # 19. Conexão Com A Próxima Aula
 
-Na próxima aula, vamos sair um pouco da representação numérica e entrar nos pré-requisitos físicos de circuitos digitais:
+Na próxima aula, vamos voltar para blocos aritméticos e estudar como o hardware faz subtração, comparação, deslocamento e seleção de operações:
 
 ```text
-tensão
-corrente
-potência
-energia
-transistores MOS como chaves
+subtrator
+comparador
+shifter
+ULA
 ```
 
-Isso é importante porque o edital também cobra:
+Isso conecta ponto fixo/flutuante com o restante da aritmética digital:
 
 ```text
-lógica CMOS combinacional
-comportamento elétrico
-consumo de potência
-atraso de propagação
+representação numérica
+operações em hardware
+controle da ULA
+interpretação de overflow, sinal e escala
 ```
 
-Até aqui você viu o circuito pelo lado lógico.
-
-A próxima aula começa a mostrar:
+Depois, a sequência volta para somadores como reforço operacional e segue para a parte física:
 
 ```text
-como esses 0s e 1s aparecem fisicamente no hardware
+somadores
+física básica
+transistores MOS
+CMOS combinacional
 ```
-

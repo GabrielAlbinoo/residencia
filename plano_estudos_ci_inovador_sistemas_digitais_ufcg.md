@@ -1,11 +1,11 @@
 # Plano de Estudos Revisado — CI Brasil Inovação 2
 ## Trilha: Sistemas Digitais — UFCG
 
-**Plano atualizado em:** 29/05/2026, sexta-feira  
+**Plano atualizado em:** 01/06/2026, segunda-feira  
 **Período restante de estudo:** 29/05/2026 a 27/06/2026  
 **Prova objetiva:** 28/06/2026, domingo, das 14h às 18h  
 **Foco deste plano:** conteúdo técnico de Sistemas Digitais  
-**Situação atual:** aulas `1` a `15` estudadas; aulas `16`, `17`, `18`, `19` e `20` já criadas, mas ainda não registradas como estudadas. A aula de assembly foi criada fora de ordem e renumerada como `Aula 25`, para ser estudada depois do bloco de circuitos digitais/aritmética.
+**Situação atual:** aulas `1` a `15` estudadas; a Aula `17` também foi estudada ao revisar binário e frações; aulas `16`, `18`, `19` e `20` já criadas, mas ainda não registradas como estudadas. A aula de assembly foi criada fora de ordem e renumerada como `Aula 25`, para ser estudada depois do bloco de circuitos digitais/aritmética.
 
 ---
 
@@ -126,15 +126,15 @@ Esses itens serão cobertos de modo focado, sem virar um curso paralelo.
 | Aula 13 | Flip-flops e registradores | Estudada |
 | Aula 14 | Contadores assíncronos, síncronos e divisão de frequência | Estudada |
 | Aula 15 | Temporização sequencial, setup, hold e caminho crítico | Estudada |
+| Aula 17 | Ponto fixo e ponto flutuante | Estudada em 01/06, durante revisão de binário |
 
 ## 3.2 Aulas já criadas, mas ainda não registradas como estudadas
 
 | Aula | Conteúdo | Próxima ação |
 |---|---|---|
 | Aula 16 | Síntese de máquinas de estados com flip-flops D | Estudar e fazer pelo menos 1 exemplo Moore e 1 exemplo Mealy |
-| Aula 17 | Somadores: half-adder, full-adder, ripple-carry e carry look-ahead | Estudar antes de subtrator, shifter e ULA |
-| Aula 18 | Subtrator, comparador, shifter e ULA | Estudar depois da Aula 17, reforçando subtração por complemento de 2 |
-| Aula 19 | Ponto fixo e ponto flutuante | Estudar depois da Aula 18, reforçando frações em binário e escala |
+| Aula 18 | Subtrator, comparador, shifter e ULA | Estudar reforçando subtração por complemento de 2 e consultar a aula de somadores como apoio |
+| Aula 19 | Somadores: half-adder, full-adder, ripple-carry e carry look-ahead | Estudar como reforço operacional para subtração e ULA |
 | Aula 20 | Física básica e transistores MOS | Estudar antes de CMOS combinacional |
 | Aula 25 | Algoritmos procedurais, assembly básico e operandos | Guardar para depois de circuitos digitais/aritmética |
 
@@ -146,6 +146,7 @@ Esses itens serão cobertos de modo focado, sem virar um curso paralelo.
 | 26/05/2026 | Simulado 02 — Aulas 6 a 8 | `27/30 (90%)` | Karnaugh bom, com ajustes em POS/zeros |
 | 26/05/2026 | Simulado 03 — Aulas 1 a 9, nível de prova | `73/90 (81%)` | Bom diagnóstico, mas cansativo demais |
 | 28/05/2026 | Simulado 04 — Revisão Aulas 9 a 13 | `24/30 (80%)` | Bom resultado; principal lacuna foi Aula 10, já revisada com foco em MUX |
+| 01/06/2026 | Simulado 05 — Aulas 1 a 17, nível difícil | `44/50 (88%)` | Resultado forte; revisar decoder/encoder/DEMUX e ponto fixo/flutuante |
 
 ## 3.4 Diagnóstico atual
 
@@ -331,36 +332,7 @@ Meta:
 80% geral; se FSM ou temporização ficar abaixo de 70%, revisar antes de avançar para aritmética digital/CMOS.
 ```
 
-### 01/06 — Segunda — Aula 17: somadores
-
-- Half-adder.
-- Full-adder.
-- Ripple-carry adder.
-- Carry-in e carry-out.
-- Relação entre soma binária, carry e overflow.
-- Ideia de carry look-ahead em nível conceitual.
-
-Prática:
-
-- 8 somas com half/full-adder;
-- 6 questões sobre ripple-carry;
-- 4 questões distinguindo carry e overflow.
-
-### 02/06 — Terça — Aula 18: subtrator, comparador, shifter e ULA
-
-- Subtração com complemento de 2.
-- Half-subtractor e full-subtractor em nível conceitual.
-- Comparador de magnitude.
-- Shifter lógico e aritmético.
-- ULA como bloco selecionado por sinais de controle.
-
-Prática:
-
-- 10 questões de subtração/comparação;
-- 6 questões de shifter;
-- 4 questões de seleção de operação da ULA.
-
-### 03/06 — Quarta — Aula 19: ponto fixo e ponto flutuante
+### 01/06 — Segunda — Aula 17: ponto fixo e ponto flutuante
 
 - Ponto fixo.
 - Escala e interpretação.
@@ -376,6 +348,35 @@ Prática:
 - 8 questões conceituais;
 - 6 conversões simples;
 - 4 questões de interpretação de erro/precisão.
+
+### 02/06 — Terça — Aula 18: subtrator, comparador, shifter e ULA
+
+- Subtração com complemento de 2.
+- Half-subtractor e full-subtractor em nível conceitual.
+- Comparador de magnitude.
+- Shifter lógico e aritmético.
+- ULA como bloco selecionado por sinais de controle.
+
+Prática:
+
+- 10 questões de subtração/comparação;
+- 6 questões de shifter;
+- 4 questões de seleção de operação da ULA.
+
+### 03/06 — Quarta — Aula 19: somadores
+
+- Half-adder.
+- Full-adder.
+- Ripple-carry adder.
+- Carry-in e carry-out.
+- Relação entre soma binária, carry e overflow.
+- Ideia de carry look-ahead em nível conceitual.
+
+Prática:
+
+- 8 somas com half/full-adder;
+- 6 questões sobre ripple-carry;
+- 4 questões distinguindo carry e overflow.
 
 ### 04/06 — Quinta — Aula 20: física básica e transistores MOS
 
@@ -417,7 +418,7 @@ Prática:
 ### 06/06 — Sábado — Reserva e fechamento de fundamentos
 
 - Se Aula 16 ainda não estiver sólida, revisar síntese de FSM.
-- Se somadores/ULA estiverem fracos, revisar Aula 17 e Aula 18.
+- Se somadores/ULA estiverem fracos, revisar Aula 19 e Aula 18.
 - Atualizar Anki com os pontos que ainda travarem.
 
 ### 07/06 — Domingo — Simulado acumulativo
@@ -769,9 +770,8 @@ Não iniciar teoria nova.
 ## 7.2 Criado, mas ainda não registrado como estudado
 
 - [ ] Síntese de FSM.
-- [ ] Aula 17 — Somadores: half-adder, full-adder, ripple-carry e carry look-ahead.
 - [ ] Aula 18 — Subtrator, comparador, shifter e ULA.
-- [ ] Aula 19 — Ponto fixo e ponto flutuante.
+- [ ] Aula 19 — Somadores: half-adder, full-adder, ripple-carry e carry look-ahead.
 - [ ] Aula 20 — Física básica e transistores MOS.
 - [ ] Aula 25 — Algoritmos procedurais, assembly básico e operandos.
 
@@ -798,6 +798,7 @@ O edital exige no mínimo `20/40`, mas atingir apenas o mínimo não é uma meta
 | 26/05 | Simulado 02 — aulas 6 a 8 | `27/30 (90%)` |
 | 26/05 | Simulado 03 — aulas 1 a 9, nível de prova | `73/90 (81%)` |
 | 28/05 | Simulado 04 — aulas 9 a 13, nível de prova | `24/30 (80%)` |
+| 01/06 | Simulado 05 — aulas 1 a 17, nível difícil | `44/50 (88%)` |
 
 ## 8.2 Próximos simulados
 
@@ -864,9 +865,9 @@ aulas/13-flip_flops_registradores.md
 aulas/14-contadores_assincronos_sincronos_divisao_frequencia.md
 aulas/15-temporizacao_sequencial_setup_hold_caminho_critico.md
 aulas/16-sintese_maquinas_estados_fsm_flip_flops_d.md
-aulas/17-somadores_half_adder_full_adder_ripple_carry.md
+aulas/17-ponto_fixo_ponto_flutuante.md
 aulas/18-subtrator_comparador_shifter_ula.md
-aulas/19-ponto_fixo_ponto_flutuante.md
+aulas/19-somadores_half_adder_full_adder_ripple_carry.md
 aulas/20-fisica_basica_transistores_mos.md
 aulas/25-algoritmos_procedurais_assembly_basico_operandos.md
 ```
@@ -878,6 +879,8 @@ simulados/simulado_01_semana_1_aulas_1_a_5_40_questoes.html
 simulados/simulado_02_aulas_6_a_8_30_questoes.html
 simulados/simulado_03_aulas_1_a_9_nivel_prova_90_questoes.html
 simulados/simulado_04_aulas_9_a_13_revisao_nivel_prova_30_questoes.html
+simulados/simulado_05_aulas_1_a_17_nivel_dificil_50_questoes.html
+simulados/simulado_06_aulas_1_a_17_nivel_prova_real_50_questoes.html
 ```
 
 ## Revisões e acompanhamento
