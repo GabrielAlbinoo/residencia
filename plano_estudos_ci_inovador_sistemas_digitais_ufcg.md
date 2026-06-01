@@ -889,6 +889,7 @@ simulados/simulado_06_aulas_1_a_17_nivel_prova_real_50_questoes.html
 log_estudos_e_simulados.md
 o_que_revisar.md
 anki_flashcards_sistemas_digitais.txt
+exercicios_facudades/
 resultados_simulados/
 resultados-simulado-02-2026-05-26/
 resultados-simulado-03-2026-05-26/
