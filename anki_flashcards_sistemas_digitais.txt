@@ -293,32 +293,12 @@ Em um latch SR com NOR com Q=0, S=0 e R=0, qual será Q+?	Q+=0.	aula_12 latch_sr
 Em um latch SR com NOR com Q=1, S=0 e R=0, qual será Q+?	Q+=1.	aula_12 latch_sr nor nivel_medio
 Por que Q' não deve ser tratado como uma saída independente de Q?	Porque Q' deve ser o complemento de Q, exceto em condições inválidas ou transitórias.	aula_12 latch_sr nivel_medio
 O que a frequência mede?	Quantidade de ciclos por segundo.	aula_15 frequencia clock nivel_facil
-Qual é a unidade base de frequência?	Hertz, abreviado como Hz.	aula_15 frequencia unidades nivel_facil
-O que significa 1 Hz?	1 ciclo por segundo.	aula_15 frequencia unidades nivel_facil
-O que significa 1 kHz?	1.000 ciclos por segundo.	aula_15 frequencia unidades nivel_facil
-O que significa 1 MHz?	1.000.000 de ciclos por segundo.	aula_15 frequencia unidades nivel_facil
-O que significa 1 GHz?	1.000.000.000 de ciclos por segundo.	aula_15 frequencia unidades nivel_facil
 O que é o período de um clock?	O tempo necessário para completar 1 ciclo.	aula_15 periodo clock nivel_facil
 Qual é a relação entre frequência e período?	F = 1/T e T = 1/F.	aula_15 frequencia periodo nivel_facil
-O que é um ciclo completo de clock?	Uma repetição completa do sinal, normalmente 0 -> 1 -> 0.	aula_15 clock ciclo nivel_facil
-Quantas bordas existem em um ciclo completo de clock comum?	Duas bordas: uma de subida e uma de descida.	aula_15 clock borda nivel_facil
 Qual é a diferença entre ciclo e transição em um clock?	Ciclo é a repetição completa; transição é uma mudança, como 0 -> 1 ou 1 -> 0.	aula_15 clock ciclo nivel_medio
-Qual é o período de um clock de 1 Hz?	1 segundo.	aula_15 frequencia periodo nivel_facil
-Qual é o período de um clock de 2 Hz?	0,5 segundo.	aula_15 frequencia periodo nivel_facil
-Qual é o período de um clock de 1 kHz?	1 ms.	aula_15 frequencia periodo nivel_facil
-Qual é o período de um clock de 1 MHz?	1 us.	aula_15 frequencia periodo nivel_facil
-Qual é o período de um clock de 1 GHz?	1 ns.	aula_15 frequencia periodo nivel_facil
 Qual fórmula converte período em ns para frequência em MHz?	F(MHz) = 1000 / T(ns).	aula_15 frequencia periodo conversao nivel_medio
 Qual fórmula converte frequência em MHz para período em ns?	T(ns) = 1000 / F(MHz).	aula_15 frequencia periodo conversao nivel_medio
 Qual é o período de um clock de 100 MHz?	10 ns.	aula_15 frequencia periodo conversao nivel_medio
-Qual é o período de um clock de 50 MHz?	20 ns.	aula_15 frequencia periodo conversao nivel_medio
-Qual é o período de um clock de 25 MHz?	40 ns.	aula_15 frequencia periodo conversao nivel_medio
 Qual é o período de um clock de 200 MHz?	5 ns.	aula_15 frequencia periodo conversao nivel_medio
-Qual é a frequência correspondente a um período de 10 ns?	100 MHz.	aula_15 frequencia periodo conversao nivel_medio
-Qual é a frequência correspondente a um período de 20 ns?	50 MHz.	aula_15 frequencia periodo conversao nivel_medio
-Qual é a frequência correspondente a um período de 5 ns?	200 MHz.	aula_15 frequencia periodo conversao nivel_medio
 Por que Fmax = 1 / Tclock mínimo?	Porque a frequência máxima é o inverso do menor período de clock que ainda respeita a temporização.	aula_15 fmax periodo nivel_medio
-Se Tclock mínimo é 8 ns, qual é Fmax em MHz?	125 MHz.	aula_15 fmax periodo conversao nivel_medio
-Se Tclock mínimo é 12,5 ns, qual é Fmax em MHz?	80 MHz.	aula_15 fmax periodo conversao nivel_medio
-Se Fmax é 250 MHz, qual é o período mínimo em ns?	4 ns.	aula_15 fmax periodo conversao nivel_medio
 Por que não é ideal dizer que 1 MHz é um milhão de mudanças por segundo?	Porque 1 MHz significa um milhão de ciclos completos por segundo; mudanças ou transições podem ser duas por ciclo.	aula_15 frequencia clock nivel_dificil

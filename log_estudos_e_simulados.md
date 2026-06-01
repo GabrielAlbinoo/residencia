@@ -9,6 +9,7 @@
 | 25/05/2026 | Aula 6 — Valores lógicos, mintermos, maxtermos, SOP e POS |
 | 27/05/2026 | Aula 10 — MUX, DEMUX, decoder, encoder e blocos combinacionais |
 | 28/05/2026 | Aulas 11, 12 e 13 — Introdução a FSM, Moore e Mealy; estabilidade, latch SR e latch D, Flip-Flop |
+| 29/05/2026 | Registro consolidado: aulas 1 a 15 marcadas como concluídas, incluindo Karnaugh, síntese lógica, contadores e temporização sequencial |
 
 ## Simulados Realizados
 
