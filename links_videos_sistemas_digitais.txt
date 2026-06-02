@@ -1,0 +1,216 @@
+LINKS DE VIDEOS - SISTEMAS DIGITAIS
+Atualizado em 2026-06-02
+
+Objetivo: juntar fontes em PT-BR/PT que ajudem a revisar os assuntos mais importantes:
+somador, subtrator, ULA, comparador, shifter/registrador de deslocamento, temporizacao,
+flip-flops, contadores, MUX/DEMUX e circuitos combinacionais.
+
+
+1) MELHOR CURSO/SEQUENCIA PARA SEGUIR
+
+[PRINCIPAL] USP e-Aulas - Sistemas Digitais I
+Link da disciplina com 56 videos:
+https://eaulas.usp.br/portal/course.action%3Bjsessionid%3DA2013A3FD46A73AA236F0ACF0040D2B8?course=7415
+
+Por que usar:
+- E uma disciplina completa de Sistemas Digitais I.
+- Tem sequencia de videos organizada.
+- Cobre algebra booleana, portas, Karnaugh, MUX/DEMUX, codificadores/decodificadores,
+  comparadores, somadores, subtratores, ripple-carry, operacoes aritmeticas e hazards.
+- Ideal para assistir como trilha principal.
+
+Links pontuais dentro da USP e-Aulas:
+- Comparadores:
+  https://eaulas.usp.br/portal/video?idItem=7734
+- Meio somador e somador completo:
+  https://eaulas.usp.br/portal/video?idItem=7736
+- Somador ripple-carry e carry-lookahead:
+  https://eaulas.usp.br/portal/video?idItem=7737
+- Subtratores:
+  https://eaulas.usp.br/portal/video?idItem=7738
+- Adicao e subtracao de numeros binarios sem sinal:
+  https://eaulas.usp.br/portal/video?idItem=7634
+- Hazard estatico/dinamico e corrida critica:
+  https://eaulas.usp.br/portal/video?idItem=7731
+- Fan-in e fan-out:
+  https://eaulas.usp.br/portal/video?idItem=7740
+
+
+[COMPLEMENTAR BEM COMPLETO] Cursa - Eletronica Digital: Logica, Sistemas Numericos e Circuitos
+Link do curso:
+https://cursa.app/pt/curso-gratuito/eletronica-digital-logica-sistemas-numericos-e-circuitos-fafa
+
+Por que usar:
+- Curso longo, com 20h45 de video.
+- Bom para preencher lacunas da USP.
+- Tem aulas sobre registrador de deslocamento, flip-flop, temporizacao, contadores e circuitos aritmeticos.
+
+Aulas importantes nesse curso:
+- Aulas 50-55: pulsos digitais, flip-flops e entradas assincronas.
+- Aula 59: registrador de deslocamento.
+- Aulas 61-69: contadores.
+- Aulas 70-75: circuitos aritmeticos, somador completo, subtrator completo,
+  somador-subtrator, complemento de 2, somador BCD e somador serial.
+
+
+[APOIO COM MATERIAL/SLIDES] Prof. Filippo Valiante - Sistemas Digitais I
+Link:
+https://prof.valiante.info/aulas/sistemas-digitais/curso-de-sistemas-digitais-i-circuitos-combinacionais
+
+Por que usar:
+- Muito bom para revisar circuitos combinacionais por partes.
+- A Parte 4 cita diretamente somadores, subtratores, ULAs e deslocadores.
+- Use junto dos videos da USP/Cursa quando quiser um resumo mais visual em slides.
+
+Canal do professor:
+https://www.youtube.com/professorfilippo
+
+
+2) PLAYLISTS E VIDEOS PONTUAIS POR ASSUNTO
+
+SOMADORES E SUBTRATORES
+
+Playlist - Nivaldo Junior - Somadores e Subtratores:
+https://www.youtube.com/playlist?list=PLRKGEaxOX82mS-TqEiQE3UOdCoqbdNQAN
+
+Video - Circuitos Somadores: Meio Somador e Somador Completo:
+https://www.youtube.com/watch?v=YYuTJexKqCw
+
+Video - Circuitos Subtratores: Meio Subtrator e Subtrator Completo:
+https://www.youtube.com/watch?v=cG7wemiantQ
+
+USP - Meio somador e somador completo:
+https://eaulas.usp.br/portal/video?idItem=7736
+
+USP - Somador ripple-carry e carry-lookahead:
+https://eaulas.usp.br/portal/video?idItem=7737
+
+USP - Subtratores:
+https://eaulas.usp.br/portal/video?idItem=7738
+
+
+ULA / ALU
+
+Video - Unidade Logica Aritmetica (ULA):
+https://www.youtube.com/watch?v=QsW_0faiuiA
+
+Video - Criacao da ULA:
+https://www.youtube.com/watch?v=4-UlzYdFQaY
+
+Video - [Circuitos Digitais] Aula 06 - Aritmetica Binaria:
+https://www.youtube.com/watch?v=gBsNWWscIcg
+
+Material de apoio - Prof. Filippo, Parte 4: Somadores, subtratores, ULAs e deslocadores:
+https://prof.valiante.info/aulas/sistemas-digitais/curso-de-sistemas-digitais-i-circuitos-combinacionais
+
+
+COMPARADOR
+
+USP - Comparadores:
+https://eaulas.usp.br/portal/video?idItem=7734
+
+Material de apoio - Prof. Filippo, Parte 3: comparadores e circuitos de paridade:
+https://prof.valiante.info/aulas/sistemas-digitais/curso-de-sistemas-digitais-i-circuitos-combinacionais
+
+
+SHIFTER / REGISTRADOR DE DESLOCAMENTO
+
+Cursa - Curso completo com aula sobre registrador de deslocamento:
+https://cursa.app/pt/curso-gratuito/eletronica-digital-logica-sistemas-numericos-e-circuitos-fafa
+
+No curso Cursa, procurar:
+- Aula 59 - Registrador de Deslocamento.
+- Aula 60 - Outros tipos de registradores de dados.
+
+Material de apoio - Prof. Filippo, Parte 4: deslocadores:
+https://prof.valiante.info/aulas/sistemas-digitais/curso-de-sistemas-digitais-i-circuitos-combinacionais
+
+
+TEMPORIZACAO, CLOCK, HAZARD, ATRASO DE PROPAGACAO
+
+USP - Hazard estatico/dinamico e corrida critica:
+https://eaulas.usp.br/portal/video?idItem=7731
+
+USP - Fan-in e fan-out:
+https://eaulas.usp.br/portal/video?idItem=7740
+
+Cursa - Curso completo com pulsos digitais, flip-flops e diagramas de tempo:
+https://cursa.app/pt/curso-gratuito/eletronica-digital-logica-sistemas-numericos-e-circuitos-fafa
+
+No curso Cursa, procurar:
+- Aula 50 - Pulsos Digitais.
+- Aula 51 - Flip-Flop SR e Diagrama de Tempo.
+- Aulas 52-55 - Flip-flops JK, T, D e entradas assincronas.
+
+
+MUX, DEMUX, CODIFICADORES, DECODIFICADORES
+
+USP - Sistemas Digitais I, disciplina completa:
+https://eaulas.usp.br/portal/course.action%3Bjsessionid%3DA2013A3FD46A73AA236F0ACF0040D2B8?course=7415
+
+No indice da USP, procurar:
+- Multiplexadores.
+- Codificadores.
+- Decodificadores.
+- Circuitos Combinatorios - Blocos Basicos.
+
+Cursa - Curso completo:
+https://cursa.app/pt/curso-gratuito/eletronica-digital-logica-sistemas-numericos-e-circuitos-fafa
+
+No curso Cursa, procurar:
+- Aula 40 - Circuitos Codificadores.
+- Aula 41 - Circuitos Decodificadores.
+- Aula 42 - Circuito Multiplexador.
+- Aula 43 - Circuito Demultiplexador.
+- Aula 44 - Expansoes com MUX e DEMUX.
+
+
+CONTADORES E CIRCUITOS SEQUENCIAIS
+
+Cursa - Curso completo:
+https://cursa.app/pt/curso-gratuito/eletronica-digital-logica-sistemas-numericos-e-circuitos-fafa
+
+No curso Cursa, procurar:
+- Aulas 46-49 - circuitos sequenciais, latches e debounce.
+- Aulas 51-55 - flip-flops.
+- Aulas 61-69 - contadores.
+
+
+3) ORDEM SUGERIDA PARA ASSISTIR
+
+1. USP e-Aulas - Sistemas Digitais I:
+   assistir os blocos de algebra, sintese, Karnaugh e circuitos combinacionais.
+
+2. USP - Blocos especificos:
+   comparadores, meio somador, somador completo, ripple-carry e subtratores.
+
+3. Nivaldo Junior:
+   assistir a playlist de somadores/subtratores se quiser reforco com explicacao mais direta.
+
+4. ULA:
+   assistir os videos de ULA e depois revisar a Parte 4 do Prof. Filippo.
+
+5. Shifter/registradores/temporizacao:
+   usar o Cursa nas aulas 50-60.
+
+6. Contadores:
+   usar o Cursa nas aulas 61-69.
+
+7. Circuitos aritmeticos finais:
+   usar o Cursa nas aulas 70-75 para fechar somador-subtrator, complemento de 2,
+   BCD e somador serial.
+
+
+4) OBSERVACAO RAPIDA
+
+Se o objetivo for prova, priorize:
+- algebra booleana e Karnaugh;
+- MUX/DEMUX;
+- somador/subtrator;
+- complemento de 2;
+- comparador;
+- flip-flop e diagrama de tempo;
+- registrador de deslocamento;
+- contadores;
+- hazard/atraso de propagacao;
+- ULA como integracao dos blocos.
