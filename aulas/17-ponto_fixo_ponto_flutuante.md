@@ -873,7 +873,7 @@ Em hardware, dividir por 16 pode ser feito por deslocamento:
 shift right 4
 ```
 
-Conexão com a Aula 18:
+Conexão com a Aula 19:
 
 ```text
 shifter ajuda a ajustar escala
@@ -1801,10 +1801,11 @@ controle da ULA
 interpretação de overflow, sinal e escala
 ```
 
-Depois, a sequência volta para somadores como reforço operacional e segue para a parte física:
+Depois, a sequência segue primeiro para somadores, depois para ULA e então para a parte física:
 
 ```text
 somadores
+subtrator, comparador, shifter e ULA
 física básica
 transistores MOS
 CMOS combinacional

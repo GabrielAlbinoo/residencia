@@ -126,16 +126,19 @@ Esses itens serão cobertos de modo focado, sem virar um curso paralelo.
 | Aula 13 | Flip-flops e registradores | Estudada |
 | Aula 14 | Contadores assíncronos, síncronos e divisão de frequência | Estudada |
 | Aula 15 | Temporização sequencial, setup, hold e caminho crítico | Estudada |
+| Aula 16 | Síntese de máquinas de estados com flip-flops D | Estudada |
 | Aula 17 | Ponto fixo e ponto flutuante | Estudada em 01/06, durante revisão de binário |
+| Aula 18 | Somadores: half-adder, full-adder, ripple-carry e carry look-ahead | Estudada em 02/06 |
+| Aula 19 | Subtrator, comparador, shifter e ULA | Estudada em 02/06 |
 
 ## 3.2 Aulas já criadas, mas ainda não registradas como estudadas
 
 | Aula | Conteúdo | Próxima ação |
 |---|---|---|
-| Aula 16 | Síntese de máquinas de estados com flip-flops D | Estudar e fazer pelo menos 1 exemplo Moore e 1 exemplo Mealy |
-| Aula 18 | Subtrator, comparador, shifter e ULA | Estudar reforçando subtração por complemento de 2 e consultar a aula de somadores como apoio |
-| Aula 19 | Somadores: half-adder, full-adder, ripple-carry e carry look-ahead | Estudar como reforço operacional para subtração e ULA |
 | Aula 20 | Física básica e transistores MOS | Estudar antes de CMOS combinacional |
+| Aula 21 | CMOS combinacional | Estudar redes pull-up/pull-down, NAND, NOR e leitura de circuitos CMOS |
+| Aula 22 | Potência, atraso, caminho crítico físico e hazards | Estudar consumo dinâmico, atraso, fanout, glitches e consenso |
+| Aula 23 | Memórias: banco de registradores, ROM, SRAM e DRAM | Estudar volatilidade, refresh, velocidade, densidade e capacidade |
 | Aula 25 | Algoritmos procedurais, assembly básico e operandos | Guardar para depois de circuitos digitais/aritmética |
 
 ## 3.3 Simulados já realizados
@@ -205,13 +208,16 @@ A parte sequencial básica também já foi estudada:
 - temporização sequencial;
 - setup, hold, clock-to-Q, caminho crítico e `Fmax`.
 
-## 4.2 O que ainda falta para fechar Matemática/Fundamentos
+## 4.2 Status após concluir até a Aula 19
 
-A parte que ainda impede marcar Matemática/Fundamentos como 100% concluída é uma só:
+A parte de Matemática/Fundamentos e a base de aritmética digital até ULA foi registrada como concluída:
 
-- síntese de máquinas de estados.
+- síntese de máquinas de estados;
+- ponto fixo e ponto flutuante;
+- somadores, carry, overflow, ripple-carry e carry look-ahead;
+- subtrator, comparador, shifter e ULA.
 
-A Aula 16 já foi criada para isso, mas ainda falta registrá-la como estudada e praticar o procedimento operacional:
+Ainda vale revisar o procedimento operacional de FSM em simulados, porque é o tipo de questão que mistura várias etapas:
 
 ```text
 enunciado -> diagrama de estados -> tabela de estados -> codificação dos estados
@@ -223,15 +229,17 @@ Resumo do status:
 | Área | Status |
 |---|---|
 | Combinacional | Concluída |
-| Sequencial básico | Concluído até temporização |
+| Sequencial básico | Concluído até síntese de FSM |
 | FSM conceitual | Concluída |
-| Síntese de FSM | Aula 16 criada; pendente de estudo/prática |
+| Síntese de FSM | Estudada; manter revisão por exercícios |
+| Aritmética com somadores | Estudada até Aula 18 |
+| Subtrator, comparador, shifter e ULA | Estudada até Aula 19 |
 
 Conclusão:
 
 ```text
-Matemática/Fundamentos está praticamente fechada, mas ainda não 100%.
-Para fechar oficialmente, falta estudar a Aula 16 de síntese de FSM.
+Até a Aula 19, o conteúdo planejado está registrado como concluído.
+O próximo avanço de conteúdo é a Aula 20: física básica e transistores MOS.
 ```
 
 ---
@@ -286,9 +294,9 @@ Concluído até aqui:
 - lacuna de MUX 4:1 revisada e compreendida;
 - dúvidas de temporização, frequência, carry/overflow e contadores revisadas.
 
-Próxima ação curta:
+Reforço curto:
 
-- estudar a Aula 16;
+- revisar a Aula 16 por exercícios;
 - resolver pelo menos 1 síntese Mealy completa;
 - resolver pelo menos 1 síntese Moore completa.
 
@@ -315,8 +323,8 @@ Prática:
 
 Simulado de `40` a `50` questões:
 
-- aulas 1 a 16 se a Aula 16 for estudada até sábado;
-- se a Aula 16 ainda estiver fraca, fazer simulado focado em aulas 10 a 16;
+- aulas 1 a 16, com atenção especial à síntese de FSM;
+- se a Aula 16 ainda estiver fraca, fazer revisão focada em aulas 10 a 16;
 - foco maior em MUX, FSM, contadores e temporização.
 
 Depois do simulado:
@@ -349,21 +357,7 @@ Prática:
 - 6 conversões simples;
 - 4 questões de interpretação de erro/precisão.
 
-### 02/06 — Terça — Aula 18: subtrator, comparador, shifter e ULA
-
-- Subtração com complemento de 2.
-- Half-subtractor e full-subtractor em nível conceitual.
-- Comparador de magnitude.
-- Shifter lógico e aritmético.
-- ULA como bloco selecionado por sinais de controle.
-
-Prática:
-
-- 10 questões de subtração/comparação;
-- 6 questões de shifter;
-- 4 questões de seleção de operação da ULA.
-
-### 03/06 — Quarta — Aula 19: somadores
+### 02/06 — Terça — Aula 18: somadores
 
 - Half-adder.
 - Full-adder.
@@ -377,6 +371,20 @@ Prática:
 - 8 somas com half/full-adder;
 - 6 questões sobre ripple-carry;
 - 4 questões distinguindo carry e overflow.
+
+### 03/06 — Quarta — Aula 19: subtrator, comparador, shifter e ULA
+
+- Subtração com complemento de 2.
+- Half-subtractor e full-subtractor em nível conceitual.
+- Comparador de magnitude.
+- Shifter lógico e aritmético.
+- ULA como bloco selecionado por sinais de controle.
+
+Prática:
+
+- 10 questões de subtração/comparação;
+- 6 questões de shifter;
+- 4 questões de seleção de operação da ULA.
 
 ### 04/06 — Quinta — Aula 20: física básica e transistores MOS
 
@@ -418,7 +426,7 @@ Prática:
 ### 06/06 — Sábado — Reserva e fechamento de fundamentos
 
 - Se Aula 16 ainda não estiver sólida, revisar síntese de FSM.
-- Se somadores/ULA estiverem fracos, revisar Aula 19 e Aula 18.
+- Se somadores/ULA estiverem fracos, revisar Aula 18 e Aula 19.
 - Atualizar Anki com os pontos que ainda travarem.
 
 ### 07/06 — Domingo — Simulado acumulativo
@@ -766,21 +774,21 @@ Não iniciar teoria nova.
 - [x] Flip-flops e registradores.
 - [x] Contadores.
 - [x] Temporização sequencial.
+- [x] Síntese de FSM.
+- [x] Ponto fixo e ponto flutuante.
+- [x] Somadores: half-adder, full-adder, ripple-carry e carry look-ahead.
+- [x] Subtrator, comparador, shifter e ULA.
 
 ## 7.2 Criado, mas ainda não registrado como estudado
 
-- [ ] Síntese de FSM.
-- [ ] Aula 18 — Subtrator, comparador, shifter e ULA.
-- [ ] Aula 19 — Somadores: half-adder, full-adder, ripple-carry e carry look-ahead.
 - [ ] Aula 20 — Física básica e transistores MOS.
+- [ ] Aula 21 — CMOS combinacional.
+- [ ] Aula 22 — Potência, atraso, caminho crítico físico e hazards.
+- [ ] Aula 23 — Memórias: banco de registradores, ROM, SRAM e DRAM.
 - [ ] Aula 25 — Algoritmos procedurais, assembly básico e operandos.
 
 ## 7.3 Ainda pendente
 
-- [ ] CMOS combinacional.
-- [ ] Comportamentos estático, dinâmico e potência.
-- [ ] Atrasos, caminho crítico, glitches e hazards.
-- [ ] Memórias.
 - [ ] PLA, PAL, PROM, CPLD e FPGA.
 - [ ] Formatos de instrução, modos de endereçamento, datapath e controle.
 
@@ -804,7 +812,7 @@ O edital exige no mínimo `20/40`, mas atingir apenas o mínimo não é uma meta
 
 | Data | Avaliação | Tamanho | Meta |
 |---|---|---:|---:|
-| 31/05 | Aulas 1 a 16, se Aula 16 for estudada; senão foco 10 a 16 | `40` a `50` questões | `80%` |
+| 31/05 | Aulas 1 a 16, com foco em FSM, MUX, contadores e temporização | `40` a `50` questões | `80%` |
 | 07/06 | Fundamentos + aritmética digital/CMOS inicial, se houver | `50` a `60` questões | `80% geral`, `70%+` em FSM/temporização/aritmética |
 | 14/06 | Circuitos digitais + fundamentos acumulados | `50` a `60` questões | `70%+` no bloco novo |
 | 21/06 | Técnico acumulativo, incluindo arquitetura se estudada | até `60` questões | `80%` |
@@ -866,9 +874,12 @@ aulas/14-contadores_assincronos_sincronos_divisao_frequencia.md
 aulas/15-temporizacao_sequencial_setup_hold_caminho_critico.md
 aulas/16-sintese_maquinas_estados_fsm_flip_flops_d.md
 aulas/17-ponto_fixo_ponto_flutuante.md
-aulas/18-subtrator_comparador_shifter_ula.md
-aulas/19-somadores_half_adder_full_adder_ripple_carry.md
+aulas/18-somadores_half_adder_full_adder_ripple_carry.md
+aulas/19-subtrator_comparador_shifter_ula.md
 aulas/20-fisica_basica_transistores_mos.md
+aulas/21-cmos_combinacional.md
+aulas/22-potencia_atraso_caminho_critico_hazards.md
+aulas/23-memorias_banco_registradores_rom_sram_dram.md
 aulas/25-algoritmos_procedurais_assembly_basico_operandos.md
 ```
 
@@ -881,6 +892,8 @@ simulados/simulado_03_aulas_1_a_9_nivel_prova_90_questoes.html
 simulados/simulado_04_aulas_9_a_13_revisao_nivel_prova_30_questoes.html
 simulados/simulado_05_aulas_1_a_17_nivel_dificil_50_questoes.html
 simulados/simulado_06_aulas_1_a_17_nivel_prova_real_50_questoes.html
+simulados/simulado_07_estilo_fontes_universitarias_aulas_1_a_17_50_questoes.html
+simulados/simulado_08_moore_mealy_fsm_40_questoes.html
 ```
 
 ## Revisões e acompanhamento

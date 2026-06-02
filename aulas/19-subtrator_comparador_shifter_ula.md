@@ -1,7 +1,7 @@
 # Aula Detalhada - Subtrator, Comparador, Shifter E ULA
 
 **Tema do dia:** subtração em hardware, subtrator, borrow, subtração por complemento de 2, comparador de magnitude, shifters lógicos e aritméticos e ULA como bloco combinacional controlado  
-**Aula na sequência:** 18  
+**Aula na sequência:** 19  
 **Objetivo:** entender como circuitos digitais fazem subtração, comparação, deslocamento de bits e seleção de operações em uma ULA, conectando esses blocos à aula de somadores.
 
 ---
@@ -1736,7 +1736,7 @@ shift lógico vs aritmético
 
 ---
 
-# 20. Conexão Com A Próxima Aula
+# 20. Conexão Com A Sequência
 
 Nesta sequência, a representação de números não inteiros ficou antecipada na aula de ponto fixo e ponto flutuante.
 
@@ -1748,7 +1748,7 @@ somadores/subtratores -> como operar valores
 ULA -> como selecionar a operação
 ```
 
-O próximo reforço natural é a aula de somadores:
+A base natural desta aula foi a aula de somadores:
 
 ```text
 half-adder
@@ -1765,4 +1765,12 @@ subtrair
 comparar
 deslocar
 selecionar operação
+```
+
+O próximo passo da sequência é sair dos blocos aritméticos e entrar na base física:
+
+```text
+física básica
+transistores MOS
+CMOS combinacional
 ```

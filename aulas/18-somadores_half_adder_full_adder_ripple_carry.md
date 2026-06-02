@@ -1,7 +1,7 @@
 # Aula Detalhada - Somadores
 
 **Tema do dia:** half-adder, full-adder, ripple-carry adder, carry-in, carry-out, diferença entre carry e overflow e ideia de carry look-ahead  
-**Aula na sequência:** 19  
+**Aula na sequência:** 18  
 **Objetivo:** entender como a soma binária é implementada em hardware, desde uma soma de 1 bit até somadores de vários bits, e saber interpretar carry e overflow em questões de prova.
 
 ---
