@@ -6,7 +6,8 @@
 |---|---|
 | 22/05/2026 e 23/05/2026 | Aulas 1 a 3 |
 | 24/05/2026 | Aulas 4 e 5 |
-| 25/05/2026 | Aula 6 — Valores lógicos, mintermos, maxtermos, SOP e POS |
+| 25/05/2026 | Aulas 6 e 7 — valores lógicos, formas canônicas, mintermos/maxtermos e mapas de Karnaugh de 2 e 3 variáveis |
+| 26/05/2026 | Aulas 8 e 9 — mapas de Karnaugh de 4 variáveis, don't care, síntese lógica completa, SOP/POS, NAND e NOR |
 | 27/05/2026 | Aula 10 — MUX, DEMUX, decoder, encoder e blocos combinacionais |
 | 28/05/2026 | Aulas 11, 12 e 13 — Introdução a FSM, Moore e Mealy; estabilidade, latch SR e latch D, Flip-Flop |
 | 29/05/2026 | Registro consolidado: aulas 1 a 15 marcadas como concluídas, incluindo Karnaugh, síntese lógica, contadores e temporização sequencial |
