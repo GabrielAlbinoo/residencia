@@ -1,11 +1,11 @@
 # Plano de Estudos Revisado — CI Brasil Inovação 2
 ## Trilha: Sistemas Digitais — UFCG
 
-**Plano atualizado em:** 01/06/2026, segunda-feira  
+**Plano atualizado em:** 03/06/2026, quarta-feira  
 **Período restante de estudo:** 29/05/2026 a 27/06/2026  
 **Prova objetiva:** 28/06/2026, domingo, das 14h às 18h  
 **Foco deste plano:** conteúdo técnico de Sistemas Digitais  
-**Situação atual:** aulas `1` a `15` estudadas; a Aula `17` também foi estudada ao revisar binário e frações; aulas `16`, `18`, `19` e `20` já criadas, mas ainda não registradas como estudadas. A aula de assembly foi criada fora de ordem e renumerada como `Aula 25`, para ser estudada depois do bloco de circuitos digitais/aritmética.
+**Situação atual:** aulas `1` a `21` estudadas; aulas `22` a `27` já criadas, mas ainda não registradas como estudadas. A aula de assembly foi criada fora de ordem e renumerada como `Aula 25`, para ser estudada depois do bloco de circuitos digitais/aritmética.
 
 ---
 
@@ -130,16 +130,19 @@ Esses itens serão cobertos de modo focado, sem virar um curso paralelo.
 | Aula 17 | Ponto fixo e ponto flutuante | Estudada em 01/06, durante revisão de binário |
 | Aula 18 | Somadores: half-adder, full-adder, ripple-carry e carry look-ahead | Estudada em 02/06 |
 | Aula 19 | Subtrator, comparador, shifter e ULA | Estudada em 02/06 |
+| Aula 20 | Física básica e transistores MOS | Estudada em 03/06 |
+| Aula 21 | CMOS combinacional | Estudada em 03/06 |
 
 ## 3.2 Aulas já criadas, mas ainda não registradas como estudadas
 
 | Aula | Conteúdo | Próxima ação |
 |---|---|---|
-| Aula 20 | Física básica e transistores MOS | Estudar antes de CMOS combinacional |
-| Aula 21 | CMOS combinacional | Estudar redes pull-up/pull-down, NAND, NOR e leitura de circuitos CMOS |
 | Aula 22 | Potência, atraso, caminho crítico físico e hazards | Estudar consumo dinâmico, atraso, fanout, glitches e consenso |
 | Aula 23 | Memórias: banco de registradores, ROM, SRAM e DRAM | Estudar volatilidade, refresh, velocidade, densidade e capacidade |
+| Aula 24 | Lógica programável: PROM, PLA, PAL, CPLD e FPGA | Estudar LUT, blocos lógicos, interconexões programáveis e comparação entre dispositivos |
 | Aula 25 | Algoritmos procedurais, assembly básico e operandos | Guardar para depois de circuitos digitais/aritmética |
+| Aula 26 | Formatos, tipos de instrução e modos de endereçamento | Estudar opcode, registradores fonte/destino, imediato, LOAD/STORE, branches e modos de endereçamento |
+| Aula 27 | Datapath e controle | Estudar PC, banco de registradores, ULA, memória de dados, MUX, sinais de controle e execução de ADD/LOAD/STORE/BEQ |
 
 ## 3.3 Simulados já realizados
 
@@ -234,12 +237,14 @@ Resumo do status:
 | Síntese de FSM | Estudada; manter revisão por exercícios |
 | Aritmética com somadores | Estudada até Aula 18 |
 | Subtrator, comparador, shifter e ULA | Estudada até Aula 19 |
+| Física básica e transistores MOS | Estudada até Aula 20 |
+| CMOS combinacional | Estudada até Aula 21 |
 
 Conclusão:
 
 ```text
-Até a Aula 19, o conteúdo planejado está registrado como concluído.
-O próximo avanço de conteúdo é a Aula 20: física básica e transistores MOS.
+Até a Aula 21, o conteúdo planejado está registrado como concluído.
+O próximo avanço de conteúdo é a Aula 22: potência, atraso, caminho crítico físico e hazards.
 ```
 
 ---
@@ -563,7 +568,7 @@ A Aula 25 já foi criada antecipadamente.
 
 Também neste dia:
 
-- confirmar inscrição, pois o prazo oficial termina em `15/06/2026`.
+- confirmar inscrição, pois o prazo retificado termina em `20/06/2026`.
 
 ### 16/06 — Terça — Aula 26: formatos, tipos de instrução e modos de endereçamento
 
@@ -778,19 +783,21 @@ Não iniciar teoria nova.
 - [x] Ponto fixo e ponto flutuante.
 - [x] Somadores: half-adder, full-adder, ripple-carry e carry look-ahead.
 - [x] Subtrator, comparador, shifter e ULA.
+- [x] Física básica e transistores MOS.
+- [x] CMOS combinacional.
 
 ## 7.2 Criado, mas ainda não registrado como estudado
 
-- [ ] Aula 20 — Física básica e transistores MOS.
-- [ ] Aula 21 — CMOS combinacional.
 - [ ] Aula 22 — Potência, atraso, caminho crítico físico e hazards.
 - [ ] Aula 23 — Memórias: banco de registradores, ROM, SRAM e DRAM.
+- [ ] Aula 24 — Lógica programável: PROM, PLA, PAL, CPLD e FPGA.
 - [ ] Aula 25 — Algoritmos procedurais, assembly básico e operandos.
+- [ ] Aula 26 — Formatos, tipos de instrução e modos de endereçamento.
+- [ ] Aula 27 — Datapath e controle.
 
 ## 7.3 Ainda pendente
 
-- [ ] PLA, PAL, PROM, CPLD e FPGA.
-- [ ] Formatos de instrução, modos de endereçamento, datapath e controle.
+- [ ] Revisão final integrada e simulados.
 
 ---
 

@@ -406,3 +406,60 @@ O que indica a flag N ou S em uma ULA com números em complemento de 2?	Indica o
 O que indica a flag V em operações com sinal?	Indica overflow com sinal.	aula_19 ula flags nivel_medio
 O que indica a flag C em uma soma sem sinal?	Indica carry-out final, usado como overflow sem sinal.	aula_19 ula flags nivel_medio
 Qual cuidado existe ao usar shift aritmético à direita em número negativo?	O bit de sinal deve ser preservado, preenchendo a esquerda com 1.	aula_19 shifter nivel_medio
+Qual é a diferença entre análise e síntese lógica?	Análise parte do circuito para obter comportamento; síntese parte do comportamento desejado para construir o circuito.	aula_09 sintese_logica nivel_facil
+Qual é o fluxo completo de síntese lógica a partir de uma tabela verdade?	Tabela verdade -> forma canônica Σm ou ΠM -> mapa de Karnaugh -> expressão mínima -> circuito solicitado.	aula_09 sintese_logica nivel_facil
+Em síntese lógica, quando a forma SOP é mais natural?	Quando se agrupam os 1s da função, obtendo uma soma de produtos.	aula_09 sop nivel_facil
+Em síntese lógica, quando a forma POS é mais natural?	Quando se agrupam os 0s da função, obtendo um produto de somas.	aula_09 pos nivel_facil
+Qual implementação com portas básicas combina diretamente com SOP?	ANDs nos produtos seguidas por uma OR final.	aula_09 sop portas nivel_facil
+Qual implementação com portas básicas combina diretamente com POS?	ORs nas somas seguidas por uma AND final.	aula_09 pos portas nivel_facil
+Qual implementação de dois níveis combina naturalmente com SOP usando apenas NAND?	NAND-NAND.	aula_09 nand sop nivel_medio
+Qual implementação de dois níveis combina naturalmente com POS usando apenas NOR?	NOR-NOR.	aula_09 nor pos nivel_medio
+Em Karnaugh para SOP, quais células devem ser agrupadas?	As células onde F=1.	aula_09 karnaugh sop nivel_facil
+Em Karnaugh para POS, quais células devem ser agrupadas?	As células onde F=0.	aula_09 karnaugh pos nivel_facil
+Ao agrupar 1s para SOP, como uma variável constante 1 aparece no termo?	Aparece direta, sem complemento.	aula_09 sop karnaugh nivel_medio
+Ao agrupar 1s para SOP, como uma variável constante 0 aparece no termo?	Aparece complementada.	aula_09 sop karnaugh nivel_medio
+Ao agrupar 0s para POS, como uma variável constante 0 aparece na soma?	Aparece direta, sem complemento.	aula_09 pos karnaugh nivel_medio
+Ao agrupar 0s para POS, como uma variável constante 1 aparece na soma?	Aparece complementada.	aula_09 pos karnaugh nivel_medio
+Como implementar A' usando apenas NAND?	A' = A NAND A.	aula_09 nand inversao nivel_facil
+Como implementar A' usando apenas NOR?	A' = A NOR A.	aula_09 nor inversao nivel_facil
+Por que NAND-NAND implementa bem uma soma de produtos?	Porque a última NAND aplica De Morgan e transforma produtos negados em uma OR lógica dos produtos.	aula_09 nand sop nivel_dificil
+Por que NOR-NOR implementa bem um produto de somas?	Porque a última NOR aplica De Morgan e transforma somas negadas em uma AND lógica das somas.	aula_09 nor pos nivel_dificil
+Se a questão pede somente NAND, qual forma é melhor buscar primeiro?	Uma expressão em SOP mínima.	aula_09 nand estrategia nivel_facil
+Se a questão pede somente NOR, qual forma é melhor buscar primeiro?	Uma expressão em POS mínima.	aula_09 nor estrategia nivel_facil
+Qual erro comum ocorre ao agrupar 0s e escrever uma SOP?	Misturar rota de POS com resposta em SOP; ao agrupar 0s, a forma natural é POS.	aula_09 erro_comum pos nivel_medio
+Qual erro comum ocorre ao tentar usar NAND-NAND diretamente em uma POS?	NAND-NAND combina naturalmente com SOP, não com POS.	aula_09 erro_comum nand nivel_medio
+Qual erro comum ocorre ao tentar usar NOR-NOR diretamente em uma SOP?	NOR-NOR combina naturalmente com POS, não com SOP.	aula_09 erro_comum nor nivel_medio
+Como conferir se a síntese final está correta?	Teste os 1s obrigatórios, alguns 0s obrigatórios e confira se o circuito respeita as portas pedidas.	aula_09 conferencia nivel_facil
+O que significa 0 lógico em termos físicos?	Uma tensão baixa, perto de GND.	aula_20 niveis_logicos nivel_facil
+O que significa 1 lógico em termos físicos?	Uma tensão alta, perto de VDD.	aula_20 niveis_logicos nivel_facil
+O que é GND em um circuito digital?	A referência de 0 V do circuito.	aula_20 tensao nivel_facil
+O que é VDD em um circuito digital?	A tensão de alimentação positiva, associada ao nível lógico alto.	aula_20 tensao nivel_facil
+O que é tensão elétrica?	Diferença de potencial elétrico, medida em volts.	aula_20 fisica_basica nivel_facil
+O que é corrente elétrica?	Fluxo de carga elétrica, medido em ampere.	aula_20 fisica_basica nivel_facil
+Qual é a fórmula básica de potência elétrica?	P = V * I.	aula_20 potencia nivel_facil
+Qual é a fórmula básica de energia a partir de potência e tempo?	E = P * t.	aula_20 energia nivel_facil
+Um circuito opera com V=5 V e I=10 mA. Qual é a potência?	10 mA = 0,010 A; P = 5 * 0,010 = 0,050 W = 50 mW.	aula_20 potencia calculo nivel_medio
+Um circuito opera com V=3,3 V e I=20 mA. Qual é a potência?	20 mA = 0,020 A; P = 3,3 * 0,020 = 0,066 W = 66 mW.	aula_20 potencia calculo nivel_medio
+Um circuito consome 2 W durante 4 s. Qual energia foi consumida?	E = 2 * 4 = 8 J.	aula_20 energia calculo nivel_facil
+Um circuito consome 100 mW durante 10 s. Qual energia foi consumida?	100 mW = 0,100 W; E = 0,100 * 10 = 1 J.	aula_20 energia calculo nivel_medio
+O que significa dizer que um transistor MOS funciona como chave controlada por tensão?	A tensão no gate abre ou fecha o caminho entre source e drain.	aula_20 mos transistor nivel_facil
+Qual é a diferença simples entre MOS e MOSFET?	MOS é a estrutura/tecnologia; MOSFET é o transistor feito com essa estrutura.	aula_20 mos mosfet nivel_facil
+Com qual valor no gate o NMOS liga?	O NMOS liga com gate em 1.	aula_20 nmos nivel_facil
+Com qual valor no gate o PMOS liga?	O PMOS liga com gate em 0.	aula_20 pmos nivel_facil
+Por que o NMOS pode ser lembrado como um if normal?	Porque se a entrada/gate é 1, ele fecha o caminho; se é 0, abre.	aula_20 nmos analogia nivel_facil
+Por que o PMOS pode ser lembrado como um if negado?	Porque se a entrada/gate é 0, ele fecha o caminho; se é 1, abre.	aula_20 pmos analogia nivel_facil
+O que é pull-up?	Uma rede que puxa a saída para VDD, isto é, para 1.	aula_20 pull_up nivel_facil
+O que é pull-down?	Uma rede que puxa a saída para GND, isto é, para 0.	aula_20 pull_down nivel_facil
+Em CMOS, qual transistor normalmente forma a rede pull-up?	O PMOS.	aula_20 pmos pull_up nivel_facil
+Em CMOS, qual transistor normalmente forma a rede pull-down?	O NMOS.	aula_20 nmos pull_down nivel_facil
+Se uma rede NMOS entre saída e GND está conduzindo, para qual nível a saída tende?	Para 0, pois está sendo puxada para GND.	aula_20 nmos pull_down nivel_facil
+Se uma rede PMOS entre VDD e saída está conduzindo, para qual nível a saída tende?	Para 1, pois está sendo puxada para VDD.	aula_20 pmos pull_up nivel_facil
+O que é CMOS?	Complementary MOS: tecnologia que usa NMOS e PMOS complementares.	aula_20 cmos nivel_facil
+Quais transistores existem em um inversor CMOS simples?	Um PMOS em cima ligado ao VDD e um NMOS embaixo ligado ao GND.	aula_20 cmos inversor nivel_facil
+No inversor CMOS, se A=0, quais transistores estão ligados e qual é a saída?	PMOS ligado, NMOS desligado, Y=1.	aula_20 cmos inversor nivel_facil
+No inversor CMOS, se A=1, quais transistores estão ligados e qual é a saída?	PMOS desligado, NMOS ligado, Y=0.	aula_20 cmos inversor nivel_facil
+Por que uma saída flutuante é indesejada?	Porque não fica definida claramente como 0 ou 1 e pode ser afetada por ruído.	aula_20 saida_flutuante nivel_medio
+Por que o CMOS ideal tem baixo consumo estático?	Porque, com entrada estável, idealmente não há caminho contínuo direto entre VDD e GND.	aula_20 cmos consumo nivel_medio
+Por que circuitos CMOS consomem energia durante o chaveamento?	Porque nós capacitivos precisam ser carregados e descarregados quando a tensão muda.	aula_20 cmos consumo nivel_medio
+Qual problema ocorre se houver caminho condutor simultâneo de VDD para GND?	Há corrente direta entre alimentação e terra, aumentando consumo e podendo causar problema elétrico.	aula_20 curto_circuito consumo nivel_medio
+Qual frase resume NMOS e PMOS em CMOS digital?	NMOS liga com 1 e puxa para 0; PMOS liga com 0 e puxa para 1.	aula_20 nmos pmos cmos nivel_facil

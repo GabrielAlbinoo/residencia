@@ -13,6 +13,7 @@
 | 01/06/2026 | Aula 17 — Ponto fixo e ponto flutuante, estudada durante revisão de binário |
 | 02/06/2026 | Aulas 16 e 18 marcadas como concluídas — síntese de FSM e somadores; conteúdo registrado como concluído até a Aula 18 |
 | 02/06/2026 | Aula 19 marcada como concluída — subtrator, comparador, shifter e ULA |
+| 03/06/2026 | Aulas 20 e 21 marcadas como vistas — física básica/transistores MOS e CMOS combinacional |
 
 ## Simulados Realizados
 
