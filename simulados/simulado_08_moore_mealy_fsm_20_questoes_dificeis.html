@@ -862,12 +862,12 @@
     */
     const CONFIG = {
       "numero": "08",
-      "titulo": "Simulado 08 - Revisão Moore, Mealy e Síntese de FSM",
-      "subtitulo": "Sistemas Digitais - UFCG | Conversões entre diagrama, tabela, tabela-verdade, funções e flip-flops D/T/JK",
-      "tempoSugerido": "1h40 a 2h20",
-      "meta": "32/40 (80%)",
-      "storageKey": "simulado_08_moore_mealy_fsm_40_questoes_v1",
-      "nomeRelatorio": "resultado_simulado_08_moore_mealy_fsm.txt"
+      "titulo": "Simulado 08 - Moore, Mealy e Sintese de FSM - 20 Dificeis",
+      "subtitulo": "Sistemas Digitais - UFCG | Questoes dificeis de rastreamento, sintese, Karnaugh e flip-flops D/T/JK",
+      "tempoSugerido": "55 min a 1h20",
+      "meta": "16/20 (80%)",
+      "storageKey": "simulado_08_moore_mealy_fsm_20_questoes_v2",
+      "nomeRelatorio": "resultado_simulado_08_moore_mealy_fsm_20_dificeis.txt"
 };
 
     const letters = ["A", "B", "C", "D", "E"];
@@ -875,254 +875,40 @@
     const blocks = [
       {
             "id": 1,
-            "title": "Identificação de Moore e Mealy",
+            "title": "Rastreamento dificil de Moore/Mealy",
             "review": "aulas/11-introducao_fsm_maquinas_estados_moore_mealy.md"
       },
       {
             "id": 2,
-            "title": "Rastreamento de sequência e saída",
-            "review": "aulas/11-introducao_fsm_maquinas_estados_moore_mealy.md"
+            "title": "Sintese Moore/Mealy com flip-flop D",
+            "review": "aulas/11-introducao_fsm_maquinas_estados_moore_mealy.md; aulas/16-sintese_maquinas_estados_fsm_flip_flops_d.md"
       },
       {
             "id": 3,
-            "title": "Moore: tabela para funções com flip-flop D",
-            "review": "aulas/11-introducao_fsm_maquinas_estados_moore_mealy.md; aulas/16-sintese_maquinas_estados_fsm_flip_flops_d.md"
+            "title": "Sintese com flip-flops T e JK",
+            "review": "aulas/13-flip_flops_registradores.md; aulas/16-sintese_maquinas_estados_fsm_flip_flops_d.md"
       },
       {
             "id": 4,
-            "title": "Mealy: tabela para funções com flip-flop D",
-            "review": "aulas/11-introducao_fsm_maquinas_estados_moore_mealy.md; aulas/16-sintese_maquinas_estados_fsm_flip_flops_d.md"
+            "title": "Equacoes, tabela e rastreamento",
+            "review": "aulas/13-flip_flops_registradores.md; aulas/16-sintese_maquinas_estados_fsm_flip_flops_d.md"
       },
       {
             "id": 5,
-            "title": "Síntese com flip-flops T e JK",
-            "review": "aulas/13-flip_flops_registradores.md; aulas/16-sintese_maquinas_estados_fsm_flip_flops_d.md"
-      },
-      {
-            "id": 6,
-            "title": "Circuito/equações para tabela e máquina",
-            "review": "aulas/13-flip_flops_registradores.md; aulas/16-sintese_maquinas_estados_fsm_flip_flops_d.md"
-      },
-      {
-            "id": 7,
-            "title": "Conversões Moore/Mealy e temporização de saída",
+            "title": "Conversoes Moore/Mealy",
             "review": "aulas/11-introducao_fsm_maquinas_estados_moore_mealy.md"
       },
       {
-            "id": 8,
-            "title": "Questões mistas de prova",
+            "id": 6,
+            "title": "Questoes integradas de prova",
             "review": "aulas/11-introducao_fsm_maquinas_estados_moore_mealy.md; aulas/16-sintese_maquinas_estados_fsm_flip_flops_d.md"
       }
 ];
 
-    const questions =
-[
+    const questions = [
       {
             "id": 1,
             "block": 1,
-            "topic": "Identificação de Moore por tabela",
-            "prompt": "Considere a tabela. Que tipo de FSM ela descreve?",
-            "artifacts": [
-                  {
-                        "type": "table",
-                        "caption": "FSM Moore de referência",
-                        "headers": [
-                              "Estado",
-                              "Z",
-                              "X=0",
-                              "X=1"
-                        ],
-                        "rows": [
-                              [
-                                    "A=00",
-                                    "0",
-                                    "A=00",
-                                    "B=01"
-                              ],
-                              [
-                                    "B=01",
-                                    "0",
-                                    "C=10",
-                                    "B=01"
-                              ],
-                              [
-                                    "C=10",
-                                    "1",
-                                    "A=00",
-                                    "D=11"
-                              ],
-                              [
-                                    "D=11",
-                                    "1",
-                                    "C=10",
-                                    "B=01"
-                              ]
-                        ]
-                  }
-            ],
-            "options": [
-                  "Mealy, porque a entrada X aparece na tabela.",
-                  "Moore, porque a saída Z está associada ao estado.",
-                  "Combinacional pura, porque não há memória.",
-                  "Não é possível classificar sem o circuito."
-            ],
-            "correct": "B",
-            "explanation": "A saída aparece como propriedade do estado, em uma coluna separada. Isso caracteriza Moore. A entrada ainda afeta o próximo estado."
-      },
-      {
-            "id": 2,
-            "block": 1,
-            "topic": "Identificação de Mealy por tabela",
-            "prompt": "Considere a tabela. Que tipo de FSM ela descreve?",
-            "artifacts": [
-                  {
-                        "type": "table",
-                        "caption": "FSM Mealy de referência",
-                        "headers": [
-                              "Estado",
-                              "X=0",
-                              "X=1"
-                        ],
-                        "rows": [
-                              [
-                                    "A=00",
-                                    "A=00 / Z=0",
-                                    "B=01 / Z=0"
-                              ],
-                              [
-                                    "B=01",
-                                    "C=10 / Z=0",
-                                    "B=01 / Z=1"
-                              ],
-                              [
-                                    "C=10",
-                                    "A=00 / Z=1",
-                                    "D=11 / Z=0"
-                              ],
-                              [
-                                    "D=11",
-                                    "C=10 / Z=1",
-                                    "B=01 / Z=1"
-                              ]
-                        ]
-                  }
-            ],
-            "options": [
-                  "Moore, porque existem estados A, B, C e D.",
-                  "Mealy, porque a saída aparece junto de cada transição de entrada.",
-                  "Combinacional, porque há apenas uma entrada X.",
-                  "Latch D, porque há dois bits de estado."
-            ],
-            "correct": "B",
-            "explanation": "A notação próximo estado / saída em cada transição mostra que Z depende do estado atual e da entrada. Isso caracteriza Mealy."
-      },
-      {
-            "id": 3,
-            "block": 1,
-            "topic": "Saída em Moore expandida",
-            "prompt": "Na tabela abaixo, o comportamento da saída indica Moore ou Mealy?",
-            "artifacts": [
-                  {
-                        "type": "table",
-                        "caption": "Coluna de saída",
-                        "headers": [
-                              "Q1",
-                              "Q0",
-                              "X",
-                              "Z"
-                        ],
-                        "rows": [
-                              [
-                                    "0",
-                                    "0",
-                                    "0",
-                                    "0"
-                              ],
-                              [
-                                    "0",
-                                    "0",
-                                    "1",
-                                    "0"
-                              ],
-                              [
-                                    "0",
-                                    "1",
-                                    "0",
-                                    "0"
-                              ],
-                              [
-                                    "0",
-                                    "1",
-                                    "1",
-                                    "0"
-                              ],
-                              [
-                                    "1",
-                                    "0",
-                                    "0",
-                                    "1"
-                              ],
-                              [
-                                    "1",
-                                    "0",
-                                    "1",
-                                    "1"
-                              ],
-                              [
-                                    "1",
-                                    "1",
-                                    "0",
-                                    "d"
-                              ],
-                              [
-                                    "1",
-                                    "1",
-                                    "1",
-                                    "d"
-                              ]
-                        ]
-                  }
-            ],
-            "options": [
-                  "Não dá para saber, pois há don't care.",
-                  "Mealy, pois X aparece na tabela.",
-                  "Mealy, pois há estados não usados.",
-                  "Moore, pois Z não muda quando X muda dentro do mesmo estado usado."
-            ],
-            "correct": "D",
-            "explanation": "Nos estados usados, Z repete para X=0 e X=1. Portanto, Z depende só do estado atual, comportamento de Moore."
-      },
-      {
-            "id": 4,
-            "block": 1,
-            "topic": "Saída em Mealy expandida",
-            "prompt": "Qual característica abaixo identifica uma saída Mealy em uma tabela-verdade expandida?",
-            "options": [
-                  "Z aparece sempre igual para X=0 e X=1 no mesmo estado.",
-                  "Z depende apenas de Q1 e Q0.",
-                  "Z pode mudar entre X=0 e X=1 no mesmo estado.",
-                  "Z é sempre igual ao próximo estado."
-            ],
-            "correct": "C",
-            "explanation": "Em Mealy, Z pode depender da entrada atual. Portanto, no mesmo estado, a saída pode mudar quando X muda."
-      },
-      {
-            "id": 5,
-            "block": 1,
-            "topic": "Assinale incorreta Moore/Mealy",
-            "prompt": "Assinale a alternativa incorreta.",
-            "options": [
-                  "Em Moore, a saída costuma aparecer dentro/ao lado do estado.",
-                  "Em Mealy, a saída costuma aparecer na transição junto da entrada.",
-                  "O próximo estado pode depender do estado atual e da entrada tanto em Moore quanto em Mealy.",
-                  "Em Moore, a saída muda diretamente quando a entrada muda, sem troca de estado."
-            ],
-            "correct": "D",
-            "explanation": "Em Moore, a saída é função do estado. Se a entrada muda mas o estado não muda, a saída Moore não deve mudar diretamente."
-      },
-      {
-            "id": 6,
-            "block": 2,
             "topic": "Rastreamento Moore",
             "prompt": "Na Moore abaixo, partindo de A, registre a saída do novo estado após cada entrada. Para entrada 11010, qual é a sequência de saída?",
             "artifacts": [
@@ -1167,8 +953,8 @@
             "explanation": "Estados após as entradas: B, B, C, B, C. Saídas dos novos estados: 0,0,1,0,1."
       },
       {
-            "id": 7,
-            "block": 2,
+            "id": 2,
+            "block": 1,
             "topic": "Rastreamento Mealy",
             "prompt": "Na Mealy abaixo, partindo de S0, qual saída é produzida para a entrada 10110?",
             "artifacts": [
@@ -1209,60 +995,8 @@
             "explanation": "A saída 1 ocorre quando a transição S2 com X=1 detecta 101. Para 10110, as saídas são 0,0,1,0,0."
       },
       {
-            "id": 8,
-            "block": 2,
-            "topic": "Rastreamento de estado final",
-            "prompt": "Usando a FSM Moore de referência, partindo de A, qual é o estado final após a sequência de entrada 101?",
-            "artifacts": [
-                  {
-                        "type": "table",
-                        "caption": "FSM Moore de referência",
-                        "headers": [
-                              "Estado",
-                              "Z",
-                              "X=0",
-                              "X=1"
-                        ],
-                        "rows": [
-                              [
-                                    "A=00",
-                                    "0",
-                                    "A=00",
-                                    "B=01"
-                              ],
-                              [
-                                    "B=01",
-                                    "0",
-                                    "C=10",
-                                    "B=01"
-                              ],
-                              [
-                                    "C=10",
-                                    "1",
-                                    "A=00",
-                                    "D=11"
-                              ],
-                              [
-                                    "D=11",
-                                    "1",
-                                    "C=10",
-                                    "B=01"
-                              ]
-                        ]
-                  }
-            ],
-            "options": [
-                  "A",
-                  "B",
-                  "C",
-                  "D"
-            ],
-            "correct": "D",
-            "explanation": "A com 1 vai para B. B com 0 vai para C. C com 1 vai para D. Estado final: D."
-      },
-      {
-            "id": 9,
-            "block": 2,
+            "id": 3,
+            "block": 1,
             "topic": "Rastreamento Mealy estado e saída",
             "prompt": "Usando a FSM Mealy de referência, partindo de A, qual é o par estado final e sequência de saída para entrada 101?",
             "artifacts": [
@@ -1308,22 +1042,8 @@
             "explanation": "A com 1 vai para B e sai 0. B com 0 vai para C e sai 0. C com 1 vai para D e sai 0. Final D, saída 000."
       },
       {
-            "id": 10,
+            "id": 4,
             "block": 2,
-            "topic": "Erro comum em rastreamento Moore",
-            "prompt": "Ao rastrear uma Moore, qual erro é mais comum e pode mudar a resposta?",
-            "options": [
-                  "Usar a codificação dos estados.",
-                  "Ler o estado atual antes de aplicar a entrada.",
-                  "Usar a tabela de transição.",
-                  "Usar a saída do estado antes da transição quando o enunciado pede saída do novo estado."
-            ],
-            "correct": "D",
-            "explanation": "Questões podem pedir saída do estado atual ou do novo estado. É preciso seguir o enunciado. Neste simulado, quando dito, usamos a saída do novo estado após cada entrada."
-      },
-      {
-            "id": 11,
-            "block": 3,
             "topic": "Moore para D funções",
             "prompt": "Para a FSM Moore de referência com flip-flops D, quais funções estão corretas?",
             "artifacts": [
@@ -1416,60 +1136,8 @@
             "explanation": "D=Q+. A coluna Q0+ vale X, então D0=X. Q1+ minimiza para Q0X' + Q1Q0'X. Em Moore, Z depende do estado: Z=Q1."
       },
       {
-            "id": 12,
-            "block": 3,
-            "topic": "Linha expandida Moore",
-            "prompt": "Na FSM Moore de referência, qual linha expandida corresponde ao estado C=10 com X=1?",
-            "artifacts": [
-                  {
-                        "type": "table",
-                        "caption": "FSM Moore de referência",
-                        "headers": [
-                              "Estado",
-                              "Z",
-                              "X=0",
-                              "X=1"
-                        ],
-                        "rows": [
-                              [
-                                    "A=00",
-                                    "0",
-                                    "A=00",
-                                    "B=01"
-                              ],
-                              [
-                                    "B=01",
-                                    "0",
-                                    "C=10",
-                                    "B=01"
-                              ],
-                              [
-                                    "C=10",
-                                    "1",
-                                    "A=00",
-                                    "D=11"
-                              ],
-                              [
-                                    "D=11",
-                                    "1",
-                                    "C=10",
-                                    "B=01"
-                              ]
-                        ]
-                  }
-            ],
-            "options": [
-                  "Q1Q0X=101; Q1+Q0+=11; Z=1",
-                  "Q1Q0X=101; Q1+Q0+=01; Z=1",
-                  "Q1Q0X=101; Q1+Q0+=11; Z=0",
-                  "Q1Q0X=101; Q1+Q0+=10; Z=1"
-            ],
-            "correct": "A",
-            "explanation": "Estado C=10. Com X=1, a tabela Moore manda para D=11. Como C tem Z=1, a linha é 101 | 11 | 1."
-      },
-      {
-            "id": 13,
-            "block": 3,
+            "id": 5,
+            "block": 2,
             "topic": "Mintermos de D1 Moore",
             "prompt": "Na tabela Moore expandida, em quais mintermos de Q1Q0X a coluna D1 vale 1?",
             "artifacts": [
@@ -1562,116 +1230,8 @@
             "explanation": "D1=Q1+. Pelas linhas em que Q1+=1: 010=m2, 101=m5 e 110=m6."
       },
       {
-            "id": 14,
-            "block": 3,
-            "topic": "D0 Moore",
-            "prompt": "Na FSM Moore de referência, por que D0 simplifica para X?",
-            "artifacts": [
-                  {
-                        "type": "table",
-                        "caption": "Tabela-verdade expandida da Moore de referência",
-                        "headers": [
-                              "Q1",
-                              "Q0",
-                              "X",
-                              "Q1+",
-                              "Q0+",
-                              "Z"
-                        ],
-                        "rows": [
-                              [
-                                    "0",
-                                    "0",
-                                    "0",
-                                    "0",
-                                    "0",
-                                    "0"
-                              ],
-                              [
-                                    "0",
-                                    "0",
-                                    "1",
-                                    "0",
-                                    "1",
-                                    "0"
-                              ],
-                              [
-                                    "0",
-                                    "1",
-                                    "0",
-                                    "1",
-                                    "0",
-                                    "0"
-                              ],
-                              [
-                                    "0",
-                                    "1",
-                                    "1",
-                                    "0",
-                                    "1",
-                                    "0"
-                              ],
-                              [
-                                    "1",
-                                    "0",
-                                    "0",
-                                    "0",
-                                    "0",
-                                    "1"
-                              ],
-                              [
-                                    "1",
-                                    "0",
-                                    "1",
-                                    "1",
-                                    "1",
-                                    "1"
-                              ],
-                              [
-                                    "1",
-                                    "1",
-                                    "0",
-                                    "1",
-                                    "0",
-                                    "1"
-                              ],
-                              [
-                                    "1",
-                                    "1",
-                                    "1",
-                                    "0",
-                                    "1",
-                                    "1"
-                              ]
-                        ]
-                  }
-            ],
-            "options": [
-                  "Porque Q0+ é 1 exatamente nas linhas em que X=1.",
-                  "Porque Q0 atual é sempre igual a X.",
-                  "Porque Z=Q1.",
-                  "Porque Q1+ é sempre 0."
-            ],
-            "correct": "A",
-            "explanation": "Observando Q0+, todas as linhas com X=1 têm Q0+=1 e todas as linhas com X=0 têm Q0+=0. Logo D0=X."
-      },
-      {
-            "id": 15,
-            "block": 3,
-            "topic": "Funções em Moore com D",
-            "prompt": "Assinale a alternativa incorreta sobre a síntese da Moore de referência com flip-flops D.",
-            "options": [
-                  "D1 é obtido da coluna Q1+.",
-                  "D0 é obtido da coluna Q0+.",
-                  "Z é obtido só dos estados, porque é Moore.",
-                  "D1 e D0 são obtidos da coluna Z."
-            ],
-            "correct": "D",
-            "explanation": "D1 e D0 vêm dos bits de próximo estado. A saída Z é uma função separada."
-      },
-      {
-            "id": 16,
-            "block": 4,
+            "id": 6,
+            "block": 2,
             "topic": "Mealy para D funções",
             "prompt": "Para a FSM Mealy de referência com flip-flops D, quais funções estão corretas?",
             "artifacts": [
@@ -1764,55 +1324,8 @@
             "explanation": "Os próximos estados são iguais ao exemplo Moore, então D1 e D0 permanecem. A saída Mealy depende de estado e entrada: Z=Q1X' + Q0X."
       },
       {
-            "id": 17,
-            "block": 4,
-            "topic": "Z Mealy por estado e entrada",
-            "prompt": "Na FSM Mealy de referência, qual é a saída quando o estado atual é B=01 e X=1?",
-            "artifacts": [
-                  {
-                        "type": "table",
-                        "caption": "FSM Mealy de referência",
-                        "headers": [
-                              "Estado",
-                              "X=0",
-                              "X=1"
-                        ],
-                        "rows": [
-                              [
-                                    "A=00",
-                                    "A=00 / Z=0",
-                                    "B=01 / Z=0"
-                              ],
-                              [
-                                    "B=01",
-                                    "C=10 / Z=0",
-                                    "B=01 / Z=1"
-                              ],
-                              [
-                                    "C=10",
-                                    "A=00 / Z=1",
-                                    "D=11 / Z=0"
-                              ],
-                              [
-                                    "D=11",
-                                    "C=10 / Z=1",
-                                    "B=01 / Z=1"
-                              ]
-                        ]
-                  }
-            ],
-            "options": [
-                  "0",
-                  "1",
-                  "d",
-                  "Depende do próximo clock"
-            ],
-            "correct": "B",
-            "explanation": "Na linha B, para X=1, a transição é B / Z=1. Em Mealy, a saída está na transição."
-      },
-      {
-            "id": 18,
-            "block": 4,
+            "id": 7,
+            "block": 2,
             "topic": "Mintermos de Z Mealy",
             "prompt": "Na tabela Mealy expandida, em quais mintermos de Q1Q0X a saída Z vale 1?",
             "artifacts": [
@@ -1905,22 +1418,8 @@
             "explanation": "Z=1 nas linhas 011=m3, 100=m4, 110=m6 e 111=m7."
       },
       {
-            "id": 19,
-            "block": 4,
-            "topic": "Comparação Moore/Mealy mesmo próximo estado",
-            "prompt": "As FSMs Moore e Mealy de referência têm os mesmos próximos estados. O que muda nas funções?",
-            "options": [
-                  "D1 e D0 mudam, mas Z fica igual.",
-                  "D1, D0 e Z ficam sempre iguais.",
-                  "D1 e D0 ficam iguais; Z muda.",
-                  "A quantidade de flip-flops muda."
-            ],
-            "correct": "C",
-            "explanation": "Como a tabela de próximo estado é a mesma, as funções D1 e D0 são iguais. A saída muda porque Moore usa saída do estado e Mealy usa saída da transição."
-      },
-      {
-            "id": 20,
-            "block": 4,
+            "id": 8,
+            "block": 2,
             "topic": "Karnaugh de Z Mealy",
             "prompt": "A saída Mealy de referência minimiza para qual expressão?",
             "artifacts": [
@@ -2013,8 +1512,8 @@
             "explanation": "Agrupando os 1s de Z, obtemos Q1X' e Q0X. Logo Z=Q1X'+Q0X."
       },
       {
-            "id": 21,
-            "block": 5,
+            "id": 9,
+            "block": 3,
             "topic": "T funções Moore",
             "prompt": "Usando a FSM Moore de referência com flip-flops T, quais funções estão corretas?",
             "artifacts": [
@@ -2107,8 +1606,8 @@
             "explanation": "T=1 quando o bit muda. Aplicando isso a Q1 e Q0 na tabela, T1 fica com três mintermos e T0 vira Q0 XOR X."
       },
       {
-            "id": 22,
-            "block": 5,
+            "id": 10,
+            "block": 3,
             "topic": "JK funções Moore",
             "prompt": "Usando a FSM Moore de referência com flip-flops JK, quais funções estão corretas?",
             "artifacts": [
@@ -2201,8 +1700,8 @@
             "explanation": "Aplicando a tabela de excitação JK a cada bit de estado e minimizando, obtemos J1=Q0X', K1=Q0'X'+Q0X, J0=X, K0=X'."
       },
       {
-            "id": 23,
-            "block": 5,
+            "id": 11,
+            "block": 3,
             "topic": "Linha JK específica",
             "prompt": "Na linha Q1Q0X=001 da FSM de referência, temos Q1+Q0+=01. Quais excitações JK são necessárias?",
             "options": [
@@ -2215,22 +1714,8 @@
             "explanation": "Q1 faz 0->0, então J1=0,K1=d. Q0 faz 0->1, então J0=1,K0=d."
       },
       {
-            "id": 24,
-            "block": 5,
-            "topic": "Tabela de excitação T",
-            "prompt": "Para flip-flop T, qual condição exige T=1?",
-            "options": [
-                  "Quando Q atual e Q próximo são iguais.",
-                  "Quando Q atual é 0 apenas.",
-                  "Quando Q atual e Q próximo são diferentes.",
-                  "Quando Q próximo é sempre 1."
-            ],
-            "correct": "C",
-            "explanation": "O T alterna quando T=1. Portanto, T=1 quando Q precisa mudar entre atual e próximo."
-      },
-      {
-            "id": 25,
-            "block": 5,
+            "id": 12,
+            "block": 3,
             "topic": "Quantidade de funções por tipo de FF",
             "prompt": "Uma FSM tem 2 bits de estado e 1 saída. Quantas funções booleanas são necessárias usando D, T e JK?",
             "options": [
@@ -2243,8 +1728,8 @@
             "explanation": "Com D ou T: uma entrada por flip-flop mais Z, total 2+1=3. Com JK: duas entradas por flip-flop mais Z, total 4+1=5."
       },
       {
-            "id": 26,
-            "block": 6,
+            "id": 13,
+            "block": 4,
             "topic": "Equações para tabela",
             "prompt": "Uma FSM com flip-flops D possui D1=Q0X', D0=X e Z=Q1. Para estado atual 01 e X=0, qual próximo estado e saída?",
             "options": [
@@ -2257,36 +1742,8 @@
             "explanation": "Q0=1 e X=0: D1=1. D0=X=0. Próximo estado 10. Z=Q1 atual=0."
       },
       {
-            "id": 27,
-            "block": 6,
-            "topic": "Classificação por equação de saída",
-            "prompt": "A FSM possui D1=Q0X', D0=X e Z=Q1. A saída é Moore ou Mealy?",
-            "options": [
-                  "Moore, pois Z depende só do estado atual.",
-                  "Mealy, pois D0 depende de X.",
-                  "Mealy, pois todo circuito sequencial é Mealy.",
-                  "Não é FSM."
-            ],
-            "correct": "A",
-            "explanation": "A classificação da saída depende da função Z. Como Z=Q1 e não depende diretamente de X, é saída Moore."
-      },
-      {
-            "id": 28,
-            "block": 6,
-            "topic": "Classificação por equação Mealy",
-            "prompt": "A FSM possui D1=Q0X', D0=X e Z=Q1X' + Q0X. A saída é Moore ou Mealy?",
-            "options": [
-                  "Moore, pois há flip-flops.",
-                  "Mealy, pois Z depende diretamente de X.",
-                  "Moore, pois Z tem Q1.",
-                  "Não dá para saber."
-            ],
-            "correct": "B",
-            "explanation": "Z contém X. Logo a saída depende do estado atual e da entrada atual, característica de Mealy."
-      },
-      {
-            "id": 29,
-            "block": 6,
+            "id": 14,
+            "block": 4,
             "topic": "Rastreamento por equações",
             "prompt": "Com D1=Q0X' e D0=X, partindo de 00, qual estado final após entrada 101?",
             "options": [
@@ -2299,8 +1756,8 @@
             "explanation": "X=1: 00->01. X=0: 01->10. X=1: 10->01. Estado final 01."
       },
       {
-            "id": 30,
-            "block": 6,
+            "id": 15,
+            "block": 4,
             "topic": "Tabela a partir de equações",
             "prompt": "Para D1=X e D0=Q1'X', qual próximo estado a partir de Q1Q0=10 com X=0?",
             "options": [
@@ -2313,8 +1770,8 @@
             "explanation": "D1=X=0. D0=Q1'X'=0·1=0. Próximo estado 00."
       },
       {
-            "id": 31,
-            "block": 7,
+            "id": 16,
+            "block": 5,
             "topic": "Mealy para Moore detector",
             "prompt": "Um detector Mealy de sequência 10 com sobreposição pode usar 2 estados. Uma Moore equivalente normalmente precisa de quantos estados mínimos?",
             "options": [
@@ -2327,50 +1784,8 @@
             "explanation": "Na Moore, a detecção precisa aparecer como saída de um estado. Normalmente usa-se: nenhum 1, viu 1, detectou 10."
       },
       {
-            "id": 32,
-            "block": 7,
-            "topic": "Saída de Moore ao converter",
-            "prompt": "Ao converter uma Mealy para Moore, o que geralmente acontece com a saída?",
-            "options": [
-                  "Ela desaparece.",
-                  "Ela passa a ficar associada a estados, podendo exigir estados adicionais.",
-                  "Ela passa a depender obrigatoriamente de todas as entradas.",
-                  "Ela vira sempre Z=0."
-            ],
-            "correct": "B",
-            "explanation": "Como Moore não coloca saída na transição, pode ser necessário criar estados que representem a saída após uma transição."
-      },
-      {
-            "id": 33,
-            "block": 7,
-            "topic": "Moore para Mealy",
-            "prompt": "Uma forma comum de transformar uma Moore em uma Mealy equivalente é:",
-            "options": [
-                  "Colocar nas transições de entrada para um estado a saída que esse estado produziria.",
-                  "Remover todos os estados com saída 0.",
-                  "Trocar todas as entradas por don't care.",
-                  "Usar JK no lugar de D obrigatoriamente."
-            ],
-            "correct": "A",
-            "explanation": "Se uma transição entra em um estado Moore com saída 1, a Mealy pode colocar 1 naquela transição, antecipando a saída."
-      },
-      {
-            "id": 34,
-            "block": 7,
-            "topic": "Timing de saída Mealy",
-            "prompt": "Qual afirmação sobre saída Mealy é correta?",
-            "options": [
-                  "É sempre mais lenta que Moore.",
-                  "Só muda quando o estado muda.",
-                  "Nunca depende da entrada.",
-                  "Pode mudar diretamente quando a entrada muda, mesmo antes da próxima borda de clock."
-            ],
-            "correct": "D",
-            "explanation": "A saída Mealy é combinacional sobre estado atual e entrada. Assim, mudanças na entrada podem afetar Z antes da próxima borda."
-      },
-      {
-            "id": 35,
-            "block": 7,
+            "id": 17,
+            "block": 5,
             "topic": "Assinale incorreta conversão",
             "prompt": "Assinale a alternativa incorreta sobre conversões Moore/Mealy.",
             "options": [
@@ -2383,8 +1798,8 @@
             "explanation": "Não é garantido que toda Mealy use menos estados, embora muitas vezes use menos em detectores de sequência. A palavra necessariamente torna a alternativa falsa."
       },
       {
-            "id": 36,
-            "block": 8,
+            "id": 18,
+            "block": 6,
             "topic": "Variáveis no Karnaugh de FSM",
             "prompt": "Para uma FSM com estado atual Q2Q1Q0 e entrada X, quais variáveis entram nos mapas de Karnaugh das funções de próximo estado?",
             "options": [
@@ -2397,8 +1812,8 @@
             "explanation": "As funções de próximo estado dependem da lógica combinacional que enxerga estado atual e entradas atuais."
       },
       {
-            "id": 37,
-            "block": 8,
+            "id": 19,
+            "block": 6,
             "topic": "Número de funções JK",
             "prompt": "Uma FSM tem 3 flip-flops JK e 2 saídas. Quantas funções booleanas devem ser sintetizadas?",
             "options": [
@@ -2411,36 +1826,8 @@
             "explanation": "Cada JK tem duas entradas: J e K. Com 3 flip-flops, são 6 funções de excitação. Mais 2 saídas: total 8."
       },
       {
-            "id": 38,
-            "block": 8,
-            "topic": "Estado não usado como dont care",
-            "prompt": "Uma FSM usa 3 dos 4 códigos de estado possíveis. O código 11 é não usado e o enunciado permite don't care. Como ele pode ser tratado nos mapas?",
-            "options": [
-                  "Sempre como 0.",
-                  "Sempre como 1.",
-                  "Como d, podendo ser usado se ajudar na simplificação.",
-                  "Deve ser eliminado da tabela e nunca considerado."
-            ],
-            "correct": "C",
-            "explanation": "Estados não usados podem entrar como don't care se o enunciado permitir, ajudando a formar grupos maiores."
-      },
-      {
-            "id": 39,
-            "block": 8,
-            "topic": "Tabela característica versus excitação",
-            "prompt": "Na síntese de FSM com JK, qual tabela é usada para preencher J e K a partir de Q atual e Q próximo?",
-            "options": [
-                  "Tabela de excitação.",
-                  "Tabela ASCII.",
-                  "Tabela característica apenas.",
-                  "Tabela BCD."
-            ],
-            "correct": "A",
-            "explanation": "A tabela de excitação responde: dado Q atual e Q próximo, quais entradas do flip-flop são necessárias?"
-      },
-      {
-            "id": 40,
-            "block": 8,
+            "id": 20,
+            "block": 6,
             "topic": "Questão integrada",
             "prompt": "Uma FSM com 4 estados usa A=00, B=01, C=10 e D=11, uma entrada X e uma saída Z. Se usar flip-flops D e for Mealy, qual conjunto de funções deve ser encontrado?",
             "options": [

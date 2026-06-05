@@ -302,3 +302,308 @@ Qual é o período de um clock de 100 MHz?	10 ns.	aula_15 frequencia periodo con
 Qual é o período de um clock de 200 MHz?	5 ns.	aula_15 frequencia periodo conversao nivel_medio
 Por que Fmax = 1 / Tclock mínimo?	Porque a frequência máxima é o inverso do menor período de clock que ainda respeita a temporização.	aula_15 fmax periodo nivel_medio
 Por que não é ideal dizer que 1 MHz é um milhão de mudanças por segundo?	Porque 1 MHz significa um milhão de ciclos completos por segundo; mudanças ou transições podem ser duas por ciclo.	aula_15 frequencia clock nivel_dificil
+Qual é a diferença entre latch e flip-flop?	Latch é sensível a nível; flip-flop é sensível à borda.	aula_13 flip_flop latch nivel_facil
+O que faz um flip-flop D na borda ativa do clock?	Copia o valor de D para Q.	aula_13 flip_flop_d nivel_facil
+Qual é a equação característica de um flip-flop D?	Q+ = D.	aula_13 flip_flop_d nivel_facil
+O que faz um flip-flop T quando T=0?	Mantém o estado atual.	aula_13 flip_flop_t nivel_facil
+O que faz um flip-flop T quando T=1?	Alterna o estado.	aula_13 flip_flop_t nivel_facil
+Qual é a equação característica de um flip-flop T?	Q+ = Q XOR T.	aula_13 flip_flop_t nivel_medio
+O que faz um flip-flop JK quando J=0 e K=0?	Mantém o estado atual.	aula_13 flip_flop_jk nivel_facil
+O que faz um flip-flop JK quando J=1 e K=0?	Seta Q para 1.	aula_13 flip_flop_jk nivel_facil
+O que faz um flip-flop JK quando J=0 e K=1?	Reseta Q para 0.	aula_13 flip_flop_jk nivel_facil
+O que faz um flip-flop JK quando J=1 e K=1?	Alterna o estado.	aula_13 flip_flop_jk nivel_facil
+Qual é a diferença entre reset síncrono e reset assíncrono?	Reset síncrono atua na borda do clock; reset assíncrono atua independentemente do clock.	aula_13 reset nivel_medio
+O que é um registrador?	Um conjunto de flip-flops usado para armazenar uma palavra de vários bits.	aula_13 registrador nivel_facil
+Quantos flip-flops são necessários para um registrador de 8 bits?	8 flip-flops.	aula_13 registrador nivel_facil
+O que faz o enable de um registrador?	Permite carregar novo valor quando ativo e manter o valor anterior quando inativo.	aula_13 registrador_enable nivel_medio
+Em um registrador de estado de FSM, o que fica armazenado?	Os bits que representam o estado atual da máquina.	aula_13 registrador_estado nivel_medio
+O que é um contador digital?	Um circuito sequencial que percorre uma sequência de estados, normalmente representando contagens binárias.	aula_14 contador nivel_facil
+Qual é a diferença entre contador assíncrono e contador síncrono?	No assíncrono o clock se propaga entre flip-flops; no síncrono todos recebem o mesmo clock.	aula_14 contador nivel_facil
+Por que um contador assíncrono também é chamado de ripple counter?	Porque a mudança de um flip-flop se propaga em cascata para os próximos.	aula_14 contador_assincrono nivel_medio
+Qual é a principal desvantagem de um contador assíncrono?	O atraso se acumula de estágio em estágio.	aula_14 contador_assincrono nivel_medio
+Em um contador binário síncrono com flip-flops T, quando Q0 deve alternar?	A cada pulso de clock, então T0=1.	aula_14 contador_sincrono nivel_medio
+Em um contador binário síncrono de 3 bits com flip-flops T, qual é T1?	T1 = Q0.	aula_14 contador_sincrono nivel_medio
+Em um contador binário síncrono de 3 bits com flip-flops T, qual é T2?	T2 = Q1.Q0.	aula_14 contador_sincrono nivel_medio
+Quantos estados possui um contador binário de 4 bits?	16 estados.	aula_14 contador nivel_facil
+Qual é a frequência de saída de Q0 em um contador binário que alterna a cada borda de clock?	Metade da frequência do clock.	aula_14 divisao_frequencia nivel_medio
+Qual é a frequência de saída de Q2 em um contador binário ripple ideal?	fclock/8.	aula_14 divisao_frequencia nivel_medio
+O que significa contador módulo 10?	Um contador que percorre 10 estados antes de reiniciar.	aula_14 contador_modulo nivel_facil
+Quantos flip-flops são necessários no mínimo para um contador módulo 10?	4 flip-flops, pois 3 bits representam só 8 estados.	aula_14 contador_modulo nivel_medio
+O que acontece com estados não usados em um contador módulo menor que 2^n?	Podem ser tratados como inválidos, forçados para reset ou usados como don't care quando permitido.	aula_14 contador_modulo nivel_dificil
+Qual é a regra principal de síntese de FSM com flip-flop D?	D recebe o próximo valor do bit de estado: D = Q+.	aula_16 sintese_fsm flip_flop_d nivel_facil
+Em uma FSM com bits de estado Q1 e Q0 usando flip-flops D, quantas funções D são necessárias?	Duas funções: D1 e D0.	aula_16 sintese_fsm nivel_facil
+Quais variáveis entram nos mapas de Karnaugh para sintetizar uma FSM com estado Q1Q0 e entrada X?	Os bits de estado atual e as entradas atuais: Q1, Q0 e X.	aula_16 sintese_fsm karnaugh nivel_medio
+Em uma máquina Moore, a função de saída depende de quais variáveis?	Dos bits de estado atual.	aula_16 moore sintese nivel_facil
+Em uma máquina Mealy, a função de saída depende de quais variáveis?	Dos bits de estado atual e das entradas atuais.	aula_16 mealy sintese nivel_facil
+Qual é a primeira etapa para sintetizar uma FSM a partir de um enunciado?	Definir os estados necessários e o significado de cada estado.	aula_16 sintese_fsm nivel_medio
+Depois de definir estados em uma FSM, o que deve ser feito antes das equações?	Codificar os estados em bits e montar a tabela de transição.	aula_16 sintese_fsm nivel_medio
+Em uma tabela de FSM, o que representam Q1+ e Q0+?	Os próximos valores dos bits de estado.	aula_16 sintese_fsm nivel_facil
+Para flip-flop D, como se obtém D1 a partir da tabela de transição?	Copia-se a coluna Q1+ e simplifica-se como função de estado atual e entradas.	aula_16 flip_flop_d nivel_medio
+Para flip-flop D, como se obtém D0 a partir da tabela de transição?	Copia-se a coluna Q0+ e simplifica-se como função de estado atual e entradas.	aula_16 flip_flop_d nivel_medio
+Estados não usados em síntese de FSM podem virar don't care sempre?	Não. Só quando o enunciado permitir ou quando houver tratamento seguro definido.	aula_16 dont_care nivel_medio
+Quantos flip-flops são necessários para codificar 6 estados?	3 flip-flops.	aula_16 codificacao_estados nivel_facil
+Qual é a tabela de excitação do flip-flop D para Q=0 e Q+=1?	D=1.	aula_16 excitacao_ff nivel_facil
+Qual é a tabela de excitação do flip-flop T para Q=1 e Q+=0?	T=1.	aula_16 excitacao_ff nivel_medio
+Qual é a tabela de excitação do flip-flop JK para Q=0 e Q+=1?	J=1 e K=don't care.	aula_16 excitacao_ff nivel_medio
+O que significa resolução em formato Qm.n?	O tamanho do menor passo representável, igual a 1/2^n.	aula_17 ponto_fixo nivel_facil
+Em Qm.n, qual parte define a escala de conversão do inteiro armazenado?	A parte fracionária n, pois a escala é 2^n.	aula_17 ponto_fixo nivel_facil
+Como converter um inteiro armazenado em Qm.n para valor real?	Divida o inteiro armazenado por 2^n.	aula_17 ponto_fixo nivel_facil
+Qual é a resolução do formato Q3.5?	1/32.	aula_17 ponto_fixo nivel_medio
+Qual é o valor real do inteiro armazenado 96 em Q3.5?	96/32 = 3.	aula_17 ponto_fixo nivel_medio
+Em Q4.4, qual é o fator de escala?	2^4 = 16.	aula_17 ponto_fixo nivel_facil
+Em Q4.4, qual valor real corresponde ao inteiro armazenado 48?	48/16 = 3.	aula_17 ponto_fixo nivel_medio
+Em ponto fixo com sinal em complemento de 2, como interpretar o inteiro armazenado antes da escala?	Primeiro interprete o inteiro como complemento de 2; depois divida por 2^n.	aula_17 ponto_fixo sinal nivel_medio
+O que significa normalizar um número binário em ponto flutuante?	Escrever o número na forma 1.fração vezes 2 elevado a um expoente.	aula_17 ponto_flutuante nivel_facil
+Qual é o bias do expoente em IEEE 754 simples?	127.	aula_17 ieee754 nivel_facil
+Em IEEE 754 simples normalizado, o bit 1 antes da vírgula é armazenado explicitamente?	Não. Ele é implícito.	aula_17 ieee754 nivel_facil
+Como obter o expoente armazenado em IEEE 754 simples?	Some o expoente real ao bias 127.	aula_17 ieee754 nivel_medio
+Como obter o expoente real em IEEE 754 simples?	Subtraia 127 do expoente armazenado.	aula_17 ieee754 nivel_medio
+Qual é o expoente real quando o expoente armazenado é 10000101₂ em IEEE 754 simples?	10000101₂ = 133; 133-127 = 6.	aula_17 ieee754 nivel_medio
+Qual é a normalização de 101,11₂?	1,0111₂ × 2^2.	aula_17 ponto_flutuante nivel_medio
+Qual é o expoente armazenado de 1,0111₂ × 2^2 em IEEE 754 simples?	127+2 = 129.	aula_17 ieee754 nivel_medio
+Quais são as saídas de um half-adder?	Soma S e carry Cout.	aula_18 half_adder nivel_facil
+Quais são as equações de um half-adder?	S = A XOR B; Cout = A.B.	aula_18 half_adder nivel_medio
+Qual é a limitação de um half-adder?	Ele não possui carry-in.	aula_18 half_adder nivel_facil
+Quais são as entradas de um full-adder?	A, B e Cin.	aula_18 full_adder nivel_facil
+Quais são as saídas de um full-adder?	Soma S e carry-out Cout.	aula_18 full_adder nivel_facil
+Qual é a equação da soma em um full-adder?	S = A XOR B XOR Cin.	aula_18 full_adder nivel_medio
+Qual é uma equação válida para Cout em um full-adder?	Cout = AB + ACin + BCin.	aula_18 full_adder nivel_medio
+O que é um ripple-carry adder?	Um somador de vários bits em que o carry-out de um estágio vira o carry-in do próximo.	aula_18 ripple_carry nivel_facil
+Qual é a principal desvantagem do ripple-carry adder?	O carry precisa se propagar por vários estágios, aumentando o atraso.	aula_18 ripple_carry nivel_medio
+O que significa gerar carry em um bit do somador?	O bit gera carry quando A.B=1, independentemente do carry-in.	aula_18 carry_lookahead nivel_medio
+O que significa propagar carry em um bit do somador?	O bit propaga carry quando A XOR B=1.	aula_18 carry_lookahead nivel_medio
+Qual é a ideia do carry look-ahead?	Calcular carries com lógica adicional para reduzir a espera da propagação em cadeia.	aula_18 carry_lookahead nivel_medio
+Em soma sem sinal, o carry-out final indica o quê?	Overflow sem sinal.	aula_18 carry_overflow nivel_facil
+Em complemento de 2, qual regra prática detecta overflow na soma?	Somar números de mesmo sinal e obter resultado com sinal diferente.	aula_18 overflow nivel_medio
+Pode haver carry-out em complemento de 2 sem overflow?	Sim. Carry-out sozinho não decide overflow com sinal.	aula_18 carry_overflow nivel_medio
+Qual é a função de um subtrator?	Calcular a diferença entre operandos binários.	aula_19 subtrator nivel_facil
+Quais são as saídas de um half-subtractor?	Diferença D e borrow Bout.	aula_19 half_subtractor nivel_facil
+Quais são as equações de um half-subtractor para A-B?	D = A XOR B; Bout = A'.B.	aula_19 half_subtractor nivel_medio
+Quais entradas possui um full-subtractor?	A, B e Bin.	aula_19 full_subtractor nivel_facil
+Como implementar A-B usando um somador em complemento de 2?	Use A + B' + 1.	aula_19 complemento_de_2 subtrator nivel_facil
+Em um somador/subtrator controlado por SUB, o que acontece quando SUB=0?	O circuito faz soma: B passa sem inverter e Cin inicial é 0.	aula_19 somador_subtrator nivel_medio
+Em um somador/subtrator controlado por SUB, o que acontece quando SUB=1?	O circuito faz subtração: B é invertido por XOR e Cin inicial recebe 1.	aula_19 somador_subtrator nivel_medio
+Por que B passa por portas XOR com o sinal SUB em um somador/subtrator?	Porque XOR com 0 mantém B e XOR com 1 inverte B.	aula_19 somador_subtrator nivel_medio
+Em subtração por complemento de 2, qual operação representa A-B?	A + complemento de 2 de B.	aula_19 complemento_de_2 nivel_facil
+O que faz um comparador de magnitude?	Indica relações como A>B, A=B ou A<B.	aula_19 comparador nivel_facil
+Para comparação unsigned de vários bits, qual bit deve ser analisado primeiro?	O bit mais significativo.	aula_19 comparador nivel_medio
+Em um comparador de 1 bit, qual expressão indica A>B?	A.B'.	aula_19 comparador nivel_medio
+Em um comparador de 1 bit, qual expressão indica A<B?	A'.B.	aula_19 comparador nivel_medio
+Em um comparador de 1 bit, qual expressão indica A=B?	A'B' + AB, ou XNOR.	aula_19 comparador nivel_medio
+O que faz um shifter lógico à esquerda?	Desloca os bits para a esquerda e preenche a direita com 0.	aula_19 shifter nivel_facil
+O que faz um shifter lógico à direita?	Desloca os bits para a direita e preenche a esquerda com 0.	aula_19 shifter nivel_facil
+O que faz um shifter aritmético à direita em números com sinal?	Desloca para a direita preservando o bit de sinal na esquerda.	aula_19 shifter nivel_medio
+Qual é a diferença entre shift lógico à direita e shift aritmético à direita?	O lógico preenche com 0; o aritmético replica o bit de sinal.	aula_19 shifter nivel_medio
+Em binário sem sinal, deslocar à esquerda uma posição equivale aproximadamente a qual operação?	Multiplicar por 2, se não houver perda de bit relevante.	aula_19 shifter nivel_medio
+Em binário sem sinal, deslocar à direita uma posição equivale aproximadamente a qual operação?	Dividir por 2, descartando a parte fracionária.	aula_19 shifter nivel_medio
+O que é uma ULA?	Unidade Lógica e Aritmética que executa operações lógicas e aritméticas sobre operandos.	aula_19 ula nivel_facil
+Quais operações uma ULA simples pode executar?	AND, OR, soma, subtração, comparação e deslocamentos.	aula_19 ula nivel_facil
+Para que servem os sinais de controle de uma ULA?	Selecionam qual operação a ULA deve entregar na saída.	aula_19 ula controle nivel_facil
+Como uma ULA pode reaproveitar o mesmo somador para soma e subtração?	Invertendo B e usando carry-in inicial 1 quando o controle SUB está ativo.	aula_19 ula somador_subtrator nivel_medio
+O que indica a flag Z em uma ULA?	Indica resultado zero.	aula_19 ula flags nivel_facil
+Como detectar a flag Z para um resultado de vários bits?	Usando NOR de todos os bits do resultado.	aula_19 ula flags nivel_medio
+O que indica a flag N ou S em uma ULA com números em complemento de 2?	Indica o bit de sinal do resultado.	aula_19 ula flags nivel_facil
+O que indica a flag V em operações com sinal?	Indica overflow com sinal.	aula_19 ula flags nivel_medio
+O que indica a flag C em uma soma sem sinal?	Indica carry-out final, usado como overflow sem sinal.	aula_19 ula flags nivel_medio
+Qual cuidado existe ao usar shift aritmético à direita em número negativo?	O bit de sinal deve ser preservado, preenchendo a esquerda com 1.	aula_19 shifter nivel_medio
+Qual é a diferença entre análise e síntese lógica?	Análise parte do circuito para obter comportamento; síntese parte do comportamento desejado para construir o circuito.	aula_09 sintese_logica nivel_facil
+Qual é o fluxo completo de síntese lógica a partir de uma tabela verdade?	Tabela verdade -> forma canônica Σm ou ΠM -> mapa de Karnaugh -> expressão mínima -> circuito solicitado.	aula_09 sintese_logica nivel_facil
+Em síntese lógica, quando a forma SOP é mais natural?	Quando se agrupam os 1s da função, obtendo uma soma de produtos.	aula_09 sop nivel_facil
+Em síntese lógica, quando a forma POS é mais natural?	Quando se agrupam os 0s da função, obtendo um produto de somas.	aula_09 pos nivel_facil
+Qual implementação com portas básicas combina diretamente com SOP?	ANDs nos produtos seguidas por uma OR final.	aula_09 sop portas nivel_facil
+Qual implementação com portas básicas combina diretamente com POS?	ORs nas somas seguidas por uma AND final.	aula_09 pos portas nivel_facil
+Qual implementação de dois níveis combina naturalmente com SOP usando apenas NAND?	NAND-NAND.	aula_09 nand sop nivel_medio
+Qual implementação de dois níveis combina naturalmente com POS usando apenas NOR?	NOR-NOR.	aula_09 nor pos nivel_medio
+Em Karnaugh para SOP, quais células devem ser agrupadas?	As células onde F=1.	aula_09 karnaugh sop nivel_facil
+Em Karnaugh para POS, quais células devem ser agrupadas?	As células onde F=0.	aula_09 karnaugh pos nivel_facil
+Ao agrupar 1s para SOP, como uma variável constante 1 aparece no termo?	Aparece direta, sem complemento.	aula_09 sop karnaugh nivel_medio
+Ao agrupar 1s para SOP, como uma variável constante 0 aparece no termo?	Aparece complementada.	aula_09 sop karnaugh nivel_medio
+Ao agrupar 0s para POS, como uma variável constante 0 aparece na soma?	Aparece direta, sem complemento.	aula_09 pos karnaugh nivel_medio
+Ao agrupar 0s para POS, como uma variável constante 1 aparece na soma?	Aparece complementada.	aula_09 pos karnaugh nivel_medio
+Como implementar A' usando apenas NAND?	A' = A NAND A.	aula_09 nand inversao nivel_facil
+Como implementar A' usando apenas NOR?	A' = A NOR A.	aula_09 nor inversao nivel_facil
+Por que NAND-NAND implementa bem uma soma de produtos?	Porque a última NAND aplica De Morgan e transforma produtos negados em uma OR lógica dos produtos.	aula_09 nand sop nivel_dificil
+Por que NOR-NOR implementa bem um produto de somas?	Porque a última NOR aplica De Morgan e transforma somas negadas em uma AND lógica das somas.	aula_09 nor pos nivel_dificil
+Se a questão pede somente NAND, qual forma é melhor buscar primeiro?	Uma expressão em SOP mínima.	aula_09 nand estrategia nivel_facil
+Se a questão pede somente NOR, qual forma é melhor buscar primeiro?	Uma expressão em POS mínima.	aula_09 nor estrategia nivel_facil
+Qual erro comum ocorre ao agrupar 0s e escrever uma SOP?	Misturar rota de POS com resposta em SOP; ao agrupar 0s, a forma natural é POS.	aula_09 erro_comum pos nivel_medio
+Qual erro comum ocorre ao tentar usar NAND-NAND diretamente em uma POS?	NAND-NAND combina naturalmente com SOP, não com POS.	aula_09 erro_comum nand nivel_medio
+Qual erro comum ocorre ao tentar usar NOR-NOR diretamente em uma SOP?	NOR-NOR combina naturalmente com POS, não com SOP.	aula_09 erro_comum nor nivel_medio
+Como conferir se a síntese final está correta?	Teste os 1s obrigatórios, alguns 0s obrigatórios e confira se o circuito respeita as portas pedidas.	aula_09 conferencia nivel_facil
+O que significa 0 lógico em termos físicos?	Uma tensão baixa, perto de GND.	aula_20 niveis_logicos nivel_facil
+O que significa 1 lógico em termos físicos?	Uma tensão alta, perto de VDD.	aula_20 niveis_logicos nivel_facil
+O que é GND em um circuito digital?	A referência de 0 V do circuito.	aula_20 tensao nivel_facil
+O que é VDD em um circuito digital?	A tensão de alimentação positiva, associada ao nível lógico alto.	aula_20 tensao nivel_facil
+O que é tensão elétrica?	Diferença de potencial elétrico, medida em volts.	aula_20 fisica_basica nivel_facil
+O que é corrente elétrica?	Fluxo de carga elétrica, medido em ampere.	aula_20 fisica_basica nivel_facil
+Qual é a fórmula básica de potência elétrica?	P = V * I.	aula_20 potencia nivel_facil
+Qual é a fórmula básica de energia a partir de potência e tempo?	E = P * t.	aula_20 energia nivel_facil
+Um circuito opera com V=5 V e I=10 mA. Qual é a potência?	10 mA = 0,010 A; P = 5 * 0,010 = 0,050 W = 50 mW.	aula_20 potencia calculo nivel_medio
+Um circuito opera com V=3,3 V e I=20 mA. Qual é a potência?	20 mA = 0,020 A; P = 3,3 * 0,020 = 0,066 W = 66 mW.	aula_20 potencia calculo nivel_medio
+Um circuito consome 2 W durante 4 s. Qual energia foi consumida?	E = 2 * 4 = 8 J.	aula_20 energia calculo nivel_facil
+Um circuito consome 100 mW durante 10 s. Qual energia foi consumida?	100 mW = 0,100 W; E = 0,100 * 10 = 1 J.	aula_20 energia calculo nivel_medio
+O que significa dizer que um transistor MOS funciona como chave controlada por tensão?	A tensão no gate abre ou fecha o caminho entre source e drain.	aula_20 mos transistor nivel_facil
+Qual é a diferença simples entre MOS e MOSFET?	MOS é a estrutura/tecnologia; MOSFET é o transistor feito com essa estrutura.	aula_20 mos mosfet nivel_facil
+Com qual valor no gate o NMOS liga?	O NMOS liga com gate em 1.	aula_20 nmos nivel_facil
+Com qual valor no gate o PMOS liga?	O PMOS liga com gate em 0.	aula_20 pmos nivel_facil
+Por que o NMOS pode ser lembrado como um if normal?	Porque se a entrada/gate é 1, ele fecha o caminho; se é 0, abre.	aula_20 nmos analogia nivel_facil
+Por que o PMOS pode ser lembrado como um if negado?	Porque se a entrada/gate é 0, ele fecha o caminho; se é 1, abre.	aula_20 pmos analogia nivel_facil
+O que é pull-up?	Uma rede que puxa a saída para VDD, isto é, para 1.	aula_20 pull_up nivel_facil
+O que é pull-down?	Uma rede que puxa a saída para GND, isto é, para 0.	aula_20 pull_down nivel_facil
+Em CMOS, qual transistor normalmente forma a rede pull-up?	O PMOS.	aula_20 pmos pull_up nivel_facil
+Em CMOS, qual transistor normalmente forma a rede pull-down?	O NMOS.	aula_20 nmos pull_down nivel_facil
+Se uma rede NMOS entre saída e GND está conduzindo, para qual nível a saída tende?	Para 0, pois está sendo puxada para GND.	aula_20 nmos pull_down nivel_facil
+Se uma rede PMOS entre VDD e saída está conduzindo, para qual nível a saída tende?	Para 1, pois está sendo puxada para VDD.	aula_20 pmos pull_up nivel_facil
+O que é CMOS?	Complementary MOS: tecnologia que usa NMOS e PMOS complementares.	aula_20 cmos nivel_facil
+Quais transistores existem em um inversor CMOS simples?	Um PMOS em cima ligado ao VDD e um NMOS embaixo ligado ao GND.	aula_20 cmos inversor nivel_facil
+No inversor CMOS, se A=0, quais transistores estão ligados e qual é a saída?	PMOS ligado, NMOS desligado, Y=1.	aula_20 cmos inversor nivel_facil
+No inversor CMOS, se A=1, quais transistores estão ligados e qual é a saída?	PMOS desligado, NMOS ligado, Y=0.	aula_20 cmos inversor nivel_facil
+Por que uma saída flutuante é indesejada?	Porque não fica definida claramente como 0 ou 1 e pode ser afetada por ruído.	aula_20 saida_flutuante nivel_medio
+Por que o CMOS ideal tem baixo consumo estático?	Porque, com entrada estável, idealmente não há caminho contínuo direto entre VDD e GND.	aula_20 cmos consumo nivel_medio
+Por que circuitos CMOS consomem energia durante o chaveamento?	Porque nós capacitivos precisam ser carregados e descarregados quando a tensão muda.	aula_20 cmos consumo nivel_medio
+Qual problema ocorre se houver caminho condutor simultâneo de VDD para GND?	Há corrente direta entre alimentação e terra, aumentando consumo e podendo causar problema elétrico.	aula_20 curto_circuito consumo nivel_medio
+Qual frase resume NMOS e PMOS em CMOS digital?	NMOS liga com 1 e puxa para 0; PMOS liga com 0 e puxa para 1.	aula_20 nmos pmos cmos nivel_facil
+O que é uma porta CMOS combinacional?	É uma porta lógica feita com rede PMOS de pull-up e rede NMOS de pull-down, sem memória interna.	aula_21 cmos_combinacional definicao nivel_facil
+Em CMOS estático, qual é o papel da rede pull-up?	Ligar a saída ao VDD quando a saída deve ser 1.	aula_21 pull_up definicao nivel_facil
+Em CMOS estático, qual é o papel da rede pull-down?	Ligar a saída ao GND quando a saída deve ser 0.	aula_21 pull_down definicao nivel_facil
+Quando dois NMOS em série conduzem?	Quando as duas entradas valem 1; a condição de condução é A.B.	aula_21 nmos serie formula nivel_facil
+Quando dois NMOS em paralelo conduzem?	Quando pelo menos uma entrada vale 1; a condição de condução é A+B.	aula_21 nmos paralelo formula nivel_facil
+Quando dois PMOS em série conduzem?	Quando as duas entradas valem 0; a condição de condução é A'.B'.	aula_21 pmos serie formula nivel_medio
+Quando dois PMOS em paralelo conduzem?	Quando pelo menos uma entrada vale 0; a condição de condução é A'+B'.	aula_21 pmos paralelo formula nivel_medio
+No inversor CMOS, se A=0, quais transistores conduzem e qual é a saída?	PMOS conduz, NMOS corta, e a saída é 1.	aula_21 inversor resolucao nivel_facil
+No inversor CMOS, se A=1, quais transistores conduzem e qual é a saída?	PMOS corta, NMOS conduz, e a saída é 0.	aula_21 inversor resolucao nivel_facil
+Como é a rede CMOS de uma NAND de 2 entradas?	NMOS em série no pull-down e PMOS em paralelo no pull-up.	aula_21 nand cmos nivel_facil
+Como é a rede CMOS de uma NOR de 2 entradas?	NMOS em paralelo no pull-down e PMOS em série no pull-up.	aula_21 nor cmos nivel_facil
+Quantos transistores tem uma NAND CMOS de 2 entradas?	4 transistores: 2 NMOS e 2 PMOS.	aula_21 contagem_transistores calculo nivel_facil
+Quantos transistores tem um inversor CMOS?	2 transistores: 1 PMOS e 1 NMOS.	aula_21 contagem_transistores nivel_facil
+Se o pull-down conduz para a condição G=A.B, qual é a função da saída?	Y=(A.B)', pois a saída vai a 0 quando G=1.	aula_21 funcao_cmos formula nivel_medio
+Se a rede NMOS de pull-down é A em paralelo com B, qual porta a saída implementa?	Y=(A+B)', ou seja, uma NOR.	aula_21 leitura_rede resolucao nivel_medio
+Se a rede NMOS de pull-down é A em série com B, qual porta a saída implementa?	Y=(A.B)', ou seja, uma NAND.	aula_21 leitura_rede resolucao nivel_medio
+Como implementar AND em CMOS estático usando portas básicas?	Faça uma NAND e depois coloque um inversor na saída.	aula_21 and cmos resolucao nivel_medio
+Qual é a pegadinha central ao ler CMOS?	NMOS liga com 1 e puxa para 0; PMOS liga com 0 e puxa para 1.	aula_21 pegadinha cmos nivel_facil
+Qual é a fórmula conceitual da potência dinâmica em CMOS?	Pdin ≈ alfa.C.VDD^2.f.	aula_22 potencia_dinamica formula nivel_facil
+Na fórmula Pdin ≈ alfa.C.VDD^2.f, o que representa alfa?	A atividade de chaveamento, isto é, a fração de ciclos em que há transição.	aula_22 potencia_dinamica definicao nivel_facil
+Na fórmula Pdin ≈ alfa.C.VDD^2.f, o que representa C?	A capacitância de carga que precisa ser carregada e descarregada.	aula_22 potencia_dinamica definicao nivel_facil
+Se VDD dobra e o resto fica igual, o que acontece com a potência dinâmica?	Ela fica 4 vezes maior, porque VDD aparece ao quadrado.	aula_22 potencia_dinamica resolucao nivel_medio
+Se a frequência dobra e o resto fica igual, o que acontece com a potência dinâmica?	Ela dobra, pois Pdin é proporcional a f.	aula_22 potencia_dinamica resolucao nivel_facil
+Calcule Pdin para alfa=0,5, C=10 pF, VDD=2 V e f=100 MHz.	Pdin=0,5.10e-12.2^2.100e6=0,002 W=2 mW.	aula_22 potencia_dinamica calculo nivel_medio
+O que é fanout?	É a quantidade de entradas de outros circuitos que uma saída precisa dirigir.	aula_22 fanout definicao nivel_facil
+Como fanout maior afeta atraso e potência dinâmica?	Aumenta a capacitância de carga, aumentando atraso e potência dinâmica.	aula_22 fanout atraso potencia nivel_medio
+O que é atraso de propagação?	É o tempo entre a mudança na entrada e a mudança correspondente na saída.	aula_22 atraso definicao nivel_facil
+Se três portas em série têm atrasos de 2 ns, 3 ns e 5 ns, qual é o atraso total do caminho?	2+3+5=10 ns.	aula_22 atraso calculo nivel_facil
+O que é caminho crítico?	É o caminho com maior atraso entre origem e destino; ele limita a frequência máxima.	aula_22 caminho_critico definicao nivel_facil
+Qual é a relação básica entre Fmax e atraso crítico?	Fmax ≈ 1/Tcrit.	aula_22 fmax formula nivel_facil
+Se o caminho crítico tem 20 ns, qual é a frequência máxima aproximada?	Fmax=1/20 ns=50 MHz.	aula_22 fmax calculo nivel_medio
+Qual desigualdade resume a condição de setup em circuitos síncronos?	Tclk >= Tcq + Tcomb_max + Tsetup.	aula_22 temporizacao formula nivel_medio
+Qual desigualdade resume a condição de hold?	Tcq_min + Tcomb_min >= Thold.	aula_22 temporizacao formula nivel_medio
+O que é glitch?	É um pulso temporário indesejado na saída causado por atrasos diferentes nos caminhos.	aula_22 glitch definicao nivel_facil
+O que é hazard?	É a possibilidade de glitch causada pela estrutura lógica e pelos atrasos do circuito.	aula_22 hazard definicao nivel_facil
+O que é hazard estático-1?	A saída deveria permanecer 1, mas cai temporariamente para 0.	aula_22 hazard_estatico_1 definicao nivel_facil
+O que é hazard estático-0?	A saída deveria permanecer 0, mas sobe temporariamente para 1.	aula_22 hazard_estatico_0 definicao nivel_facil
+Qual termo de consenso elimina o hazard em F=A.B + A'.C?	O termo B.C; fica F=A.B + A'.C + B.C.	aula_22 consenso resolucao nivel_dificil
+Qual é a regra prática no mapa de Karnaugh para evitar hazard estático-1 em SOP?	Garantir que 1s adjacentes estejam cobertos por algum agrupamento comum.	aula_22 karnaugh hazard nivel_medio
+O que é uma memória digital?	Um bloco que armazena palavras de bits e usa endereços para selecionar posições.	aula_23 memoria definicao nivel_facil
+O que é endereço em uma memória?	É o valor que seleciona qual posição da memória será acessada.	aula_23 endereco definicao nivel_facil
+O que é palavra de memória?	É a quantidade de bits armazenada ou lida em uma posição da memória.	aula_23 palavra definicao nivel_facil
+Qual é a fórmula para quantidade de posições com n bits de endereço?	Quantidade de posições = 2^n.	aula_23 capacidade formula nivel_facil
+Qual é a fórmula da capacidade total de uma memória?	Capacidade = número de posições vezes bits por palavra.	aula_23 capacidade formula nivel_facil
+Uma memória tem 10 bits de endereço e palavra de 8 bits. Qual é a capacidade?	2^10 posições x 8 bits = 8192 bits = 1024 bytes.	aula_23 capacidade calculo nivel_medio
+Quantos bits de endereço são necessários para selecionar 16K posições?	16K=16384=2^14, então são necessários 14 bits.	aula_23 endereco calculo nivel_medio
+Quais são sinais básicos de controle de uma memória?	Endereço, dados, leitura/escrita e chip enable.	aula_23 sinais_memoria definicao nivel_facil
+O que é um registrador no contexto de memória/processador?	Um pequeno armazenamento rápido, geralmente feito com flip-flops, dentro do processador.	aula_23 registrador definicao nivel_facil
+O que é um banco de registradores?	Um conjunto de registradores com portas de leitura e escrita selecionadas por endereços.	aula_23 banco_registradores definicao nivel_facil
+Em um banco com 32 registradores, quantos bits são necessários para selecionar um registrador?	5 bits, pois 2^5=32.	aula_23 banco_registradores calculo nivel_facil
+Em um banco com duas leituras e uma escrita, o que isso permite?	Ler dois registradores ao mesmo tempo e escrever um registrador no ciclo de escrita.	aula_23 banco_registradores definicao nivel_medio
+O que caracteriza uma ROM?	É não volátil e normalmente usada para leitura de conteúdo fixo ou previamente gravado.	aula_23 rom definicao nivel_facil
+Como uma ROM pode implementar uma tabela verdade?	As entradas viram endereço e a saída armazenada em cada endereço vira o resultado da função.	aula_23 rom tabela_verdade nivel_medio
+O que caracteriza uma SRAM?	É rápida, volátil, guarda bits em latch/flip-flop e não precisa de refresh.	aula_23 sram definicao nivel_facil
+O que caracteriza uma DRAM?	É volátil, guarda bits em capacitores, é mais densa e precisa de refresh.	aula_23 dram definicao nivel_facil
+Qual é a pegadinha sobre SRAM?	SRAM não precisa de refresh, mas continua sendo volátil.	aula_23 sram pegadinha nivel_facil
+Compare SRAM e DRAM em velocidade, densidade e uso típico.	SRAM é mais rápida e cara, usada em cache; DRAM é mais densa e barata, usada em memória principal.	aula_23 sram dram comparacao nivel_medio
+O que é lógica programável?	É hardware configurável para implementar funções digitais sem fabricar um circuito novo.	aula_24 logica_programavel definicao nivel_facil
+Na PROM, quais planos são fixos e programáveis?	O plano AND é fixo e o plano OR é programável.	aula_24 prom definicao nivel_facil
+Na PLA, quais planos são programáveis?	Os planos AND e OR são programáveis.	aula_24 pla definicao nivel_facil
+Na PAL, quais planos são fixos e programáveis?	O plano AND é programável e o plano OR é fixo.	aula_24 pal definicao nivel_facil
+Qual é mais flexível: PLA ou PAL?	PLA é mais flexível, porque permite programar tanto os produtos quanto as somas.	aula_24 pla pal comparacao nivel_facil
+Como cresce o número de linhas de uma PROM com n entradas?	Cresce como 2^n mintermos.	aula_24 prom formula nivel_facil
+Uma PROM com n entradas e m saídas precisa armazenar quantos bits?	2^n x m bits.	aula_24 prom calculo nivel_medio
+Quantas posições tem uma LUT de k entradas?	2^k posições.	aula_24 lut formula nivel_facil
+Quantas posições tem uma LUT de 3 entradas?	2^3=8 posições.	aula_24 lut calculo nivel_facil
+O que uma LUT de k entradas consegue implementar?	Qualquer função booleana de até k variáveis.	aula_24 lut definicao nivel_facil
+Quais são blocos típicos de um FPGA?	LUTs, flip-flops, blocos de interconexão programável e blocos de I/O.	aula_24 fpga definicao nivel_facil
+O que é bitstream em FPGA?	É o arquivo de configuração que define LUTs, conexões e demais recursos programáveis.	aula_24 bitstream definicao nivel_facil
+Qual é a pegadinha sobre FPGA baseado em SRAM?	Ele perde a configuração sem energia e precisa carregar o bitstream ao ligar.	aula_24 fpga sram pegadinha nivel_medio
+Compare CPLD e FPGA em uso típico.	CPLD é comum em controle/glue logic com atraso previsível; FPGA é melhor para projetos maiores e paralelos.	aula_24 cpld fpga comparacao nivel_medio
+Compare FPGA e ASIC.	FPGA é reconfigurável e rápido de desenvolver; ASIC é fixo, caro para fabricar, mas pode ser mais rápido e eficiente em volume.	aula_24 fpga asic comparacao nivel_medio
+Como uma LUT pode ser vista internamente?	Como uma pequena memória/tabela verdade selecionada por multiplexadores.	aula_24 lut mux definicao nivel_medio
+Qual vantagem da PLA ao implementar múltiplas saídas?	Ela pode compartilhar termos produto entre saídas.	aula_24 pla multiplas_saidas nivel_medio
+Qual é a pegadinha sobre HDL em FPGA?	HDL não é um programa executado como CPU; ele descreve hardware que será sintetizado/configurado.	aula_24 hdl pegadinha nivel_facil
+O que é arquitetura de computadores?	É a organização conceitual vista pelo programador: instruções, registradores, memória e formas de executar programas.	aula_25 arquitetura definicao nivel_facil
+O que é um algoritmo procedural?	Uma sequência de passos com comandos, variáveis, decisões e repetições.	aula_25 algoritmo definicao nivel_facil
+O que é assembly?	Uma forma legível das instruções de máquina de uma arquitetura.	aula_25 assembly definicao nivel_facil
+Do que uma instrução assembly é formada?	De uma operação/opcode e seus operandos.	aula_25 instrucao definicao nivel_facil
+O que é operando registrador?	Um operando que está em um registrador do processador, como R1.	aula_25 operando_registrador definicao nivel_facil
+O que é operando imediato?	Uma constante escrita dentro da própria instrução.	aula_25 operando_imediato definicao nivel_facil
+O que é operando em memória?	Um dado acessado por endereço de memória, muitas vezes indicado por colchetes.	aula_25 operando_memoria definicao nivel_facil
+Qual é a diferença entre R1 e [R1]?	R1 é o valor no registrador; [R1] é o valor na memória cujo endereço está em R1.	aula_25 registrador_memoria pegadinha nivel_medio
+O que faz LOAD?	Copia um dado da memória para um registrador.	aula_25 load definicao nivel_facil
+O que faz STORE?	Copia um dado de um registrador para a memória.	aula_25 store definicao nivel_facil
+O que significa ADD R1, R2, R3 no modelo destino primeiro?	R1 recebe R2 + R3.	aula_25 add resolucao nivel_facil
+Se R2=7, quanto fica R1 após ADDI R1, R2, 5?	R1=7+5=12.	aula_25 addi calculo nivel_facil
+Se R2=100 e Mem[100]=45, quanto fica R1 após LOAD R1, [R2]?	R1 recebe Mem[100], então R1=45.	aula_25 load calculo nivel_medio
+Se R2=100 e R1=9, o que ocorre em STORE [R2], R1?	Mem[100] recebe 9.	aula_25 store resolucao nivel_medio
+Como um if/else aparece em assembly conceitual?	Como comparação seguida de desvio condicional para escolher qual bloco executar.	aula_25 branch definicao nivel_medio
+Como um loop aparece em assembly conceitual?	Com label, teste/condição e salto de volta para repetir.	aula_25 loop definicao nivel_medio
+Qual é uma pegadinha comum ao ler assembly?	Confundir a ordem destino-fonte; no modelo usado, o primeiro registrador costuma ser o destino.	aula_25 assembly pegadinha nivel_facil
+Como assembly se conecta ao hardware digital?	Instruções comandam datapath: registradores fornecem dados, ULA opera e memória atende LOAD/STORE.	aula_25 hardware relacao nivel_medio
+O que é opcode?	É o campo da instrução que diz qual operação deve ser executada.	aula_26 opcode definicao nivel_facil
+O que significam rd, rs e imm em formatos de instrução?	rd é registrador destino, rs é registrador fonte e imm é imediato/constante.	aula_26 campos definicao nivel_facil
+O que caracteriza uma instrução tipo R?	Usa registradores como operandos principais, comum em operações aritméticas e lógicas.	aula_26 tipo_r definicao nivel_facil
+O que caracteriza uma instrução tipo I?	Usa imediato ou deslocamento, comum em ADDI, LOAD, STORE e alguns branches.	aula_26 tipo_i definicao nivel_facil
+O que caracteriza uma instrução tipo J?	Carrega campo de salto/desvio para alterar o fluxo do programa.	aula_26 tipo_j definicao nivel_facil
+O que é uma instrução de 3 endereços?	Uma instrução com destino e duas fontes explícitas, como ADD R1,R2,R3.	aula_26 enderecos definicao nivel_facil
+O que é uma instrução de 2 endereços?	Uma instrução em que um operando também serve como destino, como ADD R1,R2 fazendo R1=R1+R2.	aula_26 enderecos definicao nivel_medio
+O que é uma instrução de 0 endereços?	Uma instrução que usa operandos implícitos, geralmente no topo da pilha.	aula_26 enderecos definicao nivel_medio
+Quais são tipos comuns de instruções?	Aritméticas, lógicas, deslocamento, transferência de dados e controle de fluxo.	aula_26 tipos_instrucao definicao nivel_facil
+Qual é a diferença entre arquitetura load-store e memória-memória?	Load-store opera na ULA com registradores e usa LOAD/STORE para memória; memória-memória permite operar direto na memória.	aula_26 load_store comparacao nivel_medio
+O que é endereçamento imediato?	O valor do operando está dentro da própria instrução.	aula_26 enderecamento_imediato definicao nivel_facil
+O que é endereçamento por registrador?	O operando está em um registrador.	aula_26 enderecamento_registrador definicao nivel_facil
+O que é endereçamento direto ou absoluto?	A instrução contém diretamente o endereço de memória.	aula_26 enderecamento_direto definicao nivel_facil
+O que é endereçamento indireto por registrador?	O registrador contém o endereço da memória onde está o operando.	aula_26 enderecamento_indireto definicao nivel_facil
+Qual é a fórmula do endereço em base + deslocamento?	Endereço efetivo = valor do registrador base + deslocamento.	aula_26 base_deslocamento formula nivel_facil
+Se R2=1000, qual endereço é acessado por LOAD R1, [R2+12]?	Endereço efetivo = 1000+12 = 1012.	aula_26 base_deslocamento calculo nivel_facil
+O que é endereçamento indexado?	O endereço é calculado com base mais índice, útil para vetores/arrays.	aula_26 enderecamento_indexado definicao nivel_medio
+Qual é a ideia do endereçamento relativo ao PC?	O alvo é calculado a partir do PC mais um deslocamento.	aula_26 pc_relative definicao nivel_facil
+Quantos bits são necessários para selecionar N registradores?	ceil(log2(N)) bits.	aula_26 bits_registrador formula nivel_medio
+Quantos bits são necessários para selecionar 32 registradores?	5 bits, pois 2^5=32.	aula_26 bits_registrador calculo nivel_facil
+Quantos bits de opcode são necessários para representar 64 operações?	6 bits, pois 2^6=64.	aula_26 opcode calculo nivel_facil
+Qual é o intervalo de um imediato com sinal de k bits em complemento de 2?	De -2^(k-1) até 2^(k-1)-1.	aula_26 imediato formula nivel_medio
+Qual é o intervalo de um imediato com sinal de 8 bits?	De -128 até +127.	aula_26 imediato calculo nivel_facil
+O que é datapath?	É o conjunto de blocos e caminhos por onde os dados passam dentro do processador.	aula_27 datapath definicao nivel_facil
+O que é controle?	É a lógica que gera sinais para comandar o datapath em cada instrução.	aula_27 controle definicao nivel_facil
+Qual é a função do PC?	Guardar o endereço da próxima instrução a ser buscada.	aula_27 pc definicao nivel_facil
+Qual é a diferença entre memória de instruções e memória de dados?	Memória de instruções fornece a instrução; memória de dados é acessada por LOAD e STORE.	aula_27 memorias definicao nivel_facil
+Qual é o papel do banco de registradores no datapath?	Ler registradores fonte e escrever o registrador destino quando habilitado.	aula_27 banco_registradores definicao nivel_facil
+Qual é o papel da ULA no datapath?	Executar operações aritméticas/lógicas e calcular endereços para LOAD/STORE.	aula_27 ula definicao nivel_facil
+Qual é o papel de um MUX no datapath?	Escolher qual sinal segue para a próxima parte do caminho.	aula_27 mux definicao nivel_facil
+Para que serve o extensor de sinal?	Para aumentar o tamanho de um imediato preservando seu sinal em complemento de 2.	aula_27 extensor_sinal definicao nivel_medio
+Quais são as etapas clássicas de execução de uma instrução?	Fetch, decode, execute, memory e writeback.	aula_27 ciclo_instrucao definicao nivel_facil
+O que faz o sinal RegWrite?	Habilita escrita no banco de registradores.	aula_27 regwrite definicao nivel_facil
+O que faz o sinal MemRead?	Habilita leitura da memória de dados.	aula_27 memread definicao nivel_facil
+O que faz o sinal MemWrite?	Habilita escrita na memória de dados.	aula_27 memwrite definicao nivel_facil
+O que faz o sinal ALUSrc?	Escolhe se a segunda entrada da ULA vem de registrador ou de imediato/deslocamento.	aula_27 alusrc definicao nivel_facil
+O que faz o sinal MemToReg?	Escolhe se o valor escrito no registrador vem da ULA ou da memória.	aula_27 memtoreg definicao nivel_facil
+Qual é a fórmula comum para decidir um branch condicional simples?	PCSrc = Branch . Zero.	aula_27 branch formula nivel_medio
+Quais sinais principais ficam ativos em uma ADD tipo R?	RegWrite=1, ALUSrc=0, MemRead=0, MemWrite=0, MemToReg=0; a ULA faz a operação.	aula_27 tipo_r sinais_controle nivel_medio
+Quais sinais principais ficam ativos em uma ADDI?	RegWrite=1, ALUSrc=1, MemRead=0, MemWrite=0, MemToReg=0; a ULA soma registrador e imediato.	aula_27 addi sinais_controle nivel_medio
+Quais sinais principais ficam ativos em um LOAD?	RegWrite=1, ALUSrc=1, MemRead=1, MemWrite=0, MemToReg=1.	aula_27 load sinais_controle nivel_medio
+Quais sinais principais ficam ativos em um STORE?	RegWrite=0, ALUSrc=1, MemRead=0, MemWrite=1.	aula_27 store sinais_controle nivel_medio
+Quais sinais principais aparecem em um BEQ?	Branch=1, ALUSrc=0, RegWrite=0, MemWrite=0; a ULA compara/subtrai e usa Zero.	aula_27 beq sinais_controle nivel_medio
+O que faz uma instrução JUMP no datapath?	Atualiza o PC para o alvo do salto sem depender de comparação da ULA.	aula_27 jump definicao nivel_facil
+Se LOAD R1,[R2+8] tem R2=100 e Mem[108]=55, qual é o resultado?	A ULA calcula 100+8=108, a memória lê 55 e R1 recebe 55.	aula_27 load rastreio nivel_medio
+Se STORE [R2+4],R1 tem R2=200 e R1=9, o que acontece?	A ULA calcula 204 e a memória recebe 9 em Mem[204]; nenhum registrador é escrito.	aula_27 store rastreio nivel_medio
+Se BEQ R1,R2,alvo tem R1=7 e R2=7, o que acontece?	A ULA detecta igualdade/Zero=1 e o PC pode ir para o alvo do branch.	aula_27 beq rastreio nivel_medio
+Qual é a diferença entre controle hardwired e microprogramado?	Hardwired usa lógica fixa mais rápida; microprogramado usa microinstruções, sendo mais flexível.	aula_27 controle comparacao nivel_medio
+Em datapath de ciclo único, o que define o período do clock?	O atraso da instrução mais lenta, pois tudo precisa caber em um ciclo.	aula_27 ciclo_unico formula nivel_medio
+Qual é a ideia do datapath multiciclo?	Dividir a execução em vários ciclos e reutilizar blocos em etapas diferentes.	aula_27 multiciclo definicao nivel_facil
+Quais são os três tipos clássicos de hazard em pipeline?	Estrutural, de dados e de controle.	aula_27 pipeline hazard nivel_facil
