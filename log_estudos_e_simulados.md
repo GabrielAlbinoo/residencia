@@ -16,6 +16,7 @@
 | 02/06/2026 | Aula 19 marcada como concluida - subtrator, comparador, shifter e ULA |
 | 03/06/2026 | Aulas 20 e 21 marcadas como vistas - fisica basica/transistores MOS e CMOS combinacional |
 | 08/06/2026 | Aulas 22, 23 e 24 marcadas como vistas - potencia/atraso/hazards, memorias e logica programavel |
+| 10/06/2026 | Aulas 25, 26 e 27 marcadas como concluidas - assembly basico, formatos/modos de enderecamento, datapath e controle |
 
 ## Simulados Realizados
 

@@ -1,11 +1,11 @@
 # Plano de Estudos Atualizado - CI Inovador 2026
 ## Trilha: Sistemas Digitais - UFCG
 
-**Plano atualizado em:** 08/06/2026, segunda-feira  
+**Plano atualizado em:** 10/06/2026, quarta-feira  
 **Periodo restante de estudo:** 08/06/2026 a 27/06/2026  
 **Prova objetiva:** 28/06/2026, domingo, das 14h as 18h  
 **Foco deste plano:** fechar o edital tecnico e transformar erro em acerto  
-**Situacao atual:** aulas `1` a `24` estudadas; faltam `25`, `26` e `27`
+**Situacao atual:** aulas `1` a `27` concluidas; fase atual: revisao, simulados e correcao de erros
 
 ---
 
@@ -88,7 +88,7 @@ chegar inteiro na ultima semana
 
 ---
 
-# 3. Progresso real em 08/06
+# 3. Progresso real em 10/06
 
 ## 3.1 Aulas estudadas
 
@@ -99,14 +99,15 @@ chegar inteiro na ultima semana
 | Aulas 17 a 19 | Estudadas |
 | Aulas 20 a 22 | Estudadas |
 | Aulas 23 a 24 | Estudadas |
+| Aulas 25 a 27 | Estudadas |
 
-## 3.2 Aulas ainda pendentes
+## 3.2 Aulas finais concluidas
 
-| Aula | Conteudo | Foco do estudo |
+| Aula | Conteudo | Status |
 |---|---|---|
-| Aula 25 | Algoritmos procedurais, assembly basico e operandos | Ler instrucoes, registradores, imediatos, LOAD/STORE, desvios |
-| Aula 26 | Formatos, tipos de instrucao e modos de enderecamento | Opcode, campos, registradores, imediato, base+deslocamento, PC-relative |
-| Aula 27 | Datapath e controle | PC, banco de registradores, ULA, memoria, MUX e sinais de controle |
+| Aula 25 | Algoritmos procedurais, assembly basico e operandos | Concluida |
+| Aula 26 | Formatos, tipos de instrucao e modos de enderecamento | Concluida |
+| Aula 27 | Datapath e controle | Concluida |
 
 ## 3.3 Simulados ja realizados
 
@@ -139,7 +140,7 @@ Pontos que ainda merecem revisao ativa:
 - glitch vs hazard vs consenso;
 - SRAM vs DRAM;
 - PROM vs PLA vs PAL;
-- assembly/datapath, que ainda nao fecharam.
+- assembly/datapath, agora vistos, mas ainda precisam de questoes e revisao integrada.
 
 ---
 
@@ -189,19 +190,17 @@ Pontos que ainda merecem revisao ativa:
 - memorias;
 - logica programavel.
 
-## 5.2 O que falta para encerrar o conteudo
+## 5.2 Conteudo encerrado
 
 ```text
-Aula 25
-Aula 26
-Aula 27
+Todas as aulas 1 a 27 foram concluidas.
 ```
 
 Conclusao pratica:
 
 ```text
-nao vale pausar tudo para revisao pesada agora
-vale fechar 25 a 27 rapido e revisar os erros em paralelo
+nao abrir assunto tecnico grande novo
+entrar em modo prova: simulados, correcao e revisao dos erros
 ```
 
 ---
@@ -497,11 +496,11 @@ ideal 34+
 - [x] Memorias: banco de registradores, ROM, SRAM e DRAM
 - [x] PROM, PLA, PAL, CPLD e FPGA
 
-## 7.2 Pendente de fechar
+## 7.2 Aulas finais fechadas
 
-- [ ] Aula 25 - Assembly basico e operandos
-- [ ] Aula 26 - Formatos e modos de enderecamento
-- [ ] Aula 27 - Datapath e controle
+- [x] Aula 25 - Assembly basico e operandos
+- [x] Aula 26 - Formatos e modos de enderecamento
+- [x] Aula 27 - Datapath e controle
 
 ## 7.3 Pendente de consolidar
 
