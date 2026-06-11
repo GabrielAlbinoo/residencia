@@ -1357,6 +1357,53 @@ SUB R4, R1, R5
 
 `SUB` precisa de `R1`, que está sendo produzido por `ADD`.
 
+### 29.2.1 Dependência RAW
+
+RAW significa:
+
+```text
+Read After Write
+ler depois de escrever
+```
+
+É quando uma instrução precisa **ler** um registrador que a instrução anterior ainda vai **escrever**.
+
+Exemplo:
+
+```asm
+LDW r2, 0(r1)
+ADD r3, r2, r4
+```
+
+O que acontece:
+
+```text
+1. LDW vai buscar um valor na memória.
+2. Esse valor será escrito em r2.
+3. A instrução ADD precisa ler r2.
+4. Se o processador estiver em pipeline, a ADD pode chegar na etapa de leitura antes do LDW terminar de escrever r2.
+```
+
+Então existe uma dependência de dados:
+
+```text
+ADD depende do resultado do LDW
+```
+
+O nome disso é:
+
+```text
+dependência RAW
+```
+
+Para esta prova, basta saber o conceito:
+
+```text
+RAW = uma instrução lê um registrador que uma instrução anterior ainda vai escrever
+```
+
+Não precisa aprofundar em forwarding, stall ou bolhas de pipeline, a menos que a questão dê esses termos explicitamente.
+
 ## 29.3 Hazard de controle
 
 Ocorre por causa de desvios.

@@ -30,3 +30,4 @@
 | 02/06/2026 | 14:24:47 | 01:05:57 | Simulado 06 - Aulas 1 a 17 - Nivel Prova Real - Sistemas Digitais (UFCG) | `44/50 (88%)` |
 | 08/06/2026 | 16:21:58 | 00:58:16 | Simulado 07 - Exercicios de Faculdades - Aulas 1 a 17 - Sistemas Digitais (UFCG) | `45/50 (90%)` |
 | 08/06/2026 | 17:09:06 | 00:34:01 | Simulado 09 - Aulas 13 e 18 a 24 - Revisao Completa - Sistemas Digitais (UFCG) | `56/60 (93%)` |
+| 11/06/2026 | 14:21:50 | 02:03:38 | Simulado 11 - Geral Aulas 1 a 27 - Dificil - Sistemas Digitais (UFCG) | `48/57 (84%)` |

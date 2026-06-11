@@ -71,6 +71,8 @@ O simulado deve ter:
 - relatório final para IA;
 - gabarito interno correto.
 
+Em simulados gerais/acumulativos, misture a ordem das questões entre os assuntos. Não deixe todas as questões de uma aula ou bloco juntas, porque a prova real tende a misturar conteúdos. O bloco interno pode continuar existindo apenas para diagnóstico no relatório final.
+
 Não exiba o tópico da questão durante a prova se isso puder dar dica.
 
 O tópico pode ficar salvo internamente para aparecer no relatório final e ajudar a revisão.
@@ -165,11 +167,29 @@ Em questões conceituais, use alternativas parcialmente verdadeiras, mas com um 
 
 ## 6.3 Distribuição Do Gabarito
 
-O gabarito deve ter distribuição equilibrada entre `A`, `B`, `C` e `D`.
+O gabarito deve ter distribuição equilibrada entre `A`, `B`, `C`, `D` e `E`.
 
 Evite padrões como muitas respostas seguidas na mesma letra ou excesso de uma única alternativa.
 
 Antes de entregar, confira a distribuição das respostas corretas. Se estiver muito concentrada, reorganize as alternativas sem mudar o conteúdo da questão.
+
+Regra objetiva:
+
+- em simulados de 60 questões com 5 alternativas, cada letra deve aparecer preferencialmente entre 10 e 14 vezes;
+- nenhuma letra pode passar de 16 respostas corretas;
+- nenhuma letra pode ficar abaixo de 8 respostas corretas;
+- não pode haver sequência de mais de 3 respostas corretas na mesma letra;
+- se a distribuição ficar enviesada, embaralhe alternativas e atualize o gabarito antes de entregar.
+
+Exemplo de distribuição aceitável para 60 questões:
+
+```text
+A: 12
+B: 11
+C: 13
+D: 12
+E: 12
+```
 
 ## 6.4 Alternativas Sem Resposta Óbvia
 
@@ -404,6 +424,7 @@ Verifique questão por questão:
 - se a explicação corresponde à resposta correta;
 - se as alternativas erradas são plausíveis, mas realmente erradas;
 - se a alternativa correta não está óbvia por ser maior, mais detalhada ou mais bem escrita;
+- se a distribuição do gabarito está equilibrada entre `A`, `B`, `C`, `D` e `E`;
 - se não há texto quebrado, acentuação corrompida ou caracteres estranhos;
 - se a questão não repete exatamente uma questão de simulado anterior;
 - se tabelas e dados apresentados batem com o enunciado;
@@ -447,6 +468,7 @@ o gabarito foi revisado questão por questão
 não existem alternativas duplicadas/equivalentes
 não existe texto quebrado por acentuação/encoding
 as respostas corretas não são identificáveis pelo tamanho da alternativa
+distribuição do gabarito está equilibrada e sem excesso de uma letra
 não há repetição exata de questão antiga
 Karnaugh e fórmulas estão no nível pedido
 ```
