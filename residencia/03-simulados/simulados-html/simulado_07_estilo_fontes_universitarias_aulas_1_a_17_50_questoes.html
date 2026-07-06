@@ -1,0 +1,2367 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Base de Simulado | Sistemas Digitais</title>
+  <style>
+    :root {
+      --bg: #f5f6f2;
+      --surface: #ffffff;
+      --surface-alt: #f1f5f4;
+      --ink: #172320;
+      --muted: #52645f;
+      --line: #d8e0dc;
+      --primary: #006a63;
+      --primary-dark: #004f4b;
+      --primary-soft: #dff2ef;
+      --correct: #167043;
+      --correct-soft: #e1f4e7;
+      --wrong: #b43a31;
+      --wrong-soft: #fde9e6;
+      --warning: #946100;
+      --warning-soft: #fff3d4;
+      --shadow: 0 2px 14px rgba(18, 38, 34, 0.07);
+      --radius: 16px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--bg);
+      font: 16px/1.5 "Segoe UI", Arial, sans-serif;
+    }
+
+    code {
+      padding: 0.12rem 0.36rem;
+      border-radius: 5px;
+      background: #edf1f0;
+      font: 0.95em Consolas, "Courier New", monospace;
+    }
+
+    .hero {
+      padding: 40px 20px 28px;
+      color: #fff;
+      background: linear-gradient(132deg, #013b39, #00766d);
+    }
+
+    .container {
+      width: min(1040px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: clamp(1.7rem, 4vw, 2.4rem);
+      line-height: 1.15;
+    }
+
+    .subtitle {
+      max-width: 760px;
+      margin: 0;
+      color: #d4ece9;
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(125px, 1fr));
+      gap: 10px;
+      margin-top: 24px;
+    }
+
+    .meta-card {
+      padding: 12px 14px;
+      border: 1px solid rgba(255, 255, 255, 0.21);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.09);
+    }
+
+    .meta-card span {
+      display: block;
+      color: #cae6e3;
+      font-size: 0.83rem;
+    }
+
+    .meta-card strong { font-size: 1.05rem; }
+
+    .toolbar {
+      position: sticky;
+      z-index: 10;
+      top: 0;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.97);
+      backdrop-filter: blur(8px);
+    }
+
+    .toolbar-inner {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px 18px;
+      align-items: center;
+      padding: 13px 0;
+    }
+
+    .progress-group {
+      flex: 1 1 310px;
+      min-width: 230px;
+    }
+
+    .progress-label {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 4px 14px;
+      margin-bottom: 6px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 8px;
+      overflow: hidden;
+      border-radius: 99px;
+      background: #e5ebe9;
+    }
+
+    .progress-fill {
+      width: 0;
+      height: 100%;
+      border-radius: inherit;
+      background: var(--primary);
+      transition: width 160ms ease;
+    }
+
+    .toolbar-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .toolbar-timer {
+      display: flex;
+      flex-direction: column;
+      min-width: 103px;
+      padding: 5px 11px;
+      border: 1px solid #cddbd7;
+      border-radius: 9px;
+      color: var(--primary-dark);
+      background: var(--surface-alt);
+      line-height: 1.2;
+    }
+
+    .toolbar-timer span {
+      color: var(--muted);
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.035em;
+    }
+
+    .toolbar-timer strong {
+      font-size: 0.98rem;
+      font-variant-numeric: tabular-nums;
+    }
+
+    button {
+      cursor: pointer;
+      padding: 10px 15px;
+      border: 1px solid transparent;
+      border-radius: 9px;
+      color: #fff;
+      background: var(--primary);
+      font: inherit;
+      font-weight: 600;
+      transition: background 120ms ease, transform 120ms ease;
+    }
+
+    button:hover { background: var(--primary-dark); }
+    button:active { transform: translateY(1px); }
+    button:disabled { cursor: not-allowed; opacity: 0.5; transform: none; }
+
+    .button-secondary {
+      border-color: var(--line);
+      color: var(--primary-dark);
+      background: #fff;
+    }
+
+    .button-secondary:hover { background: var(--surface-alt); }
+
+    .button-warning {
+      border-color: #e6cd96;
+      color: var(--warning);
+      background: var(--warning-soft);
+    }
+
+    .button-warning:hover { background: #ffedc2; }
+
+    main { padding: 25px 0 54px; }
+
+    .notice, .start-panel, .question-navigator {
+      margin-bottom: 20px;
+      padding: 16px 18px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+      box-shadow: var(--shadow);
+    }
+
+    .notice h2, .start-panel h2 {
+      margin: 0 0 7px;
+      font-size: 1.1rem;
+    }
+
+    .notice p, .start-panel p { margin: 6px 0; color: var(--muted); }
+    .start-panel.started { display: none; }
+
+    .question-navigator-head {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 10px 18px;
+      align-items: flex-start;
+      margin-bottom: 14px;
+    }
+
+    .question-navigator h2 {
+      margin: 0 0 4px;
+      font-size: 1.1rem;
+    }
+
+    .question-navigator-description {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .question-nav-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 14px;
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    .question-nav-legend-item {
+      display: inline-flex;
+      gap: 6px;
+      align-items: center;
+      white-space: nowrap;
+    }
+
+    .question-nav-swatch {
+      display: inline-block;
+      width: 18px;
+      height: 18px;
+      border: 2px solid;
+      border-radius: 6px;
+    }
+
+    .question-nav-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .question-nav-item {
+      position: relative;
+      display: inline-flex;
+      width: 44px;
+      height: 42px;
+      padding: 0;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      line-height: 1;
+      transition: transform 120ms ease, box-shadow 120ms ease, background 120ms ease;
+    }
+
+    .question-nav-item:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 3px 8px rgba(18, 38, 34, 0.13);
+    }
+
+    .question-nav-item:focus-visible {
+      outline: 3px solid rgba(0, 106, 99, 0.25);
+      outline-offset: 1px;
+    }
+
+    .question-nav-note {
+      position: absolute;
+      top: 2px;
+      right: 4px;
+      font-size: 0.78rem;
+      line-height: 1;
+    }
+
+    .question-nav-item.status-blank,
+    .question-nav-swatch.status-blank {
+      border-color: #aeb8b5;
+      color: #61706d;
+      background: #eef1f0;
+    }
+
+    .question-nav-item.status-answered,
+    .question-nav-swatch.status-answered {
+      border-color: #377dbf;
+      color: #235b91;
+      background: #e6f1fd;
+    }
+
+    .question-nav-item.status-unknown,
+    .question-nav-swatch.status-unknown {
+      border-color: #d49a24;
+      color: #8a5a00;
+      background: var(--warning-soft);
+    }
+
+    .question-nav-item.status-correct,
+    .question-nav-swatch.status-correct {
+      border-color: var(--correct);
+      color: var(--correct);
+      background: var(--correct-soft);
+    }
+
+    .question-nav-item.status-wrong,
+    .question-nav-swatch.status-wrong {
+      border-color: var(--wrong);
+      color: var(--wrong);
+      background: var(--wrong-soft);
+    }
+
+    .question-navigator-bottom {
+      margin-top: 28px;
+      margin-bottom: 0;
+    }
+
+    .back-to-top {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 15;
+      display: inline-flex;
+      width: 42px;
+      height: 42px;
+      padding: 0;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #bbd8d4;
+      border-radius: 12px;
+      color: var(--primary-dark);
+      background: var(--primary-soft);
+      box-shadow: var(--shadow);
+      font-size: 1.3rem;
+      line-height: 1;
+    }
+
+    .back-to-top:hover {
+      color: #fff;
+      background: var(--primary);
+    }
+
+    .block-heading {
+      margin: 34px 0 15px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #dbe6e3;
+      color: var(--primary-dark);
+      font-size: 1.35rem;
+    }
+
+    .question {
+      margin: 0 0 14px;
+      padding: 20px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+      box-shadow: var(--shadow);
+      scroll-margin-top: 86px;
+    }
+
+    .question:focus {
+      outline: 3px solid rgba(0, 106, 99, 0.22);
+      outline-offset: 2px;
+    }
+
+    .question.correct {
+      border-color: #acd5b8;
+      background: #fcfffd;
+    }
+
+    .question.wrong, .question.unanswered {
+      border-color: #efb9b3;
+      background: #fffdfc;
+    }
+
+    .question.declared-unknown {
+      border-color: #e8cf99;
+      background: #fffefa;
+    }
+
+    .question-title {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      margin-bottom: 12px;
+    }
+
+    .question-copy {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .question-buttons {
+      display: flex;
+      flex: none;
+      gap: 6px;
+      align-items: flex-start;
+    }
+
+    .number {
+      flex: none;
+      min-width: 40px;
+      padding: 4px 7px;
+      border-radius: 8px;
+      color: var(--primary-dark);
+      background: var(--primary-soft);
+      text-align: center;
+      font-weight: 700;
+    }
+
+    .prompt { margin: 0; font-weight: 600; }
+
+    .question-artifacts {
+      display: grid;
+      gap: 12px;
+      margin: 14px 0 16px;
+    }
+
+    .artifact-caption {
+      margin: 0 0 6px;
+      color: var(--muted);
+      font-size: 0.92rem;
+      font-weight: 600;
+    }
+
+    .artifact-table-wrap {
+      max-width: 100%;
+      overflow-x: auto;
+    }
+
+    .artifact-table {
+      border-collapse: collapse;
+      color: var(--ink);
+      background: #fff;
+      font-size: 0.94rem;
+    }
+
+    .artifact-table th, .artifact-table td {
+      min-width: 48px;
+      padding: 7px 12px;
+      border: 1px solid #cbd6d2;
+      text-align: center;
+    }
+
+    .artifact-table th {
+      background: #edf5f3;
+      font-weight: 700;
+    }
+
+    .artifact-table.kmap-table {
+      font-family: Consolas, "Courier New", monospace;
+    }
+
+    .artifact-table.kmap-table th, .artifact-table.kmap-table td {
+      min-width: 58px;
+      height: 43px;
+    }
+
+    .artifact-table.kmap-table .kmap-literal,
+    .artifact-table.kmap-table .kmap-spacer {
+      border: 0;
+      background: transparent;
+      color: var(--primary-dark);
+      font-weight: 700;
+    }
+
+    .artifact-table.kmap-table .kmap-literal-column {
+      height: auto;
+      padding: 2px 12px 5px;
+      font-size: 1rem;
+    }
+
+    .artifact-table.kmap-table .kmap-literal-column-bottom {
+      padding: 5px 12px 2px;
+    }
+
+    .artifact-table.kmap-table .kmap-literal-row-left {
+      padding: 0 11px 0 0;
+      vertical-align: middle;
+      font-size: 1rem;
+    }
+
+    .artifact-table.kmap-table .kmap-literal-row-right {
+      padding: 0 0 0 11px;
+      vertical-align: middle;
+      font-size: 1rem;
+    }
+
+    .artifact-code {
+      overflow-x: auto;
+      margin: 0;
+      padding: 11px 13px;
+      border: 1px solid #d7e1de;
+      border-radius: 8px;
+      color: var(--ink);
+      background: var(--surface-alt);
+      font: 0.94rem/1.5 Consolas, "Courier New", monospace;
+      white-space: pre;
+    }
+
+    .options {
+      display: grid;
+      gap: 8px;
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+
+    .option {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      padding: 10px 12px;
+      border: 1px solid #e3e8e6;
+      border-radius: 9px;
+      transition: background 100ms ease, border-color 100ms ease;
+    }
+
+    .option:hover { background: #f6faf9; }
+
+    .option input {
+      flex: none;
+      width: 17px;
+      height: 17px;
+      margin: 3px 0 0;
+      accent-color: var(--primary);
+    }
+
+    .option.selected { border-color: #9dc9c4; background: #edf8f6; }
+    .option.answer-correct { border-color: #89c29b; background: var(--correct-soft); }
+    .option.answer-wrong { border-color: #df9c96; background: var(--wrong-soft); }
+
+    .question-actions {
+      display: flex;
+      align-items: center;
+      margin-top: 13px;
+    }
+
+    .question-tool-button {
+      flex: none;
+      padding: 6px 11px;
+      font-size: 0.9rem;
+      line-height: 1.25;
+    }
+
+    .unknown-note {
+      display: none;
+      color: var(--warning);
+      font-size: 0.92rem;
+      font-weight: 600;
+    }
+
+    .declared-unknown .unknown-note { display: block; }
+
+    .observation-panel {
+      display: none;
+      margin-top: 12px;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      background: var(--surface-alt);
+    }
+
+    .observation-panel.visible { display: block; }
+
+    .observation-panel label {
+      display: block;
+      margin-bottom: 7px;
+      color: var(--muted);
+      font-size: 0.92rem;
+      font-weight: 600;
+    }
+
+    .observation-panel textarea {
+      display: block;
+      width: 100%;
+      min-height: 82px;
+      padding: 9px 10px;
+      resize: vertical;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      color: var(--ink);
+      background: #fff;
+      font: inherit;
+    }
+
+    .observation-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      margin-top: 9px;
+    }
+
+    .observation-status {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .observation-saved {
+      margin: 0;
+      white-space: pre-wrap;
+    }
+
+    .feedback {
+      display: none;
+      margin-top: 14px;
+      padding: 11px 13px;
+      border-radius: 9px;
+      font-size: 0.95rem;
+    }
+
+    .correct .feedback {
+      display: block;
+      color: var(--correct);
+      background: var(--correct-soft);
+    }
+
+    .wrong .feedback, .unanswered .feedback {
+      display: block;
+      color: var(--wrong);
+      background: var(--wrong-soft);
+    }
+
+    .feedback p { margin: 4px 0; }
+
+    .result {
+      display: none;
+      margin: 0 0 26px;
+      padding: 23px;
+      border: 1px solid #b3d8d4;
+      border-radius: var(--radius);
+      background: var(--surface);
+      box-shadow: var(--shadow);
+    }
+
+    .result.visible { display: block; }
+
+    .score-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .score {
+      min-width: 152px;
+      padding: 16px;
+      border-radius: 12px;
+      color: #fff;
+      background: var(--primary);
+      text-align: center;
+    }
+
+    .score strong {
+      display: block;
+      font-size: 2.25rem;
+      line-height: 1.15;
+    }
+
+    .diagnostic h2 { margin: 0 0 6px; }
+    .diagnostic p { margin: 0; color: var(--muted); }
+
+    .results-table {
+      width: 100%;
+      margin: 16px 0 20px;
+      border-collapse: collapse;
+      font-size: 0.95rem;
+    }
+
+    .results-table th, .results-table td {
+      padding: 9px 10px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+    }
+
+    .results-table th { color: var(--muted); }
+
+    .export-help {
+      margin: 12px 0 0;
+      color: var(--muted);
+      font-size: 0.93rem;
+    }
+
+    .toast {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 20;
+      display: none;
+      padding: 12px 16px;
+      border-radius: 10px;
+      color: #fff;
+      background: var(--primary-dark);
+      box-shadow: var(--shadow);
+    }
+
+    .toast.visible { display: block; }
+
+    @media (max-width: 700px) {
+      .meta-grid { grid-template-columns: repeat(2, minmax(120px, 1fr)); }
+      .question { padding: 16px; }
+      .toolbar-buttons { width: 100%; }
+      .toolbar-buttons button { flex: 1; }
+      .toolbar-timer { flex: 1; }
+      .question-nav-item { width: 41px; height: 39px; }
+    }
+
+    @media print {
+      .toolbar, .result .toolbar-buttons, .toast, .question-actions, .question-navigator, .back-to-top { display: none !important; }
+      body { background: #fff; }
+      .question { break-inside: avoid; box-shadow: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="container">
+      <h1 id="title">Simulado</h1>
+      <p class="subtitle" id="subtitle"></p>
+      <div class="meta-grid" aria-label="Informações do simulado">
+        <div class="meta-card"><span>Questões</span><strong id="questionCount">0 objetivas</strong></div>
+        <div class="meta-card"><span>Tempo sugerido</span><strong id="suggestedTime">-</strong></div>
+        <div class="meta-card"><span>Meta</span><strong id="goal">-</strong></div>
+        <div class="meta-card"><span>Tempo executado</span><strong id="timer">00:00:00</strong></div>
+      </div>
+    </div>
+  </header>
+
+  <div class="toolbar">
+    <div class="container toolbar-inner">
+      <div class="progress-group">
+        <div class="progress-label">
+          <span id="answeredLabel">0 respondidas</span>
+          <span id="saveLabel">Aguardando início</span>
+        </div>
+        <div class="progress-track" aria-hidden="true"><div class="progress-fill" id="progressFill"></div></div>
+      </div>
+      <div class="toolbar-buttons">
+        <div class="toolbar-timer" aria-label="Tempo executado na prova">
+          <span>Tempo</span>
+          <strong id="toolbarTimer">00:00:00</strong>
+        </div>
+        <button type="button" id="finishButton" disabled>Finalizar e corrigir</button>
+        <button type="button" class="button-secondary" id="resetButton">Reiniciar</button>
+      </div>
+    </div>
+  </div>
+
+  <main class="container">
+    <section class="question-navigator" id="questionNavigator" aria-label="Resumo das questões">
+      <div class="question-navigator-head">
+        <div>
+          <h2>Resumo das questões</h2>
+          <p class="question-navigator-description">Clique em um número para ir até a questão. <strong>*</strong> indica OBS salva.</p>
+        </div>
+        <div class="question-nav-legend" id="questionNavLegend" aria-label="Legenda do resumo"></div>
+      </div>
+      <div class="question-nav-grid" id="questionNavGrid"></div>
+    </section>
+
+    <section class="start-panel" id="startPanel">
+      <h2>Pronto para começar?</h2>
+      <p>O cronômetro começa somente ao clicar em <strong>Iniciar prova</strong>. Ele conta o tempo com este arquivo aberto; se você fechar e voltar dias depois, continua do tempo salvo, sem incluir o intervalo fechado.</p>
+      <button type="button" id="startButton">Iniciar prova</button>
+    </section>
+
+    <section class="notice" aria-label="Instrucoes">
+      <h2>Como usar</h2>
+      <p>Escolha uma alternativa quando souber responder. Se não souber, clique em <strong>Não sei</strong> ao lado da questão; isso será registrado no relatório para revisão, em vez de virar chute.</p>
+      <p>Use <strong>OBS</strong> para anotar dúvidas ou raciocínios da questão. A observação só será gravada quando você clicar em <strong>Salvar OBS</strong>.</p>
+      <p>As respostas e o tempo executado ficam salvos neste navegador. O gabarito aparece apenas depois de finalizar.</p>
+      <p>Depois da correção, envie o relatório para a IA: ele já solicita o arquivamento do resultado e a criação de uma pasta própria com tudo o que você precisa revisar.</p>
+    </section>
+
+    <section id="result" class="result" aria-live="polite"></section>
+    <form id="quizForm"></form>
+
+    <section class="question-navigator question-navigator-bottom" id="questionNavigatorBottom" aria-label="Resumo final das questões">
+      <div class="question-navigator-head">
+        <div>
+          <h2>Resumo das questões</h2>
+          <p class="question-navigator-description">Clique em um número para voltar à questão. <strong>*</strong> indica OBS salva.</p>
+        </div>
+        <div class="question-nav-legend" id="questionNavLegendBottom" aria-label="Legenda do resumo final"></div>
+      </div>
+      <div class="question-nav-grid" id="questionNavGridBottom"></div>
+    </section>
+  </main>
+
+  <button type="button" class="back-to-top" id="backToTopButton" aria-label="Voltar ao topo">&uarr;</button>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    "use strict";
+
+    /*
+      BASE PARA OS PRÓXIMOS SIMULADOS
+      1. Duplique este HTML e altere CONFIG, blocks e questions.
+      2. Use uma storageKey exclusiva em cada simulado.
+      3. Não é necessário importar JSON: as questões ficam no próprio HTML.
+
+      MATERIAIS OPCIONAIS DA QUESTÃO
+      Use "artifacts" quando o enunciado precisar de uma tabela ou bloco visual:
+
+      Tabela-verdade:
+      artifacts: [{
+        type: "table",
+        caption: "Tabela fornecida",
+        headers: ["A", "B", "F"],
+        rows: [["0", "0", "0"], ["0", "1", "1"], ["1", "0", "1"], ["1", "1", "1"]]
+      }]
+
+      Mapa de Karnaugh:
+      artifacts: [{
+        type: "table",
+        variant: "kmap",
+        rowVariable: "AB",
+        columnVariable: "CD",
+        rowHeader: true,
+        caption: "Mapa fornecido",
+        headers: ["00", "01", "11", "10"],
+        rows: [["00", "1", "0", "0", "1"], ["01", "0", "0", "0", "0"],
+          ["11", "0", "0", "0", "0"], ["10", "1", "0", "0", "1"]]
+      }]
+
+      Ligações de circuito, sequência temporal ou expressão em várias linhas:
+      artifacts: [{
+        type: "code",
+        caption: "Circuito descrito por sinais",
+        content: "N1 = A AND B\nN2 = C AND D\nF  = N1 OR N2"
+      }]
+
+      Tabelas também servem para estados Moore/Mealy, sinais de temporização,
+      decoders, codificadores e resultados de blocos lógicos.
+    */
+    const CONFIG = {
+      "numero": "07",
+      "titulo": "Simulado 07 - Estilo Fontes Universitárias - Aulas 1 a 17",
+      "subtitulo": "Sistemas Digitais - UFCG | Questões autorais/adaptadas em nível de prova real, inspiradas em listas universitárias",
+      "tempoSugerido": "2h30 a 3h00",
+      "meta": "40/50 (80%)",
+      "storageKey": "simulado_07_estilo_fontes_universitarias_aulas_1_a_17_v1",
+      "nomeRelatorio": "resultado_simulado_07_estilo_fontes_universitarias.txt"
+};
+
+    const letters = ["A", "B", "C", "D", "E"];
+
+    const blocks = [
+      {
+            "id": 1,
+            "title": "Representação, códigos e aritmética - estilo listas de organização/arquitetura",
+            "review": "aulas/1-binarios_operacoes_sinal_complemento2.md; aulas/2-codigos_binarios_bcd_gray_ascii_checksum.md"
+      },
+      {
+            "id": 2,
+            "title": "Álgebra, Karnaugh e síntese - estilo MIT/Wellesley",
+            "review": "aulas/4-algebra_booleana_axiomas_leis_simplificacao.md; aulas/5-demorgan_dualidade_nand_nor_simplificacao.md; aulas/7-mapas_karnaugh_2_3_variaveis_minimizacao_sop.md; aulas/8-mapas_karnaugh_4_variaveis_dont_care.md; aulas/9-sintese_logica_completa_sop_pos_nand_nor.md"
+      },
+      {
+            "id": 3,
+            "title": "MUX, decoder, DEMUX, encoder e comparador - estilo circuitos combinacionais",
+            "review": "aulas/10-mux_demux_decoder_encoder_comparador_blocos_combinacionais.md"
+      },
+      {
+            "id": 4,
+            "title": "FSM Moore/Mealy e síntese com D - estilo laboratório de FSM",
+            "review": "aulas/11-introducao_fsm_maquinas_estados_moore_mealy.md; aulas/16-sintese_maquinas_estados_fsm_flip_flops_d.md"
+      },
+      {
+            "id": 5,
+            "title": "Sequencial e temporização - estilo UC Davis/Georgia Tech",
+            "review": "aulas/12-estabilidade_latch_sr_latch_d.md; aulas/13-flip_flops_registradores.md; aulas/14-contadores_assincronos_sincronos_divisao_frequencia.md; aulas/15-temporizacao_sequencial_setup_hold_caminho_critico.md"
+      },
+      {
+            "id": 6,
+            "title": "Ponto fixo e ponto flutuante - estilo organização de computadores",
+            "review": "aulas/17-ponto_fixo_ponto_flutuante.md"
+      },
+      {
+            "id": 7,
+            "title": "Questões integradas de síntese combinacional",
+            "review": "aulas/6-valores_logicos_formas_canonicas_mintermos_maxtermos.md; aulas/9-sintese_logica_completa_sop_pos_nand_nor.md; aulas/10-mux_demux_decoder_encoder_comparador_blocos_combinacionais.md"
+      },
+      {
+            "id": 8,
+            "title": "Questões integradas de sequencial e FSM",
+            "review": "aulas/11-introducao_fsm_maquinas_estados_moore_mealy.md; aulas/13-flip_flops_registradores.md; aulas/15-temporizacao_sequencial_setup_hold_caminho_critico.md; aulas/16-sintese_maquinas_estados_fsm_flip_flops_d.md"
+      },
+      {
+            "id": 9,
+            "title": "Pegadinhas conceituais de prova",
+            "review": "aulas/3-portas_logicas_operacoes_booleanas.md; aulas/6-valores_logicos_formas_canonicas_mintermos_maxtermos.md; aulas/10-mux_demux_decoder_encoder_comparador_blocos_combinacionais.md"
+      },
+      {
+            "id": 10,
+            "title": "Desafio final acumulativo",
+            "review": "aulas/1-binarios_operacoes_sinal_complemento2.md; aulas/9-sintese_logica_completa_sop_pos_nand_nor.md; aulas/15-temporizacao_sequencial_setup_hold_caminho_critico.md; aulas/17-ponto_fixo_ponto_flutuante.md"
+      }
+];
+
+    const questions = [
+      {
+            "id": 1,
+            "block": 1,
+            "topic": "Complemento de 2 com carry e overflow",
+            "prompt": "Em 8 bits com complemento de 2, some <code>D6</code> e <code>4F</code>. Qual alternativa informa corretamente resultado armazenado, carry-out e overflow com sinal?",
+            "options": [
+                  "<code>E5</code>, carry-out <code>1</code>, com overflow com sinal",
+                  "<code>25</code>, carry-out <code>1</code>, com overflow com sinal",
+                  "<code>125</code>, carry-out <code>0</code>, sem overflow com sinal",
+                  "<code>25</code>, carry-out <code>1</code>, sem overflow com sinal"
+            ],
+            "correct": "D",
+            "explanation": "<code>D6=-42</code> e <code>4F=79</code>. Soma decimal: <code>37</code>, que é <code>25h</code>. A soma hexadecimal gera carry-out, mas os operandos têm sinais diferentes, então não há overflow com sinal."
+      },
+      {
+            "id": 2,
+            "block": 1,
+            "topic": "Extensão de sinal",
+            "prompt": "A palavra de 6 bits <code>100111</code> está em complemento de 2. Qual extensão correta para 8 bits e valor decimal?",
+            "options": [
+                  "<code>00100111</code>, <code>+39</code>",
+                  "<code>11100111</code>, <code>-25</code>",
+                  "<code>10011100</code>, <code>-100</code>",
+                  "<code>11100111</code>, <code>-39</code>"
+            ],
+            "correct": "B",
+            "explanation": "Como o bit de sinal é 1, replica-se 1 à esquerda: <code>100111 -> 11100111</code>. Em 6 bits, <code>100111</code> vale <code>39-64=-25</code>."
+      },
+      {
+            "id": 3,
+            "block": 1,
+            "topic": "BCD com correção",
+            "prompt": "Some em BCD <code>0100 1000</code> e <code>0011 1001</code>. Qual é o resultado BCD correto?",
+            "options": [
+                  "<code>1000 0111</code>",
+                  "<code>0111 0001</code>",
+                  "<code>0111 1111</code>",
+                  "<code>1000 0001</code>"
+            ],
+            "correct": "A",
+            "explanation": "Os números são 48 e 39. A soma é 87. No BCD, as unidades <code>8+9=17</code> exigem correção com <code>+0110</code>, gerando 7 e carry para as dezenas. Resultado: <code>1000 0111</code>."
+      },
+      {
+            "id": 4,
+            "block": 1,
+            "topic": "Checksum módulo 256",
+            "prompt": "Um checksum soma bytes módulo 256. Para os bytes <code>F0</code>, <code>25</code> e <code>93</code>, qual checksum é obtido e qual alteração poderia passar despercebida?",
+            "options": [
+                  "Checksum <code>A7</code>; alteração <code>F0,26,93</code>",
+                  "Checksum <code>A8</code>; alteração <code>F0,25,94</code>",
+                  "Checksum <code>18</code>; alteração <code>F1,25,93</code>",
+                  "Checksum <code>A8</code>; alteração <code>F1,24,93</code>"
+            ],
+            "correct": "D",
+            "explanation": "<code>F0+25+93=1A8h</code>; mantendo 8 bits, checksum <code>A8</code>. A alteração <code>F1,24,93</code> aumenta um byte em 1 e diminui outro em 1, preservando a soma."
+      },
+      {
+            "id": 5,
+            "block": 1,
+            "topic": "Carry versus overflow",
+            "prompt": "Assinale a alternativa incorreta sobre carry-out e overflow.",
+            "options": [
+                  "Em soma sem sinal, carry-out indica estouro do tamanho disponível.",
+                  "Em complemento de 2, overflow com sinal depende dos sinais dos operandos e do resultado.",
+                  "Pode haver carry-out sem overflow com sinal em complemento de 2.",
+                  "Carry-out e overflow com sinal são sempre a mesma coisa."
+            ],
+            "correct": "D",
+            "explanation": "Carry-out e overflow com sinal não são sempre a mesma coisa. Em complemento de 2, overflow ocorre quando operandos de mesmo sinal geram resultado de sinal oposto."
+      },
+      {
+            "id": 6,
+            "block": 2,
+            "topic": "Produto de somas e simplificação",
+            "prompt": "Simplifique <code>(A+B)(A+B')(A'+C)</code>.",
+            "options": [
+                  "<code>A+C</code>",
+                  "<code>A'C</code>",
+                  "<code>AC</code>",
+                  "<code>0</code>"
+            ],
+            "correct": "C",
+            "explanation": "<code>(A+B)(A+B')=A</code>. Depois, <code>A(A'+C)=AA'+AC=AC</code>."
+      },
+      {
+            "id": 7,
+            "block": 2,
+            "topic": "Consenso em SOP",
+            "prompt": "A expressão <code>AB + A'C + BC</code> pode ser simplificada removendo qual termo?",
+            "options": [
+                  "<code>AB</code>",
+                  "<code>A'C</code>",
+                  "<code>BC</code>",
+                  "Nenhum termo pode ser removido"
+            ],
+            "correct": "C",
+            "explanation": "Pelo consenso <code>XY+X'Z+YZ=XY+X'Z</code>. Aqui, <code>BC</code> é o termo de consenso e é redundante."
+      },
+      {
+            "id": 8,
+            "block": 2,
+            "topic": "Karnaugh pelos cantos",
+            "prompt": "Em um mapa de Karnaugh de 4 variáveis, os quatro cantos são 1. Usando linhas <code>AB</code> e colunas <code>CD</code> em ordem Gray, qual termo SOP é gerado?",
+            "options": [
+                  "<code>A'C'</code>",
+                  "<code>B'D'</code>",
+                  "<code>BD</code>",
+                  "<code>C'D'</code>"
+            ],
+            "correct": "B",
+            "explanation": "Nos quatro cantos, as linhas são <code>AB=00</code> e <code>10</code>, então <code>B=0</code>. As colunas são <code>CD=00</code> e <code>10</code>, então <code>D=0</code>. Termo: <code>B'D'</code>."
+      },
+      {
+            "id": 9,
+            "block": 2,
+            "topic": "POS pelos zeros",
+            "prompt": "Em um mapa de 4 variáveis, os zeros estão nos quatro cantos. Qual expressão POS mínima representa a função?",
+            "options": [
+                  "<code>B'D'</code>",
+                  "<code>BD</code>",
+                  "<code>B+D</code>",
+                  "<code>B'+D'</code>"
+            ],
+            "correct": "C",
+            "explanation": "Os zeros ocorrem quando <code>B=0</code> e <code>D=0</code>. Em POS, o termo que zera nessa condição é <code>B+D</code>."
+      },
+      {
+            "id": 10,
+            "block": 2,
+            "topic": "Karnaugh regra inválida",
+            "prompt": "Assinale a alternativa incorreta sobre mapas de Karnaugh.",
+            "options": [
+                  "Grupos devem ter tamanho potência de 2.",
+                  "Bordas opostas podem ser adjacentes.",
+                  "Sobreposição pode ser útil.",
+                  "Um grupo de 6 células é válido se parecer contínuo visualmente."
+            ],
+            "correct": "D",
+            "explanation": "Grupos válidos têm tamanho <code>1,2,4,8...</code>. Grupo de 6 não é válido."
+      },
+      {
+            "id": 11,
+            "block": 3,
+            "topic": "DEMUX índice binário",
+            "prompt": "Um DEMUX 1:8 ativo alto recebe <code>D=1</code> e seletores <code>S2S1S0=101</code>. Qual saída recebe 1?",
+            "options": [
+                  "<code>Y4</code>",
+                  "<code>Y1</code>",
+                  "<code>Y6</code>",
+                  "<code>Y5</code>"
+            ],
+            "correct": "D",
+            "explanation": "<code>101₂=5</code>. Como a contagem começa em <code>Y0</code>, a saída selecionada é <code>Y5</code>."
+      },
+      {
+            "id": 12,
+            "block": 3,
+            "topic": "Encoder prioritário",
+            "prompt": "Em um encoder prioritário 8:3 com prioridade <code>D7 &gt; ... &gt; D0</code>, estão ativos <code>D6</code>, <code>D5</code> e <code>D2</code>. Qual saída e válido?",
+            "options": [
+                  "<code>101</code>, válido <code>1</code>",
+                  "<code>010</code>, válido <code>1</code>",
+                  "<code>110</code>, válido <code>1</code>",
+                  "<code>000</code>, válido <code>0</code>"
+            ],
+            "correct": "C",
+            "explanation": "A entrada ativa de maior prioridade é <code>D6</code>. O código de 6 é <code>110</code>. Como há entrada ativa, válido é 1."
+      },
+      {
+            "id": 13,
+            "block": 3,
+            "topic": "MUX 4:1 com variável restante",
+            "prompt": "Implemente <code>F(A,B,C)=Σm(1,2,3,4,6)</code> com MUX 4:1 usando <code>A</code> e <code>B</code> como seletores. Quais são <code>I0,I1,I2,I3</code>?",
+            "options": [
+                  "<code>C,1,C',C'</code>",
+                  "<code>C',1,C,C</code>",
+                  "<code>0,1,C',C</code>",
+                  "<code>C,C,1,C'</code>"
+            ],
+            "correct": "A",
+            "explanation": "Para <code>AB=00</code>, <code>I0=C</code>. Para <code>01</code>, <code>I1=1</code>. Para <code>10</code>, <code>I2=C'</code>. Para <code>11</code>, <code>I3=C'</code>."
+      },
+      {
+            "id": 14,
+            "block": 3,
+            "topic": "Decoder ativo alto para função",
+            "prompt": "Usando decoder 3:8 ativo alto, como implementar <code>F(A,B,C)=Σm(0,3,5,6)</code>?",
+            "options": [
+                  "Fazer AND de <code>Y0,Y3,Y5,Y6</code>",
+                  "Fazer OR de <code>Y0,Y3,Y5,Y6</code>",
+                  "Usar apenas <code>Y6</code>",
+                  "Fazer OR de <code>Y1,Y2,Y4,Y7</code>"
+            ],
+            "correct": "B",
+            "explanation": "Em decoder ativo alto, cada saída <code>Yi</code> representa <code>mi</code>. Para uma soma de mintermos, faz-se OR das saídas correspondentes."
+      },
+      {
+            "id": 15,
+            "block": 3,
+            "topic": "Decoder ativo baixo",
+            "prompt": "Um decoder 2:4 tem saídas ativas em nível baixo. Como implementar <code>F(A,B)=Σm(1,2)</code> usando uma única porta de duas entradas?",
+            "options": [
+                  "<code>Y1 AND Y2</code>",
+                  "<code>Y1 OR Y2</code>",
+                  "<code>Y1 NAND Y2</code>",
+                  "<code>Y1 NOR Y2</code>"
+            ],
+            "correct": "C",
+            "explanation": "Como <code>Y1</code> e <code>Y2</code> ficam 0 quando seus mintermos são selecionados, <code>NAND(Y1,Y2)</code> gera 1 quando qualquer um deles estiver ativo."
+      },
+      {
+            "id": 16,
+            "block": 4,
+            "topic": "Mealy rastreamento",
+            "prompt": "A Mealy detecta <code>101</code>: <code>S0:0->S0/0,1->S1/0</code>; <code>S1:0->S2/0,1->S1/0</code>; <code>S2:0->S0/0,1->S1/1</code>. Partindo de <code>S0</code>, qual saída para entrada <code>10110</code>?",
+            "options": [
+                  "<code>00101</code>",
+                  "<code>00010</code>",
+                  "<code>01010</code>",
+                  "<code>00100</code>"
+            ],
+            "correct": "D",
+            "explanation": "A detecção ocorre no terceiro bit, quando a transição <code>S2 --1/1--> S1</code> é usada. As saídas são <code>0,0,1,0,0</code>."
+      },
+      {
+            "id": 17,
+            "block": 4,
+            "topic": "Moore rastreamento",
+            "prompt": "Uma Moore detecta <code>10</code>: <code>A/Z0</code>, <code>B/Z0</code>, <code>C/Z1</code>; <code>A:0->A,1->B</code>; <code>B:0->C,1->B</code>; <code>C:0->A,1->B</code>. Partindo de <code>A</code>, registre a saída do novo estado para entrada <code>11010</code>.",
+            "options": [
+                  "<code>00101</code>",
+                  "<code>00100</code>",
+                  "<code>01010</code>",
+                  "<code>00011</code>"
+            ],
+            "correct": "A",
+            "explanation": "Estados após as entradas: <code>B,B,C,B,C</code>. Saídas dos novos estados: <code>0,0,1,0,1</code>."
+      },
+      {
+            "id": 18,
+            "block": 4,
+            "topic": "Bits de estado",
+            "prompt": "Uma FSM possui 9 estados simbólicos. Quantos flip-flops são necessários no mínimo e quantos códigos sobram?",
+            "options": [
+                  "3 flip-flops e 1 código sobrando",
+                  "4 flip-flops e 7 códigos sobrando",
+                  "4 flip-flops e 4 códigos sobrando",
+                  "9 flip-flops e nenhum código sobrando"
+            ],
+            "correct": "B",
+            "explanation": "<code>2³=8</code> não basta. <code>2⁴=16</code> basta. Sobram <code>16-9=7</code> códigos."
+      },
+      {
+            "id": 19,
+            "block": 4,
+            "topic": "Síntese D com tabela",
+            "prompt": "Na tabela: <code>00</code> com <code>X0->00,X1->01,Z0</code>; <code>01</code> com <code>X0->10,X1->01,Z0</code>; <code>10</code> com <code>X0->00,X1->01,Z1</code>; <code>11</code> é don't care. Determine <code>D1,D0,Z</code>.",
+            "options": [
+                  "<code>D1=Q0X', D0=X, Z=Q1</code>",
+                  "<code>D1=X, D0=Q1'X', Z=Q1</code>",
+                  "<code>D1=Q1Q0, D0=X', Z=Q0</code>",
+                  "<code>D1=Q0+X, D0=X, Z=X</code>"
+            ],
+            "correct": "A",
+            "explanation": "<code>D=Q+</code>. Pela tabela, <code>D0=X</code>; <code>D1=1</code> quando <code>Q0=1</code> e <code>X=0</code>, logo <code>D1=Q0X'</code>. Com don't care em 11, <code>Z=Q1</code>."
+      },
+      {
+            "id": 20,
+            "block": 4,
+            "topic": "Moore versus Mealy",
+            "prompt": "Assinale a alternativa incorreta.",
+            "options": [
+                  "Em Moore, a saída fica associada ao estado.",
+                  "Em Mealy, a saída pode aparecer na transição.",
+                  "Em Moore, a saída pode mudar dentro do mesmo estado apenas porque a entrada mudou.",
+                  "Mealy pode reagir à entrada decisiva antes de uma Moore equivalente."
+            ],
+            "correct": "C",
+            "explanation": "Em Moore, a saída é fixa para o estado. Se muda no mesmo estado por causa da entrada, isso é comportamento de Mealy."
+      },
+      {
+            "id": 21,
+            "block": 5,
+            "topic": "Setup e Fmax",
+            "prompt": "Calcule o período mínimo e a frequência máxima para <code>Tclk-Q(max)=2 ns</code>, <code>Tcomb(max)=8 ns</code>, <code>Tsetup=1 ns</code>.",
+            "options": [
+                  "<code>10 ns</code> e <code>100 MHz</code>",
+                  "<code>9 ns</code> e <code>111,1 MHz</code>",
+                  "<code>11 ns</code> e <code>11 MHz</code>",
+                  "<code>11 ns</code> e <code>90,9 MHz</code>"
+            ],
+            "correct": "D",
+            "explanation": "<code>Tclock mínimo=2+8+1=11 ns</code>. <code>Fmax≈1000/11=90,9 MHz</code>."
+      },
+      {
+            "id": 22,
+            "block": 5,
+            "topic": "Hold violation",
+            "prompt": "Verifique hold: <code>Tclk-Q(min)=0,4 ns</code>, <code>Tcomb(min)=0,3 ns</code>, <code>Thold=0,8 ns</code>.",
+            "options": [
+                  "Não há violação; margem 0,1 ns",
+                  "Há violação de 0,1 ns",
+                  "Há violação de 0,8 ns",
+                  "Não é possível avaliar sem frequência"
+            ],
+            "correct": "B",
+            "explanation": "<code>0,4+0,3=0,7 ns</code>, menor que <code>0,8 ns</code>. Falta <code>0,1 ns</code>, então há violação de hold."
+      },
+      {
+            "id": 23,
+            "block": 5,
+            "topic": "Contador assíncrono divisor",
+            "prompt": "Quatro flip-flops T com <code>T=1</code> em cascata recebem clock de <code>16 MHz</code>. Qual frequência aparece no quarto estágio?",
+            "options": [
+                  "<code>8 MHz</code>",
+                  "<code>4 MHz</code>",
+                  "<code>2 MHz</code>",
+                  "<code>1 MHz</code>"
+            ],
+            "correct": "D",
+            "explanation": "Cada estágio divide por 2. Quatro estágios dividem por <code>16</code>: <code>16 MHz/16=1 MHz</code>."
+      },
+      {
+            "id": 24,
+            "block": 5,
+            "topic": "Contador síncrono T",
+            "prompt": "Em contador síncrono crescente de 4 bits com flip-flops T, qual expressão aciona <code>T3</code>?",
+            "options": [
+                  "<code>T3=Q3</code>",
+                  "<code>T3=Q2Q1Q0</code>",
+                  "<code>T3=Q1Q0</code>",
+                  "<code>T3=1</code>"
+            ],
+            "correct": "B",
+            "explanation": "O bit <code>Q3</code> alterna quando todos os bits menos significativos estão em 1: <code>Q2Q1Q0</code>."
+      },
+      {
+            "id": 25,
+            "block": 5,
+            "topic": "Setup vs hold",
+            "prompt": "Assinale a alternativa incorreta sobre temporização sequencial.",
+            "options": [
+                  "Setup usa atrasos máximos.",
+                  "Hold usa atrasos mínimos.",
+                  "Reduzir frequência normalmente corrige violação de hold.",
+                  "O caminho crítico define a frequência máxima."
+            ],
+            "correct": "C",
+            "explanation": "Violação de hold não é corrigida simplesmente reduzindo frequência; ela depende do dado novo chegar cedo demais após a borda."
+      },
+      {
+            "id": 26,
+            "block": 6,
+            "topic": "Q3.5 leitura",
+            "prompt": "Qual é o valor real do inteiro armazenado <code>96</code> em <code>Q3.5</code> sem sinal?",
+            "options": [
+                  "<code>96</code>",
+                  "<code>3</code>",
+                  "<code>12</code>",
+                  "<code>0,333...</code>"
+            ],
+            "correct": "B",
+            "explanation": "Em <code>Q3.5</code>, escala <code>2^5=32</code>. Valor real: <code>96/32=3</code>."
+      },
+      {
+            "id": 27,
+            "block": 6,
+            "topic": "Q4.4 negativo",
+            "prompt": "Qual palavra de 8 bits representa <code>-2,25</code> em <code>Q4.4</code> com sinal?",
+            "options": [
+                  "<code>00100100</code>",
+                  "<code>11100100</code>",
+                  "<code>11011100</code>",
+                  "<code>10111000</code>"
+            ],
+            "correct": "C",
+            "explanation": "<code>-2,25×16=-36</code>. Em 8 bits complemento de 2: <code>256-36=220</code>, que é <code>11011100</code>."
+      },
+      {
+            "id": 28,
+            "block": 6,
+            "topic": "IEEE expoente real",
+            "prompt": "Em IEEE 754 simples, o campo de expoente é <code>10000101₂</code>. Qual é o expoente real?",
+            "options": [
+                  "<code>133</code>",
+                  "<code>5</code>",
+                  "<code>6</code>",
+                  "<code>127</code>"
+            ],
+            "correct": "C",
+            "explanation": "<code>10000101₂=133</code>. Expoente real: <code>133-127=6</code>."
+      },
+      {
+            "id": 29,
+            "block": 6,
+            "topic": "IEEE hex para valor",
+            "prompt": "Em IEEE 754 simples, o hexadecimal <code>C1E00000</code> representa qual valor decimal?",
+            "options": [
+                  "<code>-28</code>",
+                  "<code>-14</code>",
+                  "<code>28</code>",
+                  "<code>-7</code>"
+            ],
+            "correct": "A",
+            "explanation": "Sinal 1: negativo. Expoente armazenado <code>83h=131</code>, expoente real <code>4</code>. Fração representa <code>1,75</code>. Valor: <code>-1,75×2^4=-28</code>."
+      },
+      {
+            "id": 30,
+            "block": 6,
+            "topic": "Qm.n incorreta",
+            "prompt": "Assinale a alternativa incorreta sobre <code>Qm.n</code>.",
+            "options": [
+                  "A escala é <code>2^n</code>.",
+                  "A resolução é <code>1/2^n</code>.",
+                  "O valor real é o inteiro armazenado dividido por <code>2^n</code>.",
+                  "A escala é <code>2^m</code>, pois <code>m</code> são os bits inteiros."
+            ],
+            "correct": "D",
+            "explanation": "A escala depende dos bits fracionários, isto é, de <code>n</code>, não de <code>m</code>."
+      },
+      {
+            "id": 31,
+            "block": 7,
+            "topic": "Decoder para XOR",
+            "prompt": "Um decoder 2:4 ativo alto recebe <code>A</code> e <code>B</code>. As saídas <code>Y1</code> e <code>Y2</code> passam por uma OR. Qual função é implementada?",
+            "options": [
+                  "<code>A+B</code>",
+                  "<code>AB</code>",
+                  "<code>A XOR B</code>",
+                  "<code>A XNOR B</code>"
+            ],
+            "correct": "C",
+            "explanation": "<code>Y1=A'B</code> e <code>Y2=AB'</code>. A OR resulta em <code>A'B+AB'</code>, isto é, XOR."
+      },
+      {
+            "id": 32,
+            "block": 7,
+            "topic": "MUX implementando OR",
+            "prompt": "Implemente <code>A+B</code> com MUX 2:1 usando <code>A</code> como seletor. Quais entradas usar?",
+            "options": [
+                  "<code>I0=0,I1=B</code>",
+                  "<code>I0=B',I1=0</code>",
+                  "<code>I0=1,I1=B</code>",
+                  "<code>I0=B,I1=1</code>"
+            ],
+            "correct": "D",
+            "explanation": "Se <code>A=0</code>, a saída deve ser <code>B</code>, então <code>I0=B</code>. Se <code>A=1</code>, a saída deve ser 1, então <code>I1=1</code>."
+      },
+      {
+            "id": 33,
+            "block": 7,
+            "topic": "Karnaugh para NAND",
+            "prompt": "A expressão mínima é <code>F=AB+C'D</code>. Qual forma NAND-NAND está correta, com literais complementados disponíveis?",
+            "options": [
+                  "<code>[(AB)'(C'D)']'</code>",
+                  "<code>[(A+B)'(C'+D)']'</code>",
+                  "<code>(AB)' + (C'D)'</code>",
+                  "<code>[(AB)(C'D)]'</code>"
+            ],
+            "correct": "A",
+            "explanation": "Na estrutura NAND-NAND, os produtos são negados na primeira camada e a NAND final soma por DeMorgan."
+      },
+      {
+            "id": 34,
+            "block": 7,
+            "topic": "POS para NOR",
+            "prompt": "Implemente <code>F=(A+C)(A'+B)</code> em dois níveis NOR-NOR.",
+            "options": [
+                  "<code>(A NAND C) NAND (A' NAND B)</code>",
+                  "<code>(A NOR C) NOR (A' NOR B)</code>",
+                  "<code>(A+C) NOR (A'+B)</code>",
+                  "<code>(A NOR A') NOR (C NOR B)</code>"
+            ],
+            "correct": "B",
+            "explanation": "<code>(A NOR C) NOR (A' NOR B)</code> equivale a <code>[(A+C)'+(A'+B)']'=(A+C)(A'+B)</code>."
+      },
+      {
+            "id": 35,
+            "block": 7,
+            "topic": "Pi para Sigma",
+            "prompt": "Se <code>F(A,B,C,D)=ΠM(0,2,8,10)</code>, qual expressão mínima é obtida?",
+            "options": [
+                  "<code>B'D'</code>",
+                  "<code>B'+D'</code>",
+                  "<code>BD</code>",
+                  "<code>B+D</code>"
+            ],
+            "correct": "D",
+            "explanation": "A função vale 0 quando <code>B=0</code> e <code>D=0</code>. Logo, <code>F=(B'D')'=B+D</code>."
+      },
+      {
+            "id": 36,
+            "block": 8,
+            "topic": "D equations tracing",
+            "prompt": "Uma FSM tem <code>D1=Q0X'</code> e <code>D0=X</code>. Partindo de <code>00</code>, qual estado após entrada <code>101</code>?",
+            "options": [
+                  "<code>01</code>",
+                  "<code>10</code>",
+                  "<code>11</code>",
+                  "<code>00</code>"
+            ],
+            "correct": "A",
+            "explanation": "Com X=1: vai para 01. Com X=0: vai para 10. Com X=1: volta para 01."
+      },
+      {
+            "id": 37,
+            "block": 8,
+            "topic": "Registrador enable",
+            "prompt": "Um registrador com enable recebe novo dado <code>D=1010</code>, mas <code>enable=0</code>. O estado atual é <code>0110</code>. Qual deve ser a saída após a borda de clock?",
+            "options": [
+                  "<code>1010</code>",
+                  "<code>0110</code>",
+                  "<code>0000</code>",
+                  "<code>Z</code>"
+            ],
+            "correct": "B",
+            "explanation": "Com enable 0, o registrador segura o valor anterior. Portanto, permanece <code>0110</code>."
+      },
+      {
+            "id": 38,
+            "block": 8,
+            "topic": "Metastabilidade",
+            "prompt": "Qual situação mais diretamente pode levar à metastabilidade em um flip-flop?",
+            "options": [
+                  "Entrada assíncrona mudando perto da borda de clock",
+                  "Clock com frequência baixa",
+                  "Registrador com enable 0",
+                  "Uso de NAND em vez de NOR"
+            ],
+            "correct": "A",
+            "explanation": "Metastabilidade pode ocorrer quando a entrada viola setup/hold, especialmente com sinais assíncronos próximos à borda de clock."
+      },
+      {
+            "id": 39,
+            "block": 8,
+            "topic": "Moore output simplification",
+            "prompt": "Uma Moore tem saída 1 apenas no estado <code>10</code>, e <code>11</code> é don't care. Qual expressão mínima para <code>Z</code>?",
+            "options": [
+                  "<code>Q1Q0'</code>",
+                  "<code>Q1</code>",
+                  "<code>Q0'</code>",
+                  "<code>Q1'Q0</code>"
+            ],
+            "correct": "B",
+            "explanation": "Como <code>11</code> é don't care, os estados <code>10</code> e <code>11</code> podem ser agrupados, resultando em <code>Z=Q1</code>."
+      },
+      {
+            "id": 40,
+            "block": 8,
+            "topic": "Async vs sync counter",
+            "prompt": "Assinale a alternativa correta sobre contadores assíncronos e síncronos.",
+            "options": [
+                  "No assíncrono, todos os flip-flops recebem o mesmo clock externo.",
+                  "No síncrono, o clock ripple acumula atraso estágio a estágio.",
+                  "No assíncrono, a saída de um flip-flop pode servir como clock do próximo, acumulando atrasos.",
+                  "No síncrono, não existe lógica combinacional entre estados."
+            ],
+            "correct": "C",
+            "explanation": "Contadores assíncronos usam ripple clock, acumulando atraso de propagação. Em síncronos, todos recebem o clock comum."
+      },
+      {
+            "id": 41,
+            "block": 9,
+            "topic": "Z versus dont care",
+            "prompt": "Assinale a alternativa incorreta sobre <code>Z</code> e <code>don't care</code>.",
+            "options": [
+                  "<code>Z</code> representa alta impedância.",
+                  "<code>don't care</code> pode ajudar na minimização.",
+                  "Dois drivers ativos com valores opostos causam contenção.",
+                  "<code>Z</code> e <code>don't care</code> são a mesma coisa."
+            ],
+            "correct": "D",
+            "explanation": "<code>Z</code> é estado elétrico; <code>don't care</code> é condição lógica de projeto/minimização."
+      },
+      {
+            "id": 42,
+            "block": 9,
+            "topic": "Encoder valid",
+            "prompt": "Em um encoder prioritário, para que serve o sinal de válido?",
+            "options": [
+                  "Indicar se existe alguma entrada ativa",
+                  "Indicar se a saída é par",
+                  "Forçar a prioridade para D0",
+                  "Converter binário para Gray"
+            ],
+            "correct": "A",
+            "explanation": "O válido remove a ambiguidade quando nenhuma entrada está ativa. Sem ele, uma saída <code>00</code> poderia significar D0 ativo ou nenhuma entrada ativa."
+      },
+      {
+            "id": 43,
+            "block": 9,
+            "topic": "Mintermo/maxtermo",
+            "prompt": "Qual maxtermo zera exatamente na linha <code>ABCD=1010</code>?",
+            "options": [
+                  "<code>A'BC'D</code>",
+                  "<code>A+B'+C+D'</code>",
+                  "<code>A'+B+C'+D</code>",
+                  "<code>A'B+CD'</code>"
+            ],
+            "correct": "C",
+            "explanation": "Em maxtermo, bit 1 vira variável negada e bit 0 vira variável direta: <code>A'+B+C'+D</code>."
+      },
+      {
+            "id": 44,
+            "block": 9,
+            "topic": "Paridade",
+            "prompt": "Uma saída vale 1 quando há quantidade par de bits 1 em <code>A,B,C,D</code>. Para <code>1110</code>, qual saída?",
+            "options": [
+                  "<code>1</code>",
+                  "<code>0</code>",
+                  "<code>Z</code>",
+                  "Indeterminada"
+            ],
+            "correct": "B",
+            "explanation": "<code>1110</code> tem três bits 1, quantidade ímpar. Detector de paridade par gera 0."
+      },
+      {
+            "id": 45,
+            "block": 9,
+            "topic": "Dualidade",
+            "prompt": "Assinale a alternativa correta sobre dualidade.",
+            "options": [
+                  "Troca variáveis por complementos.",
+                  "Só vale para DeMorgan.",
+                  "Troca <code>+</code> por <code>·</code> e <code>·</code> por <code>+</code>, mantendo variáveis e complementos.",
+                  "Transforma qualquer expressão em sua negação."
+            ],
+            "correct": "C",
+            "explanation": "Dualidade troca operações AND/OR e também 0/1 quando aparecem, mas não complementa automaticamente variáveis."
+      },
+      {
+            "id": 46,
+            "block": 10,
+            "topic": "Timing integrado",
+            "prompt": "Um caminho tem <code>Tclk-Q(max)=3 ns</code>, <code>Tcomb(max)=9 ns</code>, <code>Tsetup=2 ns</code>. Qual <code>Fmax</code> aproximada?",
+            "options": [
+                  "<code>71,4 MHz</code>",
+                  "<code>83,3 MHz</code>",
+                  "<code>14 MHz</code>",
+                  "<code>100 MHz</code>"
+            ],
+            "correct": "A",
+            "explanation": "<code>Tclock mínimo=3+9+2=14 ns</code>. <code>Fmax≈1000/14=71,4 MHz</code>."
+      },
+      {
+            "id": 47,
+            "block": 10,
+            "topic": "Ponto fixo arredondamento",
+            "prompt": "Arredonde <code>2,14</code> para <code>Q3.5</code> usando inteiro armazenado mais próximo. Qual inteiro e valor real aproximado?",
+            "options": [
+                  "Inteiro <code>68</code>, valor <code>2,125</code>",
+                  "Inteiro <code>69</code>, valor <code>2,15625</code>",
+                  "Inteiro <code>67</code>, valor <code>2,09375</code>",
+                  "Inteiro <code>64</code>, valor <code>2</code>"
+            ],
+            "correct": "A",
+            "explanation": "<code>2,14×32=68,48</code>. Inteiro mais próximo: <code>68</code>. Valor real: <code>68/32=2,125</code>."
+      },
+      {
+            "id": 48,
+            "block": 10,
+            "topic": "SOP/POS integrada",
+            "prompt": "Uma função é dada por <code>ΠM(0,2,8,10)</code>. Qual par expressão mínima e implementação NOR está correto?",
+            "options": [
+                  "<code>B'D'</code>; <code>B NOR D</code>",
+                  "<code>B+D</code>; <code>(B NOR D) NOR (B NOR D)</code>",
+                  "<code>BD</code>; <code>B NOR D</code>",
+                  "<code>B'+D'</code>; <code>(B NOR D) NOR (B NOR D)</code>"
+            ],
+            "correct": "B",
+            "explanation": "Os zeros são <code>B=0,D=0</code>. Logo <code>F=B+D</code>. OR com NOR: <code>(B NOR D) NOR (B NOR D)</code>."
+      },
+      {
+            "id": 49,
+            "block": 10,
+            "topic": "FSM D tracing integrated",
+            "prompt": "Uma FSM tem <code>D1=X</code>, <code>D0=Q1'X'</code>. Partindo de <code>00</code>, qual estado após entrada <code>010</code>?",
+            "options": [
+                  "<code>00</code>",
+                  "<code>01</code>",
+                  "<code>10</code>",
+                  "<code>11</code>"
+            ],
+            "correct": "B",
+            "explanation": "X=0: <code>D1=0,D0=1</code> -> 01. X=1: <code>D1=1,D0=0</code> -> 10. X=0: <code>D1=0,D0=1</code> -> 01."
+      },
+      {
+            "id": 50,
+            "block": 10,
+            "topic": "IEEE normalização",
+            "prompt": "<code>5,75₁₀=101,11₂</code>. Em IEEE 754 simples, qual normalização e expoente armazenado?",
+            "options": [
+                  "<code>1,0111×2²</code>; expoente <code>129</code>",
+                  "<code>1,0111×2³</code>; expoente <code>130</code>",
+                  "<code>0,10111×2³</code>; expoente <code>130</code>",
+                  "<code>1,0111×2²</code>; expoente <code>2</code>"
+            ],
+            "correct": "A",
+            "explanation": "<code>101,11₂ = 1,0111₂×2²</code>. Expoente armazenado em simples: <code>127+2=129</code>."
+      }
+];
+
+    let state = loadState();
+    let timerInterval = null;
+    let sessionAnchor = null;
+    let elapsedAtAnchor = 0;
+    let noteDrafts = {};
+    let openNotes = {};
+
+    function newState() {
+      return {
+        answers: {},
+        unknown: {},
+        notes: {},
+        started: false,
+        finalized: false,
+        elapsedMs: 0,
+        startedAt: null,
+        finalizedAt: null
+      };
+    }
+
+    function loadState() {
+      try {
+        const stored = JSON.parse(localStorage.getItem(CONFIG.storageKey) || "null");
+        if (stored && stored.answers && typeof stored.answers === "object") {
+          return Object.assign(newState(), stored, {
+            unknown: stored.unknown && typeof stored.unknown === "object" ? stored.unknown : {},
+            notes: stored.notes && typeof stored.notes === "object" ? stored.notes : {},
+            elapsedMs: Number(stored.elapsedMs) || 0
+          });
+        }
+      } catch (error) {
+        console.warn("Não foi possível restaurar o progresso.", error);
+      }
+      return newState();
+    }
+
+    function commitElapsed() {
+      if (!state.started || state.finalized || sessionAnchor === null) return;
+      state.elapsedMs = elapsedAtAnchor + (Date.now() - sessionAnchor);
+      elapsedAtAnchor = state.elapsedMs;
+      sessionAnchor = Date.now();
+    }
+
+    function saveState(includeCurrentTime = true) {
+      if (includeCurrentTime) commitElapsed();
+      try {
+        localStorage.setItem(CONFIG.storageKey, JSON.stringify(state));
+        document.getElementById("saveLabel").textContent = state.finalized
+          ? "Simulado finalizado"
+          : state.started ? "Progresso e tempo salvos localmente" : "Aguardando início";
+      } catch (error) {
+        document.getElementById("saveLabel").textContent = "Salvamento indisponível; mantenha a página aberta";
+      }
+    }
+
+    function startTiming() {
+      if (!state.started || state.finalized || timerInterval !== null) return;
+      sessionAnchor = Date.now();
+      elapsedAtAnchor = state.elapsedMs;
+      renderTimer();
+      timerInterval = window.setInterval(function () {
+        saveState();
+        renderTimer();
+      }, 1000);
+    }
+
+    function stopTiming() {
+      commitElapsed();
+      if (timerInterval !== null) {
+        window.clearInterval(timerInterval);
+        timerInterval = null;
+      }
+      sessionAnchor = null;
+    }
+
+    function elapsedMs() {
+      if (state.started && !state.finalized && sessionAnchor !== null) {
+        return elapsedAtAnchor + (Date.now() - sessionAnchor);
+      }
+      return state.elapsedMs;
+    }
+
+    function formatDuration(milliseconds) {
+      const seconds = Math.floor(milliseconds / 1000);
+      const hours = String(Math.floor(seconds / 3600)).padStart(2, "0");
+      const minutes = String(Math.floor((seconds % 3600) / 60)).padStart(2, "0");
+      const remainingSeconds = String(seconds % 60).padStart(2, "0");
+      return hours + ":" + minutes + ":" + remainingSeconds;
+    }
+
+    function formatFolderDate(isoDate) {
+      const date = new Date(isoDate || Date.now());
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, "0");
+      const day = String(date.getDate()).padStart(2, "0");
+      return year + "-" + month + "-" + day;
+    }
+
+    function renderTimer() {
+      const formattedTime = formatDuration(elapsedMs());
+      document.getElementById("timer").textContent = formattedTime;
+      document.getElementById("toolbarTimer").textContent = formattedTime;
+    }
+
+    function plainText(html) {
+      const element = document.createElement("div");
+      element.innerHTML = html;
+      return element.textContent.replace(/\s+/g, " ").trim();
+    }
+
+    function escapeHtml(text) {
+      return String(text).replace(/[&<>"']/g, function (character) {
+        return {
+          "&": "&amp;",
+          "<": "&lt;",
+          ">": "&gt;",
+          "\"": "&quot;",
+          "'": "&#39;"
+        }[character];
+      });
+    }
+
+    function kmapAxes(artifact) {
+      const headers = Array.isArray(artifact.headers) ? artifact.headers : [];
+      const corner = String(headers[0] || "");
+      const embeddedAxes = artifact.variant === "kmap" && corner.includes("/");
+      const pieces = embeddedAxes ? corner.split("/") : [];
+      const row = String(artifact.rowVariable || pieces[0] || "").trim();
+      const column = String(artifact.columnVariable || pieces[1] || "").trim();
+      return {
+        enabled: artifact.variant === "kmap" && Boolean(row) && Boolean(column),
+        embedded: embeddedAxes,
+        row,
+        column
+      };
+    }
+
+    function kmapLiteral(variable, bit) {
+      return bit === "0" ? variable + "'" : variable;
+    }
+
+    function renderArtifacts(question) {
+      const artifacts = Array.isArray(question.artifacts) ? question.artifacts : [];
+      if (!artifacts.length) return "";
+
+      return `<div class="question-artifacts">${artifacts.map(function (artifact) {
+        const caption = artifact.caption
+          ? `<p class="artifact-caption">${escapeHtml(artifact.caption)}</p>`
+          : "";
+
+        if (artifact.type === "table") {
+          const headers = Array.isArray(artifact.headers) ? artifact.headers : [];
+          const rows = Array.isArray(artifact.rows) ? artifact.rows : [];
+          const tableClass = artifact.variant === "kmap" ? " kmap-table" : "";
+          const axes = kmapAxes(artifact);
+          const visibleHeaders = axes.enabled && axes.embedded ? headers.slice(1) : headers;
+          let head;
+          let body;
+          if (axes.enabled && artifact.rowHeader && axes.column.length === 2 && axes.row.length >= 1 && axes.row.length <= 2) {
+            const hasRightLiterals = axes.row.length === 2;
+            const rightSpacer = hasRightLiterals ? `<th class="kmap-spacer"></th>` : "";
+            head = "";
+            body = `<tbody>
+              <tr><th class="kmap-spacer"></th>${visibleHeaders.map(function (cell) {
+                return `<th class="kmap-literal kmap-literal-column">${escapeHtml(kmapLiteral(axes.column[0], cell[0]))}</th>`;
+              }).join("")}${rightSpacer}</tr>
+              ${rows.map(function (row) {
+                return `<tr><th class="kmap-literal kmap-literal-row-left" scope="row">${escapeHtml(kmapLiteral(axes.row[0], row[0][0]))}</th>${row.slice(1).map(function (cell) {
+                  return `<td>${escapeHtml(cell)}</td>`;
+                }).join("")}${hasRightLiterals ? `<th class="kmap-literal kmap-literal-row-right" scope="row">${escapeHtml(kmapLiteral(axes.row[1], row[0][1]))}</th>` : ""}</tr>`;
+              }).join("")}
+              <tr><th class="kmap-spacer"></th>${visibleHeaders.map(function (cell) {
+                return `<th class="kmap-literal kmap-literal-column kmap-literal-column-bottom">${escapeHtml(kmapLiteral(axes.column[1], cell[1]))}</th>`;
+              }).join("")}${rightSpacer}</tr>
+            </tbody>`;
+          } else {
+            head = headers.length
+              ? `<thead><tr>${headers.map(function (cell) {
+                  return `<th scope="col">${escapeHtml(cell)}</th>`;
+                }).join("")}</tr></thead>`
+              : "";
+            body = `<tbody>${rows.map(function (row) {
+              return `<tr>${row.map(function (cell, index) {
+                if (artifact.rowHeader && index === 0) {
+                  return `<th scope="row">${escapeHtml(cell)}</th>`;
+                }
+                return `<td>${escapeHtml(cell)}</td>`;
+              }).join("")}</tr>`;
+            }).join("")}</tbody>`;
+          }
+          return `<div class="question-artifact">${caption}<div class="artifact-table-wrap"><table class="artifact-table${tableClass}">${head}${body}</table></div></div>`;
+        }
+
+        if (artifact.type === "code") {
+          return `<div class="question-artifact">${caption}<pre class="artifact-code">${escapeHtml(artifact.content || "")}</pre></div>`;
+        }
+
+        return "";
+      }).join("")}</div>`;
+    }
+
+    function artifactReportLines(question) {
+      const artifacts = Array.isArray(question.artifacts) ? question.artifacts : [];
+      const lines = [];
+      artifacts.forEach(function (artifact) {
+        if (artifact.type === "table") {
+          lines.push("- " + (artifact.caption || "Tabela") + ":");
+          const axes = kmapAxes(artifact);
+          const headers = Array.isArray(artifact.headers) ? artifact.headers : [];
+          if (axes.enabled) {
+            lines.push("  Linhas: " + axes.row + "; colunas: " + axes.column);
+          }
+          if (headers.length) {
+            lines.push("  " + (axes.enabled && axes.embedded ? headers.slice(1) : headers).join(" | "));
+          }
+          (artifact.rows || []).forEach(function (row) {
+            lines.push("  " + row.join(" | "));
+          });
+        }
+        if (artifact.type === "code") {
+          lines.push("- " + (artifact.caption || "Bloco apresentado") + ":");
+          String(artifact.content || "").split("\n").forEach(function (line) {
+            lines.push("  " + line);
+          });
+        }
+      });
+      return lines;
+    }
+
+    function optionText(question, letter) {
+      if (!letter) return "Não respondida";
+      return letter + ") " + plainText(question.options[letters.indexOf(letter)]);
+    }
+
+    function answerDescription(detail) {
+      if (detail.unknown) {
+        return "Não respondida por não saber como resolver; marcada conscientemente para revisão.";
+      }
+      return optionText(detail.question, detail.selected);
+    }
+
+    function renderMetadata() {
+      document.title = CONFIG.titulo + " | Sistemas Digitais";
+      document.getElementById("title").textContent = CONFIG.titulo;
+      document.getElementById("subtitle").textContent = CONFIG.subtitulo;
+      document.getElementById("questionCount").textContent = questions.length + " objetivas";
+      document.getElementById("suggestedTime").textContent = CONFIG.tempoSugerido;
+      document.getElementById("goal").textContent = CONFIG.meta;
+    }
+
+    function questionNavStatus(question) {
+      if (state.unknown[question.id]) return "unknown";
+      if (!state.answers[question.id]) return "blank";
+      if (!state.finalized) return "answered";
+      return state.answers[question.id] === question.correct ? "correct" : "wrong";
+    }
+
+    function renderQuestionNavigator() {
+      const items = state.finalized
+        ? [
+            ["correct", "Correta"],
+            ["wrong", "Errada"],
+            ["unknown", "Não sei"],
+            ["blank", "Não respondida"]
+          ]
+        : [
+            ["answered", "Respondida"],
+            ["unknown", "Não sei"],
+            ["blank", "Não respondida"]
+          ];
+
+      const legendHtml = items.map(function (item) {
+        return `<span class="question-nav-legend-item"><span class="question-nav-swatch status-${item[0]}"></span>${item[1]}</span>`;
+      }).join("");
+
+      const gridHtml = questions.map(function (question) {
+        const status = questionNavStatus(question);
+        const hasObservation = Boolean(String(state.notes[question.id] || "").trim());
+        const observationText = hasObservation ? ", com OBS salva" : "";
+        return `<button type="button" class="question-nav-item status-${status}" data-nav-question="${question.id}" aria-label="Ir para questão ${question.id}${observationText}">${question.id}${hasObservation ? '<span class="question-nav-note" aria-hidden="true">*</span>' : ""}</button>`;
+      }).join("");
+
+      document.querySelectorAll(".question-nav-legend").forEach(function (legend) {
+        legend.innerHTML = legendHtml;
+      });
+      document.querySelectorAll(".question-nav-grid").forEach(function (grid) {
+        grid.innerHTML = gridHtml;
+      });
+    }
+
+    function handleQuestionNavigatorClick(event) {
+      const button = event.target.closest(".question-nav-item");
+      if (!button) return;
+      const article = document.getElementById("question-" + button.dataset.navQuestion);
+      if (!article) return;
+      article.setAttribute("tabindex", "-1");
+      article.scrollIntoView({ behavior: "smooth", block: "start" });
+      article.focus({ preventScroll: true });
+    }
+
+    function renderQuiz() {
+      const form = document.getElementById("quizForm");
+      form.innerHTML = "";
+      document.getElementById("startPanel").classList.toggle("started", state.started);
+
+      blocks.forEach(function (block) {
+        const heading = document.createElement("h2");
+        heading.className = "block-heading";
+        heading.textContent = "Bloco " + block.id + " - " + block.title;
+        form.appendChild(heading);
+
+        questions.filter(function (question) {
+          return question.block === block.id;
+        }).forEach(function (question) {
+          const article = document.createElement("article");
+          const chosen = state.answers[question.id] || "";
+          const declaredUnknown = Boolean(state.unknown[question.id]);
+          const savedNote = String(state.notes[question.id] || "");
+          const hasDraft = Object.prototype.hasOwnProperty.call(noteDrafts, question.id);
+          const draftNote = hasDraft ? noteDrafts[question.id] : savedNote;
+          const noteIsOpen = Boolean(openNotes[question.id]);
+          const showNotePanel = state.finalized ? Boolean(savedNote) : noteIsOpen;
+          const controlsDisabled = !state.started || state.finalized;
+          article.className = "question" + (declaredUnknown ? " declared-unknown" : "");
+          article.id = "question-" + question.id;
+
+          const options = question.options.map(function (option, index) {
+            const letter = letters[index];
+            const checked = chosen === letter ? " checked" : "";
+            const disabled = controlsDisabled ? " disabled" : "";
+            return `
+              <label class="option${chosen === letter ? " selected" : ""}" data-option="${letter}">
+                <input type="radio" name="question-${question.id}" value="${letter}"${checked}${disabled}>
+                <span><strong>${letter})</strong> ${option}</span>
+              </label>`;
+          }).join("");
+
+          article.innerHTML = `
+            <div class="question-title">
+              <div class="number">${question.id}</div>
+              <div class="question-copy">
+                <p class="prompt">${question.prompt}</p>
+              </div>
+              <div class="question-buttons">
+                <button type="button" class="button-warning question-tool-button unknown-button" data-question="${question.id}"${controlsDisabled ? " disabled" : ""}>Não sei</button>
+                <button type="button" class="button-secondary question-tool-button observation-toggle-button" data-question="${question.id}"${controlsDisabled ? " disabled" : ""}>OBS</button>
+              </div>
+            </div>
+            ${renderArtifacts(question)}
+            <div class="options">${options}</div>
+            <div class="observation-panel${showNotePanel ? " visible" : ""}">
+              <label for="observation-${question.id}">Minha observação sobre esta questão</label>
+              ${state.finalized
+                ? `<p class="observation-saved">${escapeHtml(savedNote)}</p>`
+                : `<textarea id="observation-${question.id}" class="observation-input" data-question="${question.id}" placeholder="Ex.: não entendi por que esta alternativa está errada.">${escapeHtml(draftNote)}</textarea>
+                   <div class="observation-actions">
+                     <button type="button" class="observation-save-button" data-question="${question.id}">Salvar OBS</button>
+                     <span class="observation-status">${savedNote ? "Observação salva." : "Clique em Salvar OBS para gravar."}</span>
+                   </div>`}
+            </div>
+            <div class="question-actions">
+              <span class="unknown-note">Sem chute: esta questão será enviada para revisão.</span>
+            </div>
+            <div class="feedback"></div>`;
+
+          form.appendChild(article);
+        });
+      });
+
+      if (state.finalized) applyCorrection();
+      renderQuestionNavigator();
+      updateProgress();
+    }
+
+    function startQuiz() {
+      if (state.started || state.finalized) return;
+      state.started = true;
+      state.startedAt = new Date().toISOString();
+      saveState(false);
+      startTiming();
+      renderQuiz();
+    }
+
+    function handleAnswerChange(event) {
+      const input = event.target;
+      if (!input.matches("input[type=radio]") || !state.started || state.finalized) return;
+      const id = Number(input.name.replace("question-", ""));
+      state.answers[id] = input.value;
+      delete state.unknown[id];
+      saveState();
+      renderQuiz();
+    }
+
+    function handleUnknownClick(event) {
+      const button = event.target.closest(".unknown-button");
+      if (!button || !state.started || state.finalized) return;
+      const id = Number(button.dataset.question);
+      delete state.answers[id];
+      state.unknown[id] = true;
+      saveState();
+      renderQuiz();
+    }
+
+    function handleObservationToggle(event) {
+      const button = event.target.closest(".observation-toggle-button");
+      if (!button || !state.started || state.finalized) return;
+      const id = Number(button.dataset.question);
+      if (!Object.prototype.hasOwnProperty.call(noteDrafts, id)) {
+        noteDrafts[id] = String(state.notes[id] || "");
+      }
+      openNotes[id] = !openNotes[id];
+      renderQuiz();
+    }
+
+    function handleObservationInput(event) {
+      const input = event.target;
+      if (!input.matches(".observation-input") || state.finalized) return;
+      noteDrafts[Number(input.dataset.question)] = input.value;
+    }
+
+    function handleObservationSave(event) {
+      const button = event.target.closest(".observation-save-button");
+      if (!button || !state.started || state.finalized) return;
+      const id = Number(button.dataset.question);
+      const note = String(noteDrafts[id] || "").trim();
+      if (note) {
+        state.notes[id] = note;
+      } else {
+        delete state.notes[id];
+      }
+      noteDrafts[id] = note;
+      saveState();
+      renderQuiz();
+      showToast(note ? "Observação salva." : "Observação removida.");
+    }
+
+    function counts() {
+      const answered = questions.filter(function (question) {
+        return Boolean(state.answers[question.id]);
+      }).length;
+      const unknown = questions.filter(function (question) {
+        return Boolean(state.unknown[question.id]);
+      }).length;
+      return { answered, unknown, blank: questions.length - answered - unknown };
+    }
+
+    function updateProgress() {
+      const current = counts();
+      const label = current.answered + " de " + questions.length + " respondidas; " +
+        current.unknown + " marcadas como não sei";
+      document.getElementById("answeredLabel").textContent = label;
+      document.getElementById("progressFill").style.width =
+        (((current.answered + current.unknown) / questions.length) * 100) + "%";
+      document.getElementById("finishButton").disabled = !state.started || state.finalized;
+      renderTimer();
+    }
+
+    function getResults() {
+      const details = questions.map(function (question) {
+        const selected = state.answers[question.id] || "";
+        const unknown = Boolean(state.unknown[question.id]);
+        const observation = String(state.notes[question.id] || "").trim();
+        return { question, selected, unknown, observation, correct: selected === question.correct };
+      });
+      const score = details.filter(function (detail) { return detail.correct; }).length;
+      const answered = details.filter(function (detail) { return detail.selected; }).length;
+      const unknown = details.filter(function (detail) { return detail.unknown; }).length;
+      const byBlock = blocks.map(function (block) {
+        const blockDetails = details.filter(function (detail) {
+          return detail.question.block === block.id;
+        });
+        const blockScore = blockDetails.filter(function (detail) { return detail.correct; }).length;
+        return {
+          block,
+          score: blockScore,
+          total: blockDetails.length,
+          percentage: Math.round((blockScore / blockDetails.length) * 100)
+        };
+      });
+      return {
+        details,
+        score,
+        answered,
+        unknown,
+        percentage: Math.round((score / questions.length) * 100),
+        byBlock
+      };
+    }
+
+    function diagnostic(score) {
+      const percentage = Math.round((score / questions.length) * 100);
+      if (percentage >= 90) return "Domínio muito forte: revise os erros pontuais e as questões deixadas em branco.";
+      if (percentage >= 75) return "Bom domínio: corrija os erros e revise os blocos com menor desempenho.";
+      if (percentage >= 60) return "Base razoável, mas instável: revise todo bloco abaixo de 70%.";
+      return "Conteúdo ainda não consolidado: retome as aulas dos blocos com erros antes de novo simulado.";
+    }
+
+    function finishQuiz() {
+      if (!state.started || state.finalized) return;
+      const current = counts();
+      const warnings = [];
+      if (current.unknown) {
+        warnings.push(current.unknown + " questão(ões) marcada(s) como não sei resolver serão prioridade no relatório.");
+      }
+      if (current.blank) {
+        warnings.push(current.blank + " questão(ões) estão em branco sem marcação de dúvida.");
+      }
+      if (warnings.length && !window.confirm(warnings.join("\n") + "\n\nDeseja finalizar mesmo assim?")) {
+        return;
+      }
+      stopTiming();
+      state.finalized = true;
+      state.finalizedAt = new Date().toISOString();
+      saveState(false);
+      renderQuiz();
+      renderResult();
+      document.getElementById("result").scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function applyCorrection() {
+      const results = getResults();
+      results.details.forEach(function (detail) {
+        const article = document.getElementById("question-" + detail.question.id);
+        if (detail.correct) {
+          article.classList.add("correct");
+        } else if (detail.unknown) {
+          article.classList.add("declared-unknown", "unanswered");
+        } else {
+          article.classList.add(detail.selected ? "wrong" : "unanswered");
+        }
+
+        article.querySelectorAll(".option").forEach(function (option) {
+          const letter = option.dataset.option;
+          option.classList.remove("selected");
+          if (letter === detail.question.correct) option.classList.add("answer-correct");
+          if (detail.selected && letter === detail.selected && !detail.correct) {
+            option.classList.add("answer-wrong");
+          }
+        });
+
+        const feedback = article.querySelector(".feedback");
+        if (detail.correct) {
+          feedback.innerHTML = `<p><strong>Correta.</strong> ${detail.question.explanation}</p>`;
+        } else if (detail.unknown) {
+          feedback.innerHTML = `<p><strong>Não respondida por não saber resolver.</strong> Resposta correta: ${optionText(detail.question, detail.question.correct)}.</p><p>${detail.question.explanation}</p>`;
+        } else {
+          feedback.innerHTML = `<p><strong>${detail.selected ? "Incorreta" : "Não respondida"}.</strong> Resposta correta: ${optionText(detail.question, detail.question.correct)}.</p><p>${detail.question.explanation}</p>`;
+        }
+      });
+    }
+
+    function renderResult() {
+      if (!state.finalized) return;
+      const results = getResults();
+      const result = document.getElementById("result");
+      const missed = questions.length - results.score;
+      result.classList.add("visible");
+      result.innerHTML = `
+        <div class="score-row">
+          <div class="score">
+            <strong>${results.score}/${questions.length}</strong>
+            <span>${results.percentage}% de acerto</span>
+          </div>
+          <div class="diagnostic">
+            <h2>Resultado final</h2>
+            <p>${diagnostic(results.score)}</p>
+            <p>${results.answered} respondidas; ${results.unknown} marcadas como não sei; ${missed} erradas ou não respondidas.</p>
+            <p>Tempo executado: ${formatDuration(state.elapsedMs)}.</p>
+          </div>
+        </div>
+        <table class="results-table">
+          <thead><tr><th>Bloco</th><th>Acertos</th><th>Percentual</th><th>Revisar se necessário</th></tr></thead>
+          <tbody>
+            ${results.byBlock.map(function (item) {
+              return `<tr><td>${item.block.id}. ${item.block.title}</td><td>${item.score}/${item.total}</td><td>${item.percentage}%</td><td>${item.percentage < 70 ? item.block.review : "Manter revisão espaçada"}</td></tr>`;
+            }).join("")}
+          </tbody>
+        </table>
+        <div class="toolbar-buttons">
+          <button type="button" id="copyButton">Copiar relatório para IA</button>
+          <button type="button" class="button-secondary" id="downloadButton">Baixar relatório (.txt)</button>
+        </div>
+        <p class="export-help">O relatório inclui alternativas e observações, diferencia resposta errada de questão deixada em branco por não saber resolver e solicita o arquivamento do resultado e a criação da pasta de revisão.</p>`;
+      document.getElementById("copyButton").addEventListener("click", copyReport);
+      document.getElementById("downloadButton").addEventListener("click", downloadReport);
+    }
+
+    function buildReport() {
+      const results = getResults();
+      const completionDate = new Date(state.finalizedAt || Date.now());
+      const dateText = completionDate.toLocaleString("pt-BR");
+      const folderName = "resultados-simulado-" + CONFIG.numero + "-" + formatFolderDate(state.finalizedAt);
+      const wrong = results.details.filter(function (detail) { return !detail.correct; });
+      const correct = results.details.filter(function (detail) { return detail.correct; });
+      const notedCorrect = correct.filter(function (detail) { return detail.observation; });
+      const lines = [
+        "RESULTADO - " + CONFIG.titulo.toUpperCase() + " - SISTEMAS DIGITAIS (UFCG)",
+        "Finalizado em: " + dateText,
+        "Tempo executado: " + formatDuration(state.elapsedMs),
+        "Nota: " + results.score + "/" + questions.length + " (" + results.percentage + "%)",
+        "Respondidas: " + results.answered + "/" + questions.length,
+        "Marcadas como não soube responder: " + results.unknown,
+        "",
+        "DESEMPENHO POR BLOCO"
+      ];
+
+      results.byBlock.forEach(function (item) {
+        lines.push("- Bloco " + item.block.id + " - " + item.block.title + ": " +
+          item.score + "/" + item.total + " (" + item.percentage + "%)" +
+          (item.percentage < 70 ? " | Revisar: " + item.block.review : ""));
+      });
+
+      lines.push("", "QUESTÕES ERRADAS OU NÃO RESPONDIDAS (" + wrong.length + ")");
+      if (!wrong.length) {
+        lines.push("- Nenhuma. Todas as questões foram respondidas corretamente.");
+      } else {
+        wrong.forEach(function (detail) {
+          lines.push("");
+          lines.push("Questão " + detail.question.id + " - " + detail.question.topic);
+          lines.push("Enunciado: " + plainText(detail.question.prompt));
+          const artifactLines = artifactReportLines(detail.question);
+          if (artifactLines.length) {
+            lines.push("Material apresentado:");
+            artifactLines.forEach(function (line) { lines.push(line); });
+          }
+          lines.push("Alternativas disponíveis:");
+          detail.question.options.forEach(function (option, index) {
+            lines.push("- " + letters[index] + ") " + plainText(option));
+          });
+          lines.push("Minha resposta: " + answerDescription(detail));
+          if (detail.unknown) {
+            lines.push("Motivo declarado: deixei em branco porque não sabia como resolver; preciso aprender este procedimento.");
+          }
+          if (detail.observation) {
+            lines.push("Minha observação: " + detail.observation);
+          }
+          lines.push("Resposta correta: " + optionText(detail.question, detail.question.correct));
+          lines.push("Explicação: " + plainText(detail.question.explanation));
+        });
+      }
+
+      lines.push("", "QUESTÕES CORRETAS (" + correct.length + ")");
+      lines.push(correct.length
+        ? correct.map(function (detail) { return detail.question.id + " (" + detail.question.topic + ")"; }).join(", ")
+        : "- Nenhuma.");
+      if (notedCorrect.length) {
+        lines.push("", "OBSERVAÇÕES EM QUESTÕES CORRETAS (" + notedCorrect.length + ")");
+        notedCorrect.forEach(function (detail) {
+          lines.push("- Questão " + detail.question.id + " - " + detail.question.topic + ": " + detail.observation);
+        });
+      }
+      lines.push("", "PEDIDO PARA REVISÃO COM IA");
+      lines.push("Analise meus erros neste simulado de Sistemas Digitais. Para cada questão errada ou não respondida, considere também as alternativas disponíveis e qualquer observação que eu tenha registrado, explique o conceito, resolva passo a passo e proponha 2 exercícios semelhantes com gabarito para eu fixar. Priorize os blocos abaixo de 70% e trate as questões marcadas como 'não soube responder' como prioridade, pois foram deixadas em branco conscientemente para evitar chute.");
+      lines.push("Salve uma cópia deste relatório completo em C:/Users/gabrieloliveira/Documents/pessoal/estudos/residencia/03-simulados/resultados/relatorios/, com nome que identifique o número do simulado e a data de realização, para manter meu histórico.");
+      lines.push("Salve tudo o que eu precisarei estudar na pasta C:/Users/gabrieloliveira/Documents/pessoal/estudos/residencia/03-simulados/resultados/revisoes/" + folderName + ". Crie nessa pasta pelo menos um arquivo revisao_erros.md com o diagnóstico, as explicações, os exercícios e os gabaritos.");
+      lines.push("Atualize também o arquivo C:/Users/gabrieloliveira/Documents/pessoal/estudos/residencia/03-simulados/log_estudos_e_simulados.md, adicionando este simulado à tabela de simulados realizados com data, horário de conclusão, tempo de execução e resultado informados neste relatório. Não altere registros anteriores.");
+      return lines.join("\n");
+    }
+
+    async function copyReport() {
+      const report = buildReport();
+      try {
+        await navigator.clipboard.writeText(report);
+        showToast("Relatório copiado. Pronto para enviar à IA.");
+      } catch (error) {
+        const area = document.createElement("textarea");
+        area.value = report;
+        document.body.appendChild(area);
+        area.select();
+        document.execCommand("copy");
+        area.remove();
+        showToast("Relatório copiado. Pronto para enviar à IA.");
+      }
+    }
+
+    function downloadReport() {
+      const blob = new Blob([buildReport()], { type: "text/plain;charset=utf-8" });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = CONFIG.nomeRelatorio;
+      link.click();
+      URL.revokeObjectURL(link.href);
+      showToast("Relatório baixado.");
+    }
+
+    function resetQuiz() {
+      if (!window.confirm("Apagar respostas, observações, tempo e resultado deste simulado para recomeçar?")) return;
+      stopTiming();
+      try {
+        localStorage.removeItem(CONFIG.storageKey);
+      } catch (error) {
+        console.warn("Não foi possível limpar o progresso salvo.", error);
+      }
+      state = newState();
+      noteDrafts = {};
+      openNotes = {};
+      document.getElementById("result").classList.remove("visible");
+      document.getElementById("result").innerHTML = "";
+      saveState(false);
+      renderQuiz();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    let toastTimer;
+    function showToast(message) {
+      const toast = document.getElementById("toast");
+      toast.textContent = message;
+      toast.classList.add("visible");
+      window.clearTimeout(toastTimer);
+      toastTimer = window.setTimeout(function () {
+        toast.classList.remove("visible");
+      }, 2800);
+    }
+
+    document.getElementById("startButton").addEventListener("click", startQuiz);
+    document.getElementById("finishButton").addEventListener("click", finishQuiz);
+    document.getElementById("resetButton").addEventListener("click", resetQuiz);
+    document.getElementById("questionNavigator").addEventListener("click", handleQuestionNavigatorClick);
+    document.getElementById("questionNavigatorBottom").addEventListener("click", handleQuestionNavigatorClick);
+    document.getElementById("backToTopButton").addEventListener("click", function () {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+    document.getElementById("quizForm").addEventListener("change", handleAnswerChange);
+    document.getElementById("quizForm").addEventListener("click", handleUnknownClick);
+    document.getElementById("quizForm").addEventListener("click", handleObservationToggle);
+    document.getElementById("quizForm").addEventListener("click", handleObservationSave);
+    document.getElementById("quizForm").addEventListener("input", handleObservationInput);
+    window.addEventListener("pagehide", function () { saveState(); });
+
+    renderMetadata();
+    renderQuiz();
+    renderTimer();
+    if (state.started && !state.finalized) startTiming();
+    if (state.finalized) renderResult();
+  </script>
+</body>
+</html>

@@ -1,0 +1,1808 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Base de Simulado | Sistemas Digitais</title>
+  <style>
+    :root {
+      --bg: #f5f6f2;
+      --surface: #ffffff;
+      --surface-alt: #f1f5f4;
+      --ink: #172320;
+      --muted: #52645f;
+      --line: #d8e0dc;
+      --primary: #006a63;
+      --primary-dark: #004f4b;
+      --primary-soft: #dff2ef;
+      --correct: #167043;
+      --correct-soft: #e1f4e7;
+      --wrong: #b43a31;
+      --wrong-soft: #fde9e6;
+      --warning: #946100;
+      --warning-soft: #fff3d4;
+      --shadow: 0 2px 14px rgba(18, 38, 34, 0.07);
+      --radius: 16px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--bg);
+      font: 16px/1.5 "Segoe UI", Arial, sans-serif;
+    }
+
+    code {
+      padding: 0.12rem 0.36rem;
+      border-radius: 5px;
+      background: #edf1f0;
+      font: 0.95em Consolas, "Courier New", monospace;
+    }
+
+    .hero {
+      padding: 40px 20px 28px;
+      color: #fff;
+      background: linear-gradient(132deg, #013b39, #00766d);
+    }
+
+    .container {
+      width: min(1040px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: clamp(1.7rem, 4vw, 2.4rem);
+      line-height: 1.15;
+    }
+
+    .subtitle {
+      max-width: 760px;
+      margin: 0;
+      color: #d4ece9;
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(125px, 1fr));
+      gap: 10px;
+      margin-top: 24px;
+    }
+
+    .meta-card {
+      padding: 12px 14px;
+      border: 1px solid rgba(255, 255, 255, 0.21);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.09);
+    }
+
+    .meta-card span {
+      display: block;
+      color: #cae6e3;
+      font-size: 0.83rem;
+    }
+
+    .meta-card strong { font-size: 1.05rem; }
+
+    .toolbar {
+      position: sticky;
+      z-index: 10;
+      top: 0;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.97);
+      backdrop-filter: blur(8px);
+    }
+
+    .toolbar-inner {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px 18px;
+      align-items: center;
+      padding: 13px 0;
+    }
+
+    .progress-group {
+      flex: 1 1 310px;
+      min-width: 230px;
+    }
+
+    .progress-label {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 4px 14px;
+      margin-bottom: 6px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 8px;
+      overflow: hidden;
+      border-radius: 99px;
+      background: #e5ebe9;
+    }
+
+    .progress-fill {
+      width: 0;
+      height: 100%;
+      border-radius: inherit;
+      background: var(--primary);
+      transition: width 160ms ease;
+    }
+
+    .toolbar-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    button {
+      cursor: pointer;
+      padding: 10px 15px;
+      border: 1px solid transparent;
+      border-radius: 9px;
+      color: #fff;
+      background: var(--primary);
+      font: inherit;
+      font-weight: 600;
+      transition: background 120ms ease, transform 120ms ease;
+    }
+
+    button:hover { background: var(--primary-dark); }
+    button:active { transform: translateY(1px); }
+    button:disabled { cursor: not-allowed; opacity: 0.5; transform: none; }
+
+    .button-secondary {
+      border-color: var(--line);
+      color: var(--primary-dark);
+      background: #fff;
+    }
+
+    .button-secondary:hover { background: var(--surface-alt); }
+
+    .button-warning {
+      border-color: #e6cd96;
+      color: var(--warning);
+      background: var(--warning-soft);
+    }
+
+    .button-warning:hover { background: #ffedc2; }
+
+    main { padding: 25px 0 54px; }
+
+    .notice, .start-panel {
+      margin-bottom: 20px;
+      padding: 16px 18px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+      box-shadow: var(--shadow);
+    }
+
+    .notice h2, .start-panel h2 {
+      margin: 0 0 7px;
+      font-size: 1.1rem;
+    }
+
+    .notice p, .start-panel p { margin: 6px 0; color: var(--muted); }
+    .start-panel.started { display: none; }
+
+    .block-heading {
+      margin: 34px 0 15px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #dbe6e3;
+      color: var(--primary-dark);
+      font-size: 1.35rem;
+    }
+
+    .question {
+      margin: 0 0 14px;
+      padding: 20px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+      box-shadow: var(--shadow);
+    }
+
+    .question.correct {
+      border-color: #acd5b8;
+      background: #fcfffd;
+    }
+
+    .question.wrong, .question.unanswered {
+      border-color: #efb9b3;
+      background: #fffdfc;
+    }
+
+    .question.declared-unknown {
+      border-color: #e8cf99;
+      background: #fffefa;
+    }
+
+    .question-title {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      margin-bottom: 12px;
+    }
+
+    .question-copy {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .question-buttons {
+      display: flex;
+      flex: none;
+      gap: 6px;
+      align-items: flex-start;
+    }
+
+    .number {
+      flex: none;
+      min-width: 40px;
+      padding: 4px 7px;
+      border-radius: 8px;
+      color: var(--primary-dark);
+      background: var(--primary-soft);
+      text-align: center;
+      font-weight: 700;
+    }
+
+    .prompt { margin: 0; font-weight: 600; }
+
+    .question-artifacts {
+      display: grid;
+      gap: 12px;
+      margin: 14px 0 16px;
+    }
+
+    .artifact-caption {
+      margin: 0 0 6px;
+      color: var(--muted);
+      font-size: 0.92rem;
+      font-weight: 600;
+    }
+
+    .artifact-table-wrap {
+      max-width: 100%;
+      overflow-x: auto;
+    }
+
+    .artifact-table {
+      border-collapse: collapse;
+      color: var(--ink);
+      background: #fff;
+      font-size: 0.94rem;
+    }
+
+    .artifact-table th, .artifact-table td {
+      min-width: 48px;
+      padding: 7px 12px;
+      border: 1px solid #cbd6d2;
+      text-align: center;
+    }
+
+    .artifact-table th {
+      background: #edf5f3;
+      font-weight: 700;
+    }
+
+    .artifact-table.kmap-table {
+      font-family: Consolas, "Courier New", monospace;
+    }
+
+    .artifact-table.kmap-table th, .artifact-table.kmap-table td {
+      min-width: 58px;
+      height: 43px;
+    }
+
+    .artifact-table.kmap-table .kmap-literal,
+    .artifact-table.kmap-table .kmap-spacer {
+      border: 0;
+      background: transparent;
+      color: var(--primary-dark);
+      font-weight: 700;
+    }
+
+    .artifact-table.kmap-table .kmap-literal-column {
+      height: auto;
+      padding: 2px 12px 5px;
+      font-size: 1rem;
+    }
+
+    .artifact-table.kmap-table .kmap-literal-column-bottom {
+      padding: 5px 12px 2px;
+    }
+
+    .artifact-table.kmap-table .kmap-literal-row-left {
+      padding: 0 11px 0 0;
+      vertical-align: middle;
+      font-size: 1rem;
+    }
+
+    .artifact-table.kmap-table .kmap-literal-row-right {
+      padding: 0 0 0 11px;
+      vertical-align: middle;
+      font-size: 1rem;
+    }
+
+    .artifact-code {
+      overflow-x: auto;
+      margin: 0;
+      padding: 11px 13px;
+      border: 1px solid #d7e1de;
+      border-radius: 8px;
+      color: var(--ink);
+      background: var(--surface-alt);
+      font: 0.94rem/1.5 Consolas, "Courier New", monospace;
+      white-space: pre;
+    }
+
+    .options {
+      display: grid;
+      gap: 8px;
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+
+    .option {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      padding: 10px 12px;
+      border: 1px solid #e3e8e6;
+      border-radius: 9px;
+      transition: background 100ms ease, border-color 100ms ease;
+    }
+
+    .option:hover { background: #f6faf9; }
+
+    .option input {
+      flex: none;
+      width: 17px;
+      height: 17px;
+      margin: 3px 0 0;
+      accent-color: var(--primary);
+    }
+
+    .option.selected { border-color: #9dc9c4; background: #edf8f6; }
+    .option.answer-correct { border-color: #89c29b; background: var(--correct-soft); }
+    .option.answer-wrong { border-color: #df9c96; background: var(--wrong-soft); }
+
+    .question-actions {
+      display: flex;
+      align-items: center;
+      margin-top: 13px;
+    }
+
+    .question-tool-button {
+      flex: none;
+      padding: 6px 11px;
+      font-size: 0.9rem;
+      line-height: 1.25;
+    }
+
+    .unknown-note {
+      display: none;
+      color: var(--warning);
+      font-size: 0.92rem;
+      font-weight: 600;
+    }
+
+    .declared-unknown .unknown-note { display: block; }
+
+    .observation-panel {
+      display: none;
+      margin-top: 12px;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      background: var(--surface-alt);
+    }
+
+    .observation-panel.visible { display: block; }
+
+    .observation-panel label {
+      display: block;
+      margin-bottom: 7px;
+      color: var(--muted);
+      font-size: 0.92rem;
+      font-weight: 600;
+    }
+
+    .observation-panel textarea {
+      display: block;
+      width: 100%;
+      min-height: 82px;
+      padding: 9px 10px;
+      resize: vertical;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      color: var(--ink);
+      background: #fff;
+      font: inherit;
+    }
+
+    .observation-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      margin-top: 9px;
+    }
+
+    .observation-status {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .observation-saved {
+      margin: 0;
+      white-space: pre-wrap;
+    }
+
+    .feedback {
+      display: none;
+      margin-top: 14px;
+      padding: 11px 13px;
+      border-radius: 9px;
+      font-size: 0.95rem;
+    }
+
+    .correct .feedback {
+      display: block;
+      color: var(--correct);
+      background: var(--correct-soft);
+    }
+
+    .wrong .feedback, .unanswered .feedback {
+      display: block;
+      color: var(--wrong);
+      background: var(--wrong-soft);
+    }
+
+    .feedback p { margin: 4px 0; }
+
+    .result {
+      display: none;
+      margin: 0 0 26px;
+      padding: 23px;
+      border: 1px solid #b3d8d4;
+      border-radius: var(--radius);
+      background: var(--surface);
+      box-shadow: var(--shadow);
+    }
+
+    .result.visible { display: block; }
+
+    .score-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .score {
+      min-width: 152px;
+      padding: 16px;
+      border-radius: 12px;
+      color: #fff;
+      background: var(--primary);
+      text-align: center;
+    }
+
+    .score strong {
+      display: block;
+      font-size: 2.25rem;
+      line-height: 1.15;
+    }
+
+    .diagnostic h2 { margin: 0 0 6px; }
+    .diagnostic p { margin: 0; color: var(--muted); }
+
+    .results-table {
+      width: 100%;
+      margin: 16px 0 20px;
+      border-collapse: collapse;
+      font-size: 0.95rem;
+    }
+
+    .results-table th, .results-table td {
+      padding: 9px 10px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+    }
+
+    .results-table th { color: var(--muted); }
+
+    .export-help {
+      margin: 12px 0 0;
+      color: var(--muted);
+      font-size: 0.93rem;
+    }
+
+    .toast {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 20;
+      display: none;
+      padding: 12px 16px;
+      border-radius: 10px;
+      color: #fff;
+      background: var(--primary-dark);
+      box-shadow: var(--shadow);
+    }
+
+    .toast.visible { display: block; }
+
+    @media (max-width: 700px) {
+      .meta-grid { grid-template-columns: repeat(2, minmax(120px, 1fr)); }
+      .question { padding: 16px; }
+      .toolbar-buttons { width: 100%; }
+      .toolbar-buttons button { flex: 1; }
+    }
+
+    @media print {
+      .toolbar, .result .toolbar-buttons, .toast, .question-actions { display: none !important; }
+      body { background: #fff; }
+      .question { break-inside: avoid; box-shadow: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="container">
+      <h1 id="title">Simulado</h1>
+      <p class="subtitle" id="subtitle"></p>
+      <div class="meta-grid" aria-label="Informações do simulado">
+        <div class="meta-card"><span>Questões</span><strong id="questionCount">0 objetivas</strong></div>
+        <div class="meta-card"><span>Tempo sugerido</span><strong id="suggestedTime">-</strong></div>
+        <div class="meta-card"><span>Meta</span><strong id="goal">-</strong></div>
+        <div class="meta-card"><span>Tempo executado</span><strong id="timer">00:00:00</strong></div>
+      </div>
+    </div>
+  </header>
+
+  <div class="toolbar">
+    <div class="container toolbar-inner">
+      <div class="progress-group">
+        <div class="progress-label">
+          <span id="answeredLabel">0 respondidas</span>
+          <span id="saveLabel">Aguardando início</span>
+        </div>
+        <div class="progress-track" aria-hidden="true"><div class="progress-fill" id="progressFill"></div></div>
+      </div>
+      <div class="toolbar-buttons">
+        <button type="button" id="finishButton" disabled>Finalizar e corrigir</button>
+        <button type="button" class="button-secondary" id="resetButton">Reiniciar</button>
+      </div>
+    </div>
+  </div>
+
+  <main class="container">
+    <section class="start-panel" id="startPanel">
+      <h2>Pronto para começar?</h2>
+      <p>O cronômetro começa somente ao clicar em <strong>Iniciar prova</strong>. Ele conta o tempo com este arquivo aberto; se você fechar e voltar dias depois, continua do tempo salvo, sem incluir o intervalo fechado.</p>
+      <button type="button" id="startButton">Iniciar prova</button>
+    </section>
+
+    <section class="notice" aria-label="Instrucoes">
+      <h2>Como usar</h2>
+      <p>Escolha uma alternativa quando souber responder. Se não souber, clique em <strong>Não sei</strong> ao lado da questão; isso será registrado no relatório para revisão, em vez de virar chute.</p>
+      <p>Use <strong>OBS</strong> para anotar dúvidas ou raciocínios da questão. A observação só será gravada quando você clicar em <strong>Salvar OBS</strong>.</p>
+      <p>As respostas e o tempo executado ficam salvos neste navegador. O gabarito aparece apenas depois de finalizar.</p>
+      <p>Depois da correção, envie o relatório para a IA: ele já solicita o arquivamento do resultado e a criação de uma pasta própria com tudo o que você precisa revisar.</p>
+    </section>
+
+    <section id="result" class="result" aria-live="polite"></section>
+    <form id="quizForm"></form>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    "use strict";
+
+    /*
+      BASE PARA OS PRÓXIMOS SIMULADOS
+      1. Duplique este HTML e altere CONFIG, blocks e questions.
+      2. Use uma storageKey exclusiva em cada simulado.
+      3. Não é necessário importar JSON: as questões ficam no próprio HTML.
+
+      MATERIAIS OPCIONAIS DA QUESTÃO
+      Use "artifacts" quando o enunciado precisar de uma tabela ou bloco visual:
+
+      Tabela-verdade:
+      artifacts: [{
+        type: "table",
+        caption: "Tabela fornecida",
+        headers: ["A", "B", "F"],
+        rows: [["0", "0", "0"], ["0", "1", "1"], ["1", "0", "1"], ["1", "1", "1"]]
+      }]
+
+      Mapa de Karnaugh:
+      artifacts: [{
+        type: "table",
+        variant: "kmap",
+        rowHeader: true,
+        caption: "Mapa fornecido",
+        headers: ["AB / CD", "00", "01", "11", "10"],
+        rows: [["00", "1", "0", "0", "1"], ["01", "0", "0", "0", "0"],
+          ["11", "0", "0", "0", "0"], ["10", "1", "0", "0", "1"]]
+      }]
+
+      Ligações de circuito, sequência temporal ou expressão em várias linhas:
+      artifacts: [{
+        type: "code",
+        caption: "Circuito descrito por sinais",
+        content: "N1 = A AND B\nN2 = C AND D\nF  = N1 OR N2"
+      }]
+
+      Tabelas também servem para estados Moore/Mealy, sinais de temporização,
+      decoders, codificadores e resultados de blocos lógicos.
+    */
+    const CONFIG = {
+      numero: "02",
+      titulo: "Simulado 02 - Aulas 6 a 8",
+      subtitulo: "Sistemas Digitais - UFCG | Formas canônicas e Mapas de Karnaugh",
+      tempoSugerido: "1h30",
+      meta: "24/30 ou mais; nenhum bloco abaixo de 70%",
+      storageKey: "simulado_02_aulas_6_a_8_30_questoes_v1",
+      nomeRelatorio: "resultado_simulado_02_aulas_6_a_8.txt"
+    };
+
+    const letters = ["A", "B", "C", "D", "E"];
+
+    const blocks = [
+      {
+        id: 1,
+        title: "Parte 1 - Questões 1 a 10",
+        review: "aulas/6-valores_logicos_formas_canonicas_mintermos_maxtermos.md"
+      },
+      {
+        id: 2,
+        title: "Parte 2 - Questões 11 a 20",
+        review: "aulas/7-mapas_karnaugh_2_3_variaveis_minimizacao_sop.md"
+      },
+      {
+        id: 3,
+        title: "Parte 3 - Questões 21 a 30",
+        review: "aulas/8-mapas_karnaugh_4_variaveis_dont_care.md"
+      }
+    ];
+
+    const questions = [
+      {
+        id: 1,
+        block: 1,
+        difficulty: "facil",
+        topic: "Valores lógicos - alta impedância",
+        prompt: "Qual símbolo representa uma saída em alta impedância?",
+        options: ["<code>H</code>", "<code>L</code>", "<code>Z</code>", "<code>X</code>"],
+        correct: "C",
+        explanation: "<code>Z</code> indica alta impedância: a saída não força nível lógico alto nem baixo no barramento."
+      },
+      {
+        id: 2,
+        block: 1,
+        difficulty: "facil",
+        topic: "Mintermo",
+        prompt: "Qual é o mintermo correspondente à combinação <code>ABC=101</code>?",
+        options: ["<code>A'BC</code>", "<code>AB'C</code>", "<code>ABC'</code>", "<code>(A'+B+C')</code>"],
+        correct: "B",
+        explanation: "Em um mintermo, o bit <code>1</code> aparece direto e o bit <code>0</code> aparece complementado: <code>101 → AB'C</code>."
+      },
+      {
+        id: 3,
+        block: 1,
+        difficulty: "facil",
+        topic: "Tabela-verdade",
+        prompt: "Quantas linhas possui a tabela-verdade completa de uma função com quatro entradas?",
+        options: ["<code>4</code>", "<code>8</code>", "<code>12</code>", "<code>16</code>"],
+        correct: "D",
+        explanation: "Uma função de <code>n</code> entradas possui <code>2^n</code> combinações; com quatro entradas, <code>2^4=16</code>."
+      },
+      {
+        id: 4,
+        block: 1,
+        difficulty: "media",
+        topic: "Maxtermo",
+        prompt: "Qual é o maxtermo correspondente à combinação <code>ABC=101</code>?",
+        options: ["<code>(A+B'+C)</code>", "<code>(A+B+C')</code>", "<code>(A'+B+C')</code>", "<code>(A'+B'+C)</code>"],
+        correct: "C",
+        explanation: "Em um maxtermo, o bit <code>0</code> aparece direto e o bit <code>1</code> complementado: <code>101 → (A'+B+C')</code>."
+      },
+      {
+        id: 5,
+        block: 1,
+        difficulty: "media",
+        topic: "SOP e POS canônicas",
+        prompt: "Se <code>F(A,B,C)=Σm(1,2,4,6,7)</code>, qual notação POS canônica descreve a mesma função?",
+        options: ["<code>ΠM(0,3,5)</code>", "<code>ΠM(1,2,4,6,7)</code>", "<code>ΠM(0,1,2)</code>", "<code>ΠM(3,5,7)</code>"],
+        correct: "A",
+        explanation: "A forma POS canônica lista as linhas onde a função vale <code>0</code>. O complemento da lista <code>1,2,4,6,7</code> é <code>0,3,5</code>."
+      },
+      {
+        id: 6,
+        block: 1,
+        difficulty: "media",
+        topic: "Tabela para notação sigma",
+        prompt: "Qual notação sigma representa a função da tabela?",
+        artifacts: [{
+          type: "table",
+          caption: "Tabela fornecida",
+          headers: ["A", "B", "C", "F"],
+          rows: [
+            ["0", "0", "0", "0"], ["0", "0", "1", "0"],
+            ["0", "1", "0", "1"], ["0", "1", "1", "1"],
+            ["1", "0", "0", "0"], ["1", "0", "1", "0"],
+            ["1", "1", "0", "1"], ["1", "1", "1", "1"]
+          ]
+        }],
+        options: ["<code>Σm(0,1,4,5)</code>", "<code>Σm(2,3,6,7)</code>", "<code>Σm(1,3,5,7)</code>", "<code>Σm(0,2,4,6)</code>"],
+        correct: "B",
+        explanation: "A saída vale <code>1</code> nas combinações <code>010, 011, 110, 111</code>, isto é, nos mintermos <code>m2,m3,m6,m7</code>."
+      },
+      {
+        id: 7,
+        block: 1,
+        difficulty: "dificil",
+        topic: "POS canônica expandida",
+        prompt: "Qual é a POS canônica da função apresentada na tabela?",
+        artifacts: [{
+          type: "table",
+          caption: "Tabela fornecida",
+          headers: ["A", "B", "C", "F"],
+          rows: [
+            ["0", "0", "0", "0"], ["0", "0", "1", "1"],
+            ["0", "1", "0", "1"], ["0", "1", "1", "0"],
+            ["1", "0", "0", "1"], ["1", "0", "1", "0"],
+            ["1", "1", "0", "1"], ["1", "1", "1", "1"]
+          ]
+        }],
+        options: [
+          "<code>(A'+B'+C')(A'+B+C)(A+B'+C)</code>",
+          "<code>(A+B+C)(A+B+C')(A'+B'+C')</code>",
+          "<code>(A+B+C)(A+B'+C')(A'+B+C')</code>",
+          "<code>(A'+B'+C')(A+B'+C')(A'+B+C')</code>"
+        ],
+        correct: "C",
+        explanation: "Os zeros estão em <code>m0, m3, m5</code>. Seus maxtermos são <code>(A+B+C)</code>, <code>(A+B'+C')</code> e <code>(A'+B+C')</code>."
+      },
+      {
+        id: 8,
+        block: 1,
+        difficulty: "dificil",
+        topic: "Função com don't care",
+        prompt: "Para <code>F(A,B,C,D)=Σm(0,2,5,8,10,13)+d(1,9)</code>, em quais índices a saída é obrigatoriamente <code>0</code>?",
+        options: [
+          "<code>1,3,4,6,7,9,11,12,14,15</code>",
+          "<code>3,4,6,7,11,12,14,15</code>",
+          "<code>0,2,5,8,10,13</code>",
+          "<code>1,9</code>"
+        ],
+        correct: "B",
+        explanation: "Os índices <code>0,2,5,8,10,13</code> são obrigatoriamente <code>1</code>, e <code>1,9</code> são indiferentes. Os índices restantes devem ser <code>0</code>."
+      },
+      {
+        id: 9,
+        block: 1,
+        difficulty: "dificil",
+        topic: "Forma canônica com don't care",
+        prompt: "Qual notação descreve corretamente os valores obrigatórios e indiferentes da tabela?",
+        artifacts: [{
+          type: "table",
+          caption: "Tabela fornecida",
+          headers: ["A", "B", "C", "F"],
+          rows: [
+            ["0", "0", "0", "0"], ["0", "0", "1", "1"],
+            ["0", "1", "0", "0"], ["0", "1", "1", "1"],
+            ["1", "0", "0", "0"], ["1", "0", "1", "X"],
+            ["1", "1", "0", "0"], ["1", "1", "1", "X"]
+          ]
+        }],
+        options: ["<code>Σm(1,3,5,7)</code>", "<code>Σm(1,3)+d(5,7)</code>", "<code>ΠM(1,3)+d(5,7)</code>", "<code>Σm(0,2,4,6)+d(5,7)</code>"],
+        correct: "B",
+        explanation: "A saída obrigatoriamente igual a <code>1</code> aparece em <code>m1,m3</code>; <code>m5,m7</code> são células <code>X</code>."
+      },
+      {
+        id: 10,
+        block: 1,
+        difficulty: "dificil",
+        topic: "Mintermo e maxtermo em quatro variáveis",
+        prompt: "Para a combinação <code>ABCD=1101</code>, qual alternativa apresenta corretamente o mintermo e o maxtermo correspondentes?",
+        options: [
+          "<code>m13=AB'CD</code> e <code>M13=(A+B'+C+D)</code>",
+          "<code>m13=ABC'D'</code> e <code>M13=(A'+B'+C+D)</code>",
+          "<code>m13=A'BC'D</code> e <code>M13=(A+B'+C+D')</code>",
+          "<code>m13=ABC'D</code> e <code>M13=(A'+B'+C+D')</code>"
+        ],
+        correct: "D",
+        explanation: "Em <code>1101</code>, o mintermo é <code>ABC'D</code>. No maxtermo a regra se inverte: <code>(A'+B'+C+D')</code>."
+      },
+      {
+        id: 11,
+        block: 2,
+        difficulty: "facil",
+        topic: "Ordem Gray em mapa de três variáveis",
+        prompt: "Qual é a ordem correta das colunas <code>BC</code> em um mapa de Karnaugh de três variáveis?",
+        options: ["<code>00, 01, 10, 11</code>", "<code>00, 01, 11, 10</code>", "<code>00, 10, 01, 11</code>", "<code>01, 00, 11, 10</code>"],
+        correct: "B",
+        explanation: "O mapa utiliza ordem Gray: <code>00, 01, 11, 10</code>, de modo que colunas adjacentes diferem em apenas um bit."
+      },
+      {
+        id: 12,
+        block: 2,
+        difficulty: "facil",
+        topic: "Tamanho de agrupamentos",
+        prompt: "Quais tamanhos de agrupamento são válidos em um mapa de Karnaugh de três variáveis?",
+        options: ["<code>1, 2, 3 e 4</code>", "<code>2, 4 e 6</code>", "<code>1, 3, 6 e 8</code>", "<code>1, 2, 4 e 8</code>"],
+        correct: "D",
+        explanation: "Grupos válidos sempre possuem tamanho potência de dois; em um mapa com oito células, podem ter <code>1,2,4</code> ou <code>8</code> células."
+      },
+      {
+        id: 13,
+        block: 2,
+        difficulty: "facil",
+        topic: "Adjacência pelas laterais",
+        prompt: "Qual termo SOP corresponde ao agrupamento dos mintermos <code>m0</code> e <code>m2</code>?",
+        options: ["<code>A'B'</code>", "<code>A'C</code>", "<code>A'C'</code>", "<code>B'C'</code>"],
+        correct: "C",
+        explanation: "<code>m0=000</code> e <code>m2=010</code>. A variável <code>B</code> muda; <code>A=0</code> e <code>C=0</code> permanecem, resultando em <code>A'C'</code>."
+      },
+      {
+        id: 14,
+        block: 2,
+        difficulty: "media",
+        topic: "Quarteto em mapa de três variáveis",
+        prompt: "Qual é a expressão mínima correspondente ao mapa fornecido?",
+        artifacts: [{
+          type: "table",
+          variant: "kmap",
+          rowHeader: true,
+          caption: "Mapa fornecido",
+          headers: ["A / BC", "00", "01", "11", "10"],
+          rows: [["0", "0", "1", "1", "0"], ["1", "0", "1", "1", "0"]]
+        }],
+        options: ["<code>B</code>", "<code>C</code>", "<code>C'</code>", "<code>A'C</code>"],
+        correct: "B",
+        explanation: "As quatro células com <code>1</code> ocupam as colunas <code>01</code> e <code>11</code>; nelas apenas <code>C=1</code> é constante, logo <code>F=C</code>."
+      },
+      {
+        id: 15,
+        block: 2,
+        difficulty: "media",
+        topic: "Agrupamento pelas bordas",
+        prompt: "Qual é a expressão mínima correspondente ao mapa fornecido?",
+        artifacts: [{
+          type: "table",
+          variant: "kmap",
+          rowHeader: true,
+          caption: "Mapa fornecido",
+          headers: ["A / BC", "00", "01", "11", "10"],
+          rows: [["0", "1", "0", "0", "1"], ["1", "1", "0", "0", "1"]]
+        }],
+        options: ["<code>B'</code>", "<code>C</code>", "<code>C'</code>", "<code>AC'</code>"],
+        correct: "C",
+        explanation: "A primeira e a última coluna são adjacentes. Em suas quatro células, apenas <code>C=0</code> permanece constante: <code>F=C'</code>."
+      },
+      {
+        id: 16,
+        block: 2,
+        difficulty: "media",
+        topic: "POS em mapa de Karnaugh",
+        prompt: "Agrupando os zeros do mapa para obter POS, qual é a expressão mínima da função?",
+        artifacts: [{
+          type: "table",
+          variant: "kmap",
+          rowHeader: true,
+          caption: "Mapa fornecido",
+          headers: ["A / BC", "00", "01", "11", "10"],
+          rows: [["0", "0", "1", "1", "0"], ["1", "0", "1", "1", "0"]]
+        }],
+        options: ["<code>C'</code>", "<code>C</code>", "<code>B+C</code>", "<code>(A+C)(A'+C)</code>"],
+        correct: "B",
+        explanation: "Os zeros formam um quarteto nas colunas onde <code>C=0</code>. Na leitura POS, constante <code>0</code> aparece direta: o termo é <code>(C)</code>, ou simplesmente <code>F=C</code>."
+      },
+      {
+        id: 17,
+        block: 2,
+        difficulty: "dificil",
+        topic: "Sobreposição em mapa de três variáveis",
+        prompt: "Qual é a SOP mínima da função indicada?",
+        artifacts: [{
+          type: "table",
+          variant: "kmap",
+          rowHeader: true,
+          caption: "Mapa fornecido",
+          headers: ["A / BC", "00", "01", "11", "10"],
+          rows: [["0", "1", "1", "1", "1"], ["1", "0", "0", "1", "1"]]
+        }],
+        options: ["<code>A'+B</code>", "<code>A+B'</code>", "<code>A'C'+AB</code>", "<code>A'+C</code>"],
+        correct: "A",
+        explanation: "A linha superior forma um quarteto <code>A'</code>. As colunas <code>11</code> e <code>10</code> formam outro quarteto, sobreposto ao primeiro, produzindo <code>B</code>. Assim, <code>F=A'+B</code>."
+      },
+      {
+        id: 18,
+        block: 2,
+        difficulty: "dificil",
+        topic: "Função com único zero",
+        prompt: "Qual é a expressão mínima de <code>F(A,B,C)=Σm(1,2,3,4,5,6,7)</code>?",
+        options: ["<code>A+B+C</code>", "<code>A'B'C'</code>", "<code>A+B+C'</code>", "<code>AB+AC+BC</code>"],
+        correct: "A",
+        explanation: "A função vale <code>0</code> somente em <code>000</code>. A expressão <code>A+B+C</code> vale <code>0</code> apenas nessa combinação e <code>1</code> em todas as outras."
+      },
+      {
+        id: 19,
+        block: 2,
+        difficulty: "dificil",
+        topic: "Grupos inválidos e sobreposição",
+        prompt: "No mapa em que os <code>1s</code> estão em <code>m0,m1,m2,m3,m6,m7</code>, qual estratégia de agrupamento é válida e mínima?",
+        options: [
+          "Um único grupo com as seis células.",
+          "Um quarteto com <code>m0,m1,m2,m3</code> e um quarteto com <code>m2,m3,m6,m7</code>.",
+          "Um trio com <code>m0,m1,m3</code> e um trio com <code>m2,m6,m7</code>.",
+          "Seis grupos isolados, pois não se permite sobreposição."
+        ],
+        correct: "B",
+        explanation: "Não existem grupos de seis ou de três células. A sobreposição de <code>m2,m3</code> permite formar dois quartetos, obtendo <code>F=A'+B</code>."
+      },
+      {
+        id: 20,
+        block: 2,
+        difficulty: "dificil",
+        topic: "Tabela para minimização em três variáveis",
+        prompt: "Qual é a SOP mínima da função apresentada?",
+        artifacts: [{
+          type: "table",
+          caption: "Tabela fornecida",
+          headers: ["A", "B", "C", "F"],
+          rows: [
+            ["0", "0", "0", "0"], ["0", "0", "1", "1"],
+            ["0", "1", "0", "1"], ["0", "1", "1", "1"],
+            ["1", "0", "0", "0"], ["1", "0", "1", "1"],
+            ["1", "1", "0", "0"], ["1", "1", "1", "1"]
+          ]
+        }],
+        options: ["<code>B+C</code>", "<code>C+A'B</code>", "<code>A+C'</code>", "<code>A'B'+AC</code>"],
+        correct: "B",
+        explanation: "Os mintermos <code>m1,m3,m5,m7</code> formam o quarteto <code>C</code>. O mintermo restante <code>m2</code> agrupa com <code>m3</code>, produzindo <code>A'B</code>."
+      },
+      {
+        id: 21,
+        block: 3,
+        difficulty: "facil",
+        topic: "Tamanho do mapa de quatro variáveis",
+        prompt: "Quantas células possui um mapa de Karnaugh de quatro variáveis?",
+        options: ["<code>4</code>", "<code>8</code>", "<code>12</code>", "<code>16</code>"],
+        correct: "D",
+        explanation: "Quatro variáveis produzem <code>2^4=16</code> combinações e, portanto, 16 células no mapa."
+      },
+      {
+        id: 22,
+        block: 3,
+        difficulty: "facil",
+        topic: "Localização de mintermo em mapa de quatro variáveis",
+        prompt: "Em um mapa com <code>AB</code> nas linhas e <code>CD</code> nas colunas, onde fica o mintermo <code>m13</code>?",
+        options: ["Linha <code>AB=10</code>, coluna <code>CD=01</code>", "Linha <code>AB=11</code>, coluna <code>CD=01</code>", "Linha <code>AB=01</code>, coluna <code>CD=11</code>", "Linha <code>AB=11</code>, coluna <code>CD=10</code>"],
+        correct: "B",
+        explanation: "<code>13</code> em binário é <code>1101</code>; separando em <code>AB|CD</code>, temos linha <code>11</code> e coluna <code>01</code>."
+      },
+      {
+        id: 23,
+        block: 3,
+        difficulty: "facil",
+        topic: "Quarteto nos cantos",
+        prompt: "Qual termo SOP corresponde ao agrupamento dos quatro cantos do mapa?",
+        artifacts: [{
+          type: "table",
+          variant: "kmap",
+          rowHeader: true,
+          caption: "Mapa fornecido",
+          headers: ["AB / CD", "00", "01", "11", "10"],
+          rows: [
+            ["00", "1", "0", "0", "1"], ["01", "0", "0", "0", "0"],
+            ["11", "0", "0", "0", "0"], ["10", "1", "0", "0", "1"]
+          ]
+        }],
+        options: ["<code>A'C'</code>", "<code>B'D'</code>", "<code>BD</code>", "<code>C'D'</code>"],
+        correct: "B",
+        explanation: "Nos cantos, <code>B=0</code> e <code>D=0</code> são constantes; <code>A</code> e <code>C</code> mudam. O termo é <code>B'D'</code>."
+      },
+      {
+        id: 24,
+        block: 3,
+        difficulty: "media",
+        topic: "Oitava pela borda superior e inferior",
+        prompt: "Qual é a expressão mínima de <code>F(A,B,C,D)=Σm(0,1,2,3,8,9,10,11)</code>?",
+        options: ["<code>A'</code>", "<code>B'</code>", "<code>C'</code>", "<code>D'</code>"],
+        correct: "B",
+        explanation: "Os mintermos formam uma oitava nas linhas <code>AB=00</code> e <code>AB=10</code>, adjacentes pelas bordas. Apenas <code>B=0</code> permanece constante: <code>F=B'</code>."
+      },
+      {
+        id: 25,
+        block: 3,
+        difficulty: "media",
+        topic: "Oitava pelas colunas laterais",
+        prompt: "Qual é a expressão mínima de <code>F(A,B,C,D)=Σm(0,2,4,6,8,10,12,14)</code>?",
+        options: ["<code>B'</code>", "<code>C'</code>", "<code>D'</code>", "<code>A'</code>"],
+        correct: "C",
+        explanation: "A oitava ocupa as colunas <code>CD=00</code> e <code>CD=10</code>, ligadas pelas bordas. Apenas <code>D=0</code> é constante: <code>F=D'</code>."
+      },
+      {
+        id: 26,
+        block: 3,
+        difficulty: "media",
+        topic: "Uso de don't care",
+        prompt: "Em uma minimização por Karnaugh, qual afirmação sobre uma célula <code>X</code> é correta?",
+        options: [
+          "Ela deve ser incluída em algum grupo como se fosse sempre <code>1</code>.",
+          "Ela deve ser tratada sempre como <code>0</code>.",
+          "Ela pode ser usada para ampliar um grupo de <code>1s</code> ou ignorada se não ajudar.",
+          "Ela invalida qualquer agrupamento vizinho."
+        ],
+        correct: "C",
+        explanation: "Uma célula <code>X</code> é indiferente: pode ser assumida como <code>1</code> quando aumenta grupos úteis, ou ignorada."
+      },
+      {
+        id: 27,
+        block: 3,
+        difficulty: "dificil",
+        topic: "Don't care em BCD",
+        prompt: "Qual é a expressão mínima correspondente ao mapa fornecido?",
+        artifacts: [{
+          type: "table",
+          variant: "kmap",
+          rowHeader: true,
+          caption: "Mapa fornecido",
+          headers: ["AB / CD", "00", "01", "11", "10"],
+          rows: [
+            ["00", "0", "0", "0", "0"], ["01", "0", "0", "0", "0"],
+            ["11", "X", "X", "X", "X"], ["10", "1", "1", "X", "X"]
+          ]
+        }],
+        options: ["<code>A</code>", "<code>B</code>", "<code>A'B</code>", "<code>C+D</code>"],
+        correct: "A",
+        explanation: "Usando os <code>X</code>, as linhas <code>AB=10</code> e <code>AB=11</code> formam uma oitava. Apenas <code>A=1</code> permanece constante: <code>F=A</code>."
+      },
+      {
+        id: 28,
+        block: 3,
+        difficulty: "dificil",
+        topic: "Oitava com don't care",
+        prompt: "Qual é a SOP mínima de <code>F(A,B,C,D)=Σm(1,3,5,7,9,11)+d(13,15)</code>?",
+        options: ["<code>A+C</code>", "<code>B+D</code>", "<code>D</code>", "<code>C'D</code>"],
+        correct: "C",
+        explanation: "Os seis <code>1s</code> e os dois <code>X</code> ocupam as colunas em que <code>D=1</code>, formando uma oitava: <code>F=D</code>."
+      },
+      {
+        id: 29,
+        block: 3,
+        difficulty: "dificil",
+        topic: "Dois quartetos em mapa de quatro variáveis",
+        prompt: "Qual é a SOP mínima da função apresentada?",
+        artifacts: [{
+          type: "table",
+          variant: "kmap",
+          rowHeader: true,
+          caption: "Mapa fornecido",
+          headers: ["AB / CD", "00", "01", "11", "10"],
+          rows: [
+            ["00", "1", "1", "0", "0"], ["01", "1", "1", "0", "0"],
+            ["11", "0", "0", "1", "1"], ["10", "0", "0", "1", "1"]
+          ]
+        }],
+        options: ["<code>A'C'+AC</code>", "<code>B'D'+BD</code>", "<code>A'C+AC'</code>", "<code>B'C'+BC</code>"],
+        correct: "A",
+        explanation: "O quarteto superior esquerdo mantém <code>A=0,C=0</code>, gerando <code>A'C'</code>. O quarteto inferior direito mantém <code>A=1,C=1</code>, gerando <code>AC</code>."
+      },
+      {
+        id: 30,
+        block: 3,
+        difficulty: "dificil",
+        topic: "Agrupamento com don't care e sobreposição",
+        prompt: "Qual é a SOP mínima da função apresentada?",
+        artifacts: [{
+          type: "table",
+          variant: "kmap",
+          rowHeader: true,
+          caption: "Mapa fornecido",
+          headers: ["AB / CD", "00", "01", "11", "10"],
+          rows: [
+            ["00", "1", "1", "1", "1"], ["01", "0", "1", "1", "0"],
+            ["11", "0", "0", "0", "0"], ["10", "X", "X", "X", "X"]
+          ]
+        }],
+        options: ["<code>A'+D</code>", "<code>B'+A'D</code>", "<code>B+D'</code>", "<code>A'B'+D</code>"],
+        correct: "B",
+        explanation: "A linha <code>AB=00</code> com a linha <code>AB=10</code> marcada <code>X</code> forma a oitava <code>B'</code>. As quatro células centrais das linhas <code>00</code> e <code>01</code> formam <code>A'D</code>. Logo, <code>F=B'+A'D</code>."
+      }
+    ];
+
+    let state = loadState();
+    let timerInterval = null;
+    let sessionAnchor = null;
+    let elapsedAtAnchor = 0;
+    let noteDrafts = {};
+    let openNotes = {};
+
+    function newState() {
+      return {
+        answers: {},
+        unknown: {},
+        notes: {},
+        started: false,
+        finalized: false,
+        elapsedMs: 0,
+        startedAt: null,
+        finalizedAt: null
+      };
+    }
+
+    function loadState() {
+      try {
+        const stored = JSON.parse(localStorage.getItem(CONFIG.storageKey) || "null");
+        if (stored && stored.answers && typeof stored.answers === "object") {
+          return Object.assign(newState(), stored, {
+            unknown: stored.unknown && typeof stored.unknown === "object" ? stored.unknown : {},
+            notes: stored.notes && typeof stored.notes === "object" ? stored.notes : {},
+            elapsedMs: Number(stored.elapsedMs) || 0
+          });
+        }
+      } catch (error) {
+        console.warn("Não foi possível restaurar o progresso.", error);
+      }
+      return newState();
+    }
+
+    function commitElapsed() {
+      if (!state.started || state.finalized || sessionAnchor === null) return;
+      state.elapsedMs = elapsedAtAnchor + (Date.now() - sessionAnchor);
+      elapsedAtAnchor = state.elapsedMs;
+      sessionAnchor = Date.now();
+    }
+
+    function saveState(includeCurrentTime = true) {
+      if (includeCurrentTime) commitElapsed();
+      try {
+        localStorage.setItem(CONFIG.storageKey, JSON.stringify(state));
+        document.getElementById("saveLabel").textContent = state.finalized
+          ? "Simulado finalizado"
+          : state.started ? "Progresso e tempo salvos localmente" : "Aguardando início";
+      } catch (error) {
+        document.getElementById("saveLabel").textContent = "Salvamento indisponível; mantenha a página aberta";
+      }
+    }
+
+    function startTiming() {
+      if (!state.started || state.finalized || timerInterval !== null) return;
+      sessionAnchor = Date.now();
+      elapsedAtAnchor = state.elapsedMs;
+      renderTimer();
+      timerInterval = window.setInterval(function () {
+        saveState();
+        renderTimer();
+      }, 1000);
+    }
+
+    function stopTiming() {
+      commitElapsed();
+      if (timerInterval !== null) {
+        window.clearInterval(timerInterval);
+        timerInterval = null;
+      }
+      sessionAnchor = null;
+    }
+
+    function elapsedMs() {
+      if (state.started && !state.finalized && sessionAnchor !== null) {
+        return elapsedAtAnchor + (Date.now() - sessionAnchor);
+      }
+      return state.elapsedMs;
+    }
+
+    function formatDuration(milliseconds) {
+      const seconds = Math.floor(milliseconds / 1000);
+      const hours = String(Math.floor(seconds / 3600)).padStart(2, "0");
+      const minutes = String(Math.floor((seconds % 3600) / 60)).padStart(2, "0");
+      const remainingSeconds = String(seconds % 60).padStart(2, "0");
+      return hours + ":" + minutes + ":" + remainingSeconds;
+    }
+
+    function formatFolderDate(isoDate) {
+      const date = new Date(isoDate || Date.now());
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, "0");
+      const day = String(date.getDate()).padStart(2, "0");
+      return year + "-" + month + "-" + day;
+    }
+
+    function renderTimer() {
+      document.getElementById("timer").textContent = formatDuration(elapsedMs());
+    }
+
+    function plainText(html) {
+      const element = document.createElement("div");
+      element.innerHTML = html;
+      return element.textContent.replace(/\s+/g, " ").trim();
+    }
+
+    function escapeHtml(text) {
+      return String(text).replace(/[&<>"']/g, function (character) {
+        return {
+          "&": "&amp;",
+          "<": "&lt;",
+          ">": "&gt;",
+          "\"": "&quot;",
+          "'": "&#39;"
+        }[character];
+      });
+    }
+
+    function kmapAxes(artifact) {
+      const headers = Array.isArray(artifact.headers) ? artifact.headers : [];
+      const corner = String(headers[0] || "");
+      const embeddedAxes = artifact.variant === "kmap" && corner.includes("/");
+      const pieces = embeddedAxes ? corner.split("/") : [];
+      const row = String(artifact.rowVariable || pieces[0] || "").trim();
+      const column = String(artifact.columnVariable || pieces[1] || "").trim();
+      return {
+        enabled: artifact.variant === "kmap" && Boolean(row) && Boolean(column),
+        embedded: embeddedAxes,
+        row,
+        column
+      };
+    }
+
+    function kmapLiteral(variable, bit) {
+      return bit === "0" ? variable + "'" : variable;
+    }
+
+    function renderArtifacts(question) {
+      const artifacts = Array.isArray(question.artifacts) ? question.artifacts : [];
+      if (!artifacts.length) return "";
+
+      return `<div class="question-artifacts">${artifacts.map(function (artifact) {
+        const caption = artifact.caption
+          ? `<p class="artifact-caption">${escapeHtml(artifact.caption)}</p>`
+          : "";
+
+        if (artifact.type === "table") {
+          const headers = Array.isArray(artifact.headers) ? artifact.headers : [];
+          const rows = Array.isArray(artifact.rows) ? artifact.rows : [];
+          const tableClass = artifact.variant === "kmap" ? " kmap-table" : "";
+          const axes = kmapAxes(artifact);
+          const visibleHeaders = axes.enabled && axes.embedded ? headers.slice(1) : headers;
+          let head;
+          let body;
+          if (axes.enabled && artifact.rowHeader && axes.column.length === 2 && axes.row.length >= 1 && axes.row.length <= 2) {
+            const hasRightLiterals = axes.row.length === 2;
+            const rightSpacer = hasRightLiterals ? `<th class="kmap-spacer"></th>` : "";
+            head = "";
+            body = `<tbody>
+              <tr><th class="kmap-spacer"></th>${visibleHeaders.map(function (cell) {
+                return `<th class="kmap-literal kmap-literal-column">${escapeHtml(kmapLiteral(axes.column[0], cell[0]))}</th>`;
+              }).join("")}${rightSpacer}</tr>
+              ${rows.map(function (row) {
+                return `<tr><th class="kmap-literal kmap-literal-row-left" scope="row">${escapeHtml(kmapLiteral(axes.row[0], row[0][0]))}</th>${row.slice(1).map(function (cell) {
+                  return `<td>${escapeHtml(cell)}</td>`;
+                }).join("")}${hasRightLiterals ? `<th class="kmap-literal kmap-literal-row-right" scope="row">${escapeHtml(kmapLiteral(axes.row[1], row[0][1]))}</th>` : ""}</tr>`;
+              }).join("")}
+              <tr><th class="kmap-spacer"></th>${visibleHeaders.map(function (cell) {
+                return `<th class="kmap-literal kmap-literal-column kmap-literal-column-bottom">${escapeHtml(kmapLiteral(axes.column[1], cell[1]))}</th>`;
+              }).join("")}${rightSpacer}</tr>
+            </tbody>`;
+          } else {
+            head = headers.length
+              ? `<thead><tr>${headers.map(function (cell) {
+                  return `<th scope="col">${escapeHtml(cell)}</th>`;
+                }).join("")}</tr></thead>`
+              : "";
+            body = `<tbody>${rows.map(function (row) {
+              return `<tr>${row.map(function (cell, index) {
+                if (artifact.rowHeader && index === 0) {
+                  return `<th scope="row">${escapeHtml(cell)}</th>`;
+                }
+                return `<td>${escapeHtml(cell)}</td>`;
+              }).join("")}</tr>`;
+            }).join("")}</tbody>`;
+          }
+          return `<div class="question-artifact">${caption}<div class="artifact-table-wrap"><table class="artifact-table${tableClass}">${head}${body}</table></div></div>`;
+        }
+
+        if (artifact.type === "code") {
+          return `<div class="question-artifact">${caption}<pre class="artifact-code">${escapeHtml(artifact.content || "")}</pre></div>`;
+        }
+
+        return "";
+      }).join("")}</div>`;
+    }
+
+    function artifactReportLines(question) {
+      const artifacts = Array.isArray(question.artifacts) ? question.artifacts : [];
+      const lines = [];
+      artifacts.forEach(function (artifact) {
+        if (artifact.type === "table") {
+          lines.push("- " + (artifact.caption || "Tabela") + ":");
+          const axes = kmapAxes(artifact);
+          const headers = Array.isArray(artifact.headers) ? artifact.headers : [];
+          if (axes.enabled) {
+            lines.push("  Linhas: " + axes.row + "; colunas: " + axes.column);
+          }
+          if (headers.length) {
+            lines.push("  " + (axes.enabled && axes.embedded ? headers.slice(1) : headers).join(" | "));
+          }
+          (artifact.rows || []).forEach(function (row) {
+            lines.push("  " + row.join(" | "));
+          });
+        }
+        if (artifact.type === "code") {
+          lines.push("- " + (artifact.caption || "Bloco apresentado") + ":");
+          String(artifact.content || "").split("\n").forEach(function (line) {
+            lines.push("  " + line);
+          });
+        }
+      });
+      return lines;
+    }
+
+    function optionText(question, letter) {
+      if (!letter) return "Não respondida";
+      return letter + ") " + plainText(question.options[letters.indexOf(letter)]);
+    }
+
+    function answerDescription(detail) {
+      if (detail.unknown) {
+        return "Não respondida por não saber como resolver; marcada conscientemente para revisão.";
+      }
+      return optionText(detail.question, detail.selected);
+    }
+
+    function renderMetadata() {
+      document.title = CONFIG.titulo + " | Sistemas Digitais";
+      document.getElementById("title").textContent = CONFIG.titulo;
+      document.getElementById("subtitle").textContent = CONFIG.subtitulo;
+      document.getElementById("questionCount").textContent = questions.length + " objetivas";
+      document.getElementById("suggestedTime").textContent = CONFIG.tempoSugerido;
+      document.getElementById("goal").textContent = CONFIG.meta;
+    }
+
+    function renderQuiz() {
+      const form = document.getElementById("quizForm");
+      form.innerHTML = "";
+      document.getElementById("startPanel").classList.toggle("started", state.started);
+
+      blocks.forEach(function (block) {
+        const heading = document.createElement("h2");
+        heading.className = "block-heading";
+        heading.textContent = "Bloco " + block.id + " - " + block.title;
+        form.appendChild(heading);
+
+        questions.filter(function (question) {
+          return question.block === block.id;
+        }).forEach(function (question) {
+          const article = document.createElement("article");
+          const chosen = state.answers[question.id] || "";
+          const declaredUnknown = Boolean(state.unknown[question.id]);
+          const savedNote = String(state.notes[question.id] || "");
+          const hasDraft = Object.prototype.hasOwnProperty.call(noteDrafts, question.id);
+          const draftNote = hasDraft ? noteDrafts[question.id] : savedNote;
+          const noteIsOpen = Boolean(openNotes[question.id]);
+          const showNotePanel = state.finalized ? Boolean(savedNote) : noteIsOpen;
+          const controlsDisabled = !state.started || state.finalized;
+          article.className = "question" + (declaredUnknown ? " declared-unknown" : "");
+          article.id = "question-" + question.id;
+
+          const options = question.options.map(function (option, index) {
+            const letter = letters[index];
+            const checked = chosen === letter ? " checked" : "";
+            const disabled = controlsDisabled ? " disabled" : "";
+            return `
+              <label class="option${chosen === letter ? " selected" : ""}" data-option="${letter}">
+                <input type="radio" name="question-${question.id}" value="${letter}"${checked}${disabled}>
+                <span><strong>${letter})</strong> ${option}</span>
+              </label>`;
+          }).join("");
+
+          article.innerHTML = `
+            <div class="question-title">
+              <div class="number">${question.id}</div>
+              <div class="question-copy">
+                <p class="prompt">${question.prompt}</p>
+              </div>
+              <div class="question-buttons">
+                <button type="button" class="button-warning question-tool-button unknown-button" data-question="${question.id}"${controlsDisabled ? " disabled" : ""}>Não sei</button>
+                <button type="button" class="button-secondary question-tool-button observation-toggle-button" data-question="${question.id}"${controlsDisabled ? " disabled" : ""}>OBS</button>
+              </div>
+            </div>
+            ${renderArtifacts(question)}
+            <div class="options">${options}</div>
+            <div class="observation-panel${showNotePanel ? " visible" : ""}">
+              <label for="observation-${question.id}">Minha observação sobre esta questão</label>
+              ${state.finalized
+                ? `<p class="observation-saved">${escapeHtml(savedNote)}</p>`
+                : `<textarea id="observation-${question.id}" class="observation-input" data-question="${question.id}" placeholder="Ex.: não entendi por que esta alternativa está errada.">${escapeHtml(draftNote)}</textarea>
+                   <div class="observation-actions">
+                     <button type="button" class="observation-save-button" data-question="${question.id}">Salvar OBS</button>
+                     <span class="observation-status">${savedNote ? "Observação salva." : "Clique em Salvar OBS para gravar."}</span>
+                   </div>`}
+            </div>
+            <div class="question-actions">
+              <span class="unknown-note">Sem chute: esta questão será enviada para revisão.</span>
+            </div>
+            <div class="feedback"></div>`;
+
+          form.appendChild(article);
+        });
+      });
+
+      if (state.finalized) applyCorrection();
+      updateProgress();
+    }
+
+    function startQuiz() {
+      if (state.started || state.finalized) return;
+      state.started = true;
+      state.startedAt = new Date().toISOString();
+      saveState(false);
+      startTiming();
+      renderQuiz();
+    }
+
+    function handleAnswerChange(event) {
+      const input = event.target;
+      if (!input.matches("input[type=radio]") || !state.started || state.finalized) return;
+      const id = Number(input.name.replace("question-", ""));
+      state.answers[id] = input.value;
+      delete state.unknown[id];
+      saveState();
+      renderQuiz();
+    }
+
+    function handleUnknownClick(event) {
+      const button = event.target.closest(".unknown-button");
+      if (!button || !state.started || state.finalized) return;
+      const id = Number(button.dataset.question);
+      delete state.answers[id];
+      state.unknown[id] = true;
+      saveState();
+      renderQuiz();
+    }
+
+    function handleObservationToggle(event) {
+      const button = event.target.closest(".observation-toggle-button");
+      if (!button || !state.started || state.finalized) return;
+      const id = Number(button.dataset.question);
+      if (!Object.prototype.hasOwnProperty.call(noteDrafts, id)) {
+        noteDrafts[id] = String(state.notes[id] || "");
+      }
+      openNotes[id] = !openNotes[id];
+      renderQuiz();
+    }
+
+    function handleObservationInput(event) {
+      const input = event.target;
+      if (!input.matches(".observation-input") || state.finalized) return;
+      noteDrafts[Number(input.dataset.question)] = input.value;
+    }
+
+    function handleObservationSave(event) {
+      const button = event.target.closest(".observation-save-button");
+      if (!button || !state.started || state.finalized) return;
+      const id = Number(button.dataset.question);
+      const note = String(noteDrafts[id] || "").trim();
+      if (note) {
+        state.notes[id] = note;
+      } else {
+        delete state.notes[id];
+      }
+      noteDrafts[id] = note;
+      saveState();
+      renderQuiz();
+      showToast(note ? "Observação salva." : "Observação removida.");
+    }
+
+    function counts() {
+      const answered = questions.filter(function (question) {
+        return Boolean(state.answers[question.id]);
+      }).length;
+      const unknown = questions.filter(function (question) {
+        return Boolean(state.unknown[question.id]);
+      }).length;
+      return { answered, unknown, blank: questions.length - answered - unknown };
+    }
+
+    function updateProgress() {
+      const current = counts();
+      const label = current.answered + " de " + questions.length + " respondidas; " +
+        current.unknown + " marcadas como não sei";
+      document.getElementById("answeredLabel").textContent = label;
+      document.getElementById("progressFill").style.width =
+        (((current.answered + current.unknown) / questions.length) * 100) + "%";
+      document.getElementById("finishButton").disabled = !state.started || state.finalized;
+      renderTimer();
+    }
+
+    function getResults() {
+      const details = questions.map(function (question) {
+        const selected = state.answers[question.id] || "";
+        const unknown = Boolean(state.unknown[question.id]);
+        const observation = String(state.notes[question.id] || "").trim();
+        return { question, selected, unknown, observation, correct: selected === question.correct };
+      });
+      const score = details.filter(function (detail) { return detail.correct; }).length;
+      const answered = details.filter(function (detail) { return detail.selected; }).length;
+      const unknown = details.filter(function (detail) { return detail.unknown; }).length;
+      const byBlock = blocks.map(function (block) {
+        const blockDetails = details.filter(function (detail) {
+          return detail.question.block === block.id;
+        });
+        const blockScore = blockDetails.filter(function (detail) { return detail.correct; }).length;
+        return {
+          block,
+          score: blockScore,
+          total: blockDetails.length,
+          percentage: Math.round((blockScore / blockDetails.length) * 100)
+        };
+      });
+      return {
+        details,
+        score,
+        answered,
+        unknown,
+        percentage: Math.round((score / questions.length) * 100),
+        byBlock
+      };
+    }
+
+    function diagnostic(score) {
+      const percentage = Math.round((score / questions.length) * 100);
+      if (percentage >= 90) return "Domínio muito forte: revise os erros pontuais e as questões deixadas em branco.";
+      if (percentage >= 75) return "Bom domínio: corrija os erros e revise os blocos com menor desempenho.";
+      if (percentage >= 60) return "Base razoável, mas instável: revise todo bloco abaixo de 70%.";
+      return "Conteúdo ainda não consolidado: retome as aulas dos blocos com erros antes de novo simulado.";
+    }
+
+    function finishQuiz() {
+      if (!state.started || state.finalized) return;
+      const current = counts();
+      const warnings = [];
+      if (current.unknown) {
+        warnings.push(current.unknown + " questão(ões) marcada(s) como não sei resolver serão prioridade no relatório.");
+      }
+      if (current.blank) {
+        warnings.push(current.blank + " questão(ões) estão em branco sem marcação de dúvida.");
+      }
+      if (warnings.length && !window.confirm(warnings.join("\n") + "\n\nDeseja finalizar mesmo assim?")) {
+        return;
+      }
+      stopTiming();
+      state.finalized = true;
+      state.finalizedAt = new Date().toISOString();
+      saveState(false);
+      renderQuiz();
+      renderResult();
+      document.getElementById("result").scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function applyCorrection() {
+      const results = getResults();
+      results.details.forEach(function (detail) {
+        const article = document.getElementById("question-" + detail.question.id);
+        if (detail.correct) {
+          article.classList.add("correct");
+        } else if (detail.unknown) {
+          article.classList.add("declared-unknown", "unanswered");
+        } else {
+          article.classList.add(detail.selected ? "wrong" : "unanswered");
+        }
+
+        article.querySelectorAll(".option").forEach(function (option) {
+          const letter = option.dataset.option;
+          option.classList.remove("selected");
+          if (letter === detail.question.correct) option.classList.add("answer-correct");
+          if (detail.selected && letter === detail.selected && !detail.correct) {
+            option.classList.add("answer-wrong");
+          }
+        });
+
+        const feedback = article.querySelector(".feedback");
+        if (detail.correct) {
+          feedback.innerHTML = `<p><strong>Correta.</strong> ${detail.question.explanation}</p>`;
+        } else if (detail.unknown) {
+          feedback.innerHTML = `<p><strong>Não respondida por não saber resolver.</strong> Resposta correta: ${optionText(detail.question, detail.question.correct)}.</p><p>${detail.question.explanation}</p>`;
+        } else {
+          feedback.innerHTML = `<p><strong>${detail.selected ? "Incorreta" : "Não respondida"}.</strong> Resposta correta: ${optionText(detail.question, detail.question.correct)}.</p><p>${detail.question.explanation}</p>`;
+        }
+      });
+    }
+
+    function renderResult() {
+      if (!state.finalized) return;
+      const results = getResults();
+      const result = document.getElementById("result");
+      const missed = questions.length - results.score;
+      result.classList.add("visible");
+      result.innerHTML = `
+        <div class="score-row">
+          <div class="score">
+            <strong>${results.score}/${questions.length}</strong>
+            <span>${results.percentage}% de acerto</span>
+          </div>
+          <div class="diagnostic">
+            <h2>Resultado final</h2>
+            <p>${diagnostic(results.score)}</p>
+            <p>${results.answered} respondidas; ${results.unknown} marcadas como não sei; ${missed} erradas ou não respondidas.</p>
+            <p>Tempo executado: ${formatDuration(state.elapsedMs)}.</p>
+          </div>
+        </div>
+        <table class="results-table">
+          <thead><tr><th>Bloco</th><th>Acertos</th><th>Percentual</th><th>Revisar se necessário</th></tr></thead>
+          <tbody>
+            ${results.byBlock.map(function (item) {
+              return `<tr><td>${item.block.id}. ${item.block.title}</td><td>${item.score}/${item.total}</td><td>${item.percentage}%</td><td>${item.percentage < 70 ? item.block.review : "Manter revisão espaçada"}</td></tr>`;
+            }).join("")}
+          </tbody>
+        </table>
+        <div class="toolbar-buttons">
+          <button type="button" id="copyButton">Copiar relatório para IA</button>
+          <button type="button" class="button-secondary" id="downloadButton">Baixar relatório (.txt)</button>
+        </div>
+        <p class="export-help">O relatório inclui alternativas e observações, diferencia resposta errada de questão deixada em branco por não saber resolver e solicita o arquivamento do resultado e a criação da pasta de revisão.</p>`;
+      document.getElementById("copyButton").addEventListener("click", copyReport);
+      document.getElementById("downloadButton").addEventListener("click", downloadReport);
+    }
+
+    function buildReport() {
+      const results = getResults();
+      const completionDate = new Date(state.finalizedAt || Date.now());
+      const dateText = completionDate.toLocaleString("pt-BR");
+      const folderName = "resultados-simulado-" + CONFIG.numero + "-" + formatFolderDate(state.finalizedAt);
+      const wrong = results.details.filter(function (detail) { return !detail.correct; });
+      const correct = results.details.filter(function (detail) { return detail.correct; });
+      const notedCorrect = correct.filter(function (detail) { return detail.observation; });
+      const lines = [
+        "RESULTADO - " + CONFIG.titulo.toUpperCase() + " - SISTEMAS DIGITAIS (UFCG)",
+        "Finalizado em: " + dateText,
+        "Tempo executado: " + formatDuration(state.elapsedMs),
+        "Nota: " + results.score + "/" + questions.length + " (" + results.percentage + "%)",
+        "Respondidas: " + results.answered + "/" + questions.length,
+        "Marcadas como não soube responder: " + results.unknown,
+        "",
+        "DESEMPENHO POR BLOCO"
+      ];
+
+      results.byBlock.forEach(function (item) {
+        lines.push("- Bloco " + item.block.id + " - " + item.block.title + ": " +
+          item.score + "/" + item.total + " (" + item.percentage + "%)" +
+          (item.percentage < 70 ? " | Revisar: " + item.block.review : ""));
+      });
+
+      lines.push("", "QUESTÕES ERRADAS OU NÃO RESPONDIDAS (" + wrong.length + ")");
+      if (!wrong.length) {
+        lines.push("- Nenhuma. Todas as questões foram respondidas corretamente.");
+      } else {
+        wrong.forEach(function (detail) {
+          lines.push("");
+          lines.push("Questão " + detail.question.id + " - " + detail.question.topic);
+          lines.push("Enunciado: " + plainText(detail.question.prompt));
+          const artifactLines = artifactReportLines(detail.question);
+          if (artifactLines.length) {
+            lines.push("Material apresentado:");
+            artifactLines.forEach(function (line) { lines.push(line); });
+          }
+          lines.push("Alternativas disponíveis:");
+          detail.question.options.forEach(function (option, index) {
+            lines.push("- " + letters[index] + ") " + plainText(option));
+          });
+          lines.push("Minha resposta: " + answerDescription(detail));
+          if (detail.unknown) {
+            lines.push("Motivo declarado: deixei em branco porque não sabia como resolver; preciso aprender este procedimento.");
+          }
+          if (detail.observation) {
+            lines.push("Minha observação: " + detail.observation);
+          }
+          lines.push("Resposta correta: " + optionText(detail.question, detail.question.correct));
+          lines.push("Explicação: " + plainText(detail.question.explanation));
+        });
+      }
+
+      lines.push("", "QUESTÕES CORRETAS (" + correct.length + ")");
+      lines.push(correct.length
+        ? correct.map(function (detail) { return detail.question.id + " (" + detail.question.topic + ")"; }).join(", ")
+        : "- Nenhuma.");
+      if (notedCorrect.length) {
+        lines.push("", "OBSERVAÇÕES EM QUESTÕES CORRETAS (" + notedCorrect.length + ")");
+        notedCorrect.forEach(function (detail) {
+          lines.push("- Questão " + detail.question.id + " - " + detail.question.topic + ": " + detail.observation);
+        });
+      }
+      lines.push("", "PEDIDO PARA REVISÃO COM IA");
+      lines.push("Analise meus erros neste simulado de Sistemas Digitais. Para cada questão errada ou não respondida, considere também as alternativas disponíveis e qualquer observação que eu tenha registrado, explique o conceito, resolva passo a passo e proponha 2 exercícios semelhantes com gabarito para eu fixar. Priorize os blocos abaixo de 70% e trate as questões marcadas como 'não soube responder' como prioridade, pois foram deixadas em branco conscientemente para evitar chute.");
+      lines.push("Salve uma cópia deste relatório completo em C:/Users/gabrieloliveira/Documents/pessoal/estudos/residencia/03-simulados/resultados/relatorios/, com nome que identifique o número do simulado e a data de realização, para manter meu histórico.");
+      lines.push("Salve tudo o que eu precisarei estudar na pasta C:/Users/gabrieloliveira/Documents/pessoal/estudos/residencia/03-simulados/resultados/revisoes/" + folderName + ". Crie nessa pasta pelo menos um arquivo revisao_erros.md com o diagnóstico, as explicações, os exercícios e os gabaritos.");
+      lines.push("Atualize também o arquivo C:/Users/gabrieloliveira/Documents/pessoal/estudos/residencia/03-simulados/log_estudos_e_simulados.md, adicionando este simulado à tabela de simulados realizados com data, horário de conclusão, tempo de execução e resultado informados neste relatório. Não altere registros anteriores.");
+      return lines.join("\n");
+    }
+
+    async function copyReport() {
+      const report = buildReport();
+      try {
+        await navigator.clipboard.writeText(report);
+        showToast("Relatório copiado. Pronto para enviar à IA.");
+      } catch (error) {
+        const area = document.createElement("textarea");
+        area.value = report;
+        document.body.appendChild(area);
+        area.select();
+        document.execCommand("copy");
+        area.remove();
+        showToast("Relatório copiado. Pronto para enviar à IA.");
+      }
+    }
+
+    function downloadReport() {
+      const blob = new Blob([buildReport()], { type: "text/plain;charset=utf-8" });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = CONFIG.nomeRelatorio;
+      link.click();
+      URL.revokeObjectURL(link.href);
+      showToast("Relatório baixado.");
+    }
+
+    function resetQuiz() {
+      if (!window.confirm("Apagar respostas, observações, tempo e resultado deste simulado para recomeçar?")) return;
+      stopTiming();
+      try {
+        localStorage.removeItem(CONFIG.storageKey);
+      } catch (error) {
+        console.warn("Não foi possível limpar o progresso salvo.", error);
+      }
+      state = newState();
+      noteDrafts = {};
+      openNotes = {};
+      document.getElementById("result").classList.remove("visible");
+      document.getElementById("result").innerHTML = "";
+      saveState(false);
+      renderQuiz();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    let toastTimer;
+    function showToast(message) {
+      const toast = document.getElementById("toast");
+      toast.textContent = message;
+      toast.classList.add("visible");
+      window.clearTimeout(toastTimer);
+      toastTimer = window.setTimeout(function () {
+        toast.classList.remove("visible");
+      }, 2800);
+    }
+
+    document.getElementById("startButton").addEventListener("click", startQuiz);
+    document.getElementById("finishButton").addEventListener("click", finishQuiz);
+    document.getElementById("resetButton").addEventListener("click", resetQuiz);
+    document.getElementById("quizForm").addEventListener("change", handleAnswerChange);
+    document.getElementById("quizForm").addEventListener("click", handleUnknownClick);
+    document.getElementById("quizForm").addEventListener("click", handleObservationToggle);
+    document.getElementById("quizForm").addEventListener("click", handleObservationSave);
+    document.getElementById("quizForm").addEventListener("input", handleObservationInput);
+    window.addEventListener("pagehide", function () { saveState(); });
+
+    renderMetadata();
+    renderQuiz();
+    renderTimer();
+    if (state.started && !state.finalized) startTiming();
+    if (state.finalized) renderResult();
+  </script>
+</body>
+</html>
