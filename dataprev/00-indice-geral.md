@@ -13,7 +13,6 @@ C:\Users\gabrieloliveira\Documents\pessoal\estudos\dataprev
 - `01-provas-pdf/`: edital, anexos, provas, gabaritos e documentos oficiais.
 - `02-roteiros/`: plano de estudos, cronogramas e roteiros semanais.
 - `03-simulados/`: simulados, controles de desempenho, logs e resultados.
-- `04-redacao/`: reservado apenas se alguma etapa futura exigir texto ou discursiva.
 - `05-revisoes-e-erros/`: caderno de erros, revisoes essenciais e pontos fracos.
 - `06-resumos/`: resumos por disciplina e mapas mentais em Markdown.
 - `07-flashcards/`: baralhos Anki e listas de memorizacao.
