@@ -1,0 +1,2493 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Base de Simulado | Sistemas Digitais</title>
+  <style>
+    :root {
+      --bg: #f5f6f2;
+      --surface: #ffffff;
+      --surface-alt: #f1f5f4;
+      --ink: #172320;
+      --muted: #52645f;
+      --line: #d8e0dc;
+      --primary: #006a63;
+      --primary-dark: #004f4b;
+      --primary-soft: #dff2ef;
+      --correct: #167043;
+      --correct-soft: #e1f4e7;
+      --wrong: #b43a31;
+      --wrong-soft: #fde9e6;
+      --warning: #946100;
+      --warning-soft: #fff3d4;
+      --shadow: 0 2px 14px rgba(18, 38, 34, 0.07);
+      --radius: 16px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--bg);
+      font: 16px/1.5 "Segoe UI", Arial, sans-serif;
+    }
+
+    code {
+      padding: 0.12rem 0.36rem;
+      border-radius: 5px;
+      background: #edf1f0;
+      font: 0.95em Consolas, "Courier New", monospace;
+    }
+
+    .hero {
+      padding: 40px 20px 28px;
+      color: #fff;
+      background: linear-gradient(132deg, #013b39, #00766d);
+    }
+
+    .container {
+      width: min(1040px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: clamp(1.7rem, 4vw, 2.4rem);
+      line-height: 1.15;
+    }
+
+    .subtitle {
+      max-width: 760px;
+      margin: 0;
+      color: #d4ece9;
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(125px, 1fr));
+      gap: 10px;
+      margin-top: 24px;
+    }
+
+    .meta-card {
+      padding: 12px 14px;
+      border: 1px solid rgba(255, 255, 255, 0.21);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.09);
+    }
+
+    .meta-card span {
+      display: block;
+      color: #cae6e3;
+      font-size: 0.83rem;
+    }
+
+    .meta-card strong { font-size: 1.05rem; }
+
+    .toolbar {
+      position: sticky;
+      z-index: 10;
+      top: 0;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.97);
+      backdrop-filter: blur(8px);
+    }
+
+    .toolbar-inner {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px 18px;
+      align-items: center;
+      padding: 13px 0;
+    }
+
+    .progress-group {
+      flex: 1 1 310px;
+      min-width: 230px;
+    }
+
+    .progress-label {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 4px 14px;
+      margin-bottom: 6px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 8px;
+      overflow: hidden;
+      border-radius: 99px;
+      background: #e5ebe9;
+    }
+
+    .progress-fill {
+      width: 0;
+      height: 100%;
+      border-radius: inherit;
+      background: var(--primary);
+      transition: width 160ms ease;
+    }
+
+    .toolbar-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .toolbar-timer {
+      display: flex;
+      flex-direction: column;
+      min-width: 103px;
+      padding: 5px 11px;
+      border: 1px solid #cddbd7;
+      border-radius: 9px;
+      color: var(--primary-dark);
+      background: var(--surface-alt);
+      line-height: 1.2;
+    }
+
+    .toolbar-timer span {
+      color: var(--muted);
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.035em;
+    }
+
+    .toolbar-timer strong {
+      font-size: 0.98rem;
+      font-variant-numeric: tabular-nums;
+    }
+
+    button {
+      cursor: pointer;
+      padding: 10px 15px;
+      border: 1px solid transparent;
+      border-radius: 9px;
+      color: #fff;
+      background: var(--primary);
+      font: inherit;
+      font-weight: 600;
+      transition: background 120ms ease, transform 120ms ease;
+    }
+
+    button:hover { background: var(--primary-dark); }
+    button:active { transform: translateY(1px); }
+    button:disabled { cursor: not-allowed; opacity: 0.5; transform: none; }
+
+    .button-secondary {
+      border-color: var(--line);
+      color: var(--primary-dark);
+      background: #fff;
+    }
+
+    .button-secondary:hover { background: var(--surface-alt); }
+
+    .button-warning {
+      border-color: #e6cd96;
+      color: var(--warning);
+      background: var(--warning-soft);
+    }
+
+    .button-warning:hover { background: #ffedc2; }
+
+    main { padding: 25px 0 54px; }
+
+    .notice, .start-panel, .question-navigator {
+      margin-bottom: 20px;
+      padding: 16px 18px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+      box-shadow: var(--shadow);
+    }
+
+    .notice h2, .start-panel h2 {
+      margin: 0 0 7px;
+      font-size: 1.1rem;
+    }
+
+    .notice p, .start-panel p { margin: 6px 0; color: var(--muted); }
+    .start-panel.started { display: none; }
+
+    .question-navigator-head {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 10px 18px;
+      align-items: flex-start;
+      margin-bottom: 14px;
+    }
+
+    .question-navigator h2 {
+      margin: 0 0 4px;
+      font-size: 1.1rem;
+    }
+
+    .question-navigator-description {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .question-nav-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 14px;
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    .question-nav-legend-item {
+      display: inline-flex;
+      gap: 6px;
+      align-items: center;
+      white-space: nowrap;
+    }
+
+    .question-nav-swatch {
+      display: inline-block;
+      width: 18px;
+      height: 18px;
+      border: 2px solid;
+      border-radius: 6px;
+    }
+
+    .question-nav-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .question-nav-item {
+      position: relative;
+      display: inline-flex;
+      width: 44px;
+      height: 42px;
+      padding: 0;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      line-height: 1;
+      transition: transform 120ms ease, box-shadow 120ms ease, background 120ms ease;
+    }
+
+    .question-nav-item:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 3px 8px rgba(18, 38, 34, 0.13);
+    }
+
+    .question-nav-item:focus-visible {
+      outline: 3px solid rgba(0, 106, 99, 0.25);
+      outline-offset: 1px;
+    }
+
+    .question-nav-note {
+      position: absolute;
+      top: 2px;
+      right: 4px;
+      font-size: 0.78rem;
+      line-height: 1;
+    }
+
+    .question-nav-item.status-blank,
+    .question-nav-swatch.status-blank {
+      border-color: #aeb8b5;
+      color: #61706d;
+      background: #eef1f0;
+    }
+
+    .question-nav-item.status-answered,
+    .question-nav-swatch.status-answered {
+      border-color: #377dbf;
+      color: #235b91;
+      background: #e6f1fd;
+    }
+
+    .question-nav-item.status-unknown,
+    .question-nav-swatch.status-unknown {
+      border-color: #d49a24;
+      color: #8a5a00;
+      background: var(--warning-soft);
+    }
+
+    .question-nav-item.status-correct,
+    .question-nav-swatch.status-correct {
+      border-color: var(--correct);
+      color: var(--correct);
+      background: var(--correct-soft);
+    }
+
+    .question-nav-item.status-wrong,
+    .question-nav-swatch.status-wrong {
+      border-color: var(--wrong);
+      color: var(--wrong);
+      background: var(--wrong-soft);
+    }
+
+    .question-navigator-bottom {
+      margin-top: 28px;
+      margin-bottom: 0;
+    }
+
+    .back-to-top {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 15;
+      display: inline-flex;
+      width: 42px;
+      height: 42px;
+      padding: 0;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #bbd8d4;
+      border-radius: 12px;
+      color: var(--primary-dark);
+      background: var(--primary-soft);
+      box-shadow: var(--shadow);
+      font-size: 1.3rem;
+      line-height: 1;
+    }
+
+    .back-to-top:hover {
+      color: #fff;
+      background: var(--primary);
+    }
+
+    .block-heading {
+      margin: 34px 0 15px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #dbe6e3;
+      color: var(--primary-dark);
+      font-size: 1.35rem;
+    }
+
+    .question {
+      margin: 0 0 14px;
+      padding: 20px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+      box-shadow: var(--shadow);
+      scroll-margin-top: 86px;
+    }
+
+    .question:focus {
+      outline: 3px solid rgba(0, 106, 99, 0.22);
+      outline-offset: 2px;
+    }
+
+    .question.correct {
+      border-color: #acd5b8;
+      background: #fcfffd;
+    }
+
+    .question.wrong, .question.unanswered {
+      border-color: #efb9b3;
+      background: #fffdfc;
+    }
+
+    .question.declared-unknown {
+      border-color: #e8cf99;
+      background: #fffefa;
+    }
+
+    .question-title {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      margin-bottom: 12px;
+    }
+
+    .question-copy {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .question-buttons {
+      display: flex;
+      flex: none;
+      gap: 6px;
+      align-items: flex-start;
+    }
+
+    .number {
+      flex: none;
+      min-width: 40px;
+      padding: 4px 7px;
+      border-radius: 8px;
+      color: var(--primary-dark);
+      background: var(--primary-soft);
+      text-align: center;
+      font-weight: 700;
+    }
+
+    .prompt { margin: 0; font-weight: 600; }
+
+    .question-artifacts {
+      display: grid;
+      gap: 12px;
+      margin: 14px 0 16px;
+    }
+
+    .artifact-caption {
+      margin: 0 0 6px;
+      color: var(--muted);
+      font-size: 0.92rem;
+      font-weight: 600;
+    }
+
+    .artifact-table-wrap {
+      max-width: 100%;
+      overflow-x: auto;
+    }
+
+    .artifact-table {
+      border-collapse: collapse;
+      color: var(--ink);
+      background: #fff;
+      font-size: 0.94rem;
+    }
+
+    .artifact-table th, .artifact-table td {
+      min-width: 48px;
+      padding: 7px 12px;
+      border: 1px solid #cbd6d2;
+      text-align: center;
+    }
+
+    .artifact-table th {
+      background: #edf5f3;
+      font-weight: 700;
+    }
+
+    .artifact-table.kmap-table {
+      font-family: Consolas, "Courier New", monospace;
+    }
+
+    .artifact-table.kmap-table th, .artifact-table.kmap-table td {
+      min-width: 58px;
+      height: 43px;
+    }
+
+    .artifact-table.kmap-table .kmap-literal,
+    .artifact-table.kmap-table .kmap-spacer {
+      border: 0;
+      background: transparent;
+      color: var(--primary-dark);
+      font-weight: 700;
+    }
+
+    .artifact-table.kmap-table .kmap-literal-column {
+      height: auto;
+      padding: 2px 12px 5px;
+      font-size: 1rem;
+    }
+
+    .artifact-table.kmap-table .kmap-literal-column-bottom {
+      padding: 5px 12px 2px;
+    }
+
+    .artifact-table.kmap-table .kmap-literal-row-left {
+      padding: 0 11px 0 0;
+      vertical-align: middle;
+      font-size: 1rem;
+    }
+
+    .artifact-table.kmap-table .kmap-literal-row-right {
+      padding: 0 0 0 11px;
+      vertical-align: middle;
+      font-size: 1rem;
+    }
+
+    .artifact-code {
+      overflow-x: auto;
+      margin: 0;
+      padding: 11px 13px;
+      border: 1px solid #d7e1de;
+      border-radius: 8px;
+      color: var(--ink);
+      background: var(--surface-alt);
+      font: 0.94rem/1.5 Consolas, "Courier New", monospace;
+      white-space: pre;
+    }
+
+    .options {
+      display: grid;
+      gap: 8px;
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+
+    .option {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      padding: 10px 12px;
+      border: 1px solid #e3e8e6;
+      border-radius: 9px;
+      transition: background 100ms ease, border-color 100ms ease;
+    }
+
+    .option:hover { background: #f6faf9; }
+
+    .option input {
+      flex: none;
+      width: 17px;
+      height: 17px;
+      margin: 3px 0 0;
+      accent-color: var(--primary);
+    }
+
+    .option.selected { border-color: #9dc9c4; background: #edf8f6; }
+    .option.answer-correct { border-color: #89c29b; background: var(--correct-soft); }
+    .option.answer-wrong { border-color: #df9c96; background: var(--wrong-soft); }
+
+    .question-actions {
+      display: flex;
+      align-items: center;
+      margin-top: 13px;
+    }
+
+    .question-tool-button {
+      flex: none;
+      padding: 6px 11px;
+      font-size: 0.9rem;
+      line-height: 1.25;
+    }
+
+    .unknown-note {
+      display: none;
+      color: var(--warning);
+      font-size: 0.92rem;
+      font-weight: 600;
+    }
+
+    .declared-unknown .unknown-note { display: block; }
+
+    .observation-panel {
+      display: none;
+      margin-top: 12px;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      background: var(--surface-alt);
+    }
+
+    .observation-panel.visible { display: block; }
+
+    .observation-panel label {
+      display: block;
+      margin-bottom: 7px;
+      color: var(--muted);
+      font-size: 0.92rem;
+      font-weight: 600;
+    }
+
+    .observation-panel textarea {
+      display: block;
+      width: 100%;
+      min-height: 82px;
+      padding: 9px 10px;
+      resize: vertical;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      color: var(--ink);
+      background: #fff;
+      font: inherit;
+    }
+
+    .observation-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      margin-top: 9px;
+    }
+
+    .observation-status {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .observation-saved {
+      margin: 0;
+      white-space: pre-wrap;
+    }
+
+    .feedback {
+      display: none;
+      margin-top: 14px;
+      padding: 11px 13px;
+      border-radius: 9px;
+      font-size: 0.95rem;
+    }
+
+    .correct .feedback {
+      display: block;
+      color: var(--correct);
+      background: var(--correct-soft);
+    }
+
+    .wrong .feedback, .unanswered .feedback {
+      display: block;
+      color: var(--wrong);
+      background: var(--wrong-soft);
+    }
+
+    .feedback p { margin: 4px 0; }
+
+    .result {
+      display: none;
+      margin: 0 0 26px;
+      padding: 23px;
+      border: 1px solid #b3d8d4;
+      border-radius: var(--radius);
+      background: var(--surface);
+      box-shadow: var(--shadow);
+    }
+
+    .result.visible { display: block; }
+
+    .score-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .score {
+      min-width: 152px;
+      padding: 16px;
+      border-radius: 12px;
+      color: #fff;
+      background: var(--primary);
+      text-align: center;
+    }
+
+    .score strong {
+      display: block;
+      font-size: 2.25rem;
+      line-height: 1.15;
+    }
+
+    .diagnostic h2 { margin: 0 0 6px; }
+    .diagnostic p { margin: 0; color: var(--muted); }
+
+    .results-table {
+      width: 100%;
+      margin: 16px 0 20px;
+      border-collapse: collapse;
+      font-size: 0.95rem;
+    }
+
+    .results-table th, .results-table td {
+      padding: 9px 10px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+    }
+
+    .results-table th { color: var(--muted); }
+
+    .export-help {
+      margin: 12px 0 0;
+      color: var(--muted);
+      font-size: 0.93rem;
+    }
+
+    .toast {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 20;
+      display: none;
+      padding: 12px 16px;
+      border-radius: 10px;
+      color: #fff;
+      background: var(--primary-dark);
+      box-shadow: var(--shadow);
+    }
+
+    .toast.visible { display: block; }
+
+    @media (max-width: 700px) {
+      .meta-grid { grid-template-columns: repeat(2, minmax(120px, 1fr)); }
+      .question { padding: 16px; }
+      .toolbar-buttons { width: 100%; }
+      .toolbar-buttons button { flex: 1; }
+      .toolbar-timer { flex: 1; }
+      .question-nav-item { width: 41px; height: 39px; }
+    }
+
+    @media print {
+      .toolbar, .result .toolbar-buttons, .toast, .question-actions, .question-navigator, .back-to-top { display: none !important; }
+      body { background: #fff; }
+      .question { break-inside: avoid; box-shadow: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="container">
+      <h1 id="title">Simulado</h1>
+      <p class="subtitle" id="subtitle"></p>
+      <div class="meta-grid" aria-label="Informações do simulado">
+        <div class="meta-card"><span>Questões</span><strong id="questionCount">0 objetivas</strong></div>
+        <div class="meta-card"><span>Tempo sugerido</span><strong id="suggestedTime">-</strong></div>
+        <div class="meta-card"><span>Meta</span><strong id="goal">-</strong></div>
+        <div class="meta-card"><span>Tempo executado</span><strong id="timer">00:00:00</strong></div>
+      </div>
+    </div>
+  </header>
+
+  <div class="toolbar">
+    <div class="container toolbar-inner">
+      <div class="progress-group">
+        <div class="progress-label">
+          <span id="answeredLabel">0 respondidas</span>
+          <span id="saveLabel">Aguardando início</span>
+        </div>
+        <div class="progress-track" aria-hidden="true"><div class="progress-fill" id="progressFill"></div></div>
+      </div>
+      <div class="toolbar-buttons">
+        <div class="toolbar-timer" aria-label="Tempo executado na prova">
+          <span>Tempo</span>
+          <strong id="toolbarTimer">00:00:00</strong>
+        </div>
+        <button type="button" id="finishButton" disabled>Finalizar e corrigir</button>
+        <button type="button" class="button-secondary" id="resetButton">Reiniciar</button>
+      </div>
+    </div>
+  </div>
+
+  <main class="container">
+    <section class="question-navigator" id="questionNavigator" aria-label="Resumo das questões">
+      <div class="question-navigator-head">
+        <div>
+          <h2>Resumo das questões</h2>
+          <p class="question-navigator-description">Clique em um número para ir até a questão. <strong>*</strong> indica OBS salva.</p>
+        </div>
+        <div class="question-nav-legend" id="questionNavLegend" aria-label="Legenda do resumo"></div>
+      </div>
+      <div class="question-nav-grid" id="questionNavGrid"></div>
+    </section>
+
+    <section class="start-panel" id="startPanel">
+      <h2>Pronto para começar?</h2>
+      <p>O cronômetro começa somente ao clicar em <strong>Iniciar prova</strong>. Ele conta o tempo com este arquivo aberto; se você fechar e voltar dias depois, continua do tempo salvo, sem incluir o intervalo fechado.</p>
+      <button type="button" id="startButton">Iniciar prova</button>
+    </section>
+
+    <section class="notice" aria-label="Instrucoes">
+      <h2>Como usar</h2>
+      <p>Escolha uma alternativa quando souber responder. Se não souber, clique em <strong>Não sei</strong> ao lado da questão; isso será registrado no relatório para revisão, em vez de virar chute.</p>
+      <p>Use <strong>OBS</strong> para anotar dúvidas ou raciocínios da questão. A observação só será gravada quando você clicar em <strong>Salvar OBS</strong>.</p>
+      <p>As respostas e o tempo executado ficam salvos neste navegador. O gabarito aparece apenas depois de finalizar.</p>
+      <p>Depois da correção, envie o relatório para a IA: ele já solicita o arquivamento do resultado e a criação de uma pasta própria com tudo o que você precisa revisar.</p>
+    </section>
+
+    <section id="result" class="result" aria-live="polite"></section>
+    <form id="quizForm"></form>
+
+    <section class="question-navigator question-navigator-bottom" id="questionNavigatorBottom" aria-label="Resumo final das questões">
+      <div class="question-navigator-head">
+        <div>
+          <h2>Resumo das questões</h2>
+          <p class="question-navigator-description">Clique em um número para voltar à questão. <strong>*</strong> indica OBS salva.</p>
+        </div>
+        <div class="question-nav-legend" id="questionNavLegendBottom" aria-label="Legenda do resumo final"></div>
+      </div>
+      <div class="question-nav-grid" id="questionNavGridBottom"></div>
+    </section>
+  </main>
+
+  <button type="button" class="back-to-top" id="backToTopButton" aria-label="Voltar ao topo">&uarr;</button>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    "use strict";
+
+    /*
+      BASE PARA OS PRÓXIMOS SIMULADOS
+      1. Duplique este HTML e altere CONFIG, blocks e questions.
+      2. Use uma storageKey exclusiva em cada simulado.
+      3. Não é necessário importar JSON: as questões ficam no próprio HTML.
+
+      MATERIAIS OPCIONAIS DA QUESTÃO
+      Use "artifacts" quando o enunciado precisar de uma tabela ou bloco visual:
+
+      Tabela-verdade:
+      artifacts: [{
+        type: "table",
+        caption: "Tabela fornecida",
+        headers: ["A", "B", "F"],
+        rows: [["0", "0", "0"], ["0", "1", "1"], ["1", "0", "1"], ["1", "1", "1"]]
+      }]
+
+      Mapa de Karnaugh:
+      artifacts: [{
+        type: "table",
+        variant: "kmap",
+        rowVariable: "AB",
+        columnVariable: "CD",
+        rowHeader: true,
+        caption: "Mapa fornecido",
+        headers: ["00", "01", "11", "10"],
+        rows: [["00", "1", "0", "0", "1"], ["01", "0", "0", "0", "0"],
+          ["11", "0", "0", "0", "0"], ["10", "1", "0", "0", "1"]]
+      }]
+
+      Ligações de circuito, sequência temporal ou expressão em várias linhas:
+      artifacts: [{
+        type: "code",
+        caption: "Circuito descrito por sinais",
+        content: "N1 = A AND B\nN2 = C AND D\nF  = N1 OR N2"
+      }]
+
+      Tabelas também servem para estados Moore/Mealy, sinais de temporização,
+      decoders, codificadores e resultados de blocos lógicos.
+    */
+    const CONFIG = {
+      "numero": "14",
+      "titulo": "Simulado 14 - Geral Aulas 1 a 27 - Extremo",
+      "subtitulo": "Sistemas Digitais - UFCG | 50 questões muito difíceis, com pegadinhas, integração de assuntos, múltiplas etapas, rastreamento, temporização, CMOS, memórias, FPGA, assembly e datapath",
+      "tempoSugerido": "3h a 4h",
+      "meta": "32/50 aceitável neste nível; 38/50+ forte; 43/50+ excelente",
+      "storageKey": "simulado_14_geral_aulas_1_a_27_extremo_50_questoes_v1",
+      "nomeRelatorio": "resultado_simulado_14_geral_aulas_1_a_27_extremo.txt"
+};
+
+    const letters = ["A", "B", "C", "D", "E"];
+
+    const blocks = [
+      {
+            "id": 1,
+            "title": "Aulas 1 e 2 - Sistemas numéricos, complemento de 2 e códigos",
+            "review": "08-aulas/aulas-md/1-binarios_operacoes_sinal_complemento2.md; 08-aulas/aulas-md/2-codigos_binarios_bcd_gray_ascii_checksum.md"
+      },
+      {
+            "id": 2,
+            "title": "Aulas 3 a 9 - Lógica booleana, formas canônicas, Karnaugh e síntese",
+            "review": "08-aulas/aulas-md/3-portas_logicas_operacoes_booleanas.md; 08-aulas/aulas-md/4-algebra_booleana_axiomas_leis_simplificacao.md; 08-aulas/aulas-md/5-demorgan_dualidade_nand_nor_simplificacao.md; 08-aulas/aulas-md/6-valores_logicos_formas_canonicas_mintermos_maxtermos.md; 08-aulas/aulas-md/7-mapas_karnaugh_2_3_variaveis_minimizacao_sop.md; 08-aulas/aulas-md/8-mapas_karnaugh_4_variaveis_dont_care.md; 08-aulas/aulas-md/9-sintese_logica_completa_sop_pos_nand_nor.md"
+      },
+      {
+            "id": 3,
+            "title": "Aulas 10, 11 e 16 - Blocos combinacionais e FSM",
+            "review": "08-aulas/aulas-md/10-mux_demux_decoder_encoder_comparador_blocos_combinacionais.md; 08-aulas/aulas-md/11-introducao_fsm_maquinas_estados_moore_mealy.md; 08-aulas/aulas-md/16-sintese_maquinas_estados_fsm_flip_flops_d.md"
+      },
+      {
+            "id": 4,
+            "title": "Aulas 12 a 15 - Latches, flip-flops, registradores, contadores e temporização",
+            "review": "08-aulas/aulas-md/12-estabilidade_latch_sr_latch_d.md; 08-aulas/aulas-md/13-flip_flops_registradores.md; 08-aulas/aulas-md/14-contadores_assincronos_sincronos_divisao_frequencia.md; 08-aulas/aulas-md/15-temporizacao_sequencial_setup_hold_caminho_critico.md"
+      },
+      {
+            "id": 5,
+            "title": "Aulas 17 a 19 - Ponto fixo/flutuante, somadores, shifter e ULA",
+            "review": "08-aulas/aulas-md/17-ponto_fixo_ponto_flutuante.md; 08-aulas/aulas-md/18-somadores_half_adder_full_adder_ripple_carry.md; 08-aulas/aulas-md/19-subtrator_comparador_shifter_ula.md"
+      },
+      {
+            "id": 6,
+            "title": "Aulas 20 a 22 - MOS, CMOS, potência, atraso, glitch e hazard",
+            "review": "08-aulas/aulas-md/20-fisica_basica_transistores_mos.md; 08-aulas/aulas-md/21-cmos_combinacional.md; 08-aulas/aulas-md/22-potencia_atraso_caminho_critico_hazards.md"
+      },
+      {
+            "id": 7,
+            "title": "Aulas 23 e 24 - Memórias e lógica programável",
+            "review": "08-aulas/aulas-md/23-memorias_banco_registradores_rom_sram_dram.md; 08-aulas/aulas-md/24-logica_programavel_prom_pla_pal_cpld_fpga.md"
+      },
+      {
+            "id": 8,
+            "title": "Aulas 25 a 27 - Assembly, formatos, endereçamento, datapath e controle",
+            "review": "08-aulas/aulas-md/25-algoritmos_procedurais_assembly_basico_operandos.md; 08-aulas/aulas-md/26-formatos_tipos_instrucao_modos_enderecamento.md; 08-aulas/aulas-md/27-datapath_controle_processador.md"
+      }
+];
+
+    const questions = [
+      {
+            "id": 1,
+            "block": 1,
+            "topic": "Soma em complemento de 2, carry-out e overflow signed",
+            "prompt": "Considere a soma de dois padrões de 8 bits: <code>01110110 + 01011101</code>. O resultado é truncado para 8 bits. Qual alternativa informa corretamente o padrão final, o carry-out e o overflow assinado?",
+            "options": [
+                  "<code>11010011</code>, carry-out <code>1</code>, overflow assinado <code>0</code>",
+                  "<code>11010011</code>, carry-out <code>0</code>, overflow assinado <code>0</code>",
+                  "<code>11010011</code>, carry-out <code>0</code>, overflow assinado <code>1</code>",
+                  "<code>01010011</code>, carry-out <code>1</code>, overflow assinado <code>1</code>",
+                  "<code>00110011</code>, carry-out <code>1</code>, overflow assinado <code>0</code>"
+            ],
+            "correct": "C",
+            "explanation": "118 + 93 = 211, que em 8 bits é <code>11010011</code>. Não há carry-out porque 211 cabe em unsigned de 8 bits. Como dois operandos positivos geraram resultado com MSB 1, há overflow assinado."
+      },
+      {
+            "id": 2,
+            "block": 1,
+            "topic": "Soma BCD com correção por dígito",
+            "prompt": "Some os valores BCD <code>0100 1000</code> e <code>0101 0111</code>, corrigindo cada dígito quando necessário. Qual resultado BCD representa a soma?",
+            "options": [
+                  "<code>0001 0000 0101</code>",
+                  "<code>1001 1111</code>",
+                  "<code>0000 1111 0101</code>",
+                  "<code>0001 0001 0101</code>",
+                  "<code>0000 1010 0101</code>"
+            ],
+            "correct": "A",
+            "explanation": "48 + 57 = 105. No dígito das unidades, 8 + 7 = 15 exige correção com +6, gerando 5 e carry. Nas dezenas, 4 + 5 + 1 = 10 também exige correção, gerando 0 e carry para a centena: <code>0001 0000 0101</code>."
+      },
+      {
+            "id": 3,
+            "block": 1,
+            "topic": "Código Gray e conversão com próximo valor",
+            "prompt": "Um contador fornece a palavra Gray <code>1101</code>. Se ela for convertida para binário, incrementada de 1 e convertida novamente para Gray, qual palavra aparece?",
+            "options": [
+                  "<code>1010</code>",
+                  "<code>1001</code>",
+                  "<code>1110</code>",
+                  "<code>0101</code>",
+                  "<code>1111</code>"
+            ],
+            "correct": "E",
+            "explanation": "Gray <code>1101</code> vira binário <code>1001</code> (9). Incrementando: 10 = <code>1010</code>. Convertendo binário para Gray: <code>1010 XOR 0101 = 1111</code>."
+      },
+      {
+            "id": 4,
+            "block": 1,
+            "topic": "Checksum de 8 bits e paridade",
+            "prompt": "Três bytes de dados são <code>3A</code>, <code>C5</code> e <code>10</code>. Deseja-se acrescentar um byte de checksum para que a soma de todos os bytes, módulo 256, seja zero. Também será acrescentado um bit de paridade par ao byte de checksum. Qual alternativa está correta?",
+            "options": [
+                  "Checksum <code>0F</code> e bit de paridade <code>0</code>",
+                  "Checksum <code>F1</code> e bit de paridade <code>1</code>",
+                  "Checksum <code>F0</code> e bit de paridade <code>0</code>",
+                  "Checksum <code>0F</code> e bit de paridade <code>1</code>",
+                  "Checksum <code>F1</code> e bit de paridade <code>0</code>"
+            ],
+            "correct": "B",
+            "explanation": "<code>0x3A + 0xC5 + 0x10 = 0x10F</code>, cujo byte baixo é <code>0x0F</code>. O complemento módulo 256 é <code>0xF1</code>. <code>F1 = 11110001</code> tem 5 bits 1, então a paridade par exige bit extra 1."
+      },
+      {
+            "id": 5,
+            "block": 1,
+            "topic": "Tri-state, Z e contenção",
+            "prompt": "Dois circuitos dirigem o mesmo barramento. Em certo instante, o primeiro força <code>0</code>, o segundo força <code>1</code> e nenhum deles está em alta impedância. O que descreve melhor a situação?",
+            "options": [
+                  "O barramento vale <code>Z</code>, pois os sinais se anulam.",
+                  "O barramento vale <code>1</code>, pois nível alto domina nível baixo.",
+                  "O barramento vale <code>0</code>, pois nível baixo domina nível alto.",
+                  "Há contenção de barramento, com valor indefinido e possível corrente elevada.",
+                  "O barramento passa a implementar uma operação XOR entre os drivers."
+            ],
+            "correct": "D",
+            "explanation": "Alta impedância ocorre quando o driver está desligado. Se dois drivers ativos forçam níveis opostos no mesmo fio, há contenção, valor indefinido e risco de corrente elevada."
+      },
+      {
+            "id": 6,
+            "block": 2,
+            "topic": "DeMorgan em expressão multinível",
+            "prompt": "Considere a expressão <code>((A + B')C)'</code>. Qual forma equivalente está completamente empurrada para literais e operadores AND/OR?",
+            "options": [
+                  "<code>A'B + C'</code>",
+                  "<code>(A' + B)C'</code>",
+                  "<code>A' + B + C'</code>",
+                  "<code>A(B' + C')</code>",
+                  "<code>A'B'C'</code>"
+            ],
+            "correct": "A",
+            "explanation": "<code>((A+B')C)' = (A+B')' + C'</code>. Pelo DeMorgan, <code>(A+B')' = A'B</code>. Logo, <code>A'B + C'</code>."
+      },
+      {
+            "id": 7,
+            "block": 2,
+            "topic": "POS por maxtermos",
+            "prompt": "Para uma função de quatro variáveis <code>F(A,B,C,D)=ΠM(1,5,9,13)</code>, qual termo POS mínimo representa esse agrupamento de zeros?",
+            "options": [
+                  "<code>C'D</code>",
+                  "<code>C' + D</code>",
+                  "<code>CD'</code>",
+                  "<code>C + D'</code>",
+                  "<code>A + B + C + D'</code>"
+            ],
+            "correct": "D",
+            "explanation": "Os índices 1, 5, 9 e 13 são <code>0001, 0101, 1001, 1101</code>. Neles, <code>C=0</code> e <code>D=1</code>. Em POS, a variável que vale 0 entra normal e a que vale 1 entra complementada: <code>C + D'</code>."
+      },
+      {
+            "id": 8,
+            "block": 2,
+            "topic": "Karnaugh com don't care",
+            "prompt": "Considere o mapa de Karnaugh de <code>F(A,B,C,D)</code>. Os valores <code>X</code> podem ser usados como don't care. Qual expressão mínima SOP é obtida?",
+            "artifacts": [
+                  {
+                        "type": "table",
+                        "variant": "kmap",
+                        "rowVariable": "AB",
+                        "columnVariable": "CD",
+                        "rowHeader": true,
+                        "caption": "Mapa fornecido",
+                        "headers": [
+                              "00",
+                              "01",
+                              "11",
+                              "10"
+                        ],
+                        "rows": [
+                              [
+                                    "00",
+                                    "1",
+                                    "X",
+                                    "X",
+                                    "1"
+                              ],
+                              [
+                                    "01",
+                                    "0",
+                                    "0",
+                                    "0",
+                                    "0"
+                              ],
+                              [
+                                    "11",
+                                    "0",
+                                    "0",
+                                    "0",
+                                    "0"
+                              ],
+                              [
+                                    "10",
+                                    "1",
+                                    "X",
+                                    "X",
+                                    "1"
+                              ]
+                        ]
+                  }
+            ],
+            "options": [
+                  "<code>A'</code>",
+                  "<code>B</code>",
+                  "<code>B'</code>",
+                  "<code>C'</code>",
+                  "<code>A + B'</code>"
+            ],
+            "correct": "C",
+            "explanation": "Usando os don't cares das colunas 01 e 11 nas linhas com <code>B=0</code>, forma-se um grupo de 8 células cobrindo toda a região <code>B=0</code>. A expressão mínima é <code>B'</code>."
+      },
+      {
+            "id": 9,
+            "block": 2,
+            "topic": "Implementação NAND",
+            "prompt": "Deseja-se implementar <code>F=A+B</code> usando apenas portas NAND de duas entradas. Qual ligação realiza a função sem usar inversores externos?",
+            "options": [
+                  "<code>F = (A NAND B) NAND (A NAND B)</code>",
+                  "<code>F = A NAND B</code>",
+                  "<code>F = (A NAND A) NAND B</code>",
+                  "<code>F = A NAND (B NAND B)</code>",
+                  "<code>F = (A NAND A) NAND (B NAND B)</code>"
+            ],
+            "correct": "E",
+            "explanation": "Pelo DeMorgan, <code>A+B=(A'B')'</code>. Com NAND, <code>A' = A NAND A</code> e <code>B' = B NAND B</code>. Depois, <code>F=A' NAND B'</code>."
+      },
+      {
+            "id": 10,
+            "block": 2,
+            "topic": "Hazard estático e consenso",
+            "prompt": "A função <code>F=AB + A'C</code> é implementada como soma de produtos em dois níveis. Para reduzir o risco de hazard estático-1 quando <code>A</code> comuta enquanto <code>B=C=1</code>, qual termo de consenso deve ser acrescentado?",
+            "options": [
+                  "<code>AC</code>",
+                  "<code>BC</code>",
+                  "<code>A'B</code>",
+                  "<code>B'C'</code>",
+                  "<code>AB'C</code>"
+            ],
+            "correct": "B",
+            "explanation": "Os termos <code>AB</code> e <code>A'C</code> cobrem os dois lados da transição de <code>A</code>. O consenso é <code>BC</code>, que mantém a saída coberta quando <code>B=C=1</code>."
+      },
+      {
+            "id": 11,
+            "block": 3,
+            "topic": "Decoder ativo baixo",
+            "prompt": "Um decodificador 3-para-8 tem enable ativo em baixo e saídas ativas em baixo. Com <code>EN_n=0</code> e entrada <code>101</code>, qual saída fica selecionada?",
+            "options": [
+                  "<code>Y5=1</code> e as demais em <code>0</code>",
+                  "<code>Y2=0</code> e as demais em <code>1</code>",
+                  "<code>Y5=0</code> e as demais em <code>1</code>",
+                  "Todas as saídas ficam em <code>Z</code>",
+                  "Nenhuma saída é selecionada porque <code>EN_n=0</code> desabilita o bloco"
+            ],
+            "correct": "C",
+            "explanation": "<code>EN_n=0</code> habilita o decoder. A entrada <code>101</code> seleciona a saída 5. Como as saídas são ativas em baixo, <code>Y5=0</code> e as demais ficam em <code>1</code>."
+      },
+      {
+            "id": 12,
+            "block": 3,
+            "topic": "MUX implementando função",
+            "prompt": "Um MUX 4:1 usa <code>A B</code> como seletores, com <code>00→D0</code>, <code>01→D1</code>, <code>10→D2</code> e <code>11→D3</code>. Para implementar <code>F(A,B,C)=Σm(1,2,6,7)</code>, quais entradas devem ser usadas?",
+            "options": [
+                  "<code>D0=C'</code>, <code>D1=C</code>, <code>D2=0</code>, <code>D3=1</code>",
+                  "<code>D0=1</code>, <code>D1=C'</code>, <code>D2=C</code>, <code>D3=0</code>",
+                  "<code>D0=C</code>, <code>D1=1</code>, <code>D2=0</code>, <code>D3=C'</code>",
+                  "<code>D0=0</code>, <code>D1=C</code>, <code>D2=C'</code>, <code>D3=1</code>",
+                  "<code>D0=C</code>, <code>D1=C'</code>, <code>D2=0</code>, <code>D3=1</code>"
+            ],
+            "correct": "E",
+            "explanation": "Para <code>AB=00</code>, F vale 1 só quando <code>C=1</code>, então <code>D0=C</code>. Para <code>AB=01</code>, F vale 1 quando <code>C=0</code>, então <code>D1=C'</code>. Para <code>AB=10</code>, F=0. Para <code>AB=11</code>, F=1."
+      },
+      {
+            "id": 13,
+            "block": 3,
+            "topic": "Comparação signed e unsigned",
+            "prompt": "Considere dois padrões de 4 bits: <code>A=1001</code> e <code>B=0111</code>. Qual afirmação é verdadeira?",
+            "options": [
+                  "Como unsigned, <code>A>B</code>; como signed em complemento de 2, <code>A<B</code>.",
+                  "Como unsigned, <code>A<B</code>; como signed em complemento de 2, <code>A>B</code>.",
+                  "Em ambas as interpretações, <code>A>B</code>.",
+                  "Em ambas as interpretações, <code>A<B</code>.",
+                  "Não é possível comparar sem um bit de carry externo."
+            ],
+            "correct": "A",
+            "explanation": "Unsigned: <code>1001=9</code> e <code>0111=7</code>, então A>B. Signed em complemento de 2: <code>1001=-7</code> e <code>0111=+7</code>, então A<B."
+      },
+      {
+            "id": 14,
+            "block": 3,
+            "topic": "Mealy com sobreposição",
+            "prompt": "Uma máquina Mealy detecta a sequência <code>101</code> com sobreposição, emitindo <code>1</code> no mesmo ciclo em que o último bit da sequência é lido. Para a entrada <code>10101</code>, qual sequência de saída é esperada?",
+            "options": [
+                  "<code>00010</code>",
+                  "<code>00100</code>",
+                  "<code>00001</code>",
+                  "<code>00101</code>",
+                  "<code>10100</code>"
+            ],
+            "correct": "D",
+            "explanation": "A sequência <code>101</code> aparece nas posições 1-3 e 3-5. Como é Mealy, a saída sobe no próprio bit final de cada ocorrência: saídas nos ciclos 3 e 5, isto é <code>00101</code>."
+      },
+      {
+            "id": 15,
+            "block": 3,
+            "topic": "Equação D a partir de tabela de próximo estado",
+            "prompt": "A tabela abaixo dá o próximo estado de <code>Q1Q0</code> para cada valor de <code>X</code>. Qual expressão corresponde a <code>D0</code>?",
+            "artifacts": [
+                  {
+                        "type": "table",
+                        "caption": "Próximo estado",
+                        "headers": [
+                              "Estado atual",
+                              "X=0",
+                              "X=1"
+                        ],
+                        "rows": [
+                              [
+                                    "00",
+                                    "01",
+                                    "10"
+                              ],
+                              [
+                                    "01",
+                                    "01",
+                                    "11"
+                              ],
+                              [
+                                    "10",
+                                    "00",
+                                    "10"
+                              ],
+                              [
+                                    "11",
+                                    "00",
+                                    "11"
+                              ]
+                        ]
+                  }
+            ],
+            "options": [
+                  "<code>D0=XQ1 + X'Q0</code>",
+                  "<code>D0=X'Q1' + XQ0</code>",
+                  "<code>D0=X'Q0 + XQ1</code>",
+                  "<code>D0=Q1 XOR X</code>",
+                  "<code>D0=X + Q0</code>"
+            ],
+            "correct": "B",
+            "explanation": "Em FF D, <code>D0=Q0+</code>. Para <code>X=0</code>, o bit <code>Q0+</code> vale 1 quando <code>Q1=0</code>, logo <code>Q1'</code>. Para <code>X=1</code>, <code>Q0+=Q0</code>. Portanto, <code>D0=X'Q1' + XQ0</code>."
+      },
+      {
+            "id": 16,
+            "block": 4,
+            "topic": "Latch D transparente",
+            "prompt": "Um latch D sensível a nível alto começa com <code>Q=0</code>. A sequência de eventos é: <code>EN=1,D=1</code>; depois <code>EN=0,D=0</code>; depois <code>EN=1,D=0</code>. Qual é a evolução de <code>Q</code> após cada evento?",
+            "options": [
+                  "<code>0,0,0</code>",
+                  "<code>1,0,0</code>",
+                  "<code>1,1,1</code>",
+                  "<code>0,1,0</code>",
+                  "<code>1,1,0</code>"
+            ],
+            "correct": "E",
+            "explanation": "Com <code>EN=1</code>, o latch é transparente e Q segue D: vira 1. Com <code>EN=0</code>, mantém o valor anterior mesmo que D caia para 0. Quando <code>EN</code> volta a 1 com D=0, Q passa a 0."
+      },
+      {
+            "id": 17,
+            "block": 4,
+            "topic": "Flip-flop JK",
+            "prompt": "Um flip-flop JK inicia em <code>Q=0</code>. Durante três bordas ativas consecutivas, <code>J=1</code> e <code>K=1</code>. Qual será o valor de <code>Q</code> após a terceira borda?",
+            "options": [
+                  "<code>0</code>, porque <code>J=K=1</code> é condição proibida.",
+                  "<code>0</code>, porque alterna duas vezes e ignora a terceira.",
+                  "<code>1</code>, porque alterna em cada borda.",
+                  "<code>1</code>, porque set domina reset.",
+                  "Indeterminado, pois JK só é definido com clock em nível, não em borda."
+            ],
+            "correct": "C",
+            "explanation": "No JK, <code>J=K=1</code> causa toggle. Partindo de 0: após a primeira borda vira 1, após a segunda vira 0, após a terceira vira 1."
+      },
+      {
+            "id": 18,
+            "block": 4,
+            "topic": "Setup, hold e skew negativo",
+            "prompt": "Um caminho entre flip-flops tem <code>tCQmax=0,8 ns</code>, <code>tPDmax=6,4 ns</code>, <code>tsetup=0,9 ns</code>, <code>tCQmin=0,2 ns</code>, <code>tPDmin=0,5 ns</code>, <code>thold=0,4 ns</code>. O clock chega <code>0,3 ns</code> mais cedo no destino do que na origem. Qual conclusão está correta?",
+            "options": [
+                  "<code>Tclk mínimo=8,4 ns</code> e não há violação de hold.",
+                  "<code>Tclk mínimo=7,8 ns</code> e há violação de hold.",
+                  "<code>Tclk mínimo=7,8 ns</code> e não há violação de hold.",
+                  "<code>Tclk mínimo=8,4 ns</code> e há violação de hold.",
+                  "O skew negativo ajuda setup e piora hold, então não é possível calcular sem duty cycle."
+            ],
+            "correct": "A",
+            "explanation": "Usando <code>skew = destino - origem = -0,3 ns</code>: setup exige <code>Tclk >= 0,8+6,4+0,9-(-0,3)=8,4 ns</code>. Hold: <code>0,2+0,5 >= 0,4+(-0,3)</code>, isto é <code>0,7>=0,1</code>, sem violação."
+      },
+      {
+            "id": 19,
+            "block": 4,
+            "topic": "Ring, Johnson e estados úteis",
+            "prompt": "Um circuito usa 6 flip-flops. Comparando um Johnson counter ideal com uma codificação binária mínima capaz de representar a mesma quantidade de estados úteis do Johnson, quais números são corretos?",
+            "options": [
+                  "Johnson: 6 estados; binária mínima: 3 FFs.",
+                  "Johnson: 12 estados; binária mínima: 4 FFs.",
+                  "Johnson: 64 estados; binária mínima: 6 FFs.",
+                  "Johnson: 12 estados; binária mínima: 6 FFs.",
+                  "Johnson: 6 estados; binária mínima: 4 FFs."
+            ],
+            "correct": "B",
+            "explanation": "Johnson counter com <code>n</code> FFs tem <code>2n</code> estados úteis. Com 6 FFs, são 12 estados. Para representar 12 estados em binário, são necessários <code>ceil(log2 12)=4</code> FFs."
+      },
+      {
+            "id": 20,
+            "block": 4,
+            "topic": "Registrador de deslocamento PISO",
+            "prompt": "Um registrador PISO de 4 bits carrega paralelamente <code>1011</code>. Em seguida, desloca à direita e a saída serial é o bit menos significativo antes de cada deslocamento. Qual sequência serial é observada?",
+            "options": [
+                  "<code>1011</code>",
+                  "<code>0101</code>",
+                  "<code>1100</code>",
+                  "<code>1101</code>",
+                  "<code>0011</code>"
+            ],
+            "correct": "D",
+            "explanation": "Carregado como <code>Q3Q2Q1Q0=1011</code>, a saída em <code>Q0</code> produz primeiro 1, depois 1, depois 0, depois 1. Logo, <code>1101</code>."
+      },
+      {
+            "id": 21,
+            "block": 5,
+            "topic": "Ponto fixo signed e overflow",
+            "prompt": "Em formato signed <code>Q3.4</code> de 8 bits em complemento de 2, some <code>0110 1000</code> com <code>0010 0000</code>. Qual alternativa descreve corretamente o resultado truncado e a interpretação?",
+            "options": [
+                  "Resultado <code>1000 1000</code>; houve overflow, pois 6,5 + 2,0 excede a faixa positiva.",
+                  "Resultado <code>1000 1000</code>; não houve overflow, pois o padrão representa exatamente 8,5.",
+                  "Resultado <code>0111 1000</code>; houve saturação automática para 7,5.",
+                  "Resultado <code>1000 0000</code>; o carry decimal deve ser descartado.",
+                  "Resultado <code>0000 1000</code>; houve carry-out, mas não overflow signed."
+            ],
+            "correct": "A",
+            "explanation": "Em <code>Q3.4</code>, <code>0110 1000</code> vale 6,5 e <code>0010 0000</code> vale 2,0. A soma real seria 8,5, fora da faixa positiva de 8 bits signed com 4 bits fracionários. O padrão truncado <code>1000 1000</code> seria negativo, indicando overflow."
+      },
+      {
+            "id": 22,
+            "block": 5,
+            "topic": "IEEE 754 normalizado",
+            "prompt": "Considere um número IEEE 754 de precisão simples com sinal <code>0</code>, expoente <code>10000010</code> e fração começando por <code>010000...</code> com os demais bits zero. Qual valor decimal ele representa?",
+            "options": [
+                  "<code>5,0</code>",
+                  "<code>2,5</code>",
+                  "<code>20,0</code>",
+                  "<code>10,0</code>",
+                  "<code>NaN</code>"
+            ],
+            "correct": "D",
+            "explanation": "O expoente <code>10000010</code> é 130; subtraindo o bias 127, dá 3. A mantissa é <code>1,01₂ = 1,25</code>. O valor é <code>1,25 * 2^3 = 10</code>."
+      },
+      {
+            "id": 23,
+            "block": 5,
+            "topic": "Atraso de ripple-carry",
+            "prompt": "Um somador ripple-carry de 16 bits tem atraso de propagação do carry de <code>120 ps</code> por full adder. O bit de soma de um estágio fica válido <code>180 ps</code> após a chegada do carry daquele estágio. Qual é o pior atraso aproximado para que todas as somas estejam válidas?",
+            "options": [
+                  "<code>1,80 ns</code>",
+                  "<code>1,98 ns</code>",
+                  "<code>1,92 ns</code>",
+                  "<code>3,00 ns</code>",
+                  "<code>0,30 ns</code>"
+            ],
+            "correct": "B",
+            "explanation": "O pior bit de soma é o mais significativo. O carry precisa atravessar os 15 estágios anteriores: <code>15*120 ps = 1800 ps</code>. Depois, a soma final demora mais <code>180 ps</code>. Total: <code>1980 ps = 1,98 ns</code>."
+      },
+      {
+            "id": 24,
+            "block": 5,
+            "topic": "Subtração, flags signed e unsigned",
+            "prompt": "Em uma ULA de 4 bits, calcula-se <code>0011 - 0101</code> usando complemento de 2. Qual conjunto de resultado e flags é coerente? Considere <code>C=1</code> como ausência de borrow em subtração unsigned.",
+            "options": [
+                  "Resultado <code>1110</code>, <code>C=1</code>, <code>V=1</code>, <code>N=1</code>, <code>Z=0</code>",
+                  "Resultado <code>0010</code>, <code>C=0</code>, <code>V=0</code>, <code>N=0</code>, <code>Z=0</code>",
+                  "Resultado <code>1110</code>, <code>C=1</code>, <code>V=0</code>, <code>N=1</code>, <code>Z=0</code>",
+                  "Resultado <code>1010</code>, <code>C=0</code>, <code>V=1</code>, <code>N=1</code>, <code>Z=0</code>",
+                  "Resultado <code>1110</code>, <code>C=0</code>, <code>V=0</code>, <code>N=1</code>, <code>Z=0</code>"
+            ],
+            "correct": "E",
+            "explanation": "3 - 5 = -2, que em 4 bits é <code>1110</code>. Como unsigned, 3 é menor que 5, então há borrow e <code>C=0</code>. Não há overflow signed, pois 3 - 5 = -2 cabe na faixa. <code>N=1</code> e <code>Z=0</code>."
+      },
+      {
+            "id": 25,
+            "block": 5,
+            "topic": "Shift aritmético e lógico",
+            "prompt": "O padrão <code>10110100</code> é deslocado duas posições à direita. Qual par corresponde, nessa ordem, ao deslocamento aritmético e ao deslocamento lógico?",
+            "options": [
+                  "<code>00101101</code> e <code>11101101</code>",
+                  "<code>10101101</code> e <code>00101101</code>",
+                  "<code>11101101</code> e <code>00101101</code>",
+                  "<code>11101100</code> e <code>00101100</code>",
+                  "<code>00101100</code> e <code>11101100</code>"
+            ],
+            "correct": "C",
+            "explanation": "No shift aritmético à direita, replica-se o MSB 1: <code>10110100 -> 11011010 -> 11101101</code>. No lógico, entram zeros: <code>10110100 -> 01011010 -> 00101101</code>."
+      },
+      {
+            "id": 26,
+            "block": 6,
+            "topic": "CMOS por rede pull-down",
+            "prompt": "A rede pull-down de uma porta CMOS tem um transistor nMOS controlado por <code>A</code> em série com um paralelo de nMOS controlados por <code>B</code> e <code>C</code>. Qual é a função de saída <code>F</code>?",
+            "options": [
+                  "<code>F=A(B+C)</code>",
+                  "<code>F=A' + B'C'</code>",
+                  "<code>F=A'B + C'</code>",
+                  "<code>F=(A+B)C</code>",
+                  "<code>F=AB + AC</code>"
+            ],
+            "correct": "B",
+            "explanation": "A rede pull-down conduz quando <code>A(B+C)</code> é 1. Em CMOS estático, a saída é o complemento da condição de condução do pull-down: <code>F=(A(B+C))'=A' + B'C'</code>."
+      },
+      {
+            "id": 27,
+            "block": 6,
+            "topic": "MOS como chave e nível forte/fraco",
+            "prompt": "Em lógica com transistores de passagem, qual afirmação descreve corretamente nMOS e pMOS ideais em relação aos níveis transmitidos?",
+            "options": [
+                  "nMOS passa 0 forte e 1 fraco; pMOS passa 1 forte e 0 fraco.",
+                  "nMOS passa 1 forte e 0 fraco; pMOS passa 0 forte e 1 fraco.",
+                  "Ambos passam 0 e 1 fortes quando o gate está ativo.",
+                  "nMOS só passa sinais de clock; pMOS só passa sinais de dados.",
+                  "pMOS e nMOS são equivalentes para níveis lógicos, mudando apenas a área."
+            ],
+            "correct": "A",
+            "explanation": "nMOS é bom para passar 0 forte, mas passa 1 degradado. pMOS é bom para passar 1 forte, mas passa 0 degradado. Por isso CMOS combina os dois."
+      },
+      {
+            "id": 28,
+            "block": 6,
+            "topic": "Potência dinâmica com comparação",
+            "prompt": "Um bloco tem <code>alpha=0,2</code>, <code>C=40 pF</code>, <code>V=1,0 V</code> e <code>f=100 MHz</code>. Em uma nova configuração, apenas a tensão muda para <code>0,8 V</code> e a frequência para <code>200 MHz</code>. Qual é a potência dinâmica aproximada na nova configuração?",
+            "options": [
+                  "<code>0,512 mW</code>",
+                  "<code>0,800 mW</code>",
+                  "<code>1,600 mW</code>",
+                  "<code>1,280 mW</code>",
+                  "<code>1,024 mW</code>"
+            ],
+            "correct": "E",
+            "explanation": "Inicialmente, <code>P=0,2*40pF*1^2*100MHz=0,8mW</code>. A nova razão é <code>(0,8)^2*2=1,28</code>. Logo, <code>Pnova=0,8mW*1,28=1,024mW</code>."
+      },
+      {
+            "id": 29,
+            "block": 6,
+            "topic": "Energia de carga de capacitor",
+            "prompt": "Um nó capacitivo de <code>4 pF</code> é carregado de 0 até <code>1,2 V</code> a partir de uma fonte ideal. Quais são, respectivamente, a energia armazenada no capacitor e a energia retirada da fonte?",
+            "options": [
+                  "<code>5,76 pJ</code> e <code>5,76 pJ</code>",
+                  "<code>2,40 pJ</code> e <code>4,80 pJ</code>",
+                  "<code>2,88 pJ</code> e <code>5,76 pJ</code>",
+                  "<code>5,76 pJ</code> e <code>2,88 pJ</code>",
+                  "<code>1,44 pJ</code> e <code>2,88 pJ</code>"
+            ],
+            "correct": "C",
+            "explanation": "A energia armazenada é <code>1/2 CV² = 0,5*4pF*1,44 = 2,88pJ</code>. A fonte fornece <code>CV² = 5,76pJ</code>; a outra metade é dissipada no carregamento."
+      },
+      {
+            "id": 30,
+            "block": 6,
+            "topic": "Hazard e termo de consenso",
+            "prompt": "Uma implementação em dois níveis de <code>F=AB + A'C + BC</code> é comparada com <code>F=AB + A'C</code>. Para a transição em que apenas <code>A</code> muda e <code>B=C=1</code>, qual afirmação é mais precisa?",
+            "options": [
+                  "A versão com <code>BC</code> cria um static-0 hazard que não existia.",
+                  "As duas versões têm exatamente o mesmo risco de static-1 hazard.",
+                  "O termo <code>BC</code> muda a função lógica, então não pode ser usado.",
+                  "O termo <code>BC</code> cobre a transição e remove o static-1 hazard nesse caso.",
+                  "O termo <code>BC</code> só funciona se for implementado com portas XOR."
+            ],
+            "correct": "D",
+            "explanation": "<code>BC</code> é o termo de consenso entre <code>AB</code> e <code>A'C</code>. Quando <code>B=C=1</code>, ele mantém a saída em 1 enquanto A comuta, removendo o static-1 hazard dessa transição sem alterar a função lógica."
+      },
+      {
+            "id": 31,
+            "block": 7,
+            "topic": "Capacidade de memória",
+            "prompt": "Uma SRAM é especificada como <code>64K x 16</code>. Assumindo <code>64K = 2^16</code> posições, qual alternativa informa corretamente linhas de endereço, largura de dados e capacidade total?",
+            "options": [
+                  "14 linhas, 16 bits, 64 KiB",
+                  "16 linhas, 8 bits, 64 KiB",
+                  "15 linhas, 16 bits, 128 KiB",
+                  "16 linhas, 16 bits, 1 MiB",
+                  "16 linhas, 16 bits, 128 KiB"
+            ],
+            "correct": "E",
+            "explanation": "Há <code>2^16</code> posições, então são 16 linhas de endereço. Cada posição tem 16 bits. Total: <code>2^16*16 bits = 2^20 bits = 128 KiB</code>."
+      },
+      {
+            "id": 32,
+            "block": 7,
+            "topic": "SRAM e DRAM",
+            "prompt": "Qual alternativa distingue corretamente SRAM e DRAM em nível de organização e comportamento?",
+            "options": [
+                  "SRAM usa capacitor por bit e precisa de refresh; DRAM usa latch e não precisa.",
+                  "DRAM armazena carga em capacitor e precisa de refresh; SRAM usa célula biestável e mantém o valor enquanto alimentada.",
+                  "DRAM é sempre não volátil; SRAM perde dados quando alimentada.",
+                  "SRAM é mais densa porque usa um capacitor e um transistor por bit.",
+                  "DRAM e SRAM precisam de refresh pelo mesmo motivo: fuga no latch CMOS."
+            ],
+            "correct": "B",
+            "explanation": "DRAM usa carga em capacitor, que vaza e exige refresh. SRAM usa célula biestável, tipicamente com inversores realimentados, mantendo o valor enquanto houver alimentação."
+      },
+      {
+            "id": 33,
+            "block": 7,
+            "topic": "PROM, PLA e PAL",
+            "prompt": "Considere implementações programáveis de lógica combinacional em duas etapas AND-OR. Qual alternativa está correta?",
+            "options": [
+                  "PROM tem plano AND programável e plano OR fixo; PLA tem ambos fixos.",
+                  "PAL e PLA são idênticas; ambas têm AND e OR programáveis.",
+                  "PROM só implementa funções sequenciais, pois é memória.",
+                  "PLA tem planos AND e OR programáveis; PAL costuma ter AND programável e OR fixo.",
+                  "PAL tem apenas LUTs, enquanto PLA tem apenas flip-flops."
+            ],
+            "correct": "D",
+            "explanation": "PLA é mais flexível, com planos AND e OR programáveis. PAL normalmente tem plano AND programável e plano OR fixo. PROM pode ser vista como decoder fixo seguido de OR programável."
+      },
+      {
+            "id": 34,
+            "block": 7,
+            "topic": "LUT e bits de configuração",
+            "prompt": "Um bloco lógico precisa implementar duas funções independentes, cada uma com até 6 entradas, usando LUTs separadas de 6 entradas e 1 saída. Quantos bits de configuração são necessários apenas para as tabelas verdade dessas LUTs?",
+            "options": [
+                  "<code>128</code>",
+                  "<code>64</code>",
+                  "<code>12</code>",
+                  "<code>32</code>",
+                  "<code>256</code>"
+            ],
+            "correct": "A",
+            "explanation": "Uma LUT de 6 entradas precisa de <code>2^6=64</code> bits para uma saída. Como são duas LUTs independentes, são <code>2*64=128</code> bits."
+      },
+      {
+            "id": 35,
+            "block": 7,
+            "topic": "CPLD, FPGA e glue logic",
+            "prompt": "Qual alternativa descreve melhor uma diferença prática entre CPLD e FPGA em aplicações digitais?",
+            "options": [
+                  "CPLDs só armazenam tabelas ROM e não implementam lógica combinacional.",
+                  "FPGAs não possuem elementos sequenciais, apenas LUTs puramente combinacionais.",
+                  "CPLDs costumam ter macrocells e temporização mais previsível para glue logic; FPGAs oferecem maior densidade e malha de LUTs/FFs/interconexão.",
+                  "CPLDs são sempre programáveis uma única vez; FPGAs são sempre analógicos.",
+                  "FPGAs substituem apenas memórias, enquanto CPLDs substituem apenas processadores."
+            ],
+            "correct": "C",
+            "explanation": "CPLDs são comuns em glue logic por terem macrocells e atrasos mais previsíveis. FPGAs oferecem muito mais recursos, LUTs, FFs, roteamento programável e blocos dedicados, sendo melhores para lógica maior e mais paralela."
+      },
+      {
+            "id": 36,
+            "block": 8,
+            "topic": "Assembly, laço e flags",
+            "prompt": "Considere o trecho abaixo. Após a execução completa, qual valor está em <code>R0</code>?",
+            "artifacts": [
+                  {
+                        "type": "code",
+                        "caption": "Trecho",
+                        "content": "MOV  R0, #0\nMOV  R1, #3\nL: ADD  R0, R0, R1\n   SUBS R1, R1, #1\n   BNE  L"
+                  }
+            ],
+            "options": [
+                  "<code>3</code>",
+                  "<code>4</code>",
+                  "<code>5</code>",
+                  "<code>6</code>",
+                  "<code>7</code>"
+            ],
+            "correct": "D",
+            "explanation": "O laço soma <code>R1</code> antes de decrementá-lo: soma 3, depois 2, depois 1. Quando <code>R1</code> vira 0, <code>SUBS</code> coloca Z=1 e <code>BNE</code> não desvia. Logo, <code>R0=6</code>."
+      },
+      {
+            "id": 37,
+            "block": 8,
+            "topic": "Branch condicional e flags",
+            "prompt": "Após uma instrução <code>CMP R2, #0</code>, qual condição faz um <code>BEQ alvo</code> ser tomado em uma arquitetura no estilo ARM?",
+            "options": [
+                  "Quando o carry está limpo, indicando borrow.",
+                  "Quando o resultado da comparação é negativo.",
+                  "Quando o overflow está ativo.",
+                  "Quando <code>R2</code> é diferente de zero.",
+                  "Quando a flag <code>Z</code> fica em 1."
+            ],
+            "correct": "E",
+            "explanation": "<code>CMP R2,#0</code> compara por subtração e atualiza flags. <code>BEQ</code> desvia quando o resultado é igual, isto é, quando a flag zero <code>Z=1</code>."
+      },
+      {
+            "id": 38,
+            "block": 8,
+            "topic": "Endereçamento base + índice escalado",
+            "prompt": "Um processador usa endereçamento byte-addressable. Se <code>R4=0x1000</code> é a base de um vetor de words de 32 bits e <code>R1=5</code> é o índice, qual endereço é acessado por uma carga equivalente a <code>[R4 + R1&lt;&lt;2]</code>?",
+            "options": [
+                  "<code>0x1005</code>",
+                  "<code>0x1008</code>",
+                  "<code>0x1014</code>",
+                  "<code>0x1020</code>",
+                  "<code>0x1010</code>"
+            ],
+            "correct": "C",
+            "explanation": "Words de 32 bits têm 4 bytes. O deslocamento é <code>5*4=20</code> bytes, ou <code>0x14</code>. Endereço: <code>0x1000 + 0x14 = 0x1014</code>."
+      },
+      {
+            "id": 39,
+            "block": 8,
+            "topic": "Sinais de controle em LOAD",
+            "prompt": "Em um datapath monociclo simples, uma instrução de LOAD word que calcula endereço como registrador base + imediato e escreve no banco de registradores deve usar qual conjunto de sinais?",
+            "options": [
+                  "<code>RegWrite=0</code>, <code>MemRead=1</code>, <code>MemWrite=1</code>, <code>ALUSrc=0</code>, <code>MemToReg=0</code>",
+                  "<code>RegWrite=1</code>, <code>MemRead=1</code>, <code>MemWrite=0</code>, <code>ALUSrc=1</code>, <code>MemToReg=1</code>",
+                  "<code>RegWrite=1</code>, <code>MemRead=0</code>, <code>MemWrite=1</code>, <code>ALUSrc=1</code>, <code>MemToReg=1</code>",
+                  "<code>RegWrite=0</code>, <code>MemRead=0</code>, <code>MemWrite=0</code>, <code>ALUSrc=0</code>, <code>MemToReg=1</code>",
+                  "<code>RegWrite=1</code>, <code>MemRead=1</code>, <code>MemWrite=0</code>, <code>ALUSrc=0</code>, <code>MemToReg=0</code>"
+            ],
+            "correct": "B",
+            "explanation": "LOAD soma base + imediato na ALU, então <code>ALUSrc=1</code>. Lê memória, não escreve memória, e escreve o dado lido no registrador: <code>RegWrite=1</code>, <code>MemRead=1</code>, <code>MemWrite=0</code>, <code>MemToReg=1</code>."
+      },
+      {
+            "id": 40,
+            "block": 8,
+            "topic": "Datapath de branch",
+            "prompt": "Em um datapath simples, uma instrução <code>BEQ R1,R2,label</code> compara registradores usando a ALU. Qual descrição é mais adequada?",
+            "options": [
+                  "A ALU subtrai/compara <code>R1</code> e <code>R2</code>; o PC escolhe o alvo se <code>Branch AND Zero</code> for verdadeiro; <code>RegWrite=0</code>.",
+                  "A ALU soma <code>R1</code> com o imediato e sempre escreve o resultado em <code>R2</code>.",
+                  "A memória de dados é lida para decidir o branch; <code>MemToReg=1</code>.",
+                  "O branch é tomado quando <code>Zero=0</code>, pois BEQ significa diferente.",
+                  "A instrução precisa de <code>MemWrite=1</code> para salvar o endereço de retorno."
+            ],
+            "correct": "A",
+            "explanation": "BEQ compara os registradores, normalmente por subtração. Se o resultado for zero e o sinal Branch estiver ativo, o PC recebe o alvo. BEQ não escreve registrador nem memória."
+      },
+      {
+            "id": 41,
+            "block": 8,
+            "topic": "Pipeline e hazard load-use",
+            "prompt": "Em um pipeline clássico de 5 estágios com forwarding para resultados de ALU, considere: <code>LW R1,0(R2)</code> seguido imediatamente de <code>ADD R3,R1,R4</code>. Qual alternativa é mais provável?",
+            "options": [
+                  "Não há dependência, pois <code>LW</code> só usa memória.",
+                  "Há hazard load-use; normalmente é necessário um stall mesmo com forwarding comum.",
+                  "Há apenas hazard estrutural no banco de registradores, nunca dependência de dados.",
+                  "O forwarding de EX para EX sempre resolve sem stall porque o dado do load nasce no início de EX.",
+                  "É um hazard de controle, pois ADD altera o PC."
+            ],
+            "correct": "B",
+            "explanation": "A ADD precisa de R1 logo após o LOAD. Em pipeline clássico, o dado do load só fica disponível após o acesso à memória, tarde demais para a EX da instrução seguinte sem uma bolha/stall."
+      },
+      {
+            "id": 42,
+            "block": 8,
+            "topic": "Formato de instrução e deslocamento",
+            "prompt": "Um branch usa um campo imediato signed de 12 bits que representa deslocamento em palavras de 4 bytes, somado ao PC após deslocamento à esquerda de 2 bits. Qual é o intervalo aproximado de deslocamento em bytes?",
+            "options": [
+                  "De <code>-2048</code> a <code>+2047</code> bytes",
+                  "De <code>-4096</code> a <code>+4095</code> bytes",
+                  "De <code>-8192</code> a <code>+8188</code> bytes",
+                  "De <code>0</code> a <code>+16383</code> bytes",
+                  "De <code>-2048</code> a <code>+2048</code> palavras de 8 bytes"
+            ],
+            "correct": "C",
+            "explanation": "Um signed de 12 bits vai de <code>-2048</code> a <code>+2047</code>. Como representa palavras de 4 bytes, multiplica por 4: de <code>-8192</code> a <code>+8188</code> bytes."
+      },
+      {
+            "id": 43,
+            "block": 8,
+            "topic": "Etapas clássicas de execução",
+            "prompt": "Considere as etapas <code>fetch</code>, <code>decode</code>, <code>execute</code>, <code>memory</code> e <code>writeback</code>. Qual alternativa classifica corretamente LOAD, STORE e uma instrução aritmética R-type?",
+            "options": [
+                  "LOAD não usa execute; STORE usa writeback; R-type usa memory.",
+                  "LOAD usa memory para escrever na memória; STORE usa writeback para atualizar registrador.",
+                  "Todas usam obrigatoriamente as cinco etapas com a mesma função.",
+                  "LOAD usa memory para ler e writeback para registrador; STORE usa memory para escrever e não usa writeback; R-type usa execute e writeback, sem acesso útil à memória de dados.",
+                  "R-type só usa fetch e decode, pois a ALU fica no banco de registradores."
+            ],
+            "correct": "D",
+            "explanation": "LOAD calcula endereço em execute, lê memória em memory e escreve registrador em writeback. STORE calcula endereço e escreve memória, mas não escreve registrador. R-type usa ALU em execute e escreve resultado em writeback."
+      },
+      {
+            "id": 44,
+            "block": 1,
+            "topic": "Excess-3 e complemento de 9",
+            "prompt": "Em código Excess-3, o dígito decimal 2 é codificado como <code>0101</code>. Ao inverter todos os bits desse código, obtém-se <code>1010</code>. Que dígito decimal esse novo código representa e qual propriedade foi usada?",
+            "options": [
+                  "Representa 2; Excess-3 é autocomplementar em complemento de 10.",
+                  "Representa 8; a inversão sempre soma 6 ao BCD original.",
+                  "Representa 5; a inversão remove o excesso de 3.",
+                  "Representa 3; a inversão só troca paridade.",
+                  "Representa 7; Excess-3 é autocomplementar para complemento de 9."
+            ],
+            "correct": "E",
+            "explanation": "<code>1010</code> em Excess-3 corresponde a <code>1010₂ - 3 = 10 - 3 = 7</code>. Como 7 é o complemento de 9 de 2, usa-se a propriedade autocomplementar do Excess-3."
+      },
+      {
+            "id": 45,
+            "block": 3,
+            "topic": "Sinal ativo baixo em decoder",
+            "prompt": "Um bloco tem entrada <code>enable_n</code> e saídas <code>Y0_n</code> a <code>Y3_n</code>. Com <code>enable_n=0</code> e seleção binária <code>10</code>, qual descrição é correta?",
+            "options": [
+                  "O bloco está habilitado e <code>Y2_n=0</code>, com as demais saídas em 1.",
+                  "O bloco está desabilitado e todas as saídas ficam em 0.",
+                  "O bloco está habilitado e <code>Y2_n=1</code>, com as demais em 0.",
+                  "O sufixo <code>_n</code> indica borda de descida, não nível lógico.",
+                  "A seleção <code>10</code> escolhe <code>Y1_n</code>, pois a contagem começa em 1."
+            ],
+            "correct": "A",
+            "explanation": "O sufixo <code>_n</code> indica ativo em baixo. Assim, <code>enable_n=0</code> habilita o bloco. A seleção <code>10</code> é 2, e a saída ativa em baixo selecionada fica em 0."
+      },
+      {
+            "id": 46,
+            "block": 2,
+            "topic": "POS com agrupamento de zeros",
+            "prompt": "Para <code>F(A,B,C,D)=ΠM(8,9,12,13)</code>, qual termo POS mínimo representa o grupo desses quatro zeros?",
+            "options": [
+                  "<code>A + C'</code>",
+                  "<code>AC'</code>",
+                  "<code>A' + C</code>",
+                  "<code>A'C</code>",
+                  "<code>B + D</code>"
+            ],
+            "correct": "C",
+            "explanation": "Os índices são <code>1000,1001,1100,1101</code>. Neles, <code>A=1</code> e <code>C=0</code>, enquanto B e D variam. Em POS, variável 1 entra complementada e variável 0 entra normal: <code>A' + C</code>."
+      },
+      {
+            "id": 47,
+            "block": 1,
+            "topic": "ASCII, bits e paridade",
+            "prompt": "Um caractere ASCII padrão é transmitido com um bit adicional de paridade ímpar. Se o código ASCII de 7 bits possui quatro bits em 1, quantos bits totais são transmitidos e qual deve ser o bit de paridade?",
+            "options": [
+                  "7 bits totais e paridade 0",
+                  "7 bits totais e paridade 1",
+                  "8 bits totais e paridade 0",
+                  "8 bits totais e paridade 1",
+                  "9 bits totais e paridade 1"
+            ],
+            "correct": "D",
+            "explanation": "ASCII padrão tem 7 bits. Com um bit de paridade, transmitem-se 8 bits. Como já há quatro 1s e a paridade desejada é ímpar, o bit de paridade deve ser 1."
+      },
+      {
+            "id": 48,
+            "block": 3,
+            "topic": "Moore e Mealy",
+            "prompt": "Durante um ciclo de clock, a entrada de uma FSM muda e a saída muda antes da próxima borda de clock, sem mudança de estado armazenado. Essa observação é mais compatível com qual tipo de saída?",
+            "options": [
+                  "Mealy, pois a saída pode depender diretamente do estado atual e da entrada.",
+                  "Moore, pois a saída só muda quando a entrada muda.",
+                  "Moore, pois a saída é combinacional pura de entrada.",
+                  "Nenhuma FSM pode mudar saída sem trocar estado.",
+                  "Ring counter, pois toda saída depende do clock."
+            ],
+            "correct": "A",
+            "explanation": "Em máquina Mealy, a saída pode depender do estado atual e da entrada, então pode mudar no mesmo ciclo quando a entrada muda. Em Moore, a saída depende apenas do estado armazenado."
+      },
+      {
+            "id": 49,
+            "block": 4,
+            "topic": "Correção de violação de hold",
+            "prompt": "Um caminho sequencial falha em hold, mas passa em setup com folga grande. Qual alteração abaixo ataca diretamente o problema sem depender de reduzir a frequência do clock?",
+            "options": [
+                  "Aumentar o período de clock.",
+                  "Diminuir <code>tsetup</code> do flip-flop de destino.",
+                  "Reduzir o atraso máximo da lógica combinacional.",
+                  "Aumentar a frequência, para capturar antes.",
+                  "Adicionar atraso mínimo no caminho de dados ou ajustar o skew para aliviar hold."
+            ],
+            "correct": "E",
+            "explanation": "Violação de hold depende de atrasos mínimos e skew, não é resolvida simplesmente reduzindo a frequência. A correção típica é aumentar o atraso mínimo do caminho de dados ou ajustar a distribuição de clock para melhorar a margem de hold."
+      },
+      {
+            "id": 50,
+            "block": 7,
+            "topic": "Controle, LUT, PLA e implementação física",
+            "prompt": "Um bloco de controle recebe bits de opcode/funct e gera sinais como <code>RegWrite</code>, <code>ALUSrc</code> e <code>MemWrite</code>. Qual afirmação é a mais correta sobre sua implementação?",
+            "options": [
+                  "Ele precisa ser sempre uma ROM, pois lógica combinacional não consegue decodificar instruções.",
+                  "Pode ser feito como lógica combinacional hardwired, PLA/ROM ou, em FPGA, sintetizado em LUTs; LUT é uma forma de implementação física, não a única definição do bloco.",
+                  "Ele é sempre uma LUT única com uma entrada por sinal de controle.",
+                  "Ele deve ser sequencial com flip-flop para cada opcode, mesmo em datapath monociclo.",
+                  "Ele só pode existir dentro de uma EEPROM externa, porque o processador não possui portas lógicas internas."
+            ],
+            "correct": "B",
+            "explanation": "O bloco de controle pode ser projetado como lógica combinacional hardwired, PLA, ROM/microcódigo ou sintetizado em LUTs quando implementado em FPGA. LUT descreve um recurso físico programável, não a única maneira conceitual de fazer controle."
+      }
+];
+
+    let state = loadState();
+    let timerInterval = null;
+    let sessionAnchor = null;
+    let elapsedAtAnchor = 0;
+    let noteDrafts = {};
+    let openNotes = {};
+
+    function newState() {
+      return {
+        answers: {},
+        unknown: {},
+        notes: {},
+        started: false,
+        finalized: false,
+        elapsedMs: 0,
+        startedAt: null,
+        finalizedAt: null
+      };
+    }
+
+    function loadState() {
+      try {
+        const stored = JSON.parse(localStorage.getItem(CONFIG.storageKey) || "null");
+        if (stored && stored.answers && typeof stored.answers === "object") {
+          return Object.assign(newState(), stored, {
+            unknown: stored.unknown && typeof stored.unknown === "object" ? stored.unknown : {},
+            notes: stored.notes && typeof stored.notes === "object" ? stored.notes : {},
+            elapsedMs: Number(stored.elapsedMs) || 0
+          });
+        }
+      } catch (error) {
+        console.warn("Não foi possível restaurar o progresso.", error);
+      }
+      return newState();
+    }
+
+    function commitElapsed() {
+      if (!state.started || state.finalized || sessionAnchor === null) return;
+      state.elapsedMs = elapsedAtAnchor + (Date.now() - sessionAnchor);
+      elapsedAtAnchor = state.elapsedMs;
+      sessionAnchor = Date.now();
+    }
+
+    function saveState(includeCurrentTime = true) {
+      if (includeCurrentTime) commitElapsed();
+      try {
+        localStorage.setItem(CONFIG.storageKey, JSON.stringify(state));
+        document.getElementById("saveLabel").textContent = state.finalized
+          ? "Simulado finalizado"
+          : state.started ? "Progresso e tempo salvos localmente" : "Aguardando início";
+      } catch (error) {
+        document.getElementById("saveLabel").textContent = "Salvamento indisponível; mantenha a página aberta";
+      }
+    }
+
+    function startTiming() {
+      if (!state.started || state.finalized || timerInterval !== null) return;
+      sessionAnchor = Date.now();
+      elapsedAtAnchor = state.elapsedMs;
+      renderTimer();
+      timerInterval = window.setInterval(function () {
+        saveState();
+        renderTimer();
+      }, 1000);
+    }
+
+    function stopTiming() {
+      commitElapsed();
+      if (timerInterval !== null) {
+        window.clearInterval(timerInterval);
+        timerInterval = null;
+      }
+      sessionAnchor = null;
+    }
+
+    function elapsedMs() {
+      if (state.started && !state.finalized && sessionAnchor !== null) {
+        return elapsedAtAnchor + (Date.now() - sessionAnchor);
+      }
+      return state.elapsedMs;
+    }
+
+    function formatDuration(milliseconds) {
+      const seconds = Math.floor(milliseconds / 1000);
+      const hours = String(Math.floor(seconds / 3600)).padStart(2, "0");
+      const minutes = String(Math.floor((seconds % 3600) / 60)).padStart(2, "0");
+      const remainingSeconds = String(seconds % 60).padStart(2, "0");
+      return hours + ":" + minutes + ":" + remainingSeconds;
+    }
+
+    function formatFolderDate(isoDate) {
+      const date = new Date(isoDate || Date.now());
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, "0");
+      const day = String(date.getDate()).padStart(2, "0");
+      return year + "-" + month + "-" + day;
+    }
+
+    function renderTimer() {
+      const formattedTime = formatDuration(elapsedMs());
+      document.getElementById("timer").textContent = formattedTime;
+      document.getElementById("toolbarTimer").textContent = formattedTime;
+    }
+
+    function plainText(html) {
+      const element = document.createElement("div");
+      element.innerHTML = html;
+      return element.textContent.replace(/\s+/g, " ").trim();
+    }
+
+    function escapeHtml(text) {
+      return String(text).replace(/[&<>"']/g, function (character) {
+        return {
+          "&": "&amp;",
+          "<": "&lt;",
+          ">": "&gt;",
+          "\"": "&quot;",
+          "'": "&#39;"
+        }[character];
+      });
+    }
+
+    function kmapAxes(artifact) {
+      const headers = Array.isArray(artifact.headers) ? artifact.headers : [];
+      const corner = String(headers[0] || "");
+      const embeddedAxes = artifact.variant === "kmap" && corner.includes("/");
+      const pieces = embeddedAxes ? corner.split("/") : [];
+      const row = String(artifact.rowVariable || pieces[0] || "").trim();
+      const column = String(artifact.columnVariable || pieces[1] || "").trim();
+      return {
+        enabled: artifact.variant === "kmap" && Boolean(row) && Boolean(column),
+        embedded: embeddedAxes,
+        row,
+        column
+      };
+    }
+
+    function kmapLiteral(variable, bit) {
+      return bit === "0" ? variable + "'" : variable;
+    }
+
+    function renderArtifacts(question) {
+      const artifacts = Array.isArray(question.artifacts) ? question.artifacts : [];
+      if (!artifacts.length) return "";
+
+      return `<div class="question-artifacts">${artifacts.map(function (artifact) {
+        const caption = artifact.caption
+          ? `<p class="artifact-caption">${escapeHtml(artifact.caption)}</p>`
+          : "";
+
+        if (artifact.type === "table") {
+          const headers = Array.isArray(artifact.headers) ? artifact.headers : [];
+          const rows = Array.isArray(artifact.rows) ? artifact.rows : [];
+          const tableClass = artifact.variant === "kmap" ? " kmap-table" : "";
+          const axes = kmapAxes(artifact);
+          const visibleHeaders = axes.enabled && axes.embedded ? headers.slice(1) : headers;
+          let head;
+          let body;
+          if (axes.enabled && artifact.rowHeader && axes.column.length === 2 && axes.row.length >= 1 && axes.row.length <= 2) {
+            const hasRightLiterals = axes.row.length === 2;
+            const rightSpacer = hasRightLiterals ? `<th class="kmap-spacer"></th>` : "";
+            head = "";
+            body = `<tbody>
+              <tr><th class="kmap-spacer"></th>${visibleHeaders.map(function (cell) {
+                return `<th class="kmap-literal kmap-literal-column">${escapeHtml(kmapLiteral(axes.column[0], cell[0]))}</th>`;
+              }).join("")}${rightSpacer}</tr>
+              ${rows.map(function (row) {
+                return `<tr><th class="kmap-literal kmap-literal-row-left" scope="row">${escapeHtml(kmapLiteral(axes.row[0], row[0][0]))}</th>${row.slice(1).map(function (cell) {
+                  return `<td>${escapeHtml(cell)}</td>`;
+                }).join("")}${hasRightLiterals ? `<th class="kmap-literal kmap-literal-row-right" scope="row">${escapeHtml(kmapLiteral(axes.row[1], row[0][1]))}</th>` : ""}</tr>`;
+              }).join("")}
+              <tr><th class="kmap-spacer"></th>${visibleHeaders.map(function (cell) {
+                return `<th class="kmap-literal kmap-literal-column kmap-literal-column-bottom">${escapeHtml(kmapLiteral(axes.column[1], cell[1]))}</th>`;
+              }).join("")}${rightSpacer}</tr>
+            </tbody>`;
+          } else {
+            head = headers.length
+              ? `<thead><tr>${headers.map(function (cell) {
+                  return `<th scope="col">${escapeHtml(cell)}</th>`;
+                }).join("")}</tr></thead>`
+              : "";
+            body = `<tbody>${rows.map(function (row) {
+              return `<tr>${row.map(function (cell, index) {
+                if (artifact.rowHeader && index === 0) {
+                  return `<th scope="row">${escapeHtml(cell)}</th>`;
+                }
+                return `<td>${escapeHtml(cell)}</td>`;
+              }).join("")}</tr>`;
+            }).join("")}</tbody>`;
+          }
+          return `<div class="question-artifact">${caption}<div class="artifact-table-wrap"><table class="artifact-table${tableClass}">${head}${body}</table></div></div>`;
+        }
+
+        if (artifact.type === "code") {
+          return `<div class="question-artifact">${caption}<pre class="artifact-code">${escapeHtml(artifact.content || "")}</pre></div>`;
+        }
+
+        return "";
+      }).join("")}</div>`;
+    }
+
+    function artifactReportLines(question) {
+      const artifacts = Array.isArray(question.artifacts) ? question.artifacts : [];
+      const lines = [];
+      artifacts.forEach(function (artifact) {
+        if (artifact.type === "table") {
+          lines.push("- " + (artifact.caption || "Tabela") + ":");
+          const axes = kmapAxes(artifact);
+          const headers = Array.isArray(artifact.headers) ? artifact.headers : [];
+          if (axes.enabled) {
+            lines.push("  Linhas: " + axes.row + "; colunas: " + axes.column);
+          }
+          if (headers.length) {
+            lines.push("  " + (axes.enabled && axes.embedded ? headers.slice(1) : headers).join(" | "));
+          }
+          (artifact.rows || []).forEach(function (row) {
+            lines.push("  " + row.join(" | "));
+          });
+        }
+        if (artifact.type === "code") {
+          lines.push("- " + (artifact.caption || "Bloco apresentado") + ":");
+          String(artifact.content || "").split("\n").forEach(function (line) {
+            lines.push("  " + line);
+          });
+        }
+      });
+      return lines;
+    }
+
+    function optionText(question, letter) {
+      if (!letter) return "Não respondida";
+      return letter + ") " + plainText(question.options[letters.indexOf(letter)]);
+    }
+
+    function answerDescription(detail) {
+      if (detail.unknown) {
+        return "Não respondida por não saber como resolver; marcada conscientemente para revisão.";
+      }
+      return optionText(detail.question, detail.selected);
+    }
+
+    function renderMetadata() {
+      document.title = CONFIG.titulo + " | Sistemas Digitais";
+      document.getElementById("title").textContent = CONFIG.titulo;
+      document.getElementById("subtitle").textContent = CONFIG.subtitulo;
+      document.getElementById("questionCount").textContent = questions.length + " objetivas";
+      document.getElementById("suggestedTime").textContent = CONFIG.tempoSugerido;
+      document.getElementById("goal").textContent = CONFIG.meta;
+    }
+
+    function questionNavStatus(question) {
+      if (state.unknown[question.id]) return "unknown";
+      if (!state.answers[question.id]) return "blank";
+      if (!state.finalized) return "answered";
+      return state.answers[question.id] === question.correct ? "correct" : "wrong";
+    }
+
+    function renderQuestionNavigator() {
+      const items = state.finalized
+        ? [
+            ["correct", "Correta"],
+            ["wrong", "Errada"],
+            ["unknown", "Não sei"],
+            ["blank", "Não respondida"]
+          ]
+        : [
+            ["answered", "Respondida"],
+            ["unknown", "Não sei"],
+            ["blank", "Não respondida"]
+          ];
+
+      const legendHtml = items.map(function (item) {
+        return `<span class="question-nav-legend-item"><span class="question-nav-swatch status-${item[0]}"></span>${item[1]}</span>`;
+      }).join("");
+
+      const gridHtml = questions.map(function (question) {
+        const status = questionNavStatus(question);
+        const hasObservation = Boolean(String(state.notes[question.id] || "").trim());
+        const observationText = hasObservation ? ", com OBS salva" : "";
+        return `<button type="button" class="question-nav-item status-${status}" data-nav-question="${question.id}" aria-label="Ir para questão ${question.id}${observationText}">${question.id}${hasObservation ? '<span class="question-nav-note" aria-hidden="true">*</span>' : ""}</button>`;
+      }).join("");
+
+      document.querySelectorAll(".question-nav-legend").forEach(function (legend) {
+        legend.innerHTML = legendHtml;
+      });
+      document.querySelectorAll(".question-nav-grid").forEach(function (grid) {
+        grid.innerHTML = gridHtml;
+      });
+    }
+
+    function handleQuestionNavigatorClick(event) {
+      const button = event.target.closest(".question-nav-item");
+      if (!button) return;
+      const article = document.getElementById("question-" + button.dataset.navQuestion);
+      if (!article) return;
+      article.setAttribute("tabindex", "-1");
+      article.scrollIntoView({ behavior: "smooth", block: "start" });
+      article.focus({ preventScroll: true });
+    }
+
+    function renderQuiz() {
+      const form = document.getElementById("quizForm");
+      form.innerHTML = "";
+      document.getElementById("startPanel").classList.toggle("started", state.started);
+
+      blocks.forEach(function (block) {
+        const heading = document.createElement("h2");
+        heading.className = "block-heading";
+        heading.textContent = "Bloco " + block.id + " - " + block.title;
+        form.appendChild(heading);
+
+        questions.filter(function (question) {
+          return question.block === block.id;
+        }).forEach(function (question) {
+          const article = document.createElement("article");
+          const chosen = state.answers[question.id] || "";
+          const declaredUnknown = Boolean(state.unknown[question.id]);
+          const savedNote = String(state.notes[question.id] || "");
+          const hasDraft = Object.prototype.hasOwnProperty.call(noteDrafts, question.id);
+          const draftNote = hasDraft ? noteDrafts[question.id] : savedNote;
+          const noteIsOpen = Boolean(openNotes[question.id]);
+          const showNotePanel = state.finalized ? Boolean(savedNote) : noteIsOpen;
+          const controlsDisabled = !state.started || state.finalized;
+          article.className = "question" + (declaredUnknown ? " declared-unknown" : "");
+          article.id = "question-" + question.id;
+
+          const options = question.options.map(function (option, index) {
+            const letter = letters[index];
+            const checked = chosen === letter ? " checked" : "";
+            const disabled = controlsDisabled ? " disabled" : "";
+            return `
+              <label class="option${chosen === letter ? " selected" : ""}" data-option="${letter}">
+                <input type="radio" name="question-${question.id}" value="${letter}"${checked}${disabled}>
+                <span><strong>${letter})</strong> ${option}</span>
+              </label>`;
+          }).join("");
+
+          article.innerHTML = `
+            <div class="question-title">
+              <div class="number">${question.id}</div>
+              <div class="question-copy">
+                <p class="prompt">${question.prompt}</p>
+              </div>
+              <div class="question-buttons">
+                <button type="button" class="button-warning question-tool-button unknown-button" data-question="${question.id}"${controlsDisabled ? " disabled" : ""}>Não sei</button>
+                <button type="button" class="button-secondary question-tool-button observation-toggle-button" data-question="${question.id}"${controlsDisabled ? " disabled" : ""}>OBS</button>
+              </div>
+            </div>
+            ${renderArtifacts(question)}
+            <div class="options">${options}</div>
+            <div class="observation-panel${showNotePanel ? " visible" : ""}">
+              <label for="observation-${question.id}">Minha observação sobre esta questão</label>
+              ${state.finalized
+                ? `<p class="observation-saved">${escapeHtml(savedNote)}</p>`
+                : `<textarea id="observation-${question.id}" class="observation-input" data-question="${question.id}" placeholder="Ex.: não entendi por que esta alternativa está errada.">${escapeHtml(draftNote)}</textarea>
+                   <div class="observation-actions">
+                     <button type="button" class="observation-save-button" data-question="${question.id}">Salvar OBS</button>
+                     <span class="observation-status">${savedNote ? "Observação salva." : "Clique em Salvar OBS para gravar."}</span>
+                   </div>`}
+            </div>
+            <div class="question-actions">
+              <span class="unknown-note">Sem chute: esta questão será enviada para revisão.</span>
+            </div>
+            <div class="feedback"></div>`;
+
+          form.appendChild(article);
+        });
+      });
+
+      if (state.finalized) applyCorrection();
+      renderQuestionNavigator();
+      updateProgress();
+    }
+
+    function startQuiz() {
+      if (state.started || state.finalized) return;
+      state.started = true;
+      state.startedAt = new Date().toISOString();
+      saveState(false);
+      startTiming();
+      renderQuiz();
+    }
+
+    function handleAnswerChange(event) {
+      const input = event.target;
+      if (!input.matches("input[type=radio]") || !state.started || state.finalized) return;
+      const id = Number(input.name.replace("question-", ""));
+      state.answers[id] = input.value;
+      delete state.unknown[id];
+      saveState();
+      renderQuiz();
+    }
+
+    function handleUnknownClick(event) {
+      const button = event.target.closest(".unknown-button");
+      if (!button || !state.started || state.finalized) return;
+      const id = Number(button.dataset.question);
+      delete state.answers[id];
+      state.unknown[id] = true;
+      saveState();
+      renderQuiz();
+    }
+
+    function handleObservationToggle(event) {
+      const button = event.target.closest(".observation-toggle-button");
+      if (!button || !state.started || state.finalized) return;
+      const id = Number(button.dataset.question);
+      if (!Object.prototype.hasOwnProperty.call(noteDrafts, id)) {
+        noteDrafts[id] = String(state.notes[id] || "");
+      }
+      openNotes[id] = !openNotes[id];
+      renderQuiz();
+    }
+
+    function handleObservationInput(event) {
+      const input = event.target;
+      if (!input.matches(".observation-input") || state.finalized) return;
+      noteDrafts[Number(input.dataset.question)] = input.value;
+    }
+
+    function handleObservationSave(event) {
+      const button = event.target.closest(".observation-save-button");
+      if (!button || !state.started || state.finalized) return;
+      const id = Number(button.dataset.question);
+      const note = String(noteDrafts[id] || "").trim();
+      if (note) {
+        state.notes[id] = note;
+      } else {
+        delete state.notes[id];
+      }
+      noteDrafts[id] = note;
+      saveState();
+      renderQuiz();
+      showToast(note ? "Observação salva." : "Observação removida.");
+    }
+
+    function counts() {
+      const answered = questions.filter(function (question) {
+        return Boolean(state.answers[question.id]);
+      }).length;
+      const unknown = questions.filter(function (question) {
+        return Boolean(state.unknown[question.id]);
+      }).length;
+      return { answered, unknown, blank: questions.length - answered - unknown };
+    }
+
+    function updateProgress() {
+      const current = counts();
+      const label = current.answered + " de " + questions.length + " respondidas; " +
+        current.unknown + " marcadas como não sei";
+      document.getElementById("answeredLabel").textContent = label;
+      document.getElementById("progressFill").style.width =
+        (((current.answered + current.unknown) / questions.length) * 100) + "%";
+      document.getElementById("finishButton").disabled = !state.started || state.finalized;
+      renderTimer();
+    }
+
+    function getResults() {
+      const details = questions.map(function (question) {
+        const selected = state.answers[question.id] || "";
+        const unknown = Boolean(state.unknown[question.id]);
+        const observation = String(state.notes[question.id] || "").trim();
+        return { question, selected, unknown, observation, correct: selected === question.correct };
+      });
+      const score = details.filter(function (detail) { return detail.correct; }).length;
+      const answered = details.filter(function (detail) { return detail.selected; }).length;
+      const unknown = details.filter(function (detail) { return detail.unknown; }).length;
+      const byBlock = blocks.map(function (block) {
+        const blockDetails = details.filter(function (detail) {
+          return detail.question.block === block.id;
+        });
+        const blockScore = blockDetails.filter(function (detail) { return detail.correct; }).length;
+        return {
+          block,
+          score: blockScore,
+          total: blockDetails.length,
+          percentage: Math.round((blockScore / blockDetails.length) * 100)
+        };
+      });
+      return {
+        details,
+        score,
+        answered,
+        unknown,
+        percentage: Math.round((score / questions.length) * 100),
+        byBlock
+      };
+    }
+
+    function diagnostic(score) {
+      const percentage = Math.round((score / questions.length) * 100);
+      if (percentage >= 90) return "Domínio muito forte: revise os erros pontuais e as questões deixadas em branco.";
+      if (percentage >= 75) return "Bom domínio: corrija os erros e revise os blocos com menor desempenho.";
+      if (percentage >= 60) return "Base razoável, mas instável: revise todo bloco abaixo de 70%.";
+      return "Conteúdo ainda não consolidado: retome as aulas dos blocos com erros antes de novo simulado.";
+    }
+
+    function finishQuiz() {
+      if (!state.started || state.finalized) return;
+      const current = counts();
+      const warnings = [];
+      if (current.unknown) {
+        warnings.push(current.unknown + " questão(ões) marcada(s) como não sei resolver serão prioridade no relatório.");
+      }
+      if (current.blank) {
+        warnings.push(current.blank + " questão(ões) estão em branco sem marcação de dúvida.");
+      }
+      if (warnings.length && !window.confirm(warnings.join("\n") + "\n\nDeseja finalizar mesmo assim?")) {
+        return;
+      }
+      stopTiming();
+      state.finalized = true;
+      state.finalizedAt = new Date().toISOString();
+      saveState(false);
+      renderQuiz();
+      renderResult();
+      document.getElementById("result").scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function applyCorrection() {
+      const results = getResults();
+      results.details.forEach(function (detail) {
+        const article = document.getElementById("question-" + detail.question.id);
+        if (detail.correct) {
+          article.classList.add("correct");
+        } else if (detail.unknown) {
+          article.classList.add("declared-unknown", "unanswered");
+        } else {
+          article.classList.add(detail.selected ? "wrong" : "unanswered");
+        }
+
+        article.querySelectorAll(".option").forEach(function (option) {
+          const letter = option.dataset.option;
+          option.classList.remove("selected");
+          if (letter === detail.question.correct) option.classList.add("answer-correct");
+          if (detail.selected && letter === detail.selected && !detail.correct) {
+            option.classList.add("answer-wrong");
+          }
+        });
+
+        const feedback = article.querySelector(".feedback");
+        if (detail.correct) {
+          feedback.innerHTML = `<p><strong>Correta.</strong> ${detail.question.explanation}</p>`;
+        } else if (detail.unknown) {
+          feedback.innerHTML = `<p><strong>Não respondida por não saber resolver.</strong> Resposta correta: ${optionText(detail.question, detail.question.correct)}.</p><p>${detail.question.explanation}</p>`;
+        } else {
+          feedback.innerHTML = `<p><strong>${detail.selected ? "Incorreta" : "Não respondida"}.</strong> Resposta correta: ${optionText(detail.question, detail.question.correct)}.</p><p>${detail.question.explanation}</p>`;
+        }
+      });
+    }
+
+    function renderResult() {
+      if (!state.finalized) return;
+      const results = getResults();
+      const result = document.getElementById("result");
+      const missed = questions.length - results.score;
+      result.classList.add("visible");
+      result.innerHTML = `
+        <div class="score-row">
+          <div class="score">
+            <strong>${results.score}/${questions.length}</strong>
+            <span>${results.percentage}% de acerto</span>
+          </div>
+          <div class="diagnostic">
+            <h2>Resultado final</h2>
+            <p>${diagnostic(results.score)}</p>
+            <p>${results.answered} respondidas; ${results.unknown} marcadas como não sei; ${missed} erradas ou não respondidas.</p>
+            <p>Tempo executado: ${formatDuration(state.elapsedMs)}.</p>
+          </div>
+        </div>
+        <table class="results-table">
+          <thead><tr><th>Bloco</th><th>Acertos</th><th>Percentual</th><th>Revisar se necessário</th></tr></thead>
+          <tbody>
+            ${results.byBlock.map(function (item) {
+              return `<tr><td>${item.block.id}. ${item.block.title}</td><td>${item.score}/${item.total}</td><td>${item.percentage}%</td><td>${item.percentage < 70 ? item.block.review : "Manter revisão espaçada"}</td></tr>`;
+            }).join("")}
+          </tbody>
+        </table>
+        <div class="toolbar-buttons">
+          <button type="button" id="copyButton">Copiar relatório para IA</button>
+          <button type="button" class="button-secondary" id="downloadButton">Baixar relatório (.txt)</button>
+        </div>
+        <p class="export-help">O relatório inclui alternativas e observações, diferencia resposta errada de questão deixada em branco por não saber resolver e solicita o arquivamento do resultado e a criação da pasta de revisão.</p>`;
+      document.getElementById("copyButton").addEventListener("click", copyReport);
+      document.getElementById("downloadButton").addEventListener("click", downloadReport);
+    }
+
+    function buildReport() {
+      const results = getResults();
+      const completionDate = new Date(state.finalizedAt || Date.now());
+      const dateText = completionDate.toLocaleString("pt-BR");
+      const folderName = "resultados-simulado-" + CONFIG.numero + "-" + formatFolderDate(state.finalizedAt);
+      const wrong = results.details.filter(function (detail) { return !detail.correct; });
+      const correct = results.details.filter(function (detail) { return detail.correct; });
+      const notedCorrect = correct.filter(function (detail) { return detail.observation; });
+      const lines = [
+        "RESULTADO - " + CONFIG.titulo.toUpperCase() + " - SISTEMAS DIGITAIS (UFCG)",
+        "Finalizado em: " + dateText,
+        "Tempo executado: " + formatDuration(state.elapsedMs),
+        "Nota: " + results.score + "/" + questions.length + " (" + results.percentage + "%)",
+        "Respondidas: " + results.answered + "/" + questions.length,
+        "Marcadas como não soube responder: " + results.unknown,
+        "",
+        "DESEMPENHO POR BLOCO"
+      ];
+
+      results.byBlock.forEach(function (item) {
+        lines.push("- Bloco " + item.block.id + " - " + item.block.title + ": " +
+          item.score + "/" + item.total + " (" + item.percentage + "%)" +
+          (item.percentage < 70 ? " | Revisar: " + item.block.review : ""));
+      });
+
+      lines.push("", "QUESTÕES ERRADAS OU NÃO RESPONDIDAS (" + wrong.length + ")");
+      if (!wrong.length) {
+        lines.push("- Nenhuma. Todas as questões foram respondidas corretamente.");
+      } else {
+        wrong.forEach(function (detail) {
+          lines.push("");
+          lines.push("Questão " + detail.question.id + " - " + detail.question.topic);
+          lines.push("Enunciado: " + plainText(detail.question.prompt));
+          const artifactLines = artifactReportLines(detail.question);
+          if (artifactLines.length) {
+            lines.push("Material apresentado:");
+            artifactLines.forEach(function (line) { lines.push(line); });
+          }
+          lines.push("Alternativas disponíveis:");
+          detail.question.options.forEach(function (option, index) {
+            lines.push("- " + letters[index] + ") " + plainText(option));
+          });
+          lines.push("Minha resposta: " + answerDescription(detail));
+          if (detail.unknown) {
+            lines.push("Motivo declarado: deixei em branco porque não sabia como resolver; preciso aprender este procedimento.");
+          }
+          if (detail.observation) {
+            lines.push("Minha observação: " + detail.observation);
+          }
+          lines.push("Resposta correta: " + optionText(detail.question, detail.question.correct));
+          lines.push("Explicação: " + plainText(detail.question.explanation));
+        });
+      }
+
+      lines.push("", "QUESTÕES CORRETAS (" + correct.length + ")");
+      lines.push(correct.length
+        ? correct.map(function (detail) { return detail.question.id + " (" + detail.question.topic + ")"; }).join(", ")
+        : "- Nenhuma.");
+      if (notedCorrect.length) {
+        lines.push("", "OBSERVAÇÕES EM QUESTÕES CORRETAS (" + notedCorrect.length + ")");
+        notedCorrect.forEach(function (detail) {
+          lines.push("- Questão " + detail.question.id + " - " + detail.question.topic + ": " + detail.observation);
+        });
+      }
+      lines.push("", "PEDIDO PARA REVISÃO COM IA");
+      lines.push("Analise meus erros neste simulado de Sistemas Digitais. Para cada questão errada ou não respondida, considere também as alternativas disponíveis e qualquer observação que eu tenha registrado, explique o conceito, resolva passo a passo e proponha 2 exercícios semelhantes com gabarito para eu fixar. Priorize os blocos abaixo de 70% e trate as questões marcadas como 'não soube responder' como prioridade, pois foram deixadas em branco conscientemente para evitar chute.");
+      lines.push("Salve uma cópia deste relatório completo em C:/Users/gabrieloliveira/Documents/pessoal/estudos/residencia/03-simulados/resultados/relatorios/, com nome que identifique o número do simulado e a data de realização, para manter meu histórico.");
+      lines.push("Salve tudo o que eu precisarei estudar na pasta C:/Users/gabrieloliveira/Documents/pessoal/estudos/residencia/03-simulados/resultados/revisoes/" + folderName + ". Crie nessa pasta pelo menos um arquivo revisao_erros.md com o diagnóstico, as explicações, os exercícios e os gabaritos.");
+      lines.push("Atualize também o arquivo C:/Users/gabrieloliveira/Documents/pessoal/estudos/residencia/03-simulados/log_estudos_e_simulados.md, adicionando este simulado à tabela de simulados realizados com data, horário de conclusão, tempo de execução e resultado informados neste relatório. Não altere registros anteriores.");
+      return lines.join("\n");
+    }
+
+    async function copyReport() {
+      const report = buildReport();
+      try {
+        await navigator.clipboard.writeText(report);
+        showToast("Relatório copiado. Pronto para enviar à IA.");
+      } catch (error) {
+        const area = document.createElement("textarea");
+        area.value = report;
+        document.body.appendChild(area);
+        area.select();
+        document.execCommand("copy");
+        area.remove();
+        showToast("Relatório copiado. Pronto para enviar à IA.");
+      }
+    }
+
+    function downloadReport() {
+      const blob = new Blob([buildReport()], { type: "text/plain;charset=utf-8" });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = CONFIG.nomeRelatorio;
+      link.click();
+      URL.revokeObjectURL(link.href);
+      showToast("Relatório baixado.");
+    }
+
+    function resetQuiz() {
+      if (!window.confirm("Apagar respostas, observações, tempo e resultado deste simulado para recomeçar?")) return;
+      stopTiming();
+      try {
+        localStorage.removeItem(CONFIG.storageKey);
+      } catch (error) {
+        console.warn("Não foi possível limpar o progresso salvo.", error);
+      }
+      state = newState();
+      noteDrafts = {};
+      openNotes = {};
+      document.getElementById("result").classList.remove("visible");
+      document.getElementById("result").innerHTML = "";
+      saveState(false);
+      renderQuiz();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    let toastTimer;
+    function showToast(message) {
+      const toast = document.getElementById("toast");
+      toast.textContent = message;
+      toast.classList.add("visible");
+      window.clearTimeout(toastTimer);
+      toastTimer = window.setTimeout(function () {
+        toast.classList.remove("visible");
+      }, 2800);
+    }
+
+    document.getElementById("startButton").addEventListener("click", startQuiz);
+    document.getElementById("finishButton").addEventListener("click", finishQuiz);
+    document.getElementById("resetButton").addEventListener("click", resetQuiz);
+    document.getElementById("questionNavigator").addEventListener("click", handleQuestionNavigatorClick);
+    document.getElementById("questionNavigatorBottom").addEventListener("click", handleQuestionNavigatorClick);
+    document.getElementById("backToTopButton").addEventListener("click", function () {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+    document.getElementById("quizForm").addEventListener("change", handleAnswerChange);
+    document.getElementById("quizForm").addEventListener("click", handleUnknownClick);
+    document.getElementById("quizForm").addEventListener("click", handleObservationToggle);
+    document.getElementById("quizForm").addEventListener("click", handleObservationSave);
+    document.getElementById("quizForm").addEventListener("input", handleObservationInput);
+    window.addEventListener("pagehide", function () { saveState(); });
+
+    renderMetadata();
+    renderQuiz();
+    renderTimer();
+    if (state.started && !state.finalized) startTiming();
+    if (state.finalized) renderResult();
+  </script>
+</body>
+</html>
