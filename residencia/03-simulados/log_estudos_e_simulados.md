@@ -32,3 +32,4 @@
 | 08/06/2026 | 17:09:06 | 00:34:01 | Simulado 09 - Aulas 13 e 18 a 24 - Revisao Completa - Sistemas Digitais (UFCG) | `56/60 (93%)` |
 | 11/06/2026 | 14:21:50 | 02:03:38 | Simulado 11 - Geral Aulas 1 a 27 - Dificil - Sistemas Digitais (UFCG) | `48/57 (84%)` |
 | 15/06/2026 | 17:05:54 | 01:26:32 | Simulado 12 - Geral Aulas 1 a 27 - Nivel Prova Dificil - Sistemas Digitais (UFCG) | `50/60 (83%)` |
+| 08/07/2026 | 11:18:33 | 01:40:09 | Simulado 13 - Geral Aulas 1 a 27 - Casca Grossa - Sistemas Digitais (UFCG) | `42/60 (70%)` |
