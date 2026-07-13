@@ -1,0 +1,64 @@
+===
+@id checksum-01
+# sistemas numericos; checksum; paridade
+? Três bytes são 3A, C5 e 10. Deseja-se acrescentar um checksum de 8 bits para que a soma total seja 0 módulo 256.
+? Também será acrescentado um bit de paridade par ao byte de checksum. Qual alternativa está correta?
+- Checksum 0F e paridade 0
+* Checksum F1 e paridade 1
+- Checksum F0 e paridade 0
+- Checksum 0F e paridade 1
+- Checksum F1 e paridade 0
+> 3A+C5+10 = 0x10F. O byte baixo é 0x0F.
+> O complemento módulo 256 é 0x100-0x0F = 0xF1.
+> F1 = 11110001 tem 5 bits 1; para paridade par, o bit extra é 1.
+
+===
+@id skew-01
+# temporização; skew; setup-hold
+? Um caminho entre flip-flops tem tCQmax=0,8 ns, tPDmax=6,4 ns, tsetup=0,9 ns, tCQmin=0,2 ns, tPDmin=0,5 ns e thold=0,4 ns.
+? O clock chega 0,3 ns mais cedo no destino do que na origem. Qual conclusão está correta?
+- Tclk mínimo = 7,8 ns e há violação de hold.
+* Tclk mínimo = 8,4 ns e não há violação de hold.
+- Tclk mínimo = 7,8 ns e não há violação de hold.
+- Tclk mínimo = 8,4 ns e há violação de hold.
+> skew = destino - origem = -0,3 ns.
+> Setup: Tclk >= 0,8+6,4+0,9-(-0,3)=8,4 ns.
+> Hold: 0,2+0,5 >= 0,4+(-0,3), então 0,7 >= 0,1. Não há violação.
+
+===
+@id fsm-01
+# fsm; flip-flop d; próximo estado
+? A tabela mostra o próximo estado de Q1Q0. Qual expressão corresponde a D0?
+::tabela Próximo estado
+| Estado atual; X=0; X=1
+| 00; 01; 00
+| 01; 11; 10
+| 10; 00; 01
+| 11; 10; 11
+::fim
+- D0 = XQ1 + \bar{X}Q0
+* D0 = \bar{X}\bar{Q1} + XQ1
+- D0 = Q0
+- D0 = X XOR Q0
+> Em FF D, D0 = Q0+.
+> Para X=0, Q0+ vale 1 quando Q1=0, então \bar{Q1}.
+> Para X=1, Q0+ vale 1 quando Q1=1, então Q1.
+
+===
+@id branch-01
+# assembly; branch; flags
+? Considere o trecho. Qual valor final fica em R0?
+::codigo Trecho
+MOV  R0, #0
+MOV  R1, #3
+L: ADD  R0, R0, R1
+   SUBS R1, R1, #1
+   BNE  L
+::fim
+- 3
+- 4
+- 5
+* 6
+- 7
+> O laço soma 3, depois 2, depois 1.
+> SUBS atualiza Z. Quando R1 vira 0, Z=1 e BNE não desvia.

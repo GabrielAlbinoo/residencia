@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Questões - Pontos Fracos</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="manifest" href="manifest.webmanifest">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <h1>Questões</h1>
+      <p>Revisão por pontos fracos</p>
+    </div>
+    <label class="import-button">
+      Importar TXT
+      <input id="fileInput" type="file" accept=".txt,text/plain">
+    </label>
+  </header>
+
+  <main class="layout">
+    <section class="panel controls">
+      <div class="metric-row">
+        <div>
+          <span>Questões</span>
+          <strong id="totalQuestions">0</strong>
+        </div>
+        <div>
+          <span>Acertos</span>
+          <strong id="correctCount">0</strong>
+        </div>
+        <div>
+          <span>Erros</span>
+          <strong id="wrongCount">0</strong>
+        </div>
+      </div>
+
+      <div class="button-grid">
+        <button id="loadMainBankButton" type="button">Banco SD</button>
+        <button id="loadExampleButton" type="button">Carregar exemplo</button>
+        <button id="weakModeButton" type="button">Pontos fracos</button>
+        <button id="allModeButton" type="button">Todas</button>
+        <button id="resetProgressButton" type="button" class="ghost">Zerar progresso</button>
+      </div>
+
+      <label class="field">
+        Categoria
+        <select id="categoryFilter">
+          <option value="">Todas</option>
+        </select>
+      </label>
+
+      <div class="weak-list">
+        <h2>Prioridade por tema</h2>
+        <div id="weakTopics"></div>
+      </div>
+    </section>
+
+    <section class="question-card" id="questionCard">
+      <div class="empty-state">
+        <h2>Importe um `.txt` ou carregue o exemplo</h2>
+        <p>Use o formato simples com marcadores: <code>?</code> para enunciado, <code>-</code> para alternativa, <code>*</code> para correta, <code>&gt;</code> para explicação e <code>#</code> para categorias.</p>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

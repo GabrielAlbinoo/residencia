@@ -1,0 +1,9 @@
+{
+  "name": "Questões - Pontos Fracos",
+  "short_name": "Questões",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f4f6f5",
+  "theme_color": "#005d57",
+  "icons": []
+}
