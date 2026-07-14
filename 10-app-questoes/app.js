@@ -387,11 +387,28 @@ function loadQuestionsFromText(text) {
   renderQuestion();
 }
 
+function readTextFile(file) {
+  if (typeof file.text === "function") {
+    return file.text();
+  }
+
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(String(reader.result || ""));
+    reader.onerror = () => reject(reader.error);
+    reader.readAsText(file, "UTF-8");
+  });
+}
+
 els.fileInput.addEventListener("change", async (event) => {
   const file = event.target.files?.[0];
   if (!file) return;
-  const text = await file.text();
-  loadQuestionsFromText(text);
+  try {
+    const text = await readTextFile(file);
+    loadQuestionsFromText(text);
+  } catch {
+    alert("Não consegui ler esse TXT neste navegador. Tente abrir a versão tablet/offline ou selecione outro arquivo.");
+  }
 });
 
 els.loadExampleButton.addEventListener("click", async () => {

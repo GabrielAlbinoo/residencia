@@ -10,6 +10,14 @@ Abra:
 index.html
 ```
 
+No tablet, se você for abrir o arquivo diretamente pelo gerenciador de arquivos, prefira:
+
+```text
+app-tablet-offline.html
+```
+
+Essa versão é um HTML único, com estilo, código e bancos de questões embutidos. Ela evita o problema de abrir só o `index.html` sem o `styles.css`, `app.js` e os `.txt` junto.
+
 O app já tem bancos iniciais nos botões **Banco SD** e **100 novas**. Também funciona com arquivos `.txt` importados pelo botão **Importar TXT**.
 
 Banco inicial:

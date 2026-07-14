@@ -1,7 +1,8 @@
-const CACHE_NAME = "questoes-pontos-fracos-v3";
+const CACHE_NAME = "questoes-pontos-fracos-v4";
 const ASSETS = [
   "./",
   "./index.html",
+  "./app-tablet-offline.html",
   "./styles.css",
   "./app.js",
   "./questoes-exemplo.txt",
