@@ -18,7 +18,7 @@ app-tablet-offline.html
 
 Essa versão é um HTML único, com estilo, código e bancos de questões embutidos. Ela evita o problema de abrir só o `index.html` sem o `styles.css`, `app.js` e os `.txt` junto.
 
-O app já tem bancos iniciais nos botões **Banco SD** e **100 novas**. Também funciona com arquivos `.txt` importados pelo botão **Importar TXT**.
+O app carrega um banco único combinando as questões iniciais. Na tela principal aparece apenas a questão; estatísticas, importação, OBS e exportação ficam em **Config**.
 
 Banco inicial:
 
@@ -26,6 +26,24 @@ Banco inicial:
 bancos/sistemas_digitais_simulados_11_a_15_limpo.txt
 bancos/sistemas_digitais_100_questoes_novas_extremo.txt
 ```
+
+## Progresso E Pontos Fracos
+
+Os acertos, erros, questões marcadas como "não sei" e prioridades por tema ficam salvos no navegador usando `localStorage`.
+
+Isso significa:
+
+- fechar e abrir no mesmo navegador mantém o progresso;
+- trocar de navegador, trocar de aparelho ou limpar os dados do navegador pode apagar o progresso;
+- o progresso não fica gravado dentro do arquivo `.txt`.
+
+Use o botão **Exportar IA** na tela **Config** para copiar um relatório com os pontos fracos, questões erradas/não sei, OBS e instruções para a IA montar revisão, explicações, fórmulas, pegadinhas e novas questões.
+
+Cada questão também tem um campo **OBS desta questão**, mas ele só aparece depois que você responde ou marca "não sei". Essas observações ficam salvas junto do progresso e aparecem em **Config**, para revisar suas próprias dúvidas e raciocínios depois.
+
+No treino, tocar em uma alternativa apenas seleciona a resposta. O app só corrige depois de apertar **Responder**. Após responder, ele revela assunto, estatísticas da questão, explicação, OBS e o botão **Próxima**.
+
+As questões aparecem em ordem aleatória, não sequencial. Em **Config**, o modo de pontos fracos pode ser ligado para sortear prioritariamente questões com maior histórico de erro ou "não sei".
 
 ## Formato Simples De Questões
 

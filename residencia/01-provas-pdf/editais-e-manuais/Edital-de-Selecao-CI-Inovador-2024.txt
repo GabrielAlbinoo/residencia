@@ -1,0 +1,448 @@
+
+
+--- PAGE 1 ---
+INSTRUÇÕES
+PARA PARTICIPAR DO PROCESSO DE SELEÇÃO DO PROGRAMA DECAPACITAÇÃOCIINOVADORVOCÊPRECISA:
+1) Ter sidoaprovadoeclassificadonaetapaQuestionárioeProva.2) Ter nível deinglêsintermediário, avançadooufluente.3) Ter diploma de graduação ou certificado de conclusão atéjulhode2024noscursosde:Engenharia elétrica, Sistema de informação, Ciência da computação, Engenharia decomputação, Análise de dados, Engenharia de telemática, Estatística, Engenharia deautomação, Engenharia física, Bacharelado emFísica, Bacharelado emMatemáticaouEngenhariamecatrônica.4) Ter disponibilidade para comparecer às aulas presenciais eparticipar dasatividadesnorespectivopolo.5) Ler oEdital eManual deEstudodoCandidatoCI Inovador, poisnelevocêencontraráasetapas do processo de seleção, como realizar a inscrição, cronograma, conteúdosugeridoaser estudadoemuitasoutrasinformaçõesessenciais.
+CRONOGRAMA
+15defevereiroa15deabril - PeríododeInscrição
+24deabril - Prova
+25deabril - DivulgaçãodeGabarito
+03demaio- ResultadoFinal
+03demaioa14demaio- ConfirmaçãodeInteresseemMatrícula
+08dejulhoa15dejulho- SemanaIntrodutóriadecapacitação
+D4Sign 7b48c2b6-236e-43ea-8e33-1d46d520d75f - Para conﬁrmar as assinaturas acesse https://secure.d4sign.com.br/veriﬁcar
+Documento assinado eletronicamente, conforme MP 2.200-2/01, Art. 10º, §2.
+
+--- PAGE 2 ---
+PROCESSOSELETIVODEINGRESSONOPROGRAMADERESIDÊNCIAEMMICROELETRÔNICA–CI BRASILINOVAÇÃONº 003/2024
+PROGRAMACI BRASILINOVAÇÃO
+A Associação para Promoção da Excelência do Software Brasileiro - Softex, na condição deCoordenadora do Programa de Residência em Microeletrônica – CI BRASIL INOVAÇÃO e oInstituto Federal de Educação, Ciência e Tecnologia do Ceará (IFCE), na qualidade deExecutor acadêmico, em conformidade com o Termo de Parceria nº 187/SOFTEX/IFCE,celebrado com a Softex, e em parceria com o Ministério da Ciência, Tecnologia e Inovação(MCTI), ”, tornampúblicoopresenteEdital deProcessoSeletivoparaIngressonoProgramadeResidênciaemMicroeletrônica–CI BRASILINOVAÇÃO.
+1OBJETIVO
+1.1 Este Edital tem o objetivo de selecionar até 250 (duzentos e cinquenta) participantes econstituir umcadastro reserva de até 50 (cinquenta) reservistas, para participação naFasedeCapacitaçãoInicial do“ProgramadeResidênciaemMicroeletrônica” –CI BRASILINOVAÇÃO.
+1.2 Opresente Edital estabelece as regras e condições de participação no Processo Seletivode Ingresso no Programa de Residência em Microeletrônica – CI BRASIL INOVAÇÃO,coordenado pela Softex, com participação da Universidade Federal do Rio Grande do Sul(UFRGS), Universidade Federal de Santa Maria (UFSM) e Associação do Laboratório deSistemasIntegráveisTecnológico(LSI-TEC) Usp/Unicamp.
+1.3 OPrograma de ResidênciaemMicroeletrônica–CI BRASILINOVAÇÃOtemcomoobjetivoRecurso promover a capacitação e formação de recursos humanosnaáreademicroeletrônicae semicondutores, como propósito de contribuir paraainovaçãoeodesenvolvimentodosetorbrasileiro, especialmente no que se refere à comunidade de profissionais, empresas einstituiçõesondeosprojetosestarãoinseridos.
+2OBJETIVOS, MODALIDADEEPÚBLICO-ALVO
+2.1 O Programa terá duração de 30 meses, divididos em 3 (três) fases com 250 alunos naprimeira fase. Ao final de cada fase, somente os estudantes selecionadosprosseguirãoparaapróximafase, conformeQuadro1.
+D4Sign 7b48c2b6-236e-43ea-8e33-1d46d520d75f - Para conﬁrmar as assinaturas acesse https://secure.d4sign.com.br/veriﬁcar
+Documento assinado eletronicamente, conforme MP 2.200-2/01, Art. 10º, §2.
+
+--- PAGE 3 ---
+Quadro1- Númerodeestudantespor fasedoprograma
+FasedoPrograma Númerototal deestudantes
+Capacitação 250
+Vivênciainternacional 100
+InCompany 32
+2.2Primeira- FasedeCapacitação:
+2.2.1 Duração de 6 meses. Nesta fase serão selecionados até 250 estudantes. Serãooferecidas aulas presenciais no polo onde o candidato for designado por possívelescolha no ato de inscrição, mediante aprovação e classificação, com conteúdosteóricos e atividades práticas. Osalunostambémterãoacessoaumacompanhamento(por meio de tutores) para mitigar a evasãoegarantir queelestenhamumaprendizadoefetivoduranteocurso. Aofinal destafase, estáprevistaaseleçãodosmelhoresalunospara a próximafase. Essaseleçãoserárealizadacombasenodesempenhodosalunosduranteasatividadesdocurso.
+2.2.2 A carga horária da primeira fase do programa é de 720 horas, com encontrospresenciais diários e obrigatórios na instituição de designação, durante a fase decapacitaçãocomjornadaemperíodointegral.
+2.4Segunda- FasedeVivênciaInternacional:
+2.4.1 Duração de 6 meses. Dos 250 participantes da fase de Capacitação, serãoselecionados 100 estudantes para vivência internacional emempresas, universidades,centros de pesquisa e outras instituições que possamservir de ambientes simuladorespara o desenvolvimento de profissionais capazes de desenvolverem tecnologias deponta.
+2.4.2 Os estudantes seguirão um roteiro de 45 dias em um país no exterior paraconhecer presencialmente empresas, universidades, laboratórios para uma completaimersãonasprincipaistendênciasetecnologiasdepontanosetor demicroeletrônica.
+D4Sign 7b48c2b6-236e-43ea-8e33-1d46d520d75f - Para conﬁrmar as assinaturas acesse https://secure.d4sign.com.br/veriﬁcar
+Documento assinado eletronicamente, conforme MP 2.200-2/01, Art. 10º, §2.
+
+--- PAGE 4 ---
+2.4.3 O objetivo da experiência é fomentar a maturidade do aluno ao ser exposto aambiente diferente do usual e tendências de mercado, experimentando ferramentas etendoacessoaconteúdoscoerentescomapropostaprevistanafaseanterior.
+2.4.4 Após a experiência in loco, os participantes devem dar continuidade aos seusestudos em um ambiente simulado, como design house, Institutos de Ciência, deTecnologia e de Inovação (ICTs), universidades ou ferramentas de empresas parceirasdo Programa, durante 4 meses, quando produzirão ou desenvolverão umprojeto real,quepodeser demandadopor algumparceirocomercial ounão.
+2.5 Terceira- FaseInCompany:
+2.5.1 Duraçãode18meses. Dos100participantesdafasedeVivênciaInternacional, 32serão selecionados para participação dos grupos de trabalho que atuarão emprojetosnas empresas selecionadas. A formação tem como objetivo integrar os participantesselecionados em empresas para desenvolver projetos in company, incluindo designhouses, emparceriacomICTse/ououtrasinstituiçõesdefomentoàinovação.
+2.5.2 A fase tem como propósito oferecer aos alunos uma formação sobre asatividades desenvolvidas por profissionais contratados na área, incluindo técnicas,tecnologias, metodologias de projeto e ferramentas particulares decadaempresa. Estafase contará como apoio das empresas que firmarem parceria comoProgramaesecomprometerem a acolher os alunos e inseri-los em um ambiente de trabalhoadequadoàshabilidadesdesenvolvidasduranteocurso.
+2.5.3 A etapa inicial consistirá na formação de grupos de trabalho formados por umaluno e uma empresa. As atividades desenvolvidas durante esta fase envolverãoprojetos práticos (um para cada aluno) relacionados com produtosdesenvolvidospelas empresas parceiras, as quais auxiliarão no desenvolvimento dos projetos. Osalunos deverão finalizar os projetos contando com o apoio de mentores de cadaempresa, assim como com o auxílio dos tutores, os quais estarão preparados paraapoiar tanto comasdificuldadestécnicas, quantocomacomunicaçãoentreosalunoseosresponsáveisdecadaempresa.
+2.6 O público-alvo do programa são profissionais já com experiência e/ou formaçãocomprovada, como acadêmicos (pesquisadores, graduandos no último período, graduados)dos cursos Engenharia elétrica, Sistema de informação, Ciência da computação, Engenhariade computação, Análise de dados, Engenharia de telemática, Estatística, Engenharia de
+D4Sign 7b48c2b6-236e-43ea-8e33-1d46d520d75f - Para conﬁrmar as assinaturas acesse https://secure.d4sign.com.br/veriﬁcar
+Documento assinado eletronicamente, conforme MP 2.200-2/01, Art. 10º, §2.
+
+--- PAGE 5 ---
+Automação, Engenharia Física, Bacharelado em Física, Bacharelado em Matemática eEngenharia Mecatrônica. empreendedores, profissionais de design house, entre outrosprofissionaisdeáreaafins.
+2.7 O candidato deverá optar no ato da inscrição pela Trilha / Polo de sua preferência,conforme às vagas no Quadro 3 e atentar-se aos conhecimentos e competências depré-requisito:
+2.7.1 SistemaDigital: Representaçãodedados: sistemasdenumeração, aritméticabinária e decimal; noções básicas de arquitetura e organização de computadores; noção dealgoritmos e programação em linguagem procedural; conhecer a definição de operaçõeslógicas básicas: conjunção, disjunção e negação; conhecimentos básicos de física: tensão ecorrente elétricas, potência, energia; capacidade de ler textos técnicos e utilizar ferramentascomputacionaisemlínguainglesa.
+2.7.2Analógico: Compreensãodosprincípiosbásicosdeeletrônica; conhecimentodeteoriadecircuitos; familiaridadecomamplificadoresanalógicos, filtrosativosepassivoseseus
+princípios de funcionamento; conhecimento sobre dispositivos semicondutores, comotransistores bipolares e de efeito de campo (FETs); compreensão dos conceitos de sinais esistemas, incluindo transformada de Fourier e transformada de Laplace; familiaridade comprincípios de comunicação analógica, como modulação e demodulação de sinais; capacidadedeler textostécnicoseutilizar ferramentascomputacionaisemlínguainglesa.
+2.7.3RF: Compreensãodosprincípiosbásicosdeeletrônica; conhecimentodeteoriadecircuitos; compreensão dos conceitosdesinaisesistemas, incluindotransformadadeFourier etransformada de Laplace; conhecimento em eletrônica analógica, incluindo amplificadores,filtros, osciladores e dispositivos semicondutores; noções básicas de teoria de micro-ondas,fundamental para entender os princípios RF; familiaridade comos princípios de comunicação,incluindo modulação; demodulação e sistemas de transmissão; capacidade de ler textostécnicoseutilizar ferramentascomputacionaisemlínguainglesa.
+2.7.4 Gestão e Empreendedorismo Desejável: Experiênciaempreendedorapréviaemqualquer áreaehistóricodeparticipaçãoemstartups(empresascombasetecnológica).
+D4Sign 7b48c2b6-236e-43ea-8e33-1d46d520d75f - Para conﬁrmar as assinaturas acesse https://secure.d4sign.com.br/veriﬁcar
+Documento assinado eletronicamente, conforme MP 2.200-2/01, Art. 10º, §2.
+
+--- PAGE 6 ---
+3ETAPASDESELEÇÃO
+3.1 Ocandidatointeressadoemconcorrer àsvagasdisponibilizadasnoProcessoSeletivodevetomar conhecimento de todas as normas presentes neste Edital e certificar-se de que atendetodososrequisitosexigidospor ele.
+3.2 O Processo Seletivo de que trata este Edital compreenderá duas fases, constituídas dequestionário(eliminatório) eprova(classificatória).
+3.2.1 A fase de questionário (eliminatória) será composta por perguntas a respeito dadisponibilidade dos candidatos para se dedicarem ao programa e sobre o atendimento aospré-requisitosdesteEdital.
+3.2.2 A fase de prova (classificatória) será composta por 40 perguntas que serãorealizadasemambienteonlinenadataehorárioinformadosnoitem8.
+3.3 Para finsdesteProcessoSeletivo, seráconsideradoselecionadoocandidatonãoeliminadono questionário eliminatório, aprovado na provaeclassificadonoranqueamentoconformenotadentro do limite do número de vagas ofertadas conforme disposto no Quadro 3. Oresultadodeste Processo Seletivo será válido apenas para o preenchimento das vagas deste Edital e aformaçãodecadastroreserva.
+3.5 O Programa de Residência tem previsão de início em 08 de julho de 2024 e término emoutubrode2025.
+3.6 A divulgação do presente Edital, seus resultados e demais informações, ocorrerá site doPrograma: https://ciinovador.softex.br/
+4CRONOGRAMA
+4.1 As atividades relacionadas a este Edital devem ser realizadas conforme etapas erespectivosprazosestabelecidosaseguir, conformeoQuadro2abaixo:
+D4Sign 7b48c2b6-236e-43ea-8e33-1d46d520d75f - Para conﬁrmar as assinaturas acesse https://secure.d4sign.com.br/veriﬁcar
+Documento assinado eletronicamente, conforme MP 2.200-2/01, Art. 10º, §2.
+
+--- PAGE 7 ---
+Quadro2–EtapasPrevistasdoProcessoSeletivo
+ETAPA DATA LOCAL
+DivulgaçãodoEdital 15/02/2024 Sitedoprograma:
+https://ciinovador.softex.br/
+Inscrições
+15/02/2024
+até15/04/2024
+Nolink:
+https://ciinovador.softex.br/
+PeríododeImpugnaçãodo
+edital
+15/02/2024
+até17/02/2024
+E-mail:
+contato.ciinovador@softex.br
+Aplicaçãodaprova 24/04/2024 Linkinformadonapáginadeacesso
+aocandidatoaprovadoparaa
+EtapadeProva
+Divulgaçãodegabarito 25/04/2024 Sitedoprograma:
+https://ciinovador.softex.br/
+Resultadopreliminar 26/04/2024 Sitedoprograma:
+https://ciinovador.softex.br/
+Prazopararecurso
+26/04/2024
+até30/04/2024
+ViaFormulário
+https://forms.gle/FUFGqLgMMXuuprZL7
+Resultadofinal 03/05/2024 Sitedoprograma:
+https://ciinovador.softex.br/
+D4Sign 7b48c2b6-236e-43ea-8e33-1d46d520d75f - Para conﬁrmar as assinaturas acesse https://secure.d4sign.com.br/veriﬁcar
+Documento assinado eletronicamente, conforme MP 2.200-2/01, Art. 10º, §2.
+
+--- PAGE 8 ---
+Interesseemmatrícula 03/05/2024
+até14/05/2024
+On-line
+ContatoequipeCI Inovador
+Matrícula 20/05/2024
+até08/07/2024
+PolodeCapacitação
+SemanaIntrodutória
+decapacitação
+08/07/2024
+até15/07/2024
+PolodeCapacitação
+4.2. Os prazos previstos no Cronograma de execução podem sofrer alteração a qualquertempo, devido às necessidades de ajuste que porventura surjam ao longo de todo processoespecificadonesteEdital semônusaoProgramaCI BRASILINOVAÇÃO.
+4.3. Quaisquer alterações eventualmente necessárias com relação ao prazo, cronograma deexecução e outros itens serão amplamente divulgadas no site do programa, disponível noendereçohttps://ciinovador.softex.br/.
+5VAGASEPOLOS
+5.1 Serão ofertadas 250 (duzentas e cinquenta) vagas para seleção de candidatos no total,distribuídas em oito polos e com duas opções de trilhas, conforme detalhamento contido noQuadro3abaixo:
+Quadro3–Vagaspor InstituiçãoExecutoraepolos
+InstituiçãoExecutora
+Polos TrilhadeConhecimento Vagas
+UFRGS UFRGS Digital 45
+UFRGS AnalógicoeRF 45
+UFSM UFSM Digital 09
+UFSM Analógico 09
+UFPR AnalógicoeRF 18
+D4Sign 7b48c2b6-236e-43ea-8e33-1d46d520d75f - Para conﬁrmar as assinaturas acesse https://secure.d4sign.com.br/veriﬁcar
+Documento assinado eletronicamente, conforme MP 2.200-2/01, Art. 10º, §2.
+
+--- PAGE 9 ---
+UnB Analógico 18
+UFCG Digital 18
+UFC Digital 18
+LSI-TEC
+Usp/Unicamp
+USP Digital 35
+Unicamp AnalógicoeRF 35
+5.2 As Instituições Executoras são as responsáveis pela condução da capacitação, enquantoospolossãooslocaisondeserãoofertadasasaulas.
+5.3 O candidato, no ato da inscrição, deverá indicar as trilhas de conhecimento emordemdepreferência. Serão duas opções: Sistemas Digitais e Sistemas analógicos (este último comopção de conteúdo de Sistemas Analógicos Mixed-Signals (AMS) ou Sistemas Analógicos deRadiofrequência (RF), atentando-se aos pré-requisitos dispostos no item 2.8, quantitativo devagasofertadaspor trilhaepor polo.
+5.4 Ocandidato, no ato da inscrição, deveráindicar oupolos, emordemdepreferência, paraoqual será alocado, caso aprovado, conforme a sua classificação. Os endereços de cada poloestãodisponíveisnoAnexoI.
+5.5 As vagas serão preenchidas por ordem observando a classificação de notas nas provas,seguindo a preferência principal de polo definida pelo(a) candidato(a), observando opúblico-alvo, conformeitens 2.6e2.7.
+5.6 Do total de vagas de cada Instituição Executora, 70% serão destinadas à amplaconcorrência e 30% serão reservadas para mulheres. Caso não haja candidatas suficientesparacompor asvagasexclusivas, elasserãorevertidasparaaamplaconcorrência.
+5.7 As candidatas do sexo feminino que desejaremconcorrer às vagas destinadas aosistemadeingressopor ReservadeVagasdeverãoassinalar suaopçãonoatodainscrição.
+5.8 Além das 250 (duzentas e cinquenta) vagas para seleção de candidatos, serãodisponibilizadas50(cinquenta) vagasparaformaçãodecadastrodereserva.
+5.9 Os candidatos selecionados para o cadastro de reserva serão convocados, emordemdeclassificação, casohajadesistênciaouabandonodocurso.
+D4Sign 7b48c2b6-236e-43ea-8e33-1d46d520d75f - Para conﬁrmar as assinaturas acesse https://secure.d4sign.com.br/veriﬁcar
+Documento assinado eletronicamente, conforme MP 2.200-2/01, Art. 10º, §2.
+
+--- PAGE 10 ---
+5.10 Em caso de não ocupação das vagas ofertadas em um ou mais polos, os candidatosserão redistribuídos dentre os demais polos, considerando aclassificaçãoeranqueamentoporordemdepreferênciaindicadapeloscandidatosnomomentodainscrição.
+6 INSCRIÇÕES
+6.1 As inscrições serão gratuitas e realizadas exclusivamente de forma on-line, no endereçodisponível no site do programa (https://ciinovador.softex.br/), no período indicado nocronogramadopresenteEdital.
+6.2 As inscrições deverão ser realizadasatéàs23h59min, horáriodeBrasília, dadatalimitedainscrição, descritanoQuadro2.
+6.3 No ato da inscrição, o candidato deverá indicar o curso de sua escolha em ordem deprioridade conforme disponibilidade de trilha e vagasnopolo, deacordocomoQuadro3desteEdital.
+6.4 As informações prestadas no ato de inscrição, bemcomo a documentação comprobatóriaapresentada presencialmente no momento efetivação da matrícula, serão de inteiraresponsabilidade do candidato. A falta da comprovação, ou entrega, de qualquer documentorelacionadonoatodeinscriçãoacarretaráaeliminação, docandidato, doprocessoseletivo.
+6.5 As cópias ilegíveis e/ou incompletas não serão consideradas para finsdecomprovaçãodedocumentoenviado.
+6.6 Este Edital não se responsabilizará por inscrição não efetivada por motivos de ordemtécnica de computadores, internet, falhas de comunicação, e/oudeoutrosfatorestécnicosquevenhamimpossibilitar atransferênciadedados.
+6.7 Em caso de dois ou mais requerimentos de inscrição de um mesmo candidato, seráconsiderada a inscrição com data mais recente. Os demais serão canceladosautomaticamente.
+6.8 Após o encerramento do período de inscrições, não será permitida a inscrição e/oucomplementaçãodasinformações.
+6.9 Finalizada a inscrição, o candidato receberá por e-mail de confirmação comas instruçõesde acesso no prazo de 48 horas; casonãorecebadentrodoprazocitado, deveráenviar e-mailparae-mail contato.ciinovador@softex.br.
+6.10Somenteserãohomologadasasinscriçõesqueatenderematodososrequisitos.
+D4Sign 7b48c2b6-236e-43ea-8e33-1d46d520d75f - Para conﬁrmar as assinaturas acesse https://secure.d4sign.com.br/veriﬁcar
+Documento assinado eletronicamente, conforme MP 2.200-2/01, Art. 10º, §2.
+
+--- PAGE 11 ---
+6.11Operíododeinscriçõespoderáser prorrogadoacritériodaSoftex, MCTI eIFCE.
+7 REQUISITOSBÁSICOSDEPARTICIPAÇÃO
+7.1 Experiência e/ou formação comprovada no ato da matrícula, como acadêmicos(pesquisadores, graduandos no último período de graduação, graduados e pós-graduados),empreendedores, profissionaisdedesignhouse, entreoutrosprofissionaisdeáreaafins.
+7.2 Ter diploma de graduação ou certificado de conclusão até julho de 2024 nos cursos de:Engenharia elétrica, Sistema de informação, Ciência da computação, Engenharia decomputação, Análise de dados, Análise de sistemas, Engenharia de telemática, Estatística,Engenharia de Automação, Engenharia Física, Bacharelado em Física, Bacharelado emMatemáticaeEngenhariaMecatrônica.
+7.3 Conhecimento de inglês intermediário (nível B2 - certo domínio) ou avançado (nível C1ouC2- capacidadeavançadadeseexpressar oufluênciaplena);
+7.4 Ter disponibilidade para comparecer às aulas presenciais e participar das atividades norespectivopolo.
+7.5 Ser cidadão brasileiro nato ou naturalizado ou cidadão estrangeiro comvistoderesidêncianoBrasil.
+8DAAPLICAÇÃODAPROVA
+8.1 Fase Única (Classificatória): A Análise do Processo Seletivo obedecerá a ordem derealização das inscrições, considerando os candidatos que não tenham sido eliminados nopreenchimentodoquestionárioequeatendamaospré-requisitos definidosnesteEdital.
+DataProvável Horário
+24/04/2024 14h00minàs18h00min(HorárioOficial deBrasília-DF)
+8.2 A prova será constituída de 40 questões objetivas de Conhecimento Técnico e de Inglês,tendopor baseosconteúdosprogramáticosespecificadosnoAnexoII.
+8.3Asprovasterãoduraçãode4(quatro) horas.
+D4Sign 7b48c2b6-236e-43ea-8e33-1d46d520d75f - Para conﬁrmar as assinaturas acesse https://secure.d4sign.com.br/veriﬁcar
+Documento assinado eletronicamente, conforme MP 2.200-2/01, Art. 10º, §2.
+
+--- PAGE 12 ---
+8.4 O candidato deverá acessar o link indicado na página de acesso ao candidato, pararealização da prova, pelo menos, 10 (dez) minutos antes do horário previsto para oseuinício,utilizandocomputador (notebookoudesktop) comacessoàinternet, câmeraemicrofone.
+8.5 Não será admitido o candidato que se apresentar apósohorárioestabelecidopararealizaraprova.
+8.6 Não haverá, por qualquer motivo, prorrogação do tempo previsto para aplicação da provaemvirtudedeproblemasdeacessoe/ouinstabilidadepor partedocandidato.
+8.7 Não haverá segunda chamada seja qual for o motivo alegado para justificar o atraso ou aausênciadocandidato.
+8.8 Caso ocorram eventuais problemas na ferramenta de aplicação de provas online, queafetem todos ou a maioria dos candidatos, o tempo comprometido será estendido ao final dohoráriopreviamenteestipulado.
+8.9SeráautomaticamenteeliminadodoProcessoSeletivoocandidatoque:
+a) Lançar mãodemeiosilícitosparaexecutar asprovas, sejaqual for;b) Perturbar, dequalquer modo, aordemdostrabalhos;c) Descumprir as instruções fornecidas na ferramenta de aplicação de provas online e/ouprevistasnoManual; ed) Utilizar, ou tentar utilizar, meios fraudulentos, para obter aprovação própria ou deterceiros, emqualquer etapadoProcessoSeletivo.
+8.10. No dia de realização da prova, não serão fornecidas informações referentes ao seuconteúdoe/ouaoscritériosdeavaliaçãoedeclassificação.
+8.11. Osprejuízosrelacionadosarespostasincorretasinformadaspelocandidatoserãode
+responsabilidadedele.
+8.12. As instruções constantes na ferramenta de aplicação de provas online complementamesteEdital edeverãoser rigorosamenteobservadaseseguidaspelocandidato.
+9DOSESTUDOS
+9.1 O material de estudo para a prova encontra-se no documento “Manual de Estudo doCandidato- CI INOVAÇÃOBRASIL” enoAnexoII desteedital.
+D4Sign 7b48c2b6-236e-43ea-8e33-1d46d520d75f - Para conﬁrmar as assinaturas acesse https://secure.d4sign.com.br/veriﬁcar
+Documento assinado eletronicamente, conforme MP 2.200-2/01, Art. 10º, §2.
+
+--- PAGE 13 ---
+10 DA SELEÇÃO, CLASSIFICAÇÃO, CRITÉRIOS DE DESEMPATE, DESISTÊNCIA,REPROVAÇÃOERESULTADOFINAL
+10.1 Apontuaçãofinal decadacandidatonãoeliminadonoProcessoSeletivodequetrataesteEdital, para fins de classificação final, corresponderá à soma dos pontos por ele obtidos naProva.
+10.1.1Critériosdedesistênciaereprovação:
+a) Opçãodoprópriocandidato.b) NãopreenchimentodosrequisitosdoEdital.c) DescumprimentodasregrasdopresenteEdital.d) Nãoatingimentodenota.e) Zerar emumaoumaisdisciplinasdaprova.
+10.1.2 Na hipótese de desistência por qualquer hipótese, o candidato melhorclassificado dentro do número de vagas disponíveis será o próximo candidato da listaclassificatória.
+10.2 As vagas serão preenchidas segundo ordem de classificação, de acordo com as notasobtidas pelos candidatos emcada modalidade de concorrência e, também, de acordo comoscritériosdedesempate.
+10.3 No caso de empate na pontuação final, terá preferência, parafinsdeclassificaçãofinal, ocandidatoquepossuir, naseguinteordem:
+1. Curso de pós-graduação completo ou comprevisão deconclusãoatéoiníciodasaulasdoPrograma;2. Maisde1(um) artigoacadêmicopublicado;3. Apenas1(um) artigoacadêmicopublicado; e4. Ter maior idade.
+10.6 A classificação geral preliminar será divulgada, conforme o cronograma, no site doPrograma(https://ciinovador.softex.br/).
+11DOSRECURSOS
+11.1Seráfacultadoaocandidatoapresentar umúnicorecurso, devidamentefundamentado.
+D4Sign 7b48c2b6-236e-43ea-8e33-1d46d520d75f - Para conﬁrmar as assinaturas acesse https://secure.d4sign.com.br/veriﬁcar
+Documento assinado eletronicamente, conforme MP 2.200-2/01, Art. 10º, §2.
+
+--- PAGE 14 ---
+11.2 A interposição de recurso poderá ser feita nas etapas e nos prazos previstos nocronograma deste edital, contendo objetivamentetodasascontestaçõeseosargumentos. Nãoserão apreciados os pedidos intempestivos ou sem fundamentação técnica ou que tenhamcomo objetivo a substituição ou envio de qualquer documentação prevista na etapa deinscrição.
+11.3 O recurso submetido no prazo que consta no cronograma publicado neste Edital, o qualdeveser submetido, únicaeexclusivamente, por meiodoformulárioeletrônico:
+https://forms.gle/FUFGqLgMMXuuprZL7
+11.4Recursossemadevidafundamentaçãonãoserãoanalisados.
+11.5 Os recursos serão analisados por uma Comissão Examinadora composta porrepresentantesdaSoftex, doCoordenador AcadêmicoIFCEeasInstituiçõesExecutoras, tendopoder dedecisãoterminativa, constituindo-seemúnicaeúltimainstânciadopresenteEdital.
+11.4 Osresultadosdosrecursosserãodivulgadosnositehttps://ciinovador.softex.br/, nasdatasestabelecidaspelocronogramapresentenoQuadro2desteEdital.
+12DIVULGAÇÃODORESULTADO
+12.1 O resultado final do Processo será homologado pela Coordenação da Softex, doCoordenador Acadêmico IFCEe pelasInstituiçõesExecutorasepublicadonositedoprograma(https://ciinovador.softex.br/)
+12.2 Na relaçãoreferidadesteEdital constarão: aordemdeclassificação, onomedocandidatoeototal depontosobtidosaofinal doprocessoseletivo.
+13DAEFETIVAÇÃODAMATRÍCULA
+13.1 Os candidatos aprovados e classificados receberão o contato da Equipe do IFCE viae-mail e/oucontatotelefônicoparaConfirmaçãodeInteresseemMatrícula.
+13.1.1 Anão realização de confirmação de Interesse emmatrícula dentro do prazo estipuladoviae-mail, implicaemdesistênciaeperdadavaga.
+13.2 A entrega da documentação para a matrícula dos candidatos aprovados no processoseletivo será realizada de acordo com o cronograma deste Edital, exclusivamente no polodesignadoaocandidato, nãosendopermitidasuamatrículaemoutropolo.
+D4Sign 7b48c2b6-236e-43ea-8e33-1d46d520d75f - Para conﬁrmar as assinaturas acesse https://secure.d4sign.com.br/veriﬁcar
+Documento assinado eletronicamente, conforme MP 2.200-2/01, Art. 10º, §2.
+
+--- PAGE 15 ---
+13.3 Os candidatos que apresentarem irregularidades na documentação, terão até a data,improrrogável, de início das aulas para regularizar sua situação, sob pena de não teremsuamatrículaefetivada.
+13.4 O não comparecimento dos candidatos aprovados, nas datas, locais e horáriosestabelecidosparaaefetivaçãodamatrícula, implicaránasuaimediatadesclassificação.
+13.5 Ocorrendo desistência ou cancelamento de matrícula, poderão ser convocados oscandidatosdaListadeEspera.
+13.6Oacompanhamentodasconvocaçõesparamatrículaéderesponsabilidadedocandidato.
+13.7 A Softex como Coordenadora, o IFCE como executor acadêmico e as InstituiçõesExecutoras da capacitação não se responsabilizarão por documentos não recebidos devido afatores de ordem técnico-operacional, greves, sinistros, ou qualquer outro fator que impeça aentrega.
+14DABOLSA
+14.1 O recebimento de bolsa no valor de R$5.000,00 (cinco mil reais) se dará, inicialmente,pelo período de 6 meses, conforme cronograma de execução do projeto e da etapa decapacitação
+14.2 Após afinalizaçãodaetapadecapacitação, apenasosparticipantesselecionadosparaaspróximasfasescontinuarãorecebendoabolsanovalor deR$5.000,00(cincomil reais);
+14.3 A Instituição Candidata selecionada deverá definir o seu regulamento de bolsas, sob asupervisão da Executora Acadêmica e aprovação pela Softex e pelo MCTI, se for o caso, oqual deverá estabelecer as regras para a contrapartida prevista para o aluno, as condiçõespara manutenção da bolsa e as penas previstas, nos casos de descumprimento doregulamento, incluindo o ressarcimento do valor total recebido como bolsa, em caso deabandono.
+14.4 No momento da matrícula, o aluno selecionado receberá as informações necessáriasporpartedecadaExecutoraAcadêmicanopoloqueelefoi alocado.
+D4Sign 7b48c2b6-236e-43ea-8e33-1d46d520d75f - Para conﬁrmar as assinaturas acesse https://secure.d4sign.com.br/veriﬁcar
+Documento assinado eletronicamente, conforme MP 2.200-2/01, Art. 10º, §2.
+
+--- PAGE 16 ---
+15DAPROTEÇÃODEDADOS
+15.1Sóserãosolicitadosdadosdoscandidatosnasetapasdeinscriçãoematrícula;
+15.2 O candidato, na qualidade de Titular, ao inscrever-se no certame, autoriza que os seusdados pessoais, sensíveis ou não, sejamtratados e processados, nos termos dos artigos 7° e8° da lei 13.709/2018, Lei Geral de Proteção de Dados Pessoais – LGPD, de forma apossibilitar a efetiva execução do processo, com a aplicação dos critérios de avaliação eseleção, autorizando a divulgação de seu(s) nome(s), classificação e notas por meio doendereço eletrônico https://ciinovador.softex.br/ bemcomo o seu armazenamento peloperíodode 05 (cinco) anos emobservância aos princípios da publicidade e datransparência, podendoesses serem compartilhados entre as instituições vinculadas em caso de auditoria ouconferênciajustificada.
+15.3 ASoftex e o IFCEnão compartilhamdados pessoais comterceiros alheiosaesseEdital,excetopor forçadeobrigaçãolegal, conformeLei nº 13.709/2018;
+15.4ASoftexeoIFCEfazemtratamentodedadospessoaisdeformaseguraecontroladaparagarantir aprivacidadedosseusdados.
+16DODIREITODEIMAGEM
+16.1 Os candidatos selecionados a participarem do projeto concordamcoma disponibilidadepara o relacionamento com a mídia e canais de comunicação, em ceder entrevistas ereportagensqueeventualmentesejamrequisitadas, comoobjetivodedivulgar oPrograma.
+16.2 A Softex e o IFCE reservam o direito de imagem de todos os participantes de seusprogramas. As imagens licenciadas neste Edital poderão ser veiculadas e divulgadas nosseguintestiposdemídia: impressa, televisionada, vídeo, virtual, radiofônicaetelefônica.
+17DAIMPUGNAÇÃODOEDITAL17.1. A impugnação contra as regras do edital poderá ser feita no prazo previsto noCronograma, por meio de pedido contendo objetivamente contestações e argumentos.Somente serão apreciados os pedidos de impugnação comfundamentação técnica, por meiodoe-mail contato.ciinovador@softex.br duranteoprazode15à17defevereiro.
+D4Sign 7b48c2b6-236e-43ea-8e33-1d46d520d75f - Para conﬁrmar as assinaturas acesse https://secure.d4sign.com.br/veriﬁcar
+Documento assinado eletronicamente, conforme MP 2.200-2/01, Art. 10º, §2.
+
+--- PAGE 17 ---
+17.2. Na hipótese de submissão de mais de um pedido de impugnação por um mesmointeressado, será considerada apenas a mais recente enviada dentro do prazo previsto nocronograma.
+17.3. Decairádodireitodeimpugnar ostermosdesteEdital oproponentequenãoofizer dentrodo prazo estabelecido para recebimento das propostas. Não terá efeito de recurso aimpugnação feita por aquele que, tendo sido aceito sem objeção, venha apontar,posteriormenteaojulgamento, eventuaisfalhasouimperfeições.
+18. DISPOSIÇÕESFINAIS
+18.1 A participação do candidato implica aceitação integral e irretratável dos termos dopresente Edital e seus anexos, não se admitindo alegações futuras de desconhecimento defatosqueimpossibilitemoudificultemaexecuçãodoobjetodesteEdital.
+18.2 Ao fazer a inscrição no Programa, o candidato concorda como uso dos dados inseridosnoformulárioparafinsdeidentificaçãodoestudanteeenviodecomunicaçõesdoPrograma.
+18.3 Todos os custos de equipamento para realizaçãodaprova, deslocamentopararealizaçãoda matrícula presencial e quaisquer outras despesas relacionadas à participação neste Editalserão de inteira responsabilidade dos candidatos, não cabendo nenhuma remuneração, apoioouindenizaçãopor partedaSoftex, IFCEouMCTI.
+18.4 Compete exclusivamente ao candidato certificar-se de que cumpre todos os requisitosestabelecidosnesteEdital, sobpenadeperdadodireitoàvaga.
+18.5 É responsabilidade do candidato acompanhar as publicações relativas a este ProcessoSeletivo, bem como conhecer as normas complementares disponíveis no sitehttps://ciinovador.softex.br/.
+18.6 Além dos casos já previstos, será eliminado do processo seletivo, sem prejuízo dassançõespenaiscabíveis, ocandidatoque, emqualquer tempo:
+18.6.1Cometer falsidadeideológicacomprovadocumental;
+18.6.2 Utilizar-se de procedimentos ilícitos, devidamente comprovados por meioeletrônico, estatístico, visual ougrafológicoduranteaprova;
+18.6.3Burlar outentar burlar quaisquer dasnormasdefinidasnesteEdital;
+18.6.4 Dispensar tratamento inadequado, incorreto ou descortês a qualquer pessoaenvolvidanoprocessoseletivo; e
+D4Sign 7b48c2b6-236e-43ea-8e33-1d46d520d75f - Para conﬁrmar as assinaturas acesse https://secure.d4sign.com.br/veriﬁcar
+Documento assinado eletronicamente, conforme MP 2.200-2/01, Art. 10º, §2.
+
+--- PAGE 18 ---
+18.6.5 Perturbar, de qualquer modo, a ordem dos trabalhos relativos ao processoseletivo.
+18.7Osresultadosserãoválidos, unicamente, paraopresenteProcessoSeletivo.
+18.8 Incorporar-se-ão a este Edital, para todos os efeitos, quaisquer Editais Complementaresquevieremaser publicadosnositehttps://ciinovador.softex.br/.
+18.9 Este Edital poderá ser revogado, suspenso ou interrompido e os prazos do processo deseleção revistos, a qualquer tempo e a juízo exclusivo da Softex, sem que caiba qualquerindenizaçãoàsinstituiçõesparticipantes.
+18.10 A Softex e o IFCE poderão alterar as condições deste Edital, reabrindo o prazo paraapresentaçãodaspropostas, salvoquandoaalteraçãonãoafetar aformulaçãodaspropostas.
+18.11 A Softex e o IFCE poderão adiar o prazo de recebimento das propostas, divulgando,medianteavisopúblicoanovadataparaentregadelas.
+18.12 Será de responsabilidade do candidato o acompanhamento de todas as divulgaçõesrelativas ao processo seletivo nos sites e locais indicados no Edital, bemcomoocumprimentodosprazoselencados.
+18.13 Softex e o IFCE divulgarão qualquer retificação relativa a este Edital, caso venha adecidir por qualquer mudança.
+18.14 Os casos omissos serão resolvidos pela comissão composta por membros da Softex,IFCEedasInstituiçõesExecutoras.
+18.15 Esclarecimentos e informações adicionais do conteúdo deste Edital podemser obtidospor meio da FAQ junto ao site do https://ciinovador.softex.br/ e por meio do e-mailcontato.ciinovador@softex.br
+D4Sign 7b48c2b6-236e-43ea-8e33-1d46d520d75f - Para conﬁrmar as assinaturas acesse https://secure.d4sign.com.br/veriﬁcar
+Documento assinado eletronicamente, conforme MP 2.200-2/01, Art. 10º, §2.
+
+--- PAGE 19 ---
+19. ANEXOS
+19.1SãopartesintegrantesdesteEdital:
+19.1.1ANEXOI –ListadeVagaseEndereçoPolo
+19.1.2ANEXOII –ConteúdoProgramático
+Brasília, 15de02de2024
+_______________________________ ________________________________
+IFCE SOFTEX
+D4Sign 7b48c2b6-236e-43ea-8e33-1d46d520d75f - Para conﬁrmar as assinaturas acesse https://secure.d4sign.com.br/veriﬁcar
+Documento assinado eletronicamente, conforme MP 2.200-2/01, Art. 10º, §2.
+
+--- PAGE 20 ---
+AnexoI
+EDITALNº 003/2024
+PROGRAMACI BRASILINOVAÇÃO
+ListadeVagaseEndereçoPolo
+InstituiçãoExecutora
+Polos EndereçoPolo Trilha Vagas
+UFRGS UFRGS InstitutodeInformáticaAv. BentoGonçalves9500, BlocoIV- CampusdoValePortoAlegre- RS- CEP91501-970
+Digital 45
+UFRGS InstitutodeInformáticaAv. BentoGonçalves9500, BlocoIV- CampusdoValePortoAlegre- RS- CEP91501-970
+AnalógicoeRF
+45
+UFSM UFSM Av. Roraima, 1000- CentrodeTecnologia/ DepartamentodeEletrônicaeComputação/ AnexoBGrupodeMicroeletrônicaBairroCamobi - SantaMaria- RS-CEP- 97.105-900
+Digital 09
+UFSM Av. Roraima, 1000- CentrodeTecnologia/ DepartamentodeEletrônicaeComputação/ AnexoBGrupodeMicroeletrônicaBairroCamobi - SantaMaria- RS-CEP- 97.105-900
+Analógico 09
+UFPR DepartamentodeEngenhariaElétricaCentroPolitécnico, CP.19011Curitiba, PRCEP: 81531-980
+AnalógicoeRF
+18
+UnB ÁreaEspecial deIndústriaProjeçãoASetor LesteGamaCEP: 72.444-240Brasília- DF
+Analógico 18
+UFCG CentrodeEngenhariaElétricaeInformática- CEEI / Departamento
+Digital 18
+D4Sign 7b48c2b6-236e-43ea-8e33-1d46d520d75f - Para conﬁrmar as assinaturas acesse https://secure.d4sign.com.br/veriﬁcar
+Documento assinado eletronicamente, conforme MP 2.200-2/01, Art. 10º, §2.
+
+--- PAGE 21 ---
+deEngenhariaElétrica- DEERuaAprígioVeloso, 882- BairroUniversitário, CEP58429-900,CampinaGrande-PB
+UFC CampusdoPICI, Av. Mister Hull,s/nCEbloco723- LESC- laboratóriodeengenhariadesistemasdecomputaçãoCEP60455-760- Fortaleza- CE
+Digital 18
+LSI-TEC
+Usp/Unicamp
+USP PrédiodaEngenhariaElétricaAv. Prof. LucianoGualberto, 158-trav. 3CidadeUniversitária- SãoPaulo-SP- CEP05508-010
+Digital 35
+Unicamp FEECAv. Albert Einstein, Nº 400- CidadeUniversitária, Campinas–SPCEP13083-852
+AnalógicoeRF
+35
+D4Sign 7b48c2b6-236e-43ea-8e33-1d46d520d75f - Para conﬁrmar as assinaturas acesse https://secure.d4sign.com.br/veriﬁcar
+Documento assinado eletronicamente, conforme MP 2.200-2/01, Art. 10º, §2.
+
+--- PAGE 22 ---
+AnexoII
+EDITALNº 003/2024
+PROGRAMACI BRASILINOVAÇÃO
+ConteúdoProgramático
+ConteúdoDigital:
+ConhecimentoInglês
+Inglês InglêsIntermediário/Instrumental (nível B2)
+ConhecimentoTécnico
+MatemáticaeFundamentosdaComputação
+- Sistemanuméricobinário- operaçõesaritméticaseconversãoparadecimal- Códigosbinários: BCD, Gray, ASCII, checksum, etc.- Portaslógicas: inversor, NAND, NOR, etc.- ÁlgebraBooleana(dechaveamento): axiomas, funçõeseteoremas- TeoremadeDeMorganedualidade- ValoreslógicosH, L, Zedon´t care- Multiplexador, codificador, decodificador ooutrosblocoslógicosbásicos- Combinaçãodeportaslógicaseavaliaçãodeexpressõeslógicas- Minimizaçãológica, mintermosemaxtermos- MapasdeKarnaugh- Síntesedecircuitológico(daequaçãológicaaesquemadeportaslógicas)- MáquinadeEstadosFinitos(MooreeMealy)- Síntesedemáquinadeestados(tabelaegrafodetransiçãodeestados, codificaçãodeestadoseextraçãodeequaçõeslógicas)
+ConhecimentoTécnico
+ArquiteturadeComputadores
+- Operandoseminstruçõesassembly- Formatosdeinstruçõesassembly- Tiposdeinstruções: aritméticas/lógicas, condicionais, dedesvios, chamadasdefunções, etc.- Modosdeendereçamento- Implementaçãodamicroarquitetura: controleedatapath
+D4Sign 7b48c2b6-236e-43ea-8e33-1d46d520d75f - Para conﬁrmar as assinaturas acesse https://secure.d4sign.com.br/veriﬁcar
+Documento assinado eletronicamente, conforme MP 2.200-2/01, Art. 10º, §2.
+
+--- PAGE 23 ---
+ConhecimentoTécnico
+CircuitosDigitais
+- LógicaCMOScombinacional: transistoresMOSpencomochaves- Comportamentoselétricos: estático, dinâmicoedeconsumodepotência- Propagaçãodeatrasosemblocoslógicosecaminhocrítico.- Glitches, riscostemporais(hazards) estáticosedinâmicos- LógicaSequencial: estabilidade, latcheseflip-flops- Temporizaçãodelógicasequencial: temposdehold, desetupedepropagaçãológica- Somadores: half-adder, full-adder, somador ripple-carry,look-ahead, etc.- Outrasunidadesfuncionaisaritméticaselógicas:subtrator, comparador,shifter, ULA.- Contadores- Representaçãonuméricaempontofixoepontoflutuante- Memórias: bancoderegistradores, ROM, SRAMeDRAM- ArranjosLógicos: PLA, PALePROM- CPLDseFPGAs
+ConteúdoAnalógico(Mixed-signalseRadiofrequência)
+ConhecimentoInglês
+Inglês InglêsIntermediário/Instrumental (nível B2)
+ConhecimentoTécnico
+MatemáticaeFundamentosdaComputação
+- Sistemanuméricobinário- operaçõesaritméticaseconversãoparadecimal- Códigosbinários: BCD, Gray, ASCII, checksum, etc.- Portaslógicas: inversor, NAND, NOR, etc.- ÁlgebraBooleana(dechaveamento): axiomas, funçõeseteoremas- TeoremadeDeMorganedualidade- ValoreslógicosH, L, Zedon´t care- Multiplexador, codificador, decodificador ooutrosblocoslógicosbásicos- Combinaçãodeportaslógicaseavaliaçãodeexpressõeslógicas- Minimizaçãológica, mintermosemaxtermos- MapasdeKarnaugh- Síntesedecircuitológico(daequaçãológicaaesquemadeportaslógicas)
+D4Sign 7b48c2b6-236e-43ea-8e33-1d46d520d75f - Para conﬁrmar as assinaturas acesse https://secure.d4sign.com.br/veriﬁcar
+Documento assinado eletronicamente, conforme MP 2.200-2/01, Art. 10º, §2.
+
+--- PAGE 24 ---
+- MáquinadeEstadosFinitos(MooreeMealy)- Síntesedemáquinadeestados(tabelaegrafodetransiçãodeestados, codificaçãodeestadoseextraçãodeequaçõeslógicas)
+ConhecimentoTécnico
+CircuitosElétricos/Eletrônicos
+- LeisdeKirchoff- Transformaçãodefontes- EquivalentetheThevenineNorton- Quadripolos- AmplificadoresOperacionais
+ConhecimentoTécnico
+FundamentosemMicroeletrônica
+- Transistor MOSFET- CurvaI/V- Transcondutância- Modelodegrandesinais- Modelodepequenossinais- Amplificadoresbásico
+SugestãoBibliográfica
+TrilhaDigital Digital DesignandComputer Architecture.DavidHarris(Author), SarahHarris(Author); 2ndEdition.
+Digital DesignandComputer Architecture.DavidHarris(Author), SarahHarris(Author); 2ndEdition.
+TrilhaAnalogicoAMS/RF -Nilsson, JamesW.; Riedel, SusanA.Circuitoselétricos; Edição10. ed.-BehzadRazavi FundamentalsofMicroelectronics2ndEdition-Adel S. Sedra, KennethC. Smith.MicroelectronicCircuits, 7thedition-DispositivosEletrônicoseTeoriadeCircuitos- Robert Boylestad/ LouisNashelsky
+D4Sign 7b48c2b6-236e-43ea-8e33-1d46d520d75f - Para conﬁrmar as assinaturas acesse https://secure.d4sign.com.br/veriﬁcar
+Documento assinado eletronicamente, conforme MP 2.200-2/01, Art. 10º, §2.
+
+--- PAGE 25 ---
+26 páginas - Datas e horários baseados em Brasília, Brasil
+Sincronizado com o NTP.br e Observatório Nacional (ON)
+Certiﬁcado de assinaturas gerado em 15 de February de 2024,
+13:12:00
+Editaldeseleo-CIInovador
+Código do documento 7b48c2b6-236e-43ea-8e33-1d46d520d75f
+Assinaturas
+Fabiano Bonatti
+fabiano@softex.br
+Aprovou
+Nelson Luiz Falseti Filho
+nfalseti@softex.br
+Assinou
+Antonio de Barros Serra
+serra@ifce.edu.br
+Assinou
+Eventos do documento
+15 Feb 2024, 12:12:01
+Documento 7b48c2b6-236e-43ea-8e33-1d46d520d75f criado por ASSOCIACAO PARA PROMOCAO DA EXCELENCIA
+DO SOFTWARE BRASILEIRO - SOFTEX - CONTA SISTEMA (7b868d65-2057-47b0-b19b-985c175b87c5).
+Email:softex@softex.br. - DATE_ATOM: 2024-02-15T12:12:01-03:00
+15 Feb 2024, 12:12:11
+Assinaturas iniciadas por ASSOCIACAO PARA PROMOCAO DA EXCELENCIA DO SOFTWARE BRASILEIRO - SOFTEX -
+CONTA SISTEMA (7b868d65-2057-47b0-b19b-985c175b87c5). Email: softex@softex.br. - DATE_ATOM:
+2024-02-15T12:12:11-03:00
+15 Feb 2024, 12:13:00
+FABIANO BONATTI Aprovou (03d39746-cf75-4499-b1fe-5ae169c0de05) - Email: fabiano@softex.br - IP:
+179.214.112.171 (b3d670ab.virtua.com.br porta: 50190) - Geolocalização: -15.8400512 -48.0182272 - Documento
+de identiﬁcação informado: 044.717.816-42 - DATE_ATOM: 2024-02-15T12:13:00-03:00
+15 Feb 2024, 12:26:23
+ANTONIO DE BARROS SERRA Assinou (fb0f2ee7-8630-4093-a474-b1620ade7fde) - Email: serra@ifce.edu.br - IP:
+177.207.9.214 (177.207.9.214.dynamic.adsl.gvt.net.br porta: 7162) - Geolocalização: -3.7491406 -38.5291477 -
+Documento de identiﬁcação informado: 357.162.073-91 - DATE_ATOM: 2024-02-15T12:26:23-03:00
+15 Feb 2024, 13:09:40
+FABIANO BONATTI (03d39746-cf75-4499-b1fe-5ae169c0de05). Email: fabiano@softex.br. ALTEROU o signatário
+diones@softex.br para nfalseti@softex.br - DATE_ATOM: 2024-02-15T13:09:40-03:00
+
+--- PAGE 26 ---
+26 páginas - Datas e horários baseados em Brasília, Brasil
+Sincronizado com o NTP.br e Observatório Nacional (ON)
+Certiﬁcado de assinaturas gerado em 15 de February de 2024,
+13:12:00
+15 Feb 2024, 13:11:46
+NELSON LUIZ FALSETI FILHO Assinou (61ee45ed-ac9e-43ee-b195-7fe2f14168e4) - Email: nfalseti@softex.br - IP:
+191.23.75.168 (191-23-75-168.user.vivozap.com.br porta: 31120) - Geolocalização: -22.6021537 -46.913156 -
+Documento de identiﬁcação informado: 269.385.758-94 - DATE_ATOM: 2024-02-15T13:11:46-03:00
+Hash do documento original
+(SHA256):0213e6f9c632c96523fbc0cb4acd429eecf8288cf55d3e91f326bbd2a9917a97
+(SHA512):9c71430eef0119192ad50c58647991f6cd2e755b197711c2fa174bc56891340a23ae8a289de19ddee71d932b3ce84860ae30adf0b01b263e74d5685feeda5226
+Esse log pertence única e exclusivamente aos documentos de HASH acima
+Esse documento está assinado e certiﬁcado pela D4Sign

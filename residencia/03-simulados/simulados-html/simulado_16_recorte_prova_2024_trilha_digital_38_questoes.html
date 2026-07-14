@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulado 16 | Recorte Prova 2024 - Trilha Digital</title>
+  <style>
+    :root {
+      --bg: #f4f6f3; --panel: #fff; --ink: #18231f; --muted: #5a6964;
+      --line: #d8dfdb; --primary: #006a63; --primary-dark: #004e4a;
+      --soft: #e4f2ef; --ok: #147142; --bad: #b3362d; --warn: #835c00;
+      --warn-bg: #fff4d8;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.5 "Segoe UI", Arial, sans-serif; }
+    header { background: linear-gradient(135deg, #003c39, #08766f); color: #fff; padding: 34px 20px 24px; }
+    .wrap { width: min(1040px, calc(100% - 28px)); margin: 0 auto; }
+    h1 { margin: 0 0 8px; font-size: clamp(1.55rem, 4vw, 2.35rem); line-height: 1.15; }
+    .subtitle { margin: 0; color: #d8efec; max-width: 850px; }
+    .meta { display: grid; grid-template-columns: repeat(4, minmax(130px, 1fr)); gap: 10px; margin-top: 20px; }
+    .meta div { border: 1px solid rgba(255,255,255,.22); border-radius: 9px; padding: 10px 12px; background: rgba(255,255,255,.09); }
+    .meta span { display: block; color: #c7e5e1; font-size: .82rem; }
+    main { padding: 22px 0 60px; }
+    .toolbar { position: sticky; top: 0; z-index: 2; background: rgba(255,255,255,.96); border-bottom: 1px solid var(--line); backdrop-filter: blur(8px); }
+    .toolbar .wrap { display: flex; gap: 12px; align-items: center; justify-content: space-between; padding: 11px 0; flex-wrap: wrap; }
+    .progress-box { flex: 1 1 280px; }
+    .progress-label { display: flex; justify-content: space-between; gap: 12px; color: var(--muted); font-size: .9rem; margin-bottom: 5px; }
+    .track { height: 8px; border-radius: 99px; background: #e1e7e4; overflow: hidden; }
+    .bar { height: 100%; width: 0%; background: var(--primary); transition: width .18s ease; }
+    button { border: 0; border-radius: 8px; padding: 10px 14px; background: var(--primary); color: #fff; font: inherit; font-weight: 700; cursor: pointer; }
+    button:hover { background: var(--primary-dark); }
+    button.secondary { color: var(--primary-dark); background: #fff; border: 1px solid var(--line); }
+    button.secondary:hover { background: #f0f5f3; }
+    .notice, .card { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; box-shadow: 0 2px 12px rgba(12,35,31,.06); }
+    .notice { padding: 15px 16px; margin-bottom: 18px; color: var(--muted); }
+    .notice strong { color: var(--ink); }
+    .question { padding: 18px 18px 16px; margin: 15px 0; }
+    .qhead { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 10px; }
+    .badge { display: inline-flex; align-items: center; border-radius: 999px; padding: 3px 9px; background: var(--soft); color: var(--primary-dark); font-size: .8rem; font-weight: 700; }
+    .source { color: var(--muted); font-size: .9rem; }
+    h2 { font-size: 1.05rem; margin: 0 0 10px; }
+    .prompt { margin: 8px 0 14px; }
+    .option { display: flex; gap: 10px; align-items: flex-start; border: 1px solid var(--line); border-radius: 9px; padding: 10px 11px; margin: 8px 0; background: #fff; cursor: pointer; }
+    .option input { margin-top: 4px; }
+    .option.correct { border-color: rgba(20,113,66,.55); background: #e7f6ed; }
+    .option.wrong { border-color: rgba(179,54,45,.55); background: #fdebe8; }
+    .explanation { display: none; margin-top: 12px; padding: 11px 12px; border-left: 4px solid var(--primary); background: #f2f7f5; color: #2d3b36; }
+    .finalized .explanation { display: block; }
+    .score { display: none; margin: 0 0 18px; padding: 16px; }
+    .score.show { display: block; }
+    .score strong { font-size: 1.25rem; }
+    .missing { color: var(--warn); background: var(--warn-bg); border-color: #ead59c; }
+    @media (max-width: 720px) {
+      .meta { grid-template-columns: 1fr 1fr; }
+      .toolbar .wrap { align-items: stretch; }
+      button { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <h1>Simulado 16 - Recorte Prova 2024</h1>
+      <p class="subtitle">Questões aproveitáveis para a trilha Digital, retiradas e limpas da prova transcrita de 2024. O bloco analógico foi removido.</p>
+      <div class="meta">
+        <div><span>Questões</span><strong>38</strong></div>
+        <div><span>Origem</span><strong>Prova 2024</strong></div>
+        <div><span>Foco</span><strong>Trilha Digital</strong></div>
+        <div><span>Removidas</span><strong>Q52 e Q58</strong></div>
+      </div>
+    </div>
+  </header>
+  <div class="toolbar">
+    <div class="wrap">
+      <div class="progress-box">
+        <div class="progress-label"><span id="progressText">0/38 respondidas</span><span id="scoreText">Ainda não finalizado</span></div>
+        <div class="track"><div class="bar" id="progressBar"></div></div>
+      </div>
+      <button id="finishButton" type="button">Finalizar e corrigir</button>
+      <button id="resetButton" class="secondary" type="button">Limpar respostas</button>
+    </div>
+  </div>
+  <main class="wrap">
+    <section class="notice">
+      <strong>Observação:</strong> as questões 52 e 58 da transcrição original foram removidas porque ficaram sem expressão/tabela/alternativas suficientes para resposta segura. A questão 55 foi restaurada matematicamente a partir dos mintermos informados.
+    </section>
+    <section id="scoreBox" class="score card"></section>
+    <form id="quiz"></form>
+  </main>
+  <script>
+    const questions = [
+  {
+    "id": 1,
+    "source": "Q1",
+    "original": 1,
+    "block": "Ingles instrumental",
+    "prompt": "Read the text about Intelligent Control. The main avenues of Intelligent Control include expert systems, fuzzy logic, neural networks, all of which have been examined as possible candidates for RCS design. The Intelligent Control mechanism replaces the analytic controller in a conventional control system with a high level decision making scheme that generates the control signal based on a qualitative or heuristic understanding of the process. [... ]Available at: https://x.gd/6aoGX. Access: March 9, 2024.What is the main topic of the text?",
+    "options": [
+      "Basic principles underlying conventional control systems and their applications in Intelligent Control.",
+      "Obstacles encountered in the mass production of polymers, generating the control signal based on the process.",
+      "Technological advancements facilitating polymerization reactions, based in a conventional control system.",
+      "Intelligent control mechanisms, which encompass expert systems, fuzzy logic, and neural networks."
+    ],
+    "answer": "D",
+    "explanation": "O texto apresenta as vias de controle inteligente, citando expert systems, fuzzy logic e neural networks."
+  },
+  {
+    "id": 2,
+    "source": "Q2",
+    "original": 2,
+    "block": "Ingles instrumental",
+    "prompt": "Read the text below: Earth-like exoplanets are between 10 million and 10 billion times fainter than the stars they orbit, depending on whether they are observed at mid-infrared or visible wavelengths. The presence of water, methane, and oxygen on a planet, revealed by reflected starlight, is therefore masked by the star's overwhelming glare. Thus, the most important technological challenge is the demonstration that a space observatory can reject scattered starlight to separate the light of the planet from its parent star.Available at: Access: February 27, 2024. According to the text:",
+    "options": [
+      "Earth-like exoplanets are stronger than the stars they orbit in terms of their structure.",
+      "Earth-like exoplanets are similar to the stars they orbit in terms of their structure.",
+      "Earth-like exoplanets are equivalent to the stars they orbit in terms of their structure.",
+      "Earth-like exoplanets are weaker than the stars they orbit in terms of their structure."
+    ],
+    "answer": "D",
+    "explanation": "A palavra-chave e fainter: os exoplanetas sao muito menos brilhantes/fracos que as estrelas."
+  },
+  {
+    "id": 3,
+    "source": "Q3",
+    "original": 3,
+    "block": "Ingles instrumental",
+    "prompt": "Examine the excerpt from a review of the book The Feyman Lectures on Physics, boxed set: The New Millennium Edition. \"The whole thing was basically an experiment\", Richard Feyman said late in his career, looking back on the origins of his lectures. The experiment turned out to be hugely successful, spawning a book that has remained a definitive introduction to physics for decades. Ranging from the most basic principles of Newtonian physics through such formidable theories as general relativity and quantum mechanics, Feyman's lectures stand as a monument of clear exposition and deep insight. [...] Available at: https://www.amazon.com/Feynman-Lectures-Physics-boxed-set/dp/0465023827.Access: March 4, 2024. Choose the option that presents the terms used by the reviewer to express his opinion about the experiment:",
+    "options": [
+      "hugely successful.",
+      "spawning a book.",
+      "basically an experiment.",
+      "principles of Newtonian physics."
+    ],
+    "answer": "A",
+    "explanation": "A opiniao esta em hugely successful: o adverbio intensifica o adjetivo."
+  },
+  {
+    "id": 4,
+    "source": "Q4",
+    "original": 4,
+    "block": "Ingles instrumental",
+    "prompt": "Read below an excerpt from the book Introduction to algorithms:Informally, an algorithm is any well-defined computational procedure that takes some value, or set of values, as input and produces some value, or set of values, as output. An algorithm is thus a sequence of computational steps that transform the input into the output. We can also view an algorithm as a tool for solving a well-specified computational problem. The statement of the problem specifies in general terms the desired input/output relationship. CORMEN, T.; LEISERSON, C.; RIVEST, R.; STEIN, C. Introduction to algorithms. 3rd. ed. Massachusetts Institute of Technology: The MIT Press, 2009.Choose the option that explains the use of THUS in the second line of the text.",
+    "options": [
+      "To present a logical conclusion from the previously stated definition.",
+      "To present a contrary idea to the one previously presented.",
+      "To present a different definition from that presented in the introduction.",
+      "To present a possible definition for the term algorithm."
+    ],
+    "answer": "A",
+    "explanation": "Thus introduz conclusao ou consequencia logica do que foi dito antes."
+  },
+  {
+    "id": 5,
+    "source": "Q5",
+    "original": 5,
+    "block": "Ingles instrumental",
+    "prompt": "Read the text about the use nanotechnology in Biomedicine. The properties of some nanomaterials make them ideal for improving early diagnosis and treatment of neurodegenerative diseases or cancer. They are able to attack cancer cells selectively without harming other healthy cells. Some nanoparticles have also been used to enhance pharmaceutical products such as sunscreen.Available at: Access: March 9, 2024. What makes specific nanomaterials advantageous for improving early diagnosis and treatments of neurodegenerative diseases or cancer?",
+    "options": [
+      "Their characteristics.",
+      "Their attack capacities.",
+      "Their pharmaceutical products.",
+      "Their nanoparticles."
+    ],
+    "answer": "A",
+    "explanation": "O texto afirma que as propriedades/caracteristicas dos nanomateriais geram a vantagem."
+  },
+  {
+    "id": 6,
+    "source": "Q6",
+    "original": 6,
+    "block": "Ingles instrumental",
+    "prompt": "Examine the quotation:\"A mathematician is a blind man in a dark room looking for a black cat which isn't there.\" - Charles R. DarwinAvailable at: https://www.math.utah.edu/~cherk/mathjokes.html. Access: March 5, 2024.Choose the option that presents the figure of speech employed by the biologist to present his point of view.",
+    "options": [
+      "Metaphor.",
+      "Pleonasm.",
+      "Metonymy.",
+      "Antitheses."
+    ],
+    "answer": "A",
+    "explanation": "A frase compara o matematico a uma situacao imaginaria; isso e metafora."
+  },
+  {
+    "id": 7,
+    "source": "Q7",
+    "original": 7,
+    "block": "Ingles instrumental",
+    "prompt": "Examine the text.A physicist, a biologist, and a mathematician are sitting on a bench across from a house. They watch as two people go into the house, and then a little later, three people walk out. The physicist says, \"The initial measurement was incorrect\". The biologist says, \"They must have reproduced\". And the mathematician says, \"If exactly one person enters that house, it will be empty\".Available at: Access: March 5, 2024. The joke shows a situation involving a physicist, a biologist, and a mathematician. Choose the option that presents the central idea of the text.",
+    "options": [
+      "A fun takes on the stereotypes associated with each of the professions.",
+      "An irreverent scientific analysis that challenges traditional approaches to the disciplines.",
+      "A lighthearted narrative that explores the viewpoint of 3 professionals on a commonplace situation.",
+      "A subtle humor that explores the different perspectives of the 3 professions."
+    ],
+    "answer": "A",
+    "explanation": "A piada explora estereotipos: medicao, reproducao e abstracao logica."
+  },
+  {
+    "id": 8,
+    "source": "Q8",
+    "original": 8,
+    "block": "Ingles instrumental",
+    "prompt": "Read the text below.Electrodynamics is the physics of electromagnetic radiation, and electromagnetism is the physical phenomenon associated with the theory of electrodynamics. Electric and magnetic fields obey the properties of superposition. Thus, a field due to any particular particle or time - varying electric or magnetic field contributes to the fields present in the same space due to other causes. Further, as they are vector fields, all magnetic and electric field vectors add together according to vector addition. at: and-electromagnetism.pdf. Access: March 9, 2024. Given the context, which word would substitute FURTHER and keep both meaning and cohesion?",
+    "options": [
+      "In short.",
+      "Such as.",
+      "Opposite to.",
+      "Moreover."
+    ],
+    "answer": "D",
+    "explanation": "Further e moreover funcionam como conectivos de adicao."
+  },
+  {
+    "id": 9,
+    "source": "Q9",
+    "original": 9,
+    "block": "Ingles instrumental",
+    "prompt": "Find below an academic article excerpt:Deep Learning is one of the newest trends in Machine Learning and Artificial Intelligence research. It is also one of the most popular scientific research trends now-a-days. [...] In this paper, we are going to briefly discuss about recent advances in Deep Learning for past few ears.MINAR, M. R.; NAHER, J. Recent Advances in Deep Learning: an overview. Available at: Access: February 27, 2024. Tick the option that presents the research objective.",
+    "options": [
+      "To discuss recent popular research in the latest trends of today.",
+      "To discuss recent advances in Deep Learning.",
+      "To discuss briefly how Artificial Intelligence impacts Deep Learning.",
+      "To discuss the latest trends in Machine Learning and Artificial Intelligence."
+    ],
+    "answer": "B",
+    "explanation": "A expressao in this paper... indica explicitamente o objetivo do artigo."
+  },
+  {
+    "id": 10,
+    "source": "Q10",
+    "original": 10,
+    "block": "Ingles instrumental",
+    "prompt": "Read the text below, an excerpt of an interview with Stephen Hawking: [...] Hawking, who was diagnosed with motor neuron disease at the age of 21, shares his thoughts on death, human purpose and our chance existence in an exclusive interview with the Guardian today. The incurable illness was expected to kill Hawking within a few years of its symptoms arising, an outlook that turned the young scientist to Wagner, but ultimately led him to enjoy life more, he has said, despite the cloud hanging over his future.Available at: February 27, 2024. How does the highlighted sentence in the text function?",
+    "options": [
+      "To provide essential information about Hawking's life expectancy after receiving a diagnosed of an untreatable illness.",
+      "To provide essential information about the physicist and cosmologist's health conditions at the time of the interview.",
+      "To provide essential information about Hawking's thoughts on death, human purpose, and our existence on Earth.",
+      "To provide essential information about Hawking, presenting more details about his medical diagnosis."
+    ],
+    "answer": "D",
+    "explanation": "A oracao relativa acrescenta informacao sobre Hawking, detalhando o diagnostico."
+  },
+  {
+    "id": 11,
+    "source": "Q11",
+    "original": 11,
+    "block": "Arquitetura e memorias",
+    "prompt": "A eficiência do cache é crucial para o desempenho do sistema computacional, minimizando a latência de acesso à memória principal. Segundo Jones e Smith (2018), a utilização de estratégias eficazes de organização de cache é fundamental para otimizar a taxa de acertos (hit rate) em processadores modernos, contribuindo diretamente para o desempenho geral do sistema.JONES, A.; SMITH, B. Estratégias de organização de cache para otimização do desempenho em processadores de Computação Avançada, [s. V. 20, n. 2, p. 45-58, 2018. Qual estratégia de organização de cache é fundamental para otimizar a taxa de acertos (hit rate) em processadores modernos?",
+    "options": [
+      "Mapeamento associativo por conjunto.",
+      "Codificacao de operacao em unidade de controle.",
+      "Serializacao de dados.",
+      "Segmentacao de instrucoes."
+    ],
+    "answer": "A",
+    "explanation": "Cache associativo por conjunto melhora flexibilidade dentro de cada conjunto e pode elevar a taxa de acertos."
+  },
+  {
+    "id": 12,
+    "source": "Q12",
+    "original": 12,
+    "block": "Computacao geral - baixa prioridade",
+    "prompt": "Você é um pesquisador em um laboratório de física quântica e está explorando as aplicações dos bits quânticos em computação e criptografia. Durante suas investigações, surge a necessidade de compreender melhor os conceitos e as propriedades dos qubits para avançar em suas pesquisas. Assinale a alternativa que melhor explica o conceito de bit quântico (qubit) e como ele difere dos bits clássicos em computação.NIELSE M. A.; CHUANG, I. L. Quantum computation and quantum information: 10th Anniversary Edition. Cambridge, UK: Cambridge University Press, 2010.",
+    "options": [
+      "Os qubits permitem, na criptografia quântica, comunicação segura, pois não podem ser interceptados sem seu estado, ao contrário dos bits clássicos.",
+      "Os qubits permitem a execução de algoritmos como o de Grover, que busca em bases de dados de maneira mais eficiente que algoritmos clássicos.",
+      "Os qubits realizam cálculos em paralelo devido à superposição, oferecendo vantagens em aplicações como fatoração de números grandes.",
+      "Os qubits são unidades de informação na computação quântica que podem representar 0, 1 ou ambos simultaneamente devido à superposição, ao contrário dos bits clássicos."
+    ],
+    "answer": "D",
+    "explanation": "A diferenca central e a superposicao: o qubit pode representar 0, 1 ou combinacao antes da medicao."
+  },
+  {
+    "id": 13,
+    "source": "Q13",
+    "original": 13,
+    "block": "Computacao geral - baixa prioridade",
+    "prompt": "A Internet das Coisas está revolucionando diversos setores da economia e da sociedade, conectando bilhões de dispositivos físicos à internet. Em um contexto de crescente adoção da loT em diferentes áreas, como indústria, saúde, agricultura e cidades inteligentes, é necessário definir os requisitos e características essenciais para um dispositivo ser considerado parte da P.; VOM BROCKE, J.Big data analytics: a primer for managers. London: Routledge, 2015.Qual característica fundamental distingue um dispositivo loT de outros dispositivos tradicionais, permitindo sua integração na rede e a interoperabilidade com outros sistemas?",
+    "options": [
+      "Capacidade de conectividade à internet.",
+      "Redução do consumo de energia em dispositivos móveis.",
+      "Melhoria da eficiência dos processadores.",
+      "Aumento da capacidade de armazenamento de dados."
+    ],
+    "answer": "A",
+    "explanation": "O ponto definidor de IoT e a conectividade do dispositivo fisico a rede."
+  },
+  {
+    "id": 14,
+    "source": "Q14",
+    "original": 14,
+    "block": "Datapath e controle",
+    "prompt": "A implementação eficiente de uma microarquitetura de processador é essencial para o desempenho e funcionamento adequado de sistemas computacionais. PATTERSON, D. A., HENNESSY, J. L. Computer organization and design RISC-V edition: the hardware software interface. 2. ed. San Francisco: Morgan Kaufmann, 2019.Suponha que você seja um engenheiro de hardware responsável pelo projeto de um processador de última geração para aplicações de inteligência artificial. Qual é a principal responsabilidade da unidade de controle na implementação da microarquitetura?",
+    "options": [
+      "Realizar operações lógicas e aritméticas diretamente.",
+      "Decodificar as instruções.",
+      "Armazenar dados temporários para processamento.",
+      "Emitir sinais de controle para operacionalizar o datapath."
+    ],
+    "answer": "D",
+    "explanation": "A unidade de controle interpreta a instrucao e gera sinais para coordenar o datapath."
+  },
+  {
+    "id": 15,
+    "source": "Q15",
+    "original": 15,
+    "block": "Arquitetura",
+    "prompt": "No contexto das arquiteturas de computadores, a predição de desvios é uma técnica fundamental para mitigar os atrasos causados por desvios condicionais em programas. A predição de desvios é uma técnica crucial em arquiteturas de computadores para minimizar os atrasos causados por desvios condicionais em programas.HENNESSY, J. L.; PATTERSON, D. A.Computer architecture:a quantitative approach. San Francisco: Morgan Kaufmann, 2017.Entre as estratégias existentes para prever o comportamento de desvios em instruções de controle, qual é a mais básica, assumindo que todos os desvios serão tomados?",
+    "options": [
+      "Histórico global de desvios.",
+      "Predição adaptativa.",
+      "Predição dinâmica baseada em histórico local.",
+      "Predição estática de desvios tomados."
+    ],
+    "answer": "D",
+    "explanation": "Assumir sempre tomado e predicao estatica: uma regra fixa sem historico dinamico."
+  },
+  {
+    "id": 16,
+    "source": "Q16",
+    "original": 16,
+    "block": "Assembly",
+    "prompt": "De acordo com Tanenbaum e Woodhull (2015), em linguagem assembly, os operandos podem ser classificados de diversas formas, dependendo de como são especificados ou utilizados pela A. S.; WOODHULL, A. S. Organização estruturada de computadores. 6. ed. São Paulo: Pearson, 2015.Entre essas classificações, temos os operandos imediatos, que são uma categoria especial de operandos. Com base nessa descrição, qual das alternativas melhor exemplifica um operando imediato?",
+    "options": [
+      "É o endereço de memória apontado por um registrador.",
+      "É o valor numérico fixo dentro da instrução.",
+      "É o conteúdo de um registrador específico.",
+      "É o deslocamento de um registrador."
+    ],
+    "answer": "B",
+    "explanation": "Imediato e uma constante codificada na propria instrucao, como #5."
+  },
+  {
+    "id": 17,
+    "source": "Q17",
+    "original": 17,
+    "block": "Assembly",
+    "prompt": "Como engenheiro de software com experiência em programação de baixo nível, você reconhece a importância do código em assembly e sua relevância em ambientes onde a eficiência e o desempenho são críticos. Diante dessa perspectiva, elaborar uma questão que aborde a complexidade do código em assembly se torna essencial. Com relação aos desafios e considerações ao escrever e depurar código em assembly para sistemas embarcados, assinale a alternativa correta.HENNESSY, J. L.: PATTERSON, D. A. Computer architecture: a quantitative approach. 6. ed. Burlington, MA: Morgan Kaufmann, 2017.",
+    "options": [
+      "Programar em assembly exige compreensao da arquitetura do processador, otimizacao de codigo e gerenciamento eficiente de registradores e memoria.",
+      "Boas praticas em assembly dispensam convencoes, comentarios e conhecimento da arquitetura.",
+      "Depuracao em assembly e simples e facil porque as instrucoes sao de alto nivel.",
+      "Otimizacao em assembly depende apenas de usar instrucoes especiais, sem considerar memoria ou registradores."
+    ],
+    "answer": "A",
+    "explanation": "Assembly depende diretamente da arquitetura, dos registradores, da memoria e de desempenho."
+  },
+  {
+    "id": 18,
+    "source": "Q18",
+    "original": 18,
+    "block": "Ponto flutuante e arquitetura",
+    "prompt": "As unidades de ponto flutuante (FPUs) são indispensáveis em sistemas computacionais para realizar operações aritméticas com números reais. Em um contexto profissional, compreender não apenas as ferramentas, mas também sua aplicação prática, é crucial. SMITH, J.Arquitetura de computadores modernos. São Paulo: Editora Tecnológica, 2020.Qual característica é fundamental para o desempenho de uma FPU em arquiteturas de computadores modernas?",
+    "options": [
+      "Implementacao de algoritmos de ordenacao.",
+      "Suporte a multiplos padroes de precisao.",
+      "Uso exclusivo de memoria virtual.",
+      "Capacidade de armazenamento em cache."
+    ],
+    "answer": "B",
+    "explanation": "FPU executa operacoes de ponto flutuante; suporte a diferentes precisoes e caracteristica relevante."
+  },
+  {
+    "id": 19,
+    "source": "Q19",
+    "original": 19,
+    "block": "Arquitetura e memorias",
+    "prompt": "No cotidiano da computação e da engenharia de sistemas, é imprescindível compreender e aplicar estratégias para otimizar o desempenho da memória cache em processadores. Entre as várias técnicas disponíveis, uma se destaca pela sua importância na redução da taxa de falhas de cache. PATTERSON, D. A.; HENNESSY, J. L.Arquitetura de computadores: uma abordagem quantitativa. Rio de Janeiro: Elsevier, 2013.Qual das opções abaixo melhor descreve essa técnica essencial? de dados. **Justificativa:**",
+    "options": [
+      "Compactacao de dados na memoria principal.",
+      "Pre-busca de cache/dados.",
+      "Troca permanente de registradores por memoria virtual.",
+      "Segmentacao de instrucoes."
+    ],
+    "answer": "B",
+    "explanation": "Prefetch busca dados antes da demanda efetiva, tentando reduzir futuros misses."
+  },
+  {
+    "id": 20,
+    "source": "Q20",
+    "original": 20,
+    "block": "Assembly e controle de fluxo",
+    "prompt": "Você é um engenheiro de software responsável por desenvolver o sistema de controle de semáforos inteligentes para uma cidade movimentada. Durante a implementação do sistema, surge a necessidade de utilizar instruções de desvio para lidar com diferentes cenários de tráfego e garantir a fluidez do fluxo veicular nas interseções urbanas. Assinale a alternativa que melhor explica como as instruções de desvio podem ser aplicadas para otimizar o controle de semáforos em um sistema de gestão de tráfego urbano. A. S.; BOS, H. Modern operating systems. 4. ed. Hoboken, NJ: Prentice Hall, 2015. Instruções de desvio são aplicadas para responder a eventos inesperados, desviando o tráfego para rotas alternativas em caso de acidentes ou obras. **Justificativa:** Instruções de desvio priorizam o fluxo de veículos de emergência, como ambulâncias, garantindo sua passagem rápida e segura. **Justificativa:** de desvio são usadas para ajustar os tempos de sinalização dos semáforos com base no volume de tráfego, minimizando congestionamentos. **Justificativa:** Instruções de desvio implementam algoritmos de sincronização de semáforos para otimizar o fluxo de veículos em corredores viários de alta demanda. **Justificativa:** **Alternativa marcada:**",
+    "options": [
+      "Instrucoes de desvio respondem a eventos inesperados desviando o trafego fisico para rotas alternativas.",
+      "Instrucoes de desvio priorizam veiculos de emergencia diretamente no hardware do semaforo.",
+      "Instrucoes de desvio ajustam tempos de sinalizacao sem depender de condicoes logicas.",
+      "Instrucoes de desvio implementam decisoes condicionais em algoritmos de sincronizacao de semaforos."
+    ],
+    "answer": "D",
+    "explanation": "Desvios mudam o fluxo conforme condicoes; no contexto, implementam decisoes no algoritmo de semaforos."
+  },
+  {
+    "id": 21,
+    "source": "Q21",
+    "original": 21,
+    "block": "ULA e subtrator",
+    "prompt": "Durante o desenvolvimento de um novo relógio digital inovador, o time de design busca implementar uma função de contagem regressiva precisa. Essa função deve ser capaz de decrementar o tempo restante de forma consistente, segundo a segundo. Qual componente é essencial para habilitar a funcionalidade de contagem regressiva no projeto? Circuito contador ascendente implementado na unidade de memória do sistema. **Justificativa:**",
+    "options": [
+      "Circuito contador ascendente implementado na unidade de memoria.",
+      "Circuito oscilador de cristal para sincronizacao.",
+      "Latch D configurado apenas para armazenamento temporario.",
+      "Circuito subtrator binario integrado a unidade logica aritmetica."
+    ],
+    "answer": "D",
+    "explanation": "Contagem regressiva exige decremento; subtrator/ULA realiza a subtracao."
+  },
+  {
+    "id": 22,
+    "source": "Q22",
+    "original": 22,
+    "block": "Pipeline e hazards",
+    "prompt": "Estudantes de engenharia estão desenvolvendo um processador didático para entender o funcionamento interno e os desafios de design dos sistemas digitais. Durante a implementação de um pipeline para aumentar a velocidade de processamento, depararam-se com o fenômeno de hazards dinâmicos, afetando a execução correta das instruções. Agora, a equipe precisa determinar uma solução eficaz para minimizar os efeitos dos hazards dinâmicos e o funcionamento adequado do processador. Qual deve ser a solução?",
+    "options": [
+      "Adicionar logica de deteccao e correcao de hazards no pipeline.",
+      "Utilizar previsao de salto para evitar qualquer tipo de hazard.",
+      "Aumentar o numero de estagios do pipeline para simplificar todas as operacoes.",
+      "Diminuir a frequencia de clock como solucao principal para qualquer hazard."
+    ],
+    "answer": "A",
+    "explanation": "Hazards em pipeline exigem deteccao e tratamento como stall, forwarding ou flush."
+  },
+  {
+    "id": 23,
+    "source": "Q23",
+    "original": 23,
+    "block": "Registradores",
+    "prompt": "Uma equipe está desenvolvendo um compilador para linguagens de programação de alto nível. objetivo do desenvolvimento é conseguir a eficiência na tradução dos comandos de programação por meio do compilador. Para a otimização, exige-se o uso eficiente do armazenamento de variáveis temporárias em hardware durante a execução de programas, o que influencia diretamente a velocidade e eficiência do compilador. Qual componente é indicado para otimizar o armazenamento de variáveis temporárias?",
+    "options": [
+      "É indicado o uso de memória flash para o armazenamento de dados semipermanentes.",
+      "É indicado o uso de memória virtual para que se consiga realizar a expansão da memória RAM.",
+      "É indicado o uso de banco de registradores para armazenamento de variáveis temporárias.",
+      "É indicado o uso de disco rígido para armazenamento de variáveis temporárias."
+    ],
+    "answer": "C",
+    "explanation": "Variaveis temporarias devem ficar em armazenamento rapido proximo da ULA: registradores."
+  },
+  {
+    "id": 24,
+    "source": "Q24",
+    "original": 24,
+    "block": "Atraso e caminho critico",
+    "prompt": "Em um projeto de desenvolvimento de um processador, a equipe de engenharia está enfrentando desafios com o tempo de resposta do sistema. Identificaram que a propagação de atraso nos circuitos digitais está comprometendo a velocidade de processamento de imagens, resultando em um desempenho abaixo do esperado. Considerando as estratégias para minimizar esse problema, qual das seguintes opções é a mais eficaz para minimizar o impacto negativo da propagação de atraso no desempenho do processador?",
+    "options": [
+      "Deve-se reduzir o número de núcleos de processamento, reduzindo dados processados simultaneamente.",
+      "Deve-se otimizar o layout dos circuitos, organizando a estrutura dos elementos do circuito de forma mais eficiente.",
+      "Deve-se aumentar a capacidade de armazenamento da memória RAM, garantindo fidelidade de informações.",
+      "Deve-se aumentar a tensão de operação do sistema para controlar os sinais de entrada com maior eficácia."
+    ],
+    "answer": "B",
+    "explanation": "Atraso depende de caminho, carga e interconexoes; otimizar layout reduz propagacao."
+  },
+  {
+    "id": 25,
+    "source": "Q25",
+    "original": 25,
+    "block": "PROM e logica programavel",
+    "prompt": "Durante o desenvolvimento de um sistema de controle de acesso customizável para um prédio comercial, a equipe de engenharia decide implementar um circuito que possa ser programado uma única vez e com diferentes níveis de acesso. O circuito deverá armazenar as permissões de entrada sem possibilidade de reprogramação, garantindo segurança e evitando alterações não autorizadas. Qual dos seguintes arranjos é o mais adequado para essa aplicação?",
+    "options": [
+      "O arranjo PAL é o mais adequado para que se garanta a lógica programável de alta velocidade.",
+      "O arranjo EEPROM é o mais adequado para que se garanta a reprogramação fácil.",
+      "O arranjo PLA é o mais adequado para que se garanta a configuração lógica flexível.",
+      "O arranjo PROM é o mais adequado para que se garanta o armazenamento permanente e seguro."
+    ],
+    "answer": "D",
+    "explanation": "PROM e programavel uma unica vez, adequada para configuracao permanente."
+  },
+  {
+    "id": 26,
+    "source": "Q26",
+    "original": 26,
+    "block": "Ponto fixo",
+    "prompt": "Durante a criação de um dispositivo de áudio, a equipe de desenvolvimento se depara com um desafio: o conversor D-A (Conversor Digital-Analógico) do dispositivo opera exclusivamente com dados representados em ponto fixo, porém a precisão e a qualidade do som são fundamentais para o sucesso do produto. A fidelidade na reprodução de sons exige uma manipulação cuidadosa dos dados antes da conversão. Como os engenheiros podem otimizar a representação dos sons para maximizar a qualidade do áudio?",
+    "options": [
+      "Os engenheiros podem diminuir o total de bits usados na representação dos dados.",
+      "Os engenheiros podem alocar mais bits para a parte fracionária dos dados sonoros.",
+      "Os engenheiros podem utilizar compressão de dados e reduzir o número de bits de representação.",
+      "Os engenheiros podem ignorar a representação de frequências mais baixas."
+    ],
+    "answer": "B",
+    "explanation": "Mais bits fracionarios em ponto fixo aumentam a resolucao do sinal representado."
+  },
+  {
+    "id": 27,
+    "source": "Q27",
+    "original": 27,
+    "block": "FPGA/CPLD",
+    "prompt": "Uma startup de tecnologia está projetando um sistema de automação residencial personalizável. Nesse sistema, o cliente deve poder adaptar o controle de iluminação, segurança e temperatura. Deverá ser usado um componente eletrônico que permita a reconfiguração e a atualização do sistema conforme as funcionalidades são desenvolvidas, garantindo a flexibilidade e a longevidade do produto. Qual dispositivo é adequado para realizar a adaptação e a expansão no projeto?",
+    "options": [
+      "ASIC, para garantir a possibilidade de otimização de desempenho específico.",
+      "Microcontroladores especiais, para garantir a possibilidade de controle centralizado.",
+      "FPGA, para garantir a possibilidade de reconfiguração dinâmica dos processos.",
+      "CPLD, para garantir a possibilidade de lógica complexa fixa do sistema."
+    ],
+    "answer": "C",
+    "explanation": "FPGA permite reconfigurar a logica depois, mantendo flexibilidade do sistema."
+  },
+  {
+    "id": 28,
+    "source": "Q28",
+    "original": 28,
+    "block": "Glitches e hazards",
+    "prompt": "Durante o desenvolvimento de um drone destinado a operações de resgate em áreas de difícil acesso, a equipe de engenharia enfrenta um desafio: garantir que o processador responda de maneira eficiente em condições dinâmicas de voo, evitando a ocorrência de glitches em situações de transição de sinais. A estabilidade e a precisão no comportamento dinâmico dos circuitos digitais são essenciais para o êxito das missões de resgate. Quais são as possíveis causas de glitches nesse sistema?",
+    "options": [
+      "Os glitches são causados por caminhos críticos muito longos.",
+      "Os glitches são acontecimentos sem causa definida e não afetam o funcionamento dos circuitos.",
+      "Os glitches são decorrentes de curtos-circuitos internos nos componentes eletrônicos do sistema.",
+      "Os glitches podem ocorrer devido a atrasos de propagação desiguais em diferentes partes do circuito."
+    ],
+    "answer": "D",
+    "explanation": "Glitches surgem quando sinais reconvergentes chegam em tempos diferentes por atrasos desiguais."
+  },
+  {
+    "id": 29,
+    "source": "Q29",
+    "original": 29,
+    "block": "CMOS e potencia",
+    "prompt": "Em uma empresa de tecnologia, uma equipe de desenvolvimento está projetando um dispositivo vestível de baixo consumo energético, destinado a monitorar os sinais vitais de atletas de alto rendimento. O dispositivo deve operar de forma eficiente, de modo a prolongar a vida útil da bateria, mesmo processando e armazenando grandes volumes de dados. Dada a necessidade de minimizar o consumo energético sem comprometer o desempenho, qual tecnologia de circuito é a mais adequada para a lógica interna desse dispositivo?",
+    "options": [
+      "A tecnologia mais adequada é a TTL, garantindo assim a alta velocidade de processamento.",
+      "A tecnologia mais adequada é a CMOS, com transistores do tipo Planar ou Finfet",
+      "A tecnologia mais adequada é a dos circuitos baseados em relés, garantindo simplicidade do sistema.",
+      "A tecnologia mais adequada é a bipolar, garantindo a amplificação de sinais do sistema."
+    ],
+    "answer": "B",
+    "explanation": "CMOS tem baixo consumo estatico e domina logica digital de baixo consumo."
+  },
+  {
+    "id": 30,
+    "source": "Q30",
+    "original": 30,
+    "block": "Somadores",
+    "prompt": "Uma equipe de estudantes propôs um projeto de calculadora portátil usando lógica digital. Para a unidade de soma, optaram por utilizar somadores-completos (full-adders) devido à sua capacidade de somar bits com um carryde entrada. O desafio da equipe foi conectar em cascata vários somadores-completos para realizar a soma de números binários maiores. Qual das alternativas representa a realização da transmissão do carry de saída de um somador para o carry de entrada do próximo?",
+    "options": [
+      "Mantendo cada somador-completo independente, sem passar Cout para conseguir o resultado esperado.",
+      "Conectando o Cout de um somador ao Cin do somador seguinte para conseguir o resultado esperado.",
+      "Invertendo o Cout antes de passá-lo como Cin ao próximo somador para conseguir o resultado esperado.",
+      "Utilizando Cout apenas no último somador-completo da cadeia para conseguir o resultado esperado."
+    ],
+    "answer": "B",
+    "explanation": "No ripple-carry, o Cout de um full-adder alimenta o Cin do proximo."
+  },
+  {
+    "id": 31,
+    "source": "Q51",
+    "original": 51,
+    "block": "Contadores",
+    "prompt": "A indústria onde você trabalha tem diversos motores elétricos de alta precisão e você tem a tarefa de projetar um sistema de controle para esses motores elétricos. O sistema requer um contador síncrono para monitorar e controlar o número de rotações do motor, garantindo que ele opere dentro de limites específicos. Para atender aos requisitos de precisão e confiabilidade do sistema, qual é o tipo adequado de contador que você deve selecionar e como configurá-lo?",
+    "options": [
+      "A seleção do contador síncrono adequado é determinada pelo custo do componente, e a configuração é realizada manualmente, ajustando os dip switchesou jumpers, conforme a necessidade.",
+      "A seleção e a configuração corretas do contador síncrono não são importantes, desde que haja um sinal de relógio confiável para coordenar as operações de contagem.",
+      "A seleção do contador síncrono adequado depende exclusivamente do número de bits necessários para representar o intervalo de contagem desejado, e a configuração é feita automaticamente pelo software de controle.",
+      "A seleção correta do contador síncrono depende das características de desempenho desejadas, como frequência máxima de contagem e precisão, e a configuração é feita ajustando os parâmetros de entrada do circuito."
+    ],
+    "answer": "D",
+    "explanation": "Contador sincrono deve atender frequencia, faixa, precisao e modo de contagem."
+  },
+  {
+    "id": 32,
+    "source": "Q53",
+    "original": 53,
+    "block": "Circuitos combinacionais",
+    "prompt": "Um engenheiro foi contratado em uma usina nuclear para projetar um sistema de segurança avançado para o controle de acesso às diversas áreas da usina. De acordo com a função de cada funcionário da o funcionário acessa determinada área. O controle de acesso deve ser extremamente rigoroso. O sistema requer um circuito combinacional para controlar o acesso a diferentes áreas da instalação, com base em níveis de autorização específicos atribuídos a cada funcionário. Qual das seguintes afirmações sobre a aplicação prática de circuitos combinacionais está correta?",
+    "options": [
+      "Circuitos combinacionais são adequados para a criação de interfaces de usuário intuitivas e interativas, melhorando a experiência do usuário em sistemas de segurança.",
+      "Circuitos combinacionais podem ser utilizados para implementar algoritmos de criptografia avançados, garantindo a segurança dos dados transmitidos.",
+      "Circuitos combinacionais são usados para armazenar e processar grandes volumes de dados, tornando-se ideais para sistemas de segurança",
+      "Circuitos combinacionais são empregados para realizar operações lógicas e aritméticas em tempo real, tornando-se essenciais para sistemas de controle de acesso."
+    ],
+    "answer": "D",
+    "explanation": "Circuitos combinacionais calculam saidas a partir das entradas atuais, sem memoria interna."
+  },
+  {
+    "id": 33,
+    "source": "Q54",
+    "original": 54,
+    "block": "BCD e codificadores",
+    "prompt": "A empresa de segurança e controle de acesso SecurityZ está desenvolvendo um sistema de controle de acesso para edifícios comerciais onde o fluxo diário de pessoas é grande. O sistema é composto por um teclado numérico e um display de 10 dígitos. Cada pessoa que tem acesso ao edifício digita sua senha de acesso no teclado e recebe a mensagem de \"Liberado\" ou \"Bloqueado\" no display. engenheiro da empresa SecurityZ está utilizando o código BCD (decimal codificado em binário) para desenvolver esse sistema, uma vez que o BCD é empregado em aplicações que demandam alta precisão numérica. Qual deve ser a quantidade de saídas que um codificador decimal para BCD deve ter?",
+    "options": [
+      "12.",
+      "8.",
+      "10.",
+      "4."
+    ],
+    "answer": "D",
+    "explanation": "BCD representa cada digito decimal com 4 bits; logo o codificador decimal-BCD tem 4 saidas."
+  },
+  {
+    "id": 34,
+    "source": "Q55",
+    "original": 55,
+    "block": "Mintermos",
+    "prompt": "Considere F(A,B,C) = Σm(0,2,4,6). Qual forma simplificada representa corretamente a funcao?",
+    "options": [
+      "C'",
+      "C",
+      "A'B + AB'",
+      "A'BC' + AB'C"
+    ],
+    "answer": "A",
+    "explanation": "Os mintermos 0,2,4,6 sao 000,010,100,110. C e sempre 0, entao F=C'. A questao foi restaurada porque a transcricao perdeu alternativas."
+  },
+  {
+    "id": 35,
+    "source": "Q56",
+    "original": 56,
+    "block": "Circuitos sequenciais e FSM",
+    "prompt": "Um engenheiro está projetando um sistema de controle de tráfego para uma cidade com grande fluxo diário de veículos. Em determinados horários, o fluxo de automóveis de passeio é maior; em outros horários, predomina o fluxo de veículos de carga e transporte coletivo. sistema requer um circuito sequencial para coordenar o funcionamento dos semáforos em várias interseções, levando em consideração o volume de tráfego em tempo real e os padrões de fluxo de veículos. Qual das seguintes afirmações sobre a utilização de circuitos sequenciais nessa aplicação está correta?",
+    "options": [
+      "Circuitos sequenciais são empregados em sistemas de controle de tráfego, como semáforos e sinais de trânsito, pois são capazes de armazenar estados internos e responder a eventos externos de maneira sequencial.",
+      "Circuitos sequenciais são adequados para o controle de dispositivos de armazenamento de dados, como discos rígidos e memórias flash, devido à sua capacidade de armazenar e recuperar informações sequencialmente.",
+      "Circuitos sequenciais são utilizados principalmente em sistemas de processamento de texto e imagem, devido à necessidade de armazenar e manipular grandes quantidades de dados.",
+      "Circuitos sequenciais são utilizados em sistemas de comunicação sem fio para processar e codificar sinais de transmissão, garantindo uma transmissão eficiente e segura de dados."
+    ],
+    "answer": "A",
+    "explanation": "Semaforo e exemplo classico de sistema sequencial/FSM: ha estado atual e transicoes."
+  },
+  {
+    "id": 36,
+    "source": "Q57",
+    "original": 57,
+    "block": "Simplificacao booleana",
+    "prompt": "Após apresentar o projeto do sistema de controle de um automóvel elétrico, o engenheiro foi questionado se haveria a possibilidade de diminuir os custos para a implementação desse sistema de controle, bem como o tamanho do circuito eletrônico, uma vez que, como se trata de um veículo elétrico, quanto menor for o consumo de energia dos sistemas embarcados, maior será a autonomia do veículo. O engenheiro respondeu que é totalmente viável a simplificação do circuito eletrônico e apresentará um novo circuito já na próxima reunião. Dado o diagrama do circuito lógico a seguir, assinale a alternativa correta que apresenta a melhor maneira de simplificar a função lógica implementada pelo circuito.Fonte elaborada pelo autor (2024).",
+    "options": [
+      "XOR.",
+      "AND.",
+      "XNOR.",
+      "XAND."
+    ],
+    "answer": "C",
+    "explanation": "XNOR vale 1 quando entradas sao iguais: 00 ou 11. Isso corresponde a A'B' + AB."
+  },
+  {
+    "id": 37,
+    "source": "Q59",
+    "original": 59,
+    "block": "Conversao de bases",
+    "prompt": "Um cientista de dados pretende criar um algoritmo de compressão de dados para armazenar grandes conjuntos de informações de forma eficiente. O algoritmo utiliza o sistema numérico binário para representar os dados de entrada do algoritmo.Sendo a sequência binária 1010111100111010, qual é o valor na base hexadecimal equivalente para essa sequência binária?",
+    "options": [
+      "BC10",
+      "AFZA",
+      "FF1A",
+      "AF3A"
+    ],
+    "answer": "D",
+    "explanation": "Agrupe em nibbles: 1010=A, 1111=F, 0011=3, 1010=A. Resultado AF3A."
+  },
+  {
+    "id": 38,
+    "source": "Q60",
+    "original": 60,
+    "block": "Karnaugh",
+    "prompt": "O mapa de Karnaugh permite a identificação rápida de padrões e simplificações de expressões lógicas. Fazer um loop em um mapa de Karnaugh resulta na eliminação do quê? Assinale a alternativa correta.",
+    "options": [
+      "Variáveis dentro do loop que aparecem na forma complementada e não complementada.",
+      "Variáveis dentro do loop que aparecem apenas na sua forma não complementada.",
+      "Variáveis que permanecem inalteradas dentro do loop",
+      "Variáveis dentro do loop que aparecem apenas na sua forma complementada."
+    ],
+    "answer": "A",
+    "explanation": "No grupo de Karnaugh, variaveis que mudam entre 0 e 1 sao eliminadas."
+  }
+];
+    const letters = ["A", "B", "C", "D", "E"];
+    const state = { answers: {}, finalized: false };
+    const quiz = document.getElementById("quiz");
+    const progressText = document.getElementById("progressText");
+    const scoreText = document.getElementById("scoreText");
+    const progressBar = document.getElementById("progressBar");
+    const scoreBox = document.getElementById("scoreBox");
+
+    function escapeHtml(value) {
+      return String(value).replace(/[&<>"']/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[ch]));
+    }
+
+    function render() {
+      quiz.className = state.finalized ? "finalized" : "";
+      quiz.innerHTML = questions.map((q, index) => {
+        const chosen = state.answers[q.id] || "";
+        const options = q.options.map((option, optIndex) => {
+          const letter = letters[optIndex];
+          let cls = "option";
+          if (state.finalized && letter === q.answer) cls += " correct";
+          if (state.finalized && chosen === letter && chosen !== q.answer) cls += " wrong";
+          return `<label class="${cls}"><input type="radio" name="q-${q.id}" value="${letter}" ${chosen === letter ? "checked" : ""} ${state.finalized ? "disabled" : ""}> <strong>${letter})</strong> <span>${escapeHtml(option)}</span></label>`;
+        }).join("");
+        return `<article class="question card" id="q-${q.id}">
+          <div class="qhead"><span class="badge">${escapeHtml(q.block)}</span><span class="source">${escapeHtml(q.source)} · Questão ${index + 1}</span></div>
+          <h2>Questão ${index + 1}</h2>
+          <p class="prompt">${escapeHtml(q.prompt)}</p>
+          ${options}
+          <div class="explanation"><strong>Resposta: ${q.answer}</strong><br>${escapeHtml(q.explanation)}</div>
+        </article>`;
+      }).join("");
+      updateProgress();
+    }
+
+    function updateProgress() {
+      const answered = Object.keys(state.answers).length;
+      const pct = Math.round((answered / questions.length) * 100);
+      progressText.textContent = `${answered}/${questions.length} respondidas`;
+      progressBar.style.width = `${pct}%`;
+      if (!state.finalized) scoreText.textContent = "Ainda não finalizado";
+    }
+
+    quiz.addEventListener("change", event => {
+      const input = event.target.closest("input[type='radio']");
+      if (!input || state.finalized) return;
+      const id = Number(input.name.replace("q-", ""));
+      state.answers[id] = input.value;
+      updateProgress();
+    });
+
+    document.getElementById("finishButton").addEventListener("click", () => {
+      state.finalized = true;
+      let correct = 0;
+      const missing = [];
+      for (const q of questions) {
+        if (!state.answers[q.id]) missing.push(q.id);
+        if (state.answers[q.id] === q.answer) correct += 1;
+      }
+      const pct = Math.round((correct / questions.length) * 100);
+      scoreText.textContent = `${correct}/${questions.length} (${pct}%)`;
+      scoreBox.className = "score card show" + (missing.length ? " missing" : "");
+      scoreBox.innerHTML = `<strong>Resultado: ${correct}/${questions.length} (${pct}%)</strong><br>${missing.length ? "Sem resposta: " + missing.join(", ") : "Todas respondidas."}`;
+      render();
+      scoreBox.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+
+    document.getElementById("resetButton").addEventListener("click", () => {
+      state.answers = {};
+      state.finalized = false;
+      scoreBox.className = "score card";
+      scoreBox.innerHTML = "";
+      render();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+
+    render();
+  </script>
+</body>
+</html>
