@@ -1,0 +1,1117 @@
+===
+@id novo100-q001
+# binário; complemento de 2; comparação signed-unsigned
+? O padrão `1110 0110` é comparado com `0111 1010`. Qual alternativa está correta se a primeira comparação for sem sinal e a segunda for com sinal, usando os mesmos bits?
+* Sem sinal: `1110 0110` é maior; com sinal: `1110 0110` é menor.
+- Sem sinal: `1110 0110` é menor; com sinal: `1110 0110` é maior.
+- Nas duas interpretações, `1110 0110` é maior porque tem MSB igual a 1.
+- Nas duas interpretações, `1110 0110` é menor porque representa número negativo.
+- Não é possível comparar porque os padrões têm sinais diferentes.
+> Sem sinal, `1110 0110` vale 230 e `0111 1010` vale 122. Com sinal em complemento de 2, `1110 0110` vale -26 e `0111 1010` vale +122.
+
+===
+@id novo100-q002
+# aritmética; extensão de sinal; complemento de 2
+? Um imediato de 5 bits `10110` deve ser estendido para 8 bits e somado a `0001 0011`. O resultado de 8 bits e seu valor assinado são:
+- `0010 1001`, `+41`
+* `0000 1001`, `+9`
+- `1110 1001`, `-23`
+- `0000 1001`, com overflow assinado
+- `1111 1001`, `-7`
+> `10110` em 5 bits é negativo: invertendo `01001` e somando 1 dá 10, então vale -10. Estendido por sinal vira `1111 0110`. Somando `0001 0011` (+19), o resultado é `0000 1001`, isto é, +9.
+
+===
+@id novo100-q003
+# bcd; aritmética decimal; correção
+? Some em BCD 8421 os números `58` e `47`. Qual sequência de correções por dígito é correta?
+- Unidade: `8+7=1111`, sem correção; dezena: `5+4=1001`; resultado `9F`.
+- Unidade: `8+7=1111`, soma `0110` e gera carry; dezena: `5+4=1001`, sem incluir carry; resultado `1001 0101`.
+* Unidade: `8+7=1111`, soma `0110` e gera carry; dezena: `5+4+1=1010`, soma `0110`; resultado BCD `0001 0000 0101`.
+- Unidade: `8+7=1111`, soma `0011`; dezena: `5+4=1001`; resultado `1001 0010`.
+- Converte-se `58+47=105` para binário puro `0110 1001`, que já é BCD.
+> `8+7=15` é inválido em BCD, então soma-se 6 e surge carry para a dezena. A dezena fica `5+4+1=10`, também inválida, soma-se 6 e surge a centena. Resultado: `105`, em BCD `0001 0000 0101`.
+
+===
+@id novo100-q004
+# gray; sequência; erro de interpretação
+? Um sensor entrega Gray de 4 bits. As leituras consecutivas são `0110`, `0111`, `0101`. Em binário natural, essa sequência corresponde a:
+- `0100`, `0101`, `0111`
+- `0010`, `0011`, `0100`
+- `0110`, `0111`, `0101`
+* `0100`, `0101`, `0110`
+- `0011`, `0100`, `0101`
+> Gray para binário usa XOR acumulado. `0110 -> 0100`, `0111 -> 0101`, `0101 -> 0110`. A pegadinha é não tratar Gray como binário direto.
+
+===
+@id novo100-q005
+# paridade; checksum; detecção de erro
+? Um byte de dados usa paridade ímpar. O transmissor enviaria `110010101` (dados mais paridade), mas por duas inversões o receptor recebe `110110001`. Qual conclusão é correta?
+- A palavra passa e isso garante que nenhum bit foi alterado.
+- A palavra falha, pois os dados recebidos têm número par de bits 1 antes da paridade.
+- A palavra passa, mas a paridade corrige automaticamente o bit alterado.
+- A palavra falha e o receptor sabe que o erro está no quinto bit.
+* A palavra passa na paridade, embora possa estar errada, porque houve número par de inversões.
+> A palavra recebida tem cinco bits 1 no total, portanto satisfaz paridade ímpar. Paridade simples detecta número ímpar de inversões, mas pode deixar passar número par de erros.
+
+===
+@id novo100-q006
+# portas lógicas; precedência; expressão booleana
+? Para `F = A + B.C'` com `A=0`, `B=1`, `C=0`, e depois negando apenas a saída final, qual é `F'`?
+* `0`, porque `B.C'=1` e então `F=1`
+- `0`, porque `A+B` deve ser calculado antes de `.C'`
+- `1`, porque `C'=1` desativa o termo
+- `1`, porque `A=0` força a expressão toda para 0
+- `0`, mas somente se `+` significar XOR
+> NOT tem maior precedência, depois AND, depois OR. `C'=1`, então `B.C'=1`; `F=0+1=1`; logo `F'=0`.
+
+===
+@id novo100-q007
+# demorgan; barra sobre bloco; álgebra booleana
+? Qual expressão é equivalente a `\bar{(A+\bar{B})(\bar{C}+D)}`?
+- `\bar{A}+B+C+\bar{D}`
+* `\bar{A}B + C\bar{D}`
+- `(\bar{A}+B)(C+\bar{D})`
+- `A\bar{B} + \bar{C}D`
+- `\bar{A}+B.C+\bar{D}`
+> A negação de produto vira soma: `\bar{X.Y}=\bar{X}+\bar{Y}`. Assim, `\bar{(A+\bar{B})}=\bar{A}B` e `\bar{(\bar{C}+D)}=C\bar{D}`.
+
+===
+@id novo100-q008
+# formas canônicas; mintermo; maxtermo
+? Para `F(A,B,C,D)=ΠM(1,3,9,11,15)`, qual afirmação está correta?
+- `F` vale 1 exatamente nos índices `1,3,9,11,15`.
+- A forma SOP canônica é `Σm(1,3,9,11,15)`.
+* A forma SOP canônica usa todos os mintermos exceto `1,3,9,11,15`.
+- `F` não pode ser escrita em SOP porque foi dada em POS.
+- Os índices indicam don't cares, não zeros obrigatórios.
+> `ΠM(...)` lista as linhas em que a função vale 0. A SOP canônica lista as linhas em que vale 1, isto é, o complemento do conjunto de maxtermos.
+
+===
+@id novo100-q009
+# karnaugh; agrupamento por borda; sop
+? Em um mapa de Karnaugh de 4 variáveis, os 1s estão em `m(0,2,8,10,5,7)` e há don't cares em `d(13,15)`. Qual SOP minimizada é correta?
+- `\bar{B}\bar{D} + \bar{A}BD`
+- `\bar{B}D + B\bar{D}`
+- `\bar{A}\bar{D} + ABD`
+* `\bar{B}\bar{D} + BD`
+- `\bar{B}\bar{D} + ACD`
+> Os mintermos `0,2,8,10` formam grupo com `B=0,D=0`, resultando `\bar{B}\bar{D}`. Os mintermos `5,7` podem usar `13,15` como don't care para formar grupo com `B=1,D=1`, resultando `BD`.
+
+===
+@id novo100-q010
+# karnaugh; pos; zeros; dont care
+? Uma função de 3 variáveis tem zeros em `M(0,2)` e don't care em `d(4,6)`. Se for minimizada em POS usando os don't cares de modo útil, o resultado é:
+- `(A+B)`
+- `(\bar{B}+C)`
+- `(\bar{B}+\bar{C})`
+- `(A+\bar{C})`
+* `(C)`
+> Os zeros `0,2` junto com don't cares `4,6` formam grupo de 4 em que apenas `C=0` permanece constante. Em POS agrupando zeros, variável fixa 0 entra direta: `(C)`.
+
+===
+@id novo100-q011
+# nand; implementação; sop
+? A expressão mínima `F=A\bar{B}+CD` será implementada apenas com NAND de duas entradas, assumindo que literais complementados possam ser gerados com NAND usado como inversor. Qual estrutura é a mais natural?
+* Gerar `A\bar{B}` e `CD` em NANDs de primeiro nível e combinar as saídas por uma NAND final.
+- Gerar `A+\bar{B}` e `C+D` por NANDs e combinar por AND final.
+- Implementar primeiro uma POS e depois negar a saída com NAND.
+- Usar NAND final diretamente sobre `A`, `\bar{B}`, `C` e `D`, pois NAND de todos os literais já soma produtos.
+- Converter para NOR-NOR porque SOP combina naturalmente com NOR.
+> Uma rede NAND-NAND implementa SOP: o primeiro nível produz produtos negados e a NAND final aplica DeMorgan para obter a soma dos produtos.
+
+===
+@id novo100-q012
+# nor; implementação; pos
+? Para implementar `F=(A+\bar{C})(B+D)` apenas com NOR, qual raciocínio é correto?
+- POS combina naturalmente com NAND-NAND, sem inversões adicionais.
+* Cada soma pode ser gerada negada por uma NOR, e uma NOR final realiza o produto das somas por DeMorgan.
+- Basta ligar todos os literais em uma NOR única, pois POS é uma soma grande.
+- NOR-NOR só implementa SOP, então é impossível.
+- Primeiro deve-se expandir para mintermos canônicos.
+> NOR-NOR combina naturalmente com POS: o primeiro nível calcula somas negadas e a NOR final equivale ao AND das somas originais.
+
+===
+@id novo100-q013
+# mux; implementação de função; seletores
+? Uma função `F(A,B,C)` vale 1 para mintermos `1,2,6,7`. Usando um MUX 4:1 com seletores `A,B`, quais entradas de dados `I0,I1,I2,I3` em função de `C` são corretas?
+- `I0=C`, `I1=C`, `I2=0`, `I3=1`
+- `I0=\bar{C}`, `I1=C`, `I2=C`, `I3=1`
+* `I0=C`, `I1=\bar{C}`, `I2=0`, `I3=1`
+- `I0=1`, `I1=\bar{C}`, `I2=0`, `I3=C`
+- `I0=C`, `I1=0`, `I2=\bar{C}`, `I3=1`
+> Para `AB=00`, mintermos 0/1: só 1 é 1, então `I0=C`. Para `01`, mintermos 2/3: só 2 é 1, então `I1=\bar{C}`. Para `10`, nenhum; `I2=0`. Para `11`, ambos 6/7; `I3=1`.
+
+===
+@id novo100-q014
+# decoder; ativo baixo; enable
+? Um decoder 3:8 possui saídas ativas em nível baixo e enable ativo alto. Com `E=1` e entrada `101`, qual saída deve indicar seleção?
+- `Y5=1`, todas as outras `0`
+- `Y2=0`, todas as outras `1`
+- `Y5=Z`, todas as outras `0`
+* `Y5=0`, todas as outras `1`
+- Nenhuma saída é selecionada porque ativo baixo desabilita o circuito.
+> Entrada `101` seleciona índice 5. Como as saídas são ativas baixas, a selecionada vai para 0 e as demais ficam em 1.
+
+===
+@id novo100-q015
+# encoder; prioridade; valid
+? Um priority encoder 4:2 dá prioridade para a entrada de maior índice. Para `D3D2D1D0 = 1011`, qual saída de código e `valid` são esperados?
+- Código `00`, `valid=1`, pois `D0` está ativo.
+- Código `01`, `valid=1`, pois há mais de uma entrada ativa.
+- Código `10`, `valid=1`, pois `D2` é a maior entrada ativa.
+- Código indefinido e `valid=0`, pois encoder não aceita múltiplas entradas.
+* Código `11`, `valid=1`, pois `D3` tem prioridade.
+> Em priority encoder, múltiplas entradas ativas não tornam a saída inválida; vence a de maior prioridade. Aqui `D3=1`, então código `11` e `valid=1`.
+
+===
+@id novo100-q016
+# comparador; signed; magnitude
+? Compare `A=1001` e `B=0111`. Qual alternativa está correta em 4 bits?
+* Como unsigned, `A>B`; como signed em complemento de 2, `A<B`.
+- Como unsigned, `A<B`; como signed, `A>B`.
+- Nas duas interpretações, `A>B`.
+- Nas duas interpretações, `A<B`.
+- A comparação signed não pode ser feita porque `A` tem MSB 1.
+> Unsigned: `A=9` e `B=7`. Signed: `A=-7` e `B=+7`. A mesma sequência de bits pode mudar totalmente a comparação.
+
+===
+@id novo100-q017
+# barramento; alta impedância; contenção
+? Dois circuitos compartilham um barramento. No mesmo instante, um dirige `1010`, outro dirige `ZZZZ` e um terceiro dirige `1000`. O que é correto dizer?
+- O valor final é `1010`, pois `Z` não interfere e o terceiro é ignorado.
+* Há contenção nos bits em que os dois drivers ativos discordam.
+- `Z` vale 0, então o barramento vira `0000`.
+- O barramento soma os valores e vira `0010`.
+- Não há problema porque pelo menos um driver está em alta impedância.
+> Alta impedância significa desconectado, mas há dois drivers ativos: `1010` e `1000`. Eles discordam no bit 1, causando contenção elétrica.
+
+===
+@id novo100-q018
+# fsm; moore; mealy; latência
+? Um detector deve produzir saída 1 assim que a sequência `101` aparece, permitindo sobreposição. Qual afirmação diferencia corretamente uma implementação Moore de uma Mealy?
+- Moore pode ativar a saída na mesma transição que lê o último bit, pois saída depende da entrada.
+- Mealy só ativa a saída no ciclo seguinte, pois saída depende apenas do estado.
+* Mealy pode ativar na transição que lê o último bit; Moore normalmente precisa chegar a um estado de detecção.
+- Moore e Mealy sempre terão exatamente o mesmo número de estados e mesma latência.
+- Mealy não pode detectar sequência com sobreposição.
+> Em Mealy, a saída depende de estado atual e entrada, então pode reagir no ciclo do último bit. Em Moore, a saída depende do estado alcançado.
+
+===
+@id novo100-q019
+# fsm; sequência; sobreposição
+? Uma FSM Mealy detecta `110` com sobreposição. Após a entrada serial `1110`, quantas detecções devem ocorrer?
+- 0, porque a sequência começa com dois 1s e há três 1s seguidos.
+- 1, apenas nos três primeiros bits.
+- 2, nas janelas `111` e `110`.
+* 1, na janela formada pelos bits 2, 3 e 4.
+- 3, uma para cada transição após o segundo bit.
+> As janelas de tamanho 3 são `111` e `110`. Apenas a segunda é `110`. Sobreposição permite reaproveitar bits, mas não cria detecção onde o padrão não aparece.
+
+===
+@id novo100-q020
+# fsm; codificação; flip-flop d
+? Uma FSM tem estados codificados `S0=00`, `S1=01`, `S2=10`. Para entrada `X=1`, as transições são `S0->S1`, `S1->S2`, `S2->S0`. Qual linha de próximo estado está correta?
+- Em `S1`, `D1D0=01`, pois D recebe o estado atual.
+- Em `S2`, `D1D0=11`, pois estado não usado deve ser escolhido.
+- Em `S0`, `D1D0=00`, pois reset mantém o estado.
+- Em `S1`, `D1D0=11`, pois a entrada `X=1` deve ser concatenada ao estado.
+* Em `S1`, `D1D0=10`, pois FF D recebe o próximo estado.
+> Em flip-flop D, as entradas D são exatamente os bits do próximo estado. Se `S1=01` vai para `S2=10`, então `D1D0=10`.
+
+===
+@id novo100-q021
+# latch; flip-flop; transparência
+? Um latch D ativo em nível alto recebe `D=1` enquanto `EN=1`, depois `D` muda para 0 ainda com `EN=1`, e só depois `EN` vai a 0. O valor armazenado ao final é:
+* `0`, porque o latch ficou transparente enquanto `EN=1`.
+- `1`, porque o primeiro valor visto pelo latch sempre fica salvo.
+- Indefinido, porque latch não armazena valor.
+- `1`, se a mudança de D não ocorreu em borda de clock.
+- Sempre `Z`, pois enable baixo desconecta a saída.
+> Latch é sensível a nível. Enquanto habilitado, Q acompanha D; ao desabilitar, guarda o último valor presente.
+
+===
+@id novo100-q022
+# sr latch; ativo baixo; nand
+? Em um latch SR feito com NAND, entradas `\bar{S}` e `\bar{R}` são ativas em 0. Qual combinação é proibida?
+- `\bar{S}=1`, `\bar{R}=1`
+* `\bar{S}=0`, `\bar{R}=0`
+- `\bar{S}=0`, `\bar{R}=1`
+- `\bar{S}=1`, `\bar{R}=0`
+- Nenhuma, pois NAND elimina condição inválida.
+> No latch SR com NAND, as entradas são ativas baixas. Colocar ambas em 0 força simultaneamente set e reset, levando à condição inválida.
+
+===
+@id novo100-q023
+# registradores; pipo; piso; sipo; siso
+? Um circuito recebe 8 bits ao mesmo tempo e deve transmiti-los um por ciclo por uma única linha. Que tipo de registrador de deslocamento descreve melhor essa função?
+- SIPO, entrada serial e saída paralela.
+- PIPO, entrada paralela e saída paralela.
+* PISO, entrada paralela e saída serial.
+- SISO, entrada serial e saída serial.
+- FIFO, pois qualquer transmissão serial é FIFO.
+> Entrada paralela e saída serial é PISO. FIFO descreve ordem de armazenamento, não necessariamente o modo físico de entrada/saída.
+
+===
+@id novo100-q024
+# fifo; ponteiros; condição cheia
+? Uma FIFO circular de 8 posições usa ponteiros de escrita e leitura de 3 bits e deixa uma posição vazia para distinguir cheia de vazia. Se `wr=101` e `rd=110`, qual condição isso representa?
+- Vazia, porque `wr` e `rd` são quase iguais.
+- Cheia, porque `wr+1` módulo 8 é `110`.
+- Meio cheia, porque há quatro posições ocupadas.
+* Cheia, porque o próximo endereço de escrita coincide com `rd`.
+- Inválida, porque FIFO precisa ter potência de 2 maior que 8.
+> Com a convenção de uma posição vazia, FIFO cheia quando `(wr+1) mod N = rd`. Aqui `101+1=110`, igual a `rd`.
+
+===
+@id novo100-q025
+# contador síncrono; módulo; estados não usados
+? Um contador síncrono módulo 6 usa 3 flip-flops e conta `000,001,010,011,100,101,000...`. Qual afirmação é correta?
+- Usa todos os 8 estados possíveis dos 3 flip-flops.
+- Precisa necessariamente de 6 flip-flops.
+- Estados `110` e `111` são válidos e devem aparecer na sequência.
+- É obrigatoriamente assíncrono porque módulo não é potência de 2.
+* Usa 6 estados válidos; `110` e `111` precisam ser tratados ou evitados.
+> Três FFs permitem 8 estados, mas o módulo 6 usa apenas 6. Os estados não usados podem ser tratados com reset/lógica de recuperação.
+
+===
+@id novo100-q026
+# ring counter; johnson; reconhecimento
+? Com 5 flip-flops inicializados corretamente, quantos estados úteis têm um contador em anel simples e um contador Johnson?
+* Ring: 5; Johnson: 10
+- Ring: 10; Johnson: 5
+- Ring: 32; Johnson: 32
+- Ring: 4; Johnson: 8
+- Ring: 5; Johnson: 32
+> Ring counter com `n` FFs circula um único 1 e tem `n` estados úteis. Johnson realimenta o complemento e tem `2n` estados úteis.
+
+===
+@id novo100-q027
+# temporização; setup; fmax
+? Um caminho registrador-para-registrador tem `tCQmax=0,7 ns`, lógica máxima de `5,8 ns`, `tsetup=0,6 ns` e skew de captura favorável de `+0,4 ns` (clock chega mais tarde no destino). Qual é o menor período de clock para setup?
+- `7,5 ns`
+* `6,7 ns`
+- `7,1 ns`
+- `6,3 ns`
+- `5,7 ns`
+> Para setup: `T >= tCQmax + tPDmax + tsetup - skew`. Como o skew é favorável, subtrai: `0,7+5,8+0,6-0,4 = 6,7 ns`.
+
+===
+@id novo100-q028
+# temporização; hold; skew
+? No mesmo estilo, um caminho tem `tCQmin=0,25 ns`, lógica mínima `0,35 ns`, `thold=0,8 ns`. O clock chega `0,3 ns` mais tarde no destino. Há violação de hold?
+- Não, pois hold melhora quando o clock do destino atrasa.
+- Não, pois basta reduzir a frequência.
+* Sim, porque `0,25+0,35` é menor que `0,8+0,3`.
+- Sim, porque setup e hold usam sempre atraso máximo.
+- Não, porque `0,25+0,35+0,3` é maior que `0,8`.
+> Para hold, o dado não pode chegar cedo demais: `tCQmin+tPDmin >= thold + skew`. Aqui `0,60 >= 1,10` é falso, então há violação.
+
+===
+@id novo100-q029
+# pipeline; caminho crítico; overhead de registrador
+? Um circuito combinacional de 18 ns é dividido em três estágios de 6 ns por registradores com overhead total por estágio de 1 ns. Desconsiderando hazards, qual Fmax aproximada do pipeline?
+- `55,6 MHz`, pois usa o atraso total de 18 ns.
+- `166,7 MHz`, pois considera só os 6 ns de lógica.
+- `333,3 MHz`, pois são três estágios.
+* `142,9 MHz`, pois o estágio fica com período mínimo de 7 ns.
+- `1 GHz`, pois pipeline elimina caminho crítico.
+> O período mínimo do pipeline é o maior atraso de estágio mais overhead: `6+1=7 ns`. Logo `Fmax≈1/7 ns≈142,9 MHz`.
+
+===
+@id novo100-q030
+# metastabilidade; sincronizador; entrada assíncrona
+? Um botão externo assíncrono entra diretamente em uma FSM síncrona. Qual solução reduz o risco de metastabilidade antes da FSM?
+- Aumentar fanout do sinal do botão.
+- Colocar uma porta XOR antes da entrada.
+- Reduzir a frequência de clock para zero durante a leitura.
+- Trocar a FSM Moore por Mealy.
+* Usar dois flip-flops em série no domínio de clock da FSM.
+> Um sincronizador de dois FFs reduz muito a probabilidade de metastabilidade se propagar. Não elimina matematicamente o risco, mas é a técnica clássica.
+
+===
+@id novo100-q031
+# ponto fixo; q-format; complemento de 2
+? Um valor em `Q3.4` signed ocupa 8 bits em complemento de 2. O padrão `1110 1000` representa:
+* `-1,5`
+- `+14,5`
+- `-2,5`
+- `-24`
+- `+1,5`
+> Interprete primeiro como inteiro signed de 8 bits: `11101000` vale -24. Em `Q3.4`, divide por `2^4=16`: `-24/16=-1,5`.
+
+===
+@id novo100-q032
+# ponto fixo; saturação; overflow
+? Em `Q2.2` signed de 5 bits totais, a faixa é de `-4,00` a `+3,75`. Se a soma real de dois valores dá `+4,25`, qual comportamento é correto se o enunciado pedir saturação?
+- Arredondar para `+4,00`.
+* Guardar `+3,75`, o maior valor representável.
+- Fazer wrap-around para um valor negativo, pois saturação e overflow são iguais.
+- Guardar `10001`, pois MSB 1 significa positivo saturado.
+- Dividir o resultado por 2 para caber.
+> Em saturação, quando o resultado passa da faixa, prende no limite mais próximo. O máximo em `Q2.2` é `+3,75`.
+
+===
+@id novo100-q033
+# ieee 754; expoente; normalização
+? Um float simplificado tem 1 bit de sinal, 4 bits de expoente com bias 7 e fração de 3 bits com `1` implícito para normalizados. O padrão `0 1001 010` representa:
+- `+2,25`
+- `+4,5`
+* `+5,0`
+- `+10,0`
+- `+0,625`
+> Expoente armazenado `1001=9`, expoente real `9-7=2`. Fração `010` dá significando `1,010₂=1,25`. Valor `1,25*2^2=5,0`.
+
+===
+@id novo100-q034
+# ieee 754; casos especiais; subnormal
+? Em IEEE 754 simples, qual padrão de expoente e fração caracteriza um número subnormal?
+- Expoente `11111111` e fração zero.
+- Expoente `11111111` e fração diferente de zero.
+- Expoente diferente de zero e fração qualquer.
+* Expoente `00000000` e fração diferente de zero.
+- Expoente `00000000` e fração zero, com sinal 1.
+> Expoente 0 com fração diferente de zero indica subnormal. Expoente 0 com fração zero é zero; expoente 255 indica infinito ou NaN.
+
+===
+@id novo100-q035
+# somador; carry-lookahead; generate-propagate
+? Usando `G_i=A_iB_i` e `P_i=A_i xor B_i`, qual expressão de carry está correta para `C2` em um somador lookahead?
+- `C2 = G0 + P0G1 + P0P1C0`
+- `C2 = P1 + G1P0 + G0C0`
+- `C2 = G1P1 + G0P0 + C0`
+- `C2 = A2B2 + P2C1`
+* `C2 = G1 + P1G0 + P1P0C0`
+> `C1=G0+P0C0`. Então `C2=G1+P1C1 = G1+P1G0+P1P0C0`.
+
+===
+@id novo100-q036
+# subtração; borrow; carry
+? Em uma ULA, `A-B` unsigned é implementado como `A + \bar{B} + 1`. Se `A=0011` e `B=0101`, qual interpretação do carry-out final é correta?
+* Carry-out 0 indica que houve borrow; o resultado de 4 bits é `1110`.
+- Carry-out 1 indica borrow e resultado `1110`.
+- Carry-out 1 indica que não houve borrow; resultado `0010`.
+- Carry-out 0 indica overflow assinado obrigatório.
+- Borrow só existe quando os dois operandos têm MSB 1.
+> `3-5=-2`, em 4 bits fica `1110`. Na implementação por complemento de 2 para unsigned, carry-out final 0 indica empréstimo/borrow.
+
+===
+@id novo100-q037
+# ula; flags; zero negativo carry overflow
+? A operação de 4 bits `0111 + 0001` gera `1000`. Quais flags são coerentes para interpretação signed?
+- `Z=1`, `N=0`, `V=0`
+* `Z=0`, `N=1`, `V=1`
+- `Z=0`, `N=1`, `V=0`
+- `Z=0`, `N=0`, `V=1`
+- `Z=1`, `N=1`, `V=1`
+> `7+1=8`, fora da faixa signed de 4 bits (`-8` a `+7`). Resultado `1000` tem MSB 1, então `N=1`; não é zero; houve overflow.
+
+===
+@id novo100-q038
+# shifter; aritmético; lógico
+? O padrão `1001 0110` é deslocado uma posição à direita. Qual par representa, respectivamente, shift lógico e shift aritmético?
+- `1100 1011` e `0100 1011`
+- `0100 1011` e `0100 1011`
+* `0100 1011` e `1100 1011`
+- `1001 0110` e `1100 1011`
+- `0000 1011` e `1111 1011`
+> Shift lógico à direita insere 0 no MSB. Shift aritmético à direita replica o bit de sinal, que aqui é 1.
+
+===
+@id novo100-q039
+# cmos; pull-down; função lógica
+? Em uma porta CMOS estática, a rede NMOS pull-down conduz quando `(A+B)C=1`. Qual é a função lógica da saída?
+- `F=(A+B)C`
+- `F=A+B+C`
+- `F=\bar{A}+\bar{B}+\bar{C}`
+* `F=\bar{(A+B)C}`
+- `F=\bar{A}+\bar{B}+C`
+> Se o pull-down conduz, a saída vai a 0. Portanto a saída é o complemento da condição de condução da rede NMOS: `F=\bar{(A+B)C}`.
+
+===
+@id novo100-q040
+# cmos; pmos; nmos; níveis fortes
+? Um NMOS usado isoladamente como chave de passagem tenta transmitir nível lógico 1. Qual problema clássico aparece?
+- Ele transmite 1 forte até `VDD` sem perda.
+- Ele transmite 0 fraco e 1 forte.
+- Ele sempre coloca a saída em alta impedância.
+- Ele inverte o valor automaticamente.
+* Ele tende a transmitir 1 fraco, limitado por tensão de limiar.
+> NMOS passa 0 forte, mas passa 1 fraco. PMOS é o complementar: passa 1 forte e 0 fraco.
+
+===
+@id novo100-q041
+# potência dinâmica; unidades; atividade
+? Um nó com `C=20 fF`, `VDD=1,0 V`, atividade `α=0,25` e `f=200 MHz` tem potência dinâmica aproximada:
+* `1 µW`
+- `1 mW`
+- `100 µW`
+- `10 µW`
+- `0,1 W`
+> `P=αCV²f = 0,25 * 20e-15 * 1² * 200e6 = 1e-6 W`, isto é, `1 µW`.
+
+===
+@id novo100-q042
+# potência; energia; frequência
+? Dois blocos têm mesma capacitância e atividade. O bloco B usa `VDD` 20% menor e frequência 25% maior. A razão `P_B/P_A` é:
+- `1,56`
+* `0,80`
+- `1,00`
+- `1,25`
+- `0,64`
+> Potência dinâmica escala com `V²f`. Logo `(0,8)² * 1,25 = 0,64*1,25 = 0,80`.
+
+===
+@id novo100-q043
+# atraso; fanout; carga capacitiva
+? Uma porta passa a dirigir quatro entradas idênticas em vez de uma. Mantendo a mesma porta de saída, o efeito esperado é:
+- Menor atraso, pois o sinal se distribui em paralelo.
+- Menor potência dinâmica, pois cada entrada recebe menos carga.
+* Maior atraso e maior potência dinâmica por aumento da carga capacitiva.
+- Nenhuma mudança, pois fanout afeta apenas lógica sequencial.
+- Saída em alta impedância obrigatória.
+> Mais fanout significa mais capacitância sendo carregada e descarregada. Isso aumenta atraso e energia dinâmica.
+
+===
+@id novo100-q044
+# hazard; consenso; sop
+? A expressão `F=AB+\bar{A}C` pode ter hazard estático-1 quando `B=C=1` e `A` muda. Qual termo de consenso remove esse hazard sem alterar a função?
+- `A\bar{C}`
+- `\bar{A}B`
+- `A\bar{B}`
+* `BC`
+- `\bar{B}\bar{C}`
+> Para `XY + \bar{X}Z`, o termo de consenso é `YZ`. Aqui, `AB+\bar{A}C` recebe o termo `BC`.
+
+===
+@id novo100-q045
+# glitch; flip-flop; janela de captura
+? Um glitch estreito aparece em uma lógica combinacional entre dois flip-flops. Qual afirmação é mais correta?
+- Todo glitch sempre será armazenado no próximo flip-flop.
+- Glitch nunca importa em circuito síncrono.
+- Glitch é a mesma coisa que metastabilidade.
+- Glitch só existe em portas NOR.
+* Ele só causa erro funcional se afetar a entrada capturada dentro da janela relevante de setup/hold.
+> Glitches podem ser filtrados pelo tempo se não estiverem presentes quando o flip-flop captura. Mas podem causar erro se chegarem na janela crítica.
+
+===
+@id novo100-q046
+# memória; capacidade; endereços
+? Uma memória `16K x 12` tem quantas linhas de endereço e qual capacidade total em bytes?
+* 14 linhas de endereço e 24 KiB.
+- 16 linhas de endereço e 12 KiB.
+- 14 linhas de endereço e 16 KiB.
+- 12 linhas de endereço e 24 KiB.
+- 15 linhas de endereço e 32 KiB.
+> `16K = 16*1024 = 2^14`, então 14 linhas de endereço. Capacidade: `16384*12 = 196608 bits = 24576 bytes = 24 KiB`.
+
+===
+@id novo100-q047
+# memória; byte; word; endereçamento
+? Um processador endereça bytes. Um vetor de palavras de 32 bits começa no endereço `0x1000`. Qual endereço do elemento de índice 7?
+- `0x1007`
+* `0x101C`
+- `0x1014`
+- `0x1020`
+- `0x100E`
+> Cada palavra de 32 bits tem 4 bytes. Índice 7 desloca `7*4=28` bytes, isto é, `0x1C`. Endereço: `0x1000+0x1C=0x101C`.
+
+===
+@id novo100-q048
+# memória; sram; dram; rom
+? Qual alternativa compara corretamente SRAM, DRAM e ROM?
+- SRAM não é volátil porque não precisa refresh.
+- DRAM é não volátil porque armazena carga em capacitor.
+* SRAM é volátil e não precisa refresh; DRAM é volátil e precisa refresh; ROM é não volátil.
+- ROM precisa refresh, mas não permite escrita.
+- SRAM é sempre mais densa que DRAM.
+> SRAM não precisar refresh não a torna não volátil. DRAM precisa refresh; ROM preserva informação sem energia.
+
+===
+@id novo100-q049
+# rom; tabela verdade; lut
+? Uma ROM usada como tabela verdade tem 5 entradas lógicas e 3 saídas. Qual organização mínima corresponde diretamente a essa função?
+- `5 x 3`
+- `3 x 5`
+- `16 x 3`
+* `32 x 3`
+- `8 x 32`
+> 5 entradas selecionam `2^5=32` endereços. Cada endereço precisa armazenar 3 bits de saída.
+
+===
+@id novo100-q050
+# lut; fpga; bits de configuração
+? Uma LUT de 6 entradas implementa uma função booleana qualquer dessas entradas. Quantos bits de configuração são necessários para a tabela da LUT?
+- 6
+- 12
+- 32
+- 128
+* 64
+> Uma LUT de `k` entradas tem uma posição para cada combinação de entrada: `2^k`. Para `k=6`, são 64 bits.
+
+===
+@id novo100-q051
+# pla; pal; prom; flexibilidade
+? Qual comparação entre PROM, PAL e PLA está correta?
+* PROM tem plano AND fixo e OR programável; PAL tem AND programável e OR fixo; PLA tem ambos programáveis.
+- PROM tem ambos os planos programáveis; PAL é a mais flexível.
+- PAL tem AND fixo e OR programável; PLA é uma ROM.
+- PLA tem apenas LUTs e flip-flops; PROM usa macrocélulas.
+- PROM, PAL e PLA diferem apenas no tipo de encapsulamento.
+> PROM se comporta como tabela por endereços; PAL restringe o plano OR; PLA permite programar produtos e somas.
+
+===
+@id novo100-q052
+# cpld; fpga; arquitetura
+? Uma lógica pequena de decodificação de endereços precisa de atraso previsível e poucos registradores. Qual escolha é conceitualmente mais alinhada?
+- FPGA grande, porque sempre tem menor atraso que CPLD.
+* CPLD, por ser comum em glue logic com timing previsível.
+- DRAM, porque decodificação é memória.
+- Microprocessador, pois glue logic sempre executa programa.
+- ROM OTP, porque toda lógica deve ser gravada uma única vez.
+> CPLDs são muito usados para glue logic, decodificação e controle simples com timing previsível. FPGA é mais amplo e flexível para projetos maiores.
+
+===
+@id novo100-q053
+# hdl; síntese; bitstream
+? Qual sequência descreve melhor o fluxo para configurar uma FPGA?
+- Bitstream é escrito em Verilog e depois vira HDL.
+- HDL é executado instrução por instrução dentro da FPGA.
+* HDL descreve o hardware; síntese/mapeamento/roteamento geram bitstream; bitstream configura a FPGA.
+- Bitstream é o código-fonte editável do circuito.
+- Verilog só serve para simulação, nunca para síntese.
+> HDL é descrição de hardware. Ferramentas transformam essa descrição em configuração física: LUTs, FFs e roteamento, materializados no bitstream.
+
+===
+@id novo100-q054
+# assembly; label; branch
+? Considere:
+::codigo Trecho
+loop:
+  SUBS R0, R0, #1
+  BNE loop
+::fim
+? Se `R0` começa com 3 e `SUBS` atualiza a flag Z, quantas vezes `SUBS` executa?
+- 1
+- 2
+- 4
+* 3
+- Infinitas, porque label executa como instrução.
+> O label apenas marca endereço. `SUBS` executa com R0=3,2,1; após virar 0, Z=1 e `BNE` não desvia.
+
+===
+@id novo100-q055
+# assembly; bl; lr; retorno
+? Em uma arquitetura estilo ARM, o que acontece em `BL func` seguido de retorno com `BX LR` dentro da função?
+- `BL` desvia sem salvar nada; `BX LR` chama outra função.
+- `BL` salva o resultado da ULA em `LR`; `BX LR` zera o PC.
+- `BX LR` só funciona se `LR` for igual a zero.
+- `BL` é uma comparação condicional usando a flag B.
+* `BL` salva o endereço de retorno em `LR`; `BX LR` desvia para o endereço guardado em `LR`.
+> `BL` é branch with link: salva o retorno em LR. `BX LR` usa LR como alvo do desvio de retorno.
+
+===
+@id novo100-q056
+# assembly; endereçamento; load-store
+? Suponha `R1=0x2000`, memória `[0x2000]=9` e `R2=4`. Após `LDR R0, [R1]` seguido de `ADD R0, R0, R2`, o que mudou na memória?
+* Nada muda na memória; `R0` vira 13.
+- `[0x2000]` vira 13 automaticamente.
+- `[0x2004]` vira 13 automaticamente.
+- `[0x2000]` vira 4 porque ADD escreve na memória.
+- O endereço em `R1` vira 13.
+> `LDR` lê memória para registrador. `ADD` opera em registradores. Para alterar memória, seria necessário `STR`.
+
+===
+@id novo100-q057
+# assembly; pc-relative; offset
+? Um branch PC-relative usa offset em palavras de 4 bytes. Se o PC base usado no cálculo é `0x0800` e o offset imediato é `+6`, qual alvo?
+- `0x0806`
+* `0x0818`
+- `0x0812`
+- `0x0824`
+- `0x080C`
+> Offset em palavras deve ser multiplicado por 4. `6*4=24=0x18`; alvo `0x0800+0x18=0x0818`.
+
+===
+@id novo100-q058
+# assembly; modos de endereçamento; imediato
+? Qual alternativa distingue corretamente imediato, registrador e indireto por registrador?
+- `#8` lê a memória no endereço 8.
+- `[R3]` usa o valor literal 3 como dado.
+* `#8` é constante; `R3` é conteúdo do registrador; `[R3]` é memória apontada por R3.
+- `R3` e `[R3]` sempre significam a mesma coisa.
+- Imediato só pode aparecer em instrução de desvio.
+> A pegadinha é confundir dado, endereço e registrador. Colchetes indicam acesso à memória no endereço contido no registrador.
+
+===
+@id novo100-q059
+# datapath; etapas de instrução; load
+? Em uma instrução `LOAD R2, 8(R1)` em um datapath clássico de 5 etapas, qual sequência de uso é mais coerente?
+- Fetch busca dado da memória; Decode escreve R2; Execute atualiza PC.
+- Fetch lê R1; Execute escreve memória; Memory atualiza flags; Writeback não ocorre.
+- Decode acessa memória de dados diretamente; Memory é usado apenas em branches.
+* Fetch busca instrução; Decode lê R1; Execute calcula endereço; Memory lê dado; Writeback escreve R2.
+- Todas as etapas escrevem no banco de registradores.
+> Load busca instrução, lê registrador base, calcula endereço com ULA, lê memória de dados e escreve o registrador destino.
+
+===
+@id novo100-q060
+# controle; sinais; store
+? Para uma instrução `STORE R2, 12(R1)` em datapath simples, qual conjunto de sinais é mais plausível?
+- `RegWrite=1`, `MemRead=1`, `MemToReg=1`, `MemWrite=0`
+- `RegWrite=1`, `MemWrite=1`, `MemToReg=1`, `ALUSrc=0`
+- `Branch=1`, `MemWrite=0`, `ALUSrc=0`
+- `Jump=1`, `RegWrite=1`, ULA fazendo subtração
+* `RegWrite=0`, `MemWrite=1`, `ALUSrc=1`, ULA fazendo soma de base+offset
+> Store calcula endereço com base + offset, escreve memória e não escreve registrador destino. Por isso `ALUSrc=1`, `MemWrite=1`, `RegWrite=0`.
+
+===
+@id novo100-q061
+# controle; branch; zero
+? Em um datapath no qual `BEQ` usa a ULA para subtrair dois registradores, qual condição normalmente atualiza o PC para o alvo?
+* `Branch=1` e `Zero=1`.
+- `Branch=1`, independentemente da saída Zero.
+- `Zero=1`, independentemente de ser branch.
+- `MemToReg=1` e `Zero=0`.
+- `ALUSrc=1` e `RegWrite=1`.
+> `BEQ` desvia quando a comparação dá igualdade. A unidade de controle marca branch e a ULA sinaliza Zero após subtração.
+
+===
+@id novo100-q062
+# pipeline; hazard de dados; load-use
+? Em um pipeline clássico, a sequência abaixo gera qual problema principal?
+::codigo Trecho
+LW  R1, 0(R2)
+ADD R3, R1, R4
+::fim
+- Hazard estrutural obrigatório na ULA.
+* Hazard load-use, pois o dado carregado ainda não está disponível para a instrução seguinte.
+- Hazard de controle, pois `ADD` altera o PC.
+- Hazard combinacional estático-1.
+- Nenhum, porque forwarding sempre resolve load-use sem stall.
+> O valor de `LW` normalmente só fica disponível após a etapa de memória. A instrução seguinte precisa dele na ULA cedo demais, podendo exigir stall mesmo com forwarding.
+
+===
+@id novo100-q063
+# pipeline; hazard de controle; branch
+? Uma instrução de branch condicional tem decisão conhecida apenas no final da etapa Execute. Qual efeito isso pode causar no pipeline?
+- Não afeta o fluxo, pois branch nunca altera PC.
+- Apenas hazard de memória, nunca de controle.
+* Instruções buscadas no caminho errado podem precisar ser descartadas.
+- O banco de registradores deixa de funcionar.
+- O clock precisa parar permanentemente.
+> Enquanto a decisão do branch não é conhecida, o processador pode buscar instruções do caminho sequencial. Se o branch for tomado, essas instruções são descartadas.
+
+===
+@id novo100-q064
+# controle; hardwired; microprogramado
+? Sobre unidade de controle hardwired e microprogramada, qual afirmação é correta?
+- Hardwired sempre usa uma ROM de microinstruções.
+- Microprogramada nunca usa memória de controle.
+- As duas movem dados diretamente no datapath.
+* Hardwired usa lógica de controle direta; microprogramada usa microinstruções armazenadas em controle.
+- Hardwired só existe em FPGA; microprogramada só em ASIC.
+> A unidade de controle gera sinais. Ela pode ser lógica combinacional/sequencial direta ou ler microinstruções de uma memória de controle.
+
+===
+@id novo100-q065
+# ativo baixo; sinais; leitura de tabela
+? Um chip tem sinais `CS_n`, `OE_n` e `WE_n`. Para uma leitura válida, qual combinação faz sentido?
+- `CS_n=1`, `OE_n=0`, `WE_n=1`
+- `CS_n=0`, `OE_n=1`, `WE_n=0`
+- `CS_n=1`, `OE_n=1`, `WE_n=0`
+- `CS_n=0`, `OE_n=0`, `WE_n=0`
+* `CS_n=0`, `OE_n=0`, `WE_n=1`
+> Sufixo `_n` indica ativo baixo. Para ler: chip selecionado (`CS_n=0`), saída habilitada (`OE_n=0`) e escrita desabilitada (`WE_n=1`).
+
+===
+@id novo100-q066
+# ascii; caractere; código
+? Em ASCII padrão, os códigos de `'0'` a `'9'` são consecutivos e `'0'` vale 48 decimal. Qual é o valor numérico do caractere `'7'` em ASCII?
+* 55
+- 7
+- 48
+- 0x07
+- 64
+> O caractere `'7'` não é o número 7. Como `'0'=48`, então `'7'=48+7=55`.
+
+===
+@id novo100-q067
+# checksum; limitação; erro compensado
+? Um checksum simples soma bytes módulo 256. Dois bytes de uma mensagem mudam de `20` para `21` e de `50` para `49`. O checksum:
+- Sempre detecta, pois qualquer alteração muda a soma.
+* Pode não detectar, pois a soma total foi preservada.
+- Corrige automaticamente o byte alterado.
+- Detecta apenas se houver paridade ímpar.
+- Vira CRC automaticamente por usar módulo.
+> Uma alteração aumenta 1 e a outra diminui 1. A soma módulo 256 pode ficar igual, mostrando limitação de checksum simples.
+
+===
+@id novo100-q068
+# excesso-3; complemento de 9; bcd
+? Em código excesso-3, o dígito decimal 6 é codificado como `1001`. Qual é o código excesso-3 do complemento de 9 desse dígito?
+- `0011`
+- `1001`
+* `0110`
+- `1100`
+- `0000`
+> Complemento de 9 de 6 é 3. Em excesso-3, soma-se 3 ao dígito decimal: `3+3=6`, código `0110`.
+
+===
+@id novo100-q069
+# binário; fração; conversão
+? O número binário `101.101₂` em decimal é:
+- `5,101`
+- `5,5`
+- `4,625`
+* `5,625`
+- `5,75`
+> Parte inteira `101₂=5`. Parte fracionária `.101₂ = 1/2 + 0/4 + 1/8 = 0,625`. Total `5,625`.
+
+===
+@id novo100-q070
+# complemento de 2; menor negativo; caso limite
+? Em 8 bits com complemento de 2, por que o valor `1000 0000` é um caso especial?
+- Ele representa `+128`, o maior positivo.
+- Ele tem dois valores possíveis, +0 e -0.
+- Ele é inválido em complemento de 2.
+- Ele sempre indica overflow, mesmo sem operação.
+* Ele representa `-128`, cujo positivo `+128` não cabe em 8 bits signed.
+> A faixa de 8 bits signed é de -128 a +127. O menor negativo não tem correspondente positivo representável.
+
+===
+@id novo100-q071
+# álgebra booleana; absorção; consenso
+? Simplifique `F=A + \bar{A}B + AB`. Qual forma mínima é correta?
+* `A+B`
+- `A+B+AB`
+- `A\bar{B}`
+- `A+\bar{B}`
+- `AB`
+> `A+AB=A`. Então `F=A+\bar{A}B`. Pela identidade `X+\bar{X}Y=X+Y`, resulta `A+B`.
+
+===
+@id novo100-q072
+# dualidade; complemento; conceito
+? O dual de `A + 0 = A` é:
+- `\bar{A}.1=\bar{A}`
+* `A.1=A`
+- `A+1=1`
+- `\bar{A}+0=\bar{A}`
+- `A.0=0`
+> Dualidade troca `+` por `.` e `0` por `1`, sem complementar variáveis. Logo `A.1=A`.
+
+===
+@id novo100-q073
+# dont care; simplificação; obrigação
+? Em uma tabela verdade, algumas linhas estão marcadas como `X` por serem don't care. Qual uso é correto?
+- Todo `X` deve ser tratado como 1 em SOP.
+- Todo `X` deve ser tratado como 0 em POS.
+* Cada `X` pode ser escolhido como 0 ou 1 para simplificar, sem ser saída obrigatória.
+- `X` significa alta impedância elétrica.
+- `X` significa erro de transmissão detectado por paridade.
+> Don't care é liberdade de projeto para simplificação. Não é o mesmo que `Z` e não representa valor obrigatório.
+
+===
+@id novo100-q074
+# karnaugh; implicante essencial; cobertura
+? Em minimização por Karnaugh, um implicante essencial é aquele que:
+- Tem sempre o maior tamanho possível do mapa.
+- Contém somente don't cares.
+- Pode ser removido sem alterar a cobertura.
+* Cobre pelo menos um 1 que nenhum outro implicante cobre.
+- É qualquer grupo de dois.
+> Implicante essencial é necessário porque cobre algum mintermo obrigatório que não é coberto por outros grupos.
+
+===
+@id novo100-q075
+# mux; seleção; largura
+? Quantos seletores são necessários para um MUX 32:1, e quantos MUX 8:1 seriam necessários para montar o primeiro nível de uma implementação hierárquica simples de 32 entradas?
+- 32 seletores e 4 MUX 8:1
+- 5 seletores e 5 MUX 8:1
+- 8 seletores e 4 MUX 8:1
+- 4 seletores e 5 MUX 8:1
+* 5 seletores e 4 MUX 8:1
+> `2^5=32`, então são 5 seletores. No primeiro nível, 32 entradas podem ser divididas em 4 grupos de 8, usando 4 MUX 8:1.
+
+===
+@id novo100-q076
+# demux; roteamento; enable
+? Um DEMUX 1:4 recebe `D=1`, seletores `S1S0=10` e enable ativo alto em 1. Considerando saídas ativas altas, qual saída vale 1?
+* `Y2`
+- `Y0`
+- `Y1`
+- `Y3`
+- Todas, pois D=1.
+> DEMUX envia a entrada para uma única saída selecionada. `10₂=2`, então `Y2=1` e as demais 0.
+
+===
+@id novo100-q077
+# fsm; estado inalcançável; segurança
+? Uma FSM usa 3 FFs para 5 estados. O enunciado exige recuperação segura a partir de estados não usados. O que é incorreto fazer?
+- Definir transições dos estados não usados para o reset.
+* Tratar automaticamente todos os estados não usados como don't care sem verificar a exigência.
+- Levar estados inválidos para um estado seguro.
+- Considerar explicitamente `101`, `110`, `111`.
+- Usar lógica extra de detecção se necessário.
+> Se a prova exige recuperação segura, estados não usados não podem ser ignorados livremente como don't care.
+
+===
+@id novo100-q078
+# flip-flop t; excitação; síntese
+? Para implementar uma transição de um bit de estado com FF T, qual valor de `T` é necessário quando `Q=1` e `Q+=0`?
+- `0`, porque o bit deve manter.
+- `Q+`, portanto 0 sempre.
+* `1`, porque o bit precisa alternar.
+- `Q`, portanto 1 sempre por estar em 1.
+- Indefinido, pois FF T não permite transição 1 para 0.
+> FF T alterna quando `T=1` e mantém quando `T=0`. De 1 para 0 é alternância.
+
+===
+@id novo100-q079
+# flip-flop jk; excitação; tabela
+? Para uma transição `Q=0 -> Q+=1` usando FF JK, uma excitação válida é:
+- `J=0,K=0`
+- `J=0,K=1`
+- `J=X,K=1`
+* `J=1,K=X`
+- `J=1,K=1` é proibida em JK.
+> Para ir de 0 para 1, é preciso setar: `J=1`, e `K` é don't care porque reset não afeta quando Q atual é 0 nesse caso.
+
+===
+@id novo100-q080
+# contador assíncrono; ripple; atraso
+? Por que um contador ripple assíncrono tende a ser pior para alta velocidade que um contador síncrono?
+- Porque usa mais FFs para o mesmo módulo.
+- Porque não consegue contar em binário.
+- Porque todos os FFs recebem o mesmo clock.
+- Porque não pode ter reset.
+* Porque as mudanças se propagam de FF para FF, acumulando atraso.
+> No contador assíncrono, a saída de um FF aciona o próximo. Isso gera ripple delay acumulado.
+
+===
+@id novo100-q081
+# temporização; setup e hold; correção
+? Um projeto viola hold, mas atende setup com folga. Qual ação ataca diretamente o problema de hold?
+* Inserir atraso mínimo no caminho de dados curto ou ajustar skew para atrasar a chegada do dado.
+- Reduzir a frequência de clock.
+- Aumentar o período de clock.
+- Remover buffers do caminho curto.
+- Aumentar apenas o atraso máximo do caminho crítico.
+> Hold depende do dado chegar cedo demais após a borda. Reduzir frequência ajuda setup, mas normalmente não resolve hold.
+
+===
+@id novo100-q082
+# caminho crítico; múltiplos caminhos; fmax
+? Um circuito síncrono tem três caminhos registrador-para-registrador com atrasos máximos totais já incluindo `tCQ` e `tsetup`: 8 ns, 11 ns e 9 ns. Qual é a Fmax ideal aproximada?
+- `125 MHz`
+* `90,9 MHz`
+- `111,1 MHz`
+- `333 MHz`
+- `11 MHz`
+> O caminho crítico é o maior: 11 ns. `Fmax≈1/11ns≈90,9 MHz`.
+
+===
+@id novo100-q083
+# física; tensão; corrente; potência
+? Um bloco consome `12 mA` em `1,2 V` durante operação. A potência média é:
+- `10 mW`
+- `1,44 mW`
+* `14,4 mW`
+- `14,4 W`
+- `0,1 mW`
+> `P=V.I = 1,2 * 0,012 = 0,0144 W = 14,4 mW`.
+
+===
+@id novo100-q084
+# capacitor; energia; potência
+? Um capacitor efetivo de `10 pF` é carregado de 0 a `1 V`. A energia armazenada no capacitor é:
+- `10 pJ`
+- `5 nJ`
+- `1 pJ`
+* `5 pJ`
+- `50 pJ`
+> Energia armazenada: `E=1/2 C V² = 0,5*10pF*1² = 5pJ`.
+
+===
+@id novo100-q085
+# cmos; nand; rede transistor
+? Para uma porta NAND CMOS de duas entradas, qual descrição das redes é correta?
+- NMOS em paralelo e PMOS em série.
+- NMOS em série e PMOS em série.
+- NMOS em paralelo e PMOS em paralelo.
+- Apenas PMOS, pois NAND é pull-up.
+* NMOS em série e PMOS em paralelo.
+> NAND só puxa a saída para 0 quando A e B são 1, por isso NMOS em série. O pull-up dual usa PMOS em paralelo.
+
+===
+@id novo100-q086
+# cmos; nor; rede transistor
+? Para uma porta NOR CMOS de duas entradas, qual descrição está correta?
+* NMOS em paralelo e PMOS em série.
+- NMOS em série e PMOS em paralelo.
+- NMOS em série e PMOS em série.
+- NMOS em paralelo e PMOS em paralelo.
+- Apenas NMOS, pois NOR não precisa pull-up.
+> NOR deve puxar para 0 se qualquer entrada for 1, então NMOS em paralelo. O pull-up dual fica com PMOS em série.
+
+===
+@id novo100-q087
+# memória; banco de registradores; portas
+? Um banco de registradores precisa ler dois operandos e escrever um resultado no mesmo ciclo. Qual organização de portas é típica?
+- 1 porta de leitura e 1 de escrita.
+* 2 portas de leitura e 1 porta de escrita.
+- 3 portas de escrita e nenhuma leitura.
+- 1 porta compartilhada para tudo, sem conflito possível.
+- Apenas memória ROM.
+> Datapaths de ULA frequentemente precisam ler dois registradores fonte e escrever um destino, exigindo duas leituras e uma escrita.
+
+===
+@id novo100-q088
+# datapath; regwrite; instrução tipo r
+? Para uma instrução tipo R `ADD R3,R1,R2`, qual caminho de writeback é esperado?
+- Dado da memória para R3 com `MemToReg=1`.
+- Imediato para memória com `MemWrite=1`.
+* Resultado da ULA para R3 com `RegWrite=1` e `MemToReg=0`.
+- Nenhum writeback, pois ADD só altera flags.
+- PC para R3 obrigatoriamente.
+> ADD tipo R usa registradores como operandos, ULA para somar e escreve o resultado no registrador destino.
+
+===
+@id novo100-q089
+# datapath; jump; branch; pc
+? Qual diferença conceitual entre `Jump` e `Branch` condicional em um datapath simples?
+- Jump depende sempre da flag Zero; Branch nunca depende.
+- Branch salva retorno; Jump nunca altera PC.
+- Jump escreve memória; Branch escreve registrador.
+* Jump altera PC sem depender de comparação; Branch condicional altera PC apenas se a condição for satisfeita.
+- Não há diferença; ambos são labels.
+> Jump é desvio incondicional. Branch condicional combina sinal de controle com condição/flag.
+
+===
+@id novo100-q090
+# instruções; formatos; tipo r i j
+? Uma instrução que soma um registrador com um imediato e guarda em registrador destino é mais naturalmente classificada como:
+- Tipo R, pois toda soma é R.
+- Tipo J, pois imediato é endereço de salto.
+- Tipo 0 endereço, pois usa pilha.
+- Tipo memória, pois imediato sempre acessa RAM.
+* Tipo I, pois contém operando imediato.
+> Tipo I normalmente inclui imediato, offset ou constante embutida na instrução.
+
+===
+@id novo100-q091
+# pilha; arquitetura; operandos implícitos
+? Em uma arquitetura de 0 endereços baseada em pilha, a instrução `ADD` normalmente:
+* Desempilha dois operandos do topo e empilha o resultado.
+- Soma dois registradores explícitos indicados na instrução.
+- Usa sempre o endereço absoluto 0.
+- Soma o PC com LR.
+- Escreve diretamente na ROM.
+> Em máquina de pilha, operandos ficam implícitos no topo da pilha; por isso a instrução pode não nomear registradores.
+
+===
+@id novo100-q092
+# endereçamento; sign extension; branch negativo
+? Um branch usa imediato signed de 6 bits em palavras. O imediato é `111100`. Qual deslocamento em bytes?
+- `+60 bytes`
+* `-16 bytes`
+- `+48 bytes`
+- `-4 bytes`
+- `-12 bytes`
+> `111100` em 6 bits complemento de 2 vale -4. Como o offset está em palavras de 4 bytes, deslocamento em bytes é `-4*4=-16`.
+
+===
+@id novo100-q093
+# barramento; tri-state; enable
+? Quatro módulos podem dirigir um mesmo barramento tri-state. Qual condição é segura?
+- Todos habilitados ao mesmo tempo, se os dados forem parecidos.
+- Nenhum pode ficar em `Z`.
+* No máximo um driver habilitado por vez; os demais em alta impedância.
+- Drivers com 0 vencem drivers com 1.
+- O barramento escolhe automaticamente o maior valor.
+> Barramento tri-state exige controle para evitar contenção. Só um driver deve dirigir o barramento por vez.
+
+===
+@id novo100-q094
+# lut; mux interno; implementação
+? Uma maneira conceitual de entender uma LUT de 3 entradas é:
+- Uma ULA de 3 bits que executa instruções.
+- Uma RAM de 3 bits totais.
+- Um conjunto fixo de portas que nunca muda.
+* Uma pequena tabela de 8 bits selecionada pelas 3 entradas.
+- Um flip-flop com 3 clocks.
+> 3 entradas geram 8 combinações. A LUT armazena um bit de saída para cada combinação, selecionado pelas entradas.
+
+===
+@id novo100-q095
+# cpld; macrocell; registrador opcional
+? Em CPLDs, uma macrocell costuma combinar:
+- Apenas DRAM e cache.
+- Núcleos de CPU completos obrigatórios.
+- Somente uma LUT de 6 entradas sem roteamento.
+- Memória flash de armazenamento de arquivos.
+* Lógica combinacional programável com opção de registrar a saída.
+> Macrocélulas normalmente têm rede lógica tipo soma de produtos e podem incluir flip-flop/controle de saída, dependendo do CPLD.
+
+===
+@id novo100-q096
+# karnaugh; hazard; expressão mínima
+? Por que uma expressão SOP mínima pode não ser a melhor escolha quando a questão pede saída livre de hazard estático-1?
+* Porque remover termo redundante pode criar lacuna temporal entre grupos adjacentes.
+- Porque expressão mínima sempre usa POS.
+- Porque hazard só ocorre em circuitos sequenciais.
+- Porque Karnaugh não permite sobreposição.
+- Porque don't care deve virar sempre 0.
+> Termos redundantes podem ser logicamente desnecessários, mas fisicamente úteis para cobrir transições e evitar glitch.
+
+===
+@id novo100-q097
+# memória; eeprom; flash; prom
+? Qual afirmação sobre PROM, EPROM, EEPROM e Flash é correta no sentido clássico?
+- PROM é apagável eletricamente várias vezes.
+* PROM é programável uma vez; EPROM apaga por UV; EEPROM apaga eletricamente; Flash é uma forma de EEPROM em blocos.
+- EPROM perde dados ao desligar como SRAM.
+- Flash só pode ser lida, nunca apagada.
+- EEPROM e DRAM são a mesma tecnologia.
+> A distinção clássica é sobre forma de programação/apagamento e não volatilidade.
+
+===
+@id novo100-q098
+# reset; síncrono; assíncrono
+? Um flip-flop tem reset assíncrono ativo baixo `RST_n`. Se `RST_n` vai a 0 entre bordas de clock, o que deve ocorrer?
+- Nada até a próxima borda, pois todo reset depende do clock.
+- O estado alterna como FF T.
+* O flip-flop é resetado independentemente da borda de clock.
+- A saída fica em `Z`.
+- O reset só ocorre se D também for 0.
+> Reset assíncrono atua fora da borda de clock. O sufixo `_n` indica que o reset é ativo em 0.
+
+===
+@id novo100-q099
+# ula; comparação; flags signed
+? Após calcular `A-B`, uma comparação signed `A<B` em complemento de 2 costuma usar quais flags?
+- Apenas `C=0`.
+- Apenas `Z=1`.
+- Apenas `MemWrite=1`.
+* Relação entre `N` e `V`, tipicamente `N xor V`.
+- Apenas `C=1`, igual à comparação unsigned.
+> Para signed, overflow pode tornar o bit de sinal do resultado enganoso. Por isso usa-se combinação como `N xor V`; unsigned costuma usar carry/borrow.
+
+===
+@id novo100-q100
+# integração; assembly; memória; flags
+? Considere os registradores iniciais `R0=0`, `R1=3`, `R2=0x2000` e memória inicialmente zerada.
+::codigo Trecho
+loop:
+  ADD  R0, R0, R1
+  SUBS R1, R1, #1
+  BNE  loop
+  STR  R0, [R2]
+::fim
+? Ao final, qual valor é escrito em `[0x2000]`?
+- `3`
+- `4`
+- `5`
+- Nada é escrito, pois `BNE` sempre desvia.
+* `6`
+> O laço soma `3`, depois `2`, depois `1`. Quando `R1` vira 0, Z=1 e `BNE` não desvia. Então `STR` grava `R0=6` na memória.

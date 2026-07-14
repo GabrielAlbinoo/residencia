@@ -15,6 +15,7 @@ const state = {
 const els = {
   fileInput: document.getElementById("fileInput"),
   loadMainBankButton: document.getElementById("loadMainBankButton"),
+  loadNewBankButton: document.getElementById("loadNewBankButton"),
   loadExampleButton: document.getElementById("loadExampleButton"),
   weakModeButton: document.getElementById("weakModeButton"),
   allModeButton: document.getElementById("allModeButton"),
@@ -401,6 +402,12 @@ els.loadExampleButton.addEventListener("click", async () => {
 
 els.loadMainBankButton.addEventListener("click", async () => {
   const response = await fetch("bancos/sistemas_digitais_simulados_11_a_15_limpo.txt");
+  const text = await response.text();
+  loadQuestionsFromText(text);
+});
+
+els.loadNewBankButton.addEventListener("click", async () => {
+  const response = await fetch("bancos/sistemas_digitais_100_questoes_novas_extremo.txt");
   const text = await response.text();
   loadQuestionsFromText(text);
 });

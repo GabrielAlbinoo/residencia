@@ -1,4 +1,4 @@
-const CACHE_NAME = "questoes-pontos-fracos-v2";
+const CACHE_NAME = "questoes-pontos-fracos-v3";
 const ASSETS = [
   "./",
   "./index.html",
@@ -6,6 +6,7 @@ const ASSETS = [
   "./app.js",
   "./questoes-exemplo.txt",
   "./bancos/sistemas_digitais_simulados_11_a_15_limpo.txt",
+  "./bancos/sistemas_digitais_100_questoes_novas_extremo.txt",
   "./manifest.webmanifest"
 ];
 

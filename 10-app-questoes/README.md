@@ -10,12 +10,13 @@ Abra:
 index.html
 ```
 
-O app já tem um banco inicial no botão **Banco SD**. Também funciona com arquivos `.txt` importados pelo botão **Importar TXT**.
+O app já tem bancos iniciais nos botões **Banco SD** e **100 novas**. Também funciona com arquivos `.txt` importados pelo botão **Importar TXT**.
 
 Banco inicial:
 
 ```text
 bancos/sistemas_digitais_simulados_11_a_15_limpo.txt
+bancos/sistemas_digitais_100_questoes_novas_extremo.txt
 ```
 
 ## Formato Simples De Questões
