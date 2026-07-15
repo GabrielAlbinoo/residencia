@@ -282,10 +282,10 @@ Passo:
 Outro exemplo:
 
 ```text
-2000
-2010
-2020
-2030
+0x2000
+0x2010
+0x2020
+0x2030
 ```
 
 Passo:
@@ -495,6 +495,429 @@ menos misses observados pelo processador
 
 ---
 
+## 14.1 Busca Sob Demanda Versus Prefetch
+
+Sem prefetch, a hierarquia normalmente trabalha por **demanda**:
+
+```text
+CPU pede o bloco
+cache procura o bloco
+se houver miss, a busca no nível inferior começa naquele momento
+CPU espera o dado necessário
+```
+
+Esse mecanismo é chamado de `demand fetch`, ou busca sob demanda. A transferência só começa porque uma instrução realmente pediu aquele bloco.
+
+Com prefetch:
+
+```text
+o sistema prevê um acesso futuro
+inicia a busca antes do pedido real
+quando a CPU finalmente pede o bloco, ele pode já estar na cache
+```
+
+A diferença fundamental é **quando** a transferência começa:
+
+| Busca sob demanda | Prefetch |
+|---|---|
+| começa após o pedido real | começa antes do pedido real |
+| o dado é certamente necessário | o dado é apenas provável |
+| a latência do miss fica no caminho da instrução | a latência pode ser escondida |
+| não traz bloco por especulação | pode trazer bloco inútil |
+
+Importante: prefetch não faz a transferência desaparecer. O bloco ainda precisa vir de algum nível inferior. O objetivo é realizar essa transferência cedo o bastante para que a CPU não precise esperar.
+
+Por isso, uma questão pode dizer corretamente que o prefetch:
+
+```text
+reduz misses de demanda observados pela CPU
+esconde parte da latência de memória
+```
+
+Mas seria exagerado dizer que ele:
+
+```text
+elimina a necessidade de acessar níveis inferiores
+```
+
+Até o primeiro acesso a um bloco novo, que seria um miss compulsório, pode aparecer para a CPU como hit se o prefetch o tiver trazido antes. A transferência inicial continua existindo; o que mudou foi o momento em que ela ocorreu.
+
+---
+
+## 14.2 Tipos Clássicos De Prefetch
+
+### 14.2.1 Next-Line Prefetch
+
+`Next-line` significa buscar a próxima linha ou o próximo bloco.
+
+Se o bloco atual é `B`, o mecanismo busca:
+
+```text
+B + 1
+```
+
+Exemplo:
+
+```text
+demanda pelo bloco 40 -> busca antecipada do bloco 41
+demanda pelo bloco 41 -> busca antecipada do bloco 42
+```
+
+É simples e funciona bem em varredura sequencial de vetores e instruções. Entretanto, pode desperdiçar recursos se o programa alternar entre endereços distantes ou abandonar a sequência.
+
+Pegadinha:
+
+```text
+next-line prevê o próximo bloco de cache, não necessariamente o próximo byte
+```
+
+Se uma linha tem 64 bytes, acessar os bytes 0, 4, 8 e 12 ainda permanece na mesma linha. Não é preciso buscar uma nova linha a cada elemento.
+
+### 14.2.2 Stream Prefetch
+
+Um prefetcher de stream detecta um **fluxo de blocos consecutivos**.
+
+Exemplo:
+
+```text
+12, 13, 14, 15, ...
+```
+
+Depois de reconhecer a sequência, ele tenta manter alguns blocos à frente da posição atual. Também pode reconhecer uma sequência decrescente:
+
+```text
+90, 89, 88, 87, ...
+```
+
+A diferença didática em relação ao next-line é:
+
+```text
+next-line -> política simples: ao acessar B, tente B+1
+stream -> primeiro detecta um fluxo e depois tenta acompanhá-lo
+```
+
+Alguns mecanismos conseguem acompanhar mais de um stream, por exemplo um laço que percorre `a[i]` e `b[i]` simultaneamente. Para a prova, basta entender a ideia; não é necessário decorar estruturas internas do prefetcher.
+
+### 14.2.3 Stride Prefetch
+
+Stride é uma diferença constante entre endereços ou blocos sucessivos.
+
+Exemplo em bytes:
+
+```text
+1000, 1016, 1032, 1048, ...
+diferença = +16 bytes
+```
+
+O prefetcher pode prever:
+
+```text
+próximo endereço = endereço atual + stride
+```
+
+O stride não precisa ser `+1 bloco`. Ele pode ser maior ou até negativo.
+
+```text
+5000, 4968, 4936, 4904, ...
+stride = -32 bytes
+```
+
+Esse tipo é útil em:
+
+```text
+acesso a um campo específico de vários registros
+percurso de coluna de uma matriz armazenada por linhas
+laços que usam vetor[i * passo]
+```
+
+Pegadinha importante: stride regular é previsível, mas um stride muito grande pode usar apenas uma pequena parte de cada linha e gerar muito tráfego. Ser previsível não significa necessariamente ser eficiente.
+
+### Comparação Rápida
+
+| Tipo | Padrão reconhecido | Exemplo |
+|---|---|---|
+| Next-line | próximo bloco | `20, 21, 22, 23` |
+| Stream | sequência contínua acompanhada após detecção | `70, 71, 72, 73` |
+| Stride | diferença constante | `10, 14, 18, 22` |
+
+Os nomes podem se sobrepor em implementações reais. Em prova conceitual, observe o padrão descrito, não tente deduzir detalhes de um processador específico.
+
+---
+
+## 14.3 Três Métricas: Accuracy, Coverage E Timeliness
+
+Não basta perguntar se existe prefetch. É preciso avaliar se ele fez previsões úteis.
+
+### Accuracy — Precisão
+
+Accuracy mede quantos blocos buscados antecipadamente foram realmente usados.
+
+```text
+accuracy = prefetches úteis / total de prefetches realizados
+```
+
+Exemplo:
+
+```text
+40 blocos foram trazidos por prefetch
+30 desses blocos foram usados depois
+accuracy = 30 / 40 = 75%
+```
+
+Alta accuracy significa pouco desperdício. Baixa accuracy indica muitas previsões erradas e maior risco de poluição e consumo de banda.
+
+### Coverage — Cobertura
+
+Coverage mede qual fração dos misses de demanda originais foi evitada pelo prefetch.
+
+```text
+coverage = misses de demanda evitados / misses que ocorreriam sem prefetch
+```
+
+Exemplo:
+
+```text
+sem prefetch ocorreriam 100 misses
+25 deles foram evitados por buscas antecipadas que chegaram a tempo
+coverage = 25 / 100 = 25%
+```
+
+Accuracy e coverage não são a mesma coisa.
+
+```text
+um mecanismo muito conservador pode ter alta accuracy e baixa coverage
+um mecanismo agressivo pode aumentar coverage e reduzir accuracy
+```
+
+Exemplo: buscar somente um bloco quando há certeza pode acertar quase sempre, mas deixar muitos outros misses sem cobertura.
+
+### Timeliness — Oportunidade Temporal
+
+Timeliness pergunta se o bloco chegou **no momento adequado**.
+
+Há três situações:
+
+```text
+cedo demais -> pode ser expulso antes do uso
+na hora certa -> está disponível quando a demanda chega
+tarde demais -> a CPU ainda sofre espera
+```
+
+Um prefetch pode prever o endereço correto e ainda assim ser pouco útil por chegar tarde. Nesse caso, sua previsão foi correta em endereço, mas não escondeu toda a latência.
+
+Em questões sem fórmula, associe:
+
+```text
+accuracy -> trouxe o bloco certo?
+coverage -> quantos misses conseguiu evitar?
+timeliness -> chegou no momento certo?
+```
+
+---
+
+## 14.4 Distância E Grau Do Prefetch
+
+Dois parâmetros controlam a agressividade.
+
+### Distância
+
+Distância de prefetch indica quão à frente da demanda atual o mecanismo busca.
+
+Exemplo, com distância 3:
+
+```text
+demanda atual = bloco 20
+bloco antecipado = 23
+```
+
+Distância pequena:
+
+```text
+menor risco de trazer cedo demais
+maior risco de o dado chegar tarde
+```
+
+Distância grande:
+
+```text
+mais tempo para esconder latência
+maior risco de poluição ou expulsão antes do uso
+```
+
+### Grau
+
+Grau indica quantos blocos são trazidos em uma ação de prefetch.
+
+Exemplo, distância 3 e grau 2:
+
+```text
+demanda atual = bloco 20
+prefetch = blocos 23 e 24
+```
+
+Grau maior pode cobrir mais acessos, mas consome mais banda e espaço.
+
+Não existe um valor universalmente melhor. O ajuste depende da latência, do padrão de acesso, da velocidade de consumo dos dados e da capacidade da hierarquia.
+
+---
+
+## 14.5 Exemplo Rastreado: Vetor Sequencial
+
+Considere:
+
+```c
+int v[64];
+for (int i = 0; i < 64; i++)
+    soma += v[i];
+```
+
+Suponha:
+
+```text
+int = 4 bytes
+linha de cache = 16 bytes
+cada linha contém 4 elementos
+```
+
+Mapeamento:
+
+```text
+linha 0 -> v[0]  a v[3]
+linha 1 -> v[4]  a v[7]
+linha 2 -> v[8]  a v[11]
+```
+
+Sem prefetch, numa cache inicialmente vazia:
+
+```text
+v[0] -> miss; v[1], v[2], v[3] -> hits
+v[4] -> miss; v[5], v[6], v[7] -> hits
+v[8] -> miss; ...
+```
+
+Com next-line prefetch disparado no acesso à linha 0:
+
+```text
+demanda por linha 0 -> miss
+prefetch da linha 1 começa
+CPU usa v[1], v[2], v[3]
+se a linha 1 chegar antes de v[4], v[4] será hit
+```
+
+Esse exemplo mostra por que o trabalho feito nos elementos restantes da linha dá tempo para o próximo bloco chegar.
+
+Agora suponha que o laço termine em `v[3]`. A linha 1 antecipada nunca será usada:
+
+```text
+prefetch incorreto ou inútil -> reduz accuracy e consome recursos
+```
+
+---
+
+## 14.6 Exemplo Rastreado: Stride E Matriz
+
+Uma matriz em C costuma ser armazenada por linhas. Considere uma matriz de inteiros com 8 colunas:
+
+```c
+for (int i = 0; i < 100; i++)
+    soma += m[i][3];
+```
+
+Entre `m[i][3]` e `m[i+1][3]`, o salto é:
+
+```text
+8 colunas * 4 bytes = 32 bytes
+stride = 32 bytes
+```
+
+O acesso não é contíguo, mas é regular. Um prefetcher de stride pode reconhecê-lo.
+
+Compare com:
+
+```c
+indice = tabela[indice];
+```
+
+Aqui, o próximo endereço depende do conteúdo lido. Se os valores forem irregulares, a sequência de endereços não apresenta stride fixo. O prefetch convencional tem dificuldade.
+
+Conclusão:
+
+```text
+sequencial -> excelente candidato
+stride constante -> bom candidato
+ponteiros/índices irregulares -> candidato difícil
+```
+
+---
+
+## 14.7 Quando Um Prefetch Correto Ainda Não Ajuda
+
+Considere que o mecanismo adivinhou corretamente o bloco 50.
+
+Mesmo assim, podem ocorrer três problemas:
+
+1. **Chegou tarde:** a CPU pede o bloco 50 antes de a transferência terminar. Parte ou toda a penalidade permanece.
+2. **Chegou cedo demais:** o bloco entra na cache, mas é expulso antes de ser usado.
+3. **Disputou recursos:** a transferência ocupa banda e atrasa um miss de demanda mais urgente.
+
+Por isso:
+
+```text
+endereço correto não é sinônimo de ganho de desempenho
+```
+
+O ganho depende simultaneamente de:
+
+```text
+previsão correta
+chegada oportuna
+ausência de interferência excessiva
+```
+
+---
+
+## 14.8 Efeito Sobre Misses, Poluição E Banda
+
+Prefetch pode:
+
+```text
+converter um futuro miss de demanda em hit
+permitir sobreposição entre transferência e computação
+reduzir o tempo em que a CPU fica parada
+```
+
+Mas também pode:
+
+```text
+expulsar uma linha útil -> poluição
+ocupar fila/controlador/barramento -> contenção de banda
+buscar linhas que nunca serão usadas -> tráfego inútil
+aumentar energia -> acessos adicionais
+```
+
+Exemplo de poluição:
+
+```text
+cache comporta 4 linhas úteis: A, B, C, D
+prefetch traz X e substitui A
+X nunca é usado
+CPU volta a pedir A e sofre miss
+```
+
+Nesse caso, o prefetch não apenas deixou de ajudar: ele criou um miss que talvez não ocorresse.
+
+Exemplo de banda:
+
+```text
+demanda real precisa de D com urgência
+prefetches P1, P2 e P3 já ocupam o caminho da memória
+D pode esperar mais
+```
+
+Uma política agressiva aumenta a chance de cobertura, mas também esses custos. Essa troca entre benefício e interferência é a ideia mais importante depois da definição básica.
+
+---
+
 # 15. O Que Cai Em Prova?
 
 A prova pode perguntar:
@@ -623,6 +1046,15 @@ benefício = reduzir misses e esconder latência
 funciona melhor = padrões previsíveis e sequenciais
 pode atrapalhar = poluição de cache, banda, energia
 não garante = hit nem desempenho maior sempre
+demanda = busca começa quando o bloco é realmente pedido
+next-line = antecipa o próximo bloco
+stream = detecta e acompanha sequência de blocos
+stride = prevê usando diferença constante entre acessos
+accuracy = fração dos prefetches que foi usada
+coverage = fração dos misses originais que foi evitada
+timeliness = dado chegar nem tarde nem cedo demais
+distância = quão à frente buscar
+grau = quantos blocos antecipar por ação
 ```
 
 ---
@@ -677,6 +1109,49 @@ não garante = hit nem desempenho maior sempre
 - C) está correta apenas em DRAM.
 - D) está correta apenas em assembly.
 
+## Questões Adicionais
+
+16. Explique a diferença entre busca sob demanda e prefetch.
+17. Um prefetcher trouxe 80 blocos e 60 foram usados. Qual foi a accuracy?
+18. Sem prefetch ocorreriam 50 misses. O mecanismo evitou 20 deles. Qual foi a coverage?
+19. Por que um prefetch do endereço correto pode não evitar a espera da CPU?
+20. Diferencie distância e grau de prefetch.
+
+21. A sequência de blocos `8, 12, 16, 20` é melhor caracterizada como:
+
+- A) padrão aleatório.
+- B) stride constante de 4 blocos.
+- C) next-line estrito.
+- D) ausência de localidade.
+
+22. Um mecanismo tem accuracy alta e coverage baixa. Isso pode significar que:
+
+- A) quase todas as poucas previsões feitas são usadas, mas muitos misses continuam sem cobertura.
+- B) nenhuma previsão é usada.
+- C) ele eliminou necessariamente todos os misses.
+- D) accuracy e coverage sempre precisam ter o mesmo valor.
+
+23. Aumentar muito a distância de prefetch pode:
+
+- A) garantir que nenhum bloco seja expulso.
+- B) dar mais tempo para a transferência, mas trazer o bloco cedo demais.
+- C) eliminar o uso de largura de banda.
+- D) transformar acesso aleatório em sequencial.
+
+24. Uma cache contém `A, B, C, D`. Um prefetch inútil de `X` expulsa `A`, que será pedido novamente. Esse efeito é chamado principalmente de:
+
+- A) forwarding.
+- B) poluição de cache.
+- C) hazard de controle.
+- D) writeback de registrador.
+
+25. Qual situação tende a ser a mais difícil para um prefetcher simples?
+
+- A) leitura sequencial de vetor.
+- B) endereços com stride constante.
+- C) percurso irregular determinado por ponteiros.
+- D) busca sequencial de instruções.
+
 ---
 
 # 20. Gabarito
@@ -696,4 +1171,13 @@ não garante = hit nem desempenho maior sempre
 13. C.
 14. A.
 15. B.
-
+16. Na busca sob demanda, a transferência começa após o pedido real; no prefetch, ela começa antecipadamente com base em uma previsão.
+17. `60 / 80 = 75%`.
+18. `20 / 50 = 40%`.
+19. Porque ele pode chegar tarde, depois que a demanda já começou a esperar; também pode ter chegado cedo e sido expulso.
+20. Distância indica quão à frente buscar; grau indica quantos blocos antecipar em cada ação.
+21. B.
+22. A.
+23. B.
+24. B.
+25. C.

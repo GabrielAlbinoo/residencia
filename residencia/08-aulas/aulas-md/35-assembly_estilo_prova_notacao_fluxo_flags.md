@@ -1,8 +1,8 @@
 # Aula Detalhada - Assembly Em Estilo De Prova, Notação, Fluxo E Flags
 
-**Tema do dia:** assembly em estilo de prova, registradores `R0`, `R1`, imediatos com `#`, labels, `CMP`, flags `Z`, `N`, `C`, `V`, desvios `B`, `BEQ`, `BNE`, chamadas `BL`, retorno com `BX LR`, `LDR`, `STR`, endereçamento por colchetes e deslocamentos  
+**Tema do dia:** assembly em estilo de prova, registradores, imediatos, labels, endereço efetivo, `LDR`/`STR`, shifts, flags, branches signed e unsigned, chamadas, `SP`, pilha, `BL`/`LR`, endianness e alinhamento
 **Aula na sequência:** 35  
-**Objetivo:** aprender a ler trechos de assembly que aparecem em questões, mesmo quando a prova usa uma notação genérica inspirada em ARM/RISC, e resolver perguntas de fluxo, registradores, flags, memória e branch.
+**Objetivo:** aprender a ler e rastrear trechos de assembly inspirados em ARM/RISC, calcular endereços e valores de memória, distinguir comparações signed/unsigned e acompanhar laços, pilha e chamadas aninhadas sem precisar decorar uma ISA inteira.
 
 ---
 
@@ -83,6 +83,43 @@ load lê memória
 store escreve memória
 branch altera PC
 flags controlam desvios condicionais
+```
+
+## 2.1 Convenções Usadas Nesta Aula
+
+Os exemplos usam uma notação **ARM-like didática**:
+
+```text
+primeiro operando após ADD/SUB/MOV = destino
+#n = constante imediata
+[Rbase, ...] = acesso à memória no endereço calculado
+memória é endereçada por byte
+word = 32 bits = 4 bytes
+pilha cresce para endereços menores nos exemplos
+R0 a R3 = argumentos/temporários; R0 = retorno
+R4 a R11 = preservados pela função chamada, se usados
+```
+
+Essas escolhas permitem resolver as questões, mas não constituem um manual completo de ARM. Se o enunciado definir outra sintaxe, outra largura ou outra convenção, a definição do enunciado prevalece.
+
+## 2.2 Método De Tradução
+
+Traduza cada instrução para uma atribuição ou decisão simples:
+
+| Assembly | Tradução |
+|---|---|
+| `ADD R0, R1, R2` | `R0 = R1 + R2` |
+| `CMP R0, R1` | calcula conceitualmente `R0-R1` e guarda flags |
+| `LDR R3, [R4, #8]` | `R3 = Mem32[R4+8]` |
+| `STR R3, [R4, R1, LSL #2]` | `Mem32[R4+(R1×4)] = R3` |
+| `BNE loop` | se `Z=0`, `PC = endereço(loop)` |
+
+Sempre separe três coisas:
+
+```text
+valor do registrador
+endereço efetivo
+conteúdo da memória nesse endereço
 ```
 
 ---
@@ -560,7 +597,7 @@ Em soma unsigned:
 C = carry out
 ```
 
-Em subtração, em muitas arquiteturas:
+Em subtração, no modelo ARM-like adotado nesta aula:
 
 ```text
 C = 1 significa sem borrow
@@ -579,6 +616,103 @@ Exemplo:
 positivo + positivo deu negativo -> overflow signed
 negativo + negativo deu positivo -> overflow signed
 ```
+
+## 13.5 Uma Mesma Palavra Pode Ser Signed Ou Unsigned
+
+Os bits não carregam uma etiqueta dizendo "signed" ou "unsigned". A interpretação vem da instrução e da pergunta.
+
+Em 32 bits:
+
+```text
+0xFFFFFFFF como unsigned = 4.294.967.295
+0xFFFFFFFF como signed   = -1
+```
+
+Por isso, depois do mesmo `CMP`, podem existir duas conclusões corretas diferentes:
+
+```text
+comparação signed   -> usa N e V
+comparação unsigned -> usa C e Z
+```
+
+## 13.6 Condições Signed
+
+Depois de `CMP A, B`, isto é, das flags de `A-B`:
+
+| Relação signed | Branch ARM-like | Condição nas flags |
+|---|---|---|
+| `A == B` | `BEQ` | `Z=1` |
+| `A != B` | `BNE` | `Z=0` |
+| `A < B` | `BLT` | `N != V` |
+| `A >= B` | `BGE` | `N = V` |
+| `A > B` | `BGT` | `Z=0` e `N=V` |
+| `A <= B` | `BLE` | `Z=1` ou `N!=V` |
+
+Por que `BLT` não testa somente `N`? Porque uma subtração signed pode sofrer overflow. `V` corrige a interpretação do sinal do resultado.
+
+## 13.7 Condições Unsigned
+
+Em subtração ARM-like, lembre:
+
+```text
+C=1 -> não houve borrow
+C=0 -> houve borrow
+```
+
+Assim:
+
+| Relação unsigned | Branch ARM-like | Sinônimo comum | Condição |
+|---|---|---|---|
+| `A < B` | `BLO` | `BCC` | `C=0` |
+| `A >= B` | `BHS` | `BCS` | `C=1` |
+| `A > B` | `BHI` | — | `C=1` e `Z=0` |
+| `A <= B` | `BLS` | — | `C=0` ou `Z=1` |
+
+`LO/HS` significam *lower/higher or same*. Não use `BLT/BGE` para comparar unsigned se valores com MSB 1 forem possíveis.
+
+## 13.8 Exemplo Que Separa As Duas Interpretações
+
+```asm
+MOV R0, #0xFFFFFFFF
+MOV R1, #1
+CMP R0, R1
+```
+
+Resultado conceitual em 32 bits:
+
+```text
+0xFFFFFFFF - 0x00000001 = 0xFFFFFFFE
+Z=0, N=1, C=1, V=0
+```
+
+Interpretação signed:
+
+```text
+-1 < 1
+BLT seria tomado porque N != V
+```
+
+Interpretação unsigned:
+
+```text
+4.294.967.295 > 1
+BHI seria tomado porque C=1 e Z=0
+```
+
+Não há contradição: os mesmos bits foram interpretados de duas maneiras.
+
+## 13.9 Exemplo De Overflow Que Mostra O Papel De `V`
+
+Em 8 bits, compare `A=-128` com `B=1`:
+
+```text
+A = 1000 0000
+B = 0000 0001
+A-B = 0111 1111, com overflow signed
+N=0, V=1
+```
+
+O resultado armazenado parece positivo, mas `N != V`; portanto `BLT` reconhece corretamente que `-128 < 1`.
 
 ---
 
@@ -724,6 +858,131 @@ funcao:
 
 Se a função foi chamada com `BL funcao`, o `BX LR` volta para a instrução seguinte ao `BL`.
 
+## 17.1 `SP` E A Pilha
+
+`SP` é o **stack pointer**. Ele aponta para o topo da pilha, uma região de memória usada para salvar temporariamente:
+
+```text
+registradores
+endereço de retorno
+variáveis locais
+argumentos que não couberam nos registradores
+```
+
+Nos exemplos desta aula, a pilha cresce para endereços menores e cada registrador possui quatro bytes.
+
+```asm
+PUSH {R4, LR}
+```
+
+significa conceitualmente:
+
+```text
+reserve 8 bytes na pilha
+salve R4 e LR
+SP diminui 8
+```
+
+```asm
+POP {R4, LR}
+```
+
+significa:
+
+```text
+restaure R4 e LR
+libere 8 bytes
+SP aumenta 8
+```
+
+Exemplo:
+
+| Evento | `SP` |
+|---|---:|
+| inicial | `0x2000` |
+| `PUSH {R4, LR}` | `0x1FF8` |
+| `POP {R4, LR}` | `0x2000` |
+
+Um `PUSH` sem o `POP` correspondente pode deixar `SP` incorreto; um `POP` com conjunto diferente pode restaurar valores errados.
+
+## 17.2 Argumentos, Retorno E Preservação
+
+Convenção didática desta aula:
+
+```text
+R0 a R3  -> argumentos; R0 também carrega o resultado
+R0 a R3  -> caller-saved
+R4 a R11 -> callee-saved
+LR       -> endereço de retorno
+```
+
+Exemplo de função folha:
+
+```asm
+; recebe a e b em R0 e R1; devolve a+b em R0
+soma:
+  ADD R0, R0, R1
+  BX  LR
+```
+
+Se o chamador precisa manter o valor antigo de `R1`, deve salvá-lo antes da chamada, pois `R1` é caller-saved nesse modelo.
+
+Se `soma` usasse `R4`, deveria preservar o valor antigo de `R4`, pois `R4` é callee-saved.
+
+## 17.3 Chamada Aninhada: O Problema De `LR`
+
+```asm
+principal:
+  MOV R0, #5
+  BL  triplo
+depois:
+  ; R0 deve ser 15
+
+triplo:
+  PUSH {R4, LR}
+  MOV  R4, R0
+  BL   dobro
+  ADD  R0, R0, R4
+  POP  {R4, LR}
+  BX   LR
+
+dobro:
+  ADD R0, R0, R0
+  BX  LR
+```
+
+Rastreio:
+
+| Passo | `R0` | `R4` | `LR` representa | Situação da pilha neste trecho |
+|---|---:|---:|---|---|
+| `BL triplo` | 5 | antigo | endereço `depois` | ainda sem quadro de `triplo` |
+| `PUSH`/`MOV` | 5 | 5 | endereço `depois`, também salvo | guarda `R4` e retorno externo |
+| `BL dobro` | 5 | 5 | instrução `ADD` de `triplo` | retorno externo continua salvo |
+| `BX LR` de `dobro` | 10 | 5 | volta ao `ADD` | inalterada |
+| `ADD` | 15 | 5 | retorno interno | inalterada |
+| `POP` | 15 | antigo | endereço `depois` | quadro de `triplo` removido |
+| `BX LR` de `triplo` | 15 | antigo | volta a `principal` | inalterada pelo retorno |
+
+Por que o `PUSH` de `LR` é indispensável aqui?
+
+```text
+o BL dobro substitui LR
+sem a cópia na pilha, triplo perde o retorno para principal
+```
+
+## 17.4 Erro Clássico Sem Salvar `LR`
+
+Código incorreto:
+
+```asm
+dobro_mais_um_errado:
+  BL  dobro
+  ADD R0, R0, #1
+  BX  LR
+```
+
+Após `BL dobro`, `LR` aponta para o `ADD`. O `BX LR` final pode voltar para o próprio `ADD`, repetindo o trecho em vez de retornar ao chamador. A solução é preservar e restaurar o `LR` externo. O exemplo usa apenas `R0` justamente para isolar esse erro, sem introduzir também uma violação de registrador callee-saved.
+
 ---
 
 # 18. `LDR` / `LOAD`
@@ -794,6 +1053,45 @@ Pegadinha:
 STORE não escreve em registrador
 STORE escreve na memória
 ```
+
+## 19.1 A Largura Do Acesso Importa
+
+Uma notação comum distingue:
+
+```text
+LDR/STR   -> word, neste material 32 bits
+LDRB/STRB -> byte, 8 bits
+LDRH/STRH -> halfword, 16 bits
+```
+
+Se `R1=0x12345678`, então uma escrita de byte guarda somente os oito bits menos significativos:
+
+```asm
+STRB R1, [R2]   ; grava 0x78 em um byte
+```
+
+Uma leitura unsigned de byte normalmente completa o registrador com zeros:
+
+```text
+Mem8[R2] = 0xFE
+LDRB R1, [R2] -> R1 = 0x000000FE
+```
+
+Algumas arquiteturas possuem loads com extensão de sinal. Não presuma extensão de sinal se a instrução ou o enunciado não a indicar.
+
+## 19.2 `LDR` Altera O Destino; `STR` Não Consome O Valor
+
+```asm
+LDR R1, [R2]
+```
+
+substitui o valor anterior de `R1`.
+
+```asm
+STR R1, [R2]
+```
+
+grava uma cópia de `R1` na memória; normalmente `R1` permanece com o mesmo valor. "Store" não significa zerar ou mover destrutivamente o registrador.
 
 ---
 
@@ -870,6 +1168,128 @@ offset = 8
 endereço = 0x1008
 ```
 
+## 21.1 Endereço Efetivo
+
+O endereço realmente apresentado à memória é chamado de **endereço efetivo**, ou `EA`:
+
+```text
+EA = base + offset
+```
+
+Exemplo:
+
+```text
+R2 = 0x2000
+Mem32[0x200C] = 99
+```
+
+```asm
+LDR R1, [R2, #12]
+```
+
+Rastreio:
+
+```text
+EA = 0x2000 + 12 = 0x200C
+R1 = Mem32[0x200C] = 99
+R2 continua 0x2000
+```
+
+Um offset também pode ser negativo:
+
+```asm
+LDR R1, [R2, #-4]
+```
+
+Se `R2=0x2000`, então:
+
+```text
+EA = 0x1FFC
+```
+
+## 21.2 Offset Em Bytes, Não Em Elementos
+
+Em memória endereçada por byte:
+
+```text
+[R2, #1]  -> um byte depois da base
+[R2, #4]  -> quatro bytes depois da base
+```
+
+Para um vetor de words de quatro bytes:
+
+```text
+vetor[0] -> base + 0
+vetor[1] -> base + 4
+vetor[2] -> base + 8
+```
+
+O tamanho do elemento determina a escala do índice.
+
+## 21.3 Base + Índice
+
+Se `R4` guarda a base e `R1` guarda um índice já expresso em bytes:
+
+```asm
+LDR R3, [R4, R1]
+```
+
+significa:
+
+```text
+EA = R4 + R1
+R3 = Mem32[EA]
+```
+
+Se `R1` é índice de elementos de 32 bits, ele precisa ser escalado por quatro:
+
+```asm
+LDR R3, [R4, R1, LSL #2]
+```
+
+## 21.4 Reconhecendo Atualização Da Base
+
+Algumas notações ARM reais permitem atualizar a base, por exemplo com `!` ou pós-indexação. Em nível de prova, reconheça a diferença:
+
+```asm
+LDR R1, [R2, #4]     ; usa R2+4, normalmente não muda R2
+LDR R1, [R2, #4]!    ; usa R2+4 e grava o novo endereço em R2
+LDR R1, [R2], #4     ; usa R2 atual e depois incrementa R2
+```
+
+Só aplique atualização automática se a notação ou o enunciado a indicar. Não presuma que todo acesso com offset muda o registrador-base.
+
+## 21.5 Exemplo Completo De Endereço Indexado
+
+Dados:
+
+```text
+R4 = 0x1000
+R1 = 3
+Mem32[0x100C] = 0x11223344
+```
+
+Código:
+
+```asm
+LDR R2, [R4, R1, LSL #2]
+ADD R2, R2, #1
+STR R2, [R4, #16]
+```
+
+| Linha | Cálculo/efeito | Resultado |
+|---|---|---|
+| `LDR` | `EA=0x1000+(3×4)=0x100C` | `R2=0x11223344` |
+| `ADD` | `R2=0x11223344+1` | `R2=0x11223345` |
+| `STR` | `EA=0x1000+16=0x1010` | `Mem32[0x1010]=0x11223345` |
+
+Ao final:
+
+```text
+R4 continua 0x1000
+R1 continua 3
+```
+
 ---
 
 # 22. Índice Escalado E `<<`
@@ -911,6 +1331,105 @@ R1 << 2 = 20 = 0x14
 endereço = 0x1000 + 0x14 = 0x1014
 ```
 
+Uma forma ARM-like equivalente é:
+
+```asm
+LDR R3, [R4, R1, LSL #2]
+```
+
+O endereço efetivo é:
+
+```text
+EA = R4 + (R1 << 2)
+```
+
+Os colchetes envolvem o cálculo inteiro do endereço. Primeiro calcule `EA`; só depois leia a memória.
+
+## 22.1 `LSL` - Logical Shift Left
+
+`LSL #n` desloca os bits para a esquerda, descarta os que saem e insere zeros à direita.
+
+Em largura fixa, quando não há descarte de bits significativos:
+
+```text
+x LSL n = x × 2^n
+```
+
+Exemplo em 8 bits:
+
+```text
+0000 0101 LSL 2 = 0001 0100
+5 × 4 = 20
+```
+
+Mas a equivalência aritmética pode sofrer overflow por causa da largura:
+
+```text
+1100 0000 LSL 1 = 1000 0000
+```
+
+O bit que saiu não permanece no resultado de 8 bits.
+
+## 22.2 `LSR` - Logical Shift Right
+
+`LSR #n` desloca à direita e insere zeros à esquerda. É a escolha natural para valores **unsigned**.
+
+```text
+1111 0000 LSR 2 = 0011 1100 = 60
+```
+
+Para unsigned, corresponde à divisão inteira por `2^n`.
+
+## 22.3 `ASR` - Arithmetic Shift Right
+
+`ASR #n` desloca à direita repetindo o bit de sinal à esquerda. Preserva a interpretação negativa em complemento de 2.
+
+Em 8 bits, `1111 0000` representa `-16`:
+
+```text
+1111 0000 ASR 2 = 1111 1100 = -4
+```
+
+Compare:
+
+```text
+1111 0000 LSR 2 = 0011 1100 = 60
+1111 0000 ASR 2 = 1111 1100 = -4
+```
+
+Pegadinha central:
+
+```text
+LSR preenche com zero
+ASR replica o bit de sinal
+```
+
+Para negativos ímpares, a regra de arredondamento do shift pode diferir de uma divisão signed da linguagem de alto nível. Se a questão cobrar apenas potência de dois e valor divisível, use a interpretação direta; caso contrário, siga a regra explicitada.
+
+## 22.4 Shift Como Parte Do Endereço Não Precisa Alterar O Índice
+
+Em:
+
+```asm
+LDR R3, [R4, R1, LSL #2]
+```
+
+o deslocamento é usado para formar o endereço. Em geral, nessa forma:
+
+```text
+R1 permanece com o índice original
+R4 permanece com a base original
+R3 recebe o dado da memória
+```
+
+Não confunda com uma instrução separada:
+
+```asm
+LSL R1, R1, #2
+```
+
+Aqui `R1` é realmente substituído por `R1×4`.
+
 ---
 
 # 23. Byte-Addressable
@@ -944,6 +1463,66 @@ Em assembly:
 [base + índice << 2]
 ```
 
+## 23.1 Endianness Em Nível De Prova
+
+Endianness define a ordem dos bytes de um valor com vários bytes na memória.
+
+Para armazenar a word:
+
+```text
+0x12345678 a partir do endereço 0x1000
+```
+
+temos:
+
+| Endereço | Little-endian | Big-endian |
+|---:|---:|---:|
+| `0x1000` | `0x78` | `0x12` |
+| `0x1001` | `0x56` | `0x34` |
+| `0x1002` | `0x34` | `0x56` |
+| `0x1003` | `0x12` | `0x78` |
+
+```text
+little-endian -> byte menos significativo no menor endereço
+big-endian    -> byte mais significativo no menor endereço
+```
+
+Se a mesma arquitetura armazena e depois carrega a word completa corretamente, o registrador volta a conter `0x12345678`. A diferença fica evidente ao inspecionar bytes individuais, trocar dados entre sistemas ou interpretar uma sequência de bytes.
+
+Pegadinha:
+
+```text
+endianness não inverte os bits dentro de cada byte
+endianness ordena bytes de um valor multibyte
+```
+
+## 23.2 Alinhamento Em Nível De Prova
+
+Um dado está naturalmente alinhado quando seu endereço é múltiplo de seu tamanho típico:
+
+```text
+word de 4 bytes -> endereços 0x1000, 0x1004, 0x1008...
+halfword de 2 bytes -> endereços pares
+byte -> qualquer endereço
+```
+
+Assim:
+
+```text
+LDR word em 0x1004 -> alinhado
+LDR word em 0x1002 -> desalinhado para 4 bytes
+```
+
+O que ocorre num acesso desalinhado depende da arquitetura:
+
+```text
+pode funcionar com custo adicional
+pode exigir mais de um acesso
+pode gerar exceção/falha
+```
+
+Não conclua automaticamente que sempre falha. A conclusão segura é: o endereço não está naturalmente alinhado e o comportamento é dependente da arquitetura.
+
 ---
 
 # 24. Branch Com Deslocamento
@@ -952,7 +1531,7 @@ Alguns branches não guardam o endereço completo.
 
 Eles guardam um deslocamento.
 
-Exemplo:
+**Exemplo hipotético para treinar a conta:** suponha que o enunciado defina:
 
 ```text
 imediato signed de 12 bits
@@ -1055,9 +1634,18 @@ BNE -> se Z=0
 B   -> sempre
 ```
 
-## 25.6 Passo 6 - Só No Final Veja Memória
+## 25.6 Passo 6 - Atualize A Memória No Momento Do Acesso
 
-Se aparecer:
+Não adie toda a análise de memória para o fim. Quando um acesso executar, calcule o endereço e atualize o estado imediatamente:
+
+```asm
+LDR R1, [R2]       ; consulte Mem[R2] e atualize R1 neste ponto
+STR R0, [R3]       ; atualize Mem[R3] neste ponto
+```
+
+Se o trecho tiver somente um `STR` no final, como em alguns exemplos desta aula, a gravação naturalmente será o último passo. Em sequências com `LDR` ou stores intermediários, porém, os acessos podem alterar tudo o que vem depois.
+
+Para:
 
 ```asm
 STR R0, [R2]
@@ -1068,6 +1656,52 @@ grave:
 ```text
 Mem[R2] = R0
 ```
+
+## 25.7 Passo 7 - Separe Signed De Unsigned
+
+Se houver `menor`, `maior` ou comparação de limite, marque a interpretação:
+
+```text
+signed?   observe N e V; use condições LT/GE/GT/LE
+unsigned? observe C e Z; use condições LO/HS/HI/LS
+```
+
+Não escolha pelo "aspecto" hexadecimal do número.
+
+## 25.8 Passo 8 - Calcule O Endereço Antes Do Dado
+
+Para:
+
+```asm
+LDR R3, [R4, R1, LSL #2]
+```
+
+escreva primeiro:
+
+```text
+EA = R4 + (R1 × 4)
+```
+
+Depois consulte:
+
+```text
+R3 = Mem32[EA]
+```
+
+Esse procedimento evita confundir índice, endereço e conteúdo.
+
+## 25.9 Passo 9 - Em Funções, Rastreie `SP` E `LR`
+
+Anote:
+
+```text
+qual retorno está em LR
+o que foi salvo por PUSH
+quanto SP mudou
+se cada caminho de saída executa o POP correspondente
+```
+
+Em chamada aninhada, confirme que o retorno externo foi preservado antes do novo `BL`.
 
 ---
 
@@ -1147,32 +1781,31 @@ compara atualizando flags, sem salvar resultado
 
 # 28. Tabela Rápida De Branches Comuns
 
-| Instrução | Ideia | Condição típica |
+| Instrução | Interpretação | Condição típica após `CMP A,B` |
 |---|---|---|
-| `B` | branch sempre | nenhuma |
-| `BEQ` | branch se igual | `Z=1` |
-| `BNE` | branch se diferente | `Z=0` |
-| `BL` | chamada de função | salva retorno em `LR` |
-| `BX LR` | retorno de função | PC recebe `LR` |
+| `B` | desvia sempre | nenhuma |
+| `BEQ` | igual | `Z=1` |
+| `BNE` | diferente | `Z=0` |
+| `BLT` | menor, signed | `N!=V` |
+| `BGE` | maior ou igual, signed | `N=V` |
+| `BGT` | maior, signed | `Z=0` e `N=V` |
+| `BLE` | menor ou igual, signed | `Z=1` ou `N!=V` |
+| `BLO`/`BCC` | menor, unsigned | `C=0` |
+| `BHS`/`BCS` | maior ou igual, unsigned | `C=1` |
+| `BHI` | maior, unsigned | `C=1` e `Z=0` |
+| `BLS` | menor ou igual, unsigned | `C=0` ou `Z=1` |
+| `BL` | chamada | salva retorno em `LR` e desvia |
+| `BX LR` | retorno ARM-like | `PC` recebe o endereço de `LR` |
 
-Outras podem existir:
+Regra de decisão:
 
 ```text
-BGT -> maior que
-BLT -> menor que
-BGE -> maior ou igual
-BLE -> menor ou igual
+igual/diferente -> BEQ/BNE servem para signed e unsigned
+ordem signed    -> BLT/BGE/BGT/BLE
+ordem unsigned  -> BLO/BHS/BHI/BLS
 ```
 
-Mas para sua prova, priorize:
-
-```text
-B
-BEQ
-BNE
-BL
-BX LR
-```
+As letras podem variar em outra ISA. O importante é identificar se a condição usa interpretação signed ou unsigned.
 
 ---
 
@@ -1185,13 +1818,20 @@ qual valor final de um registrador?
 quantas vezes o loop executa?
 quando BNE é tomado?
 qual flag BEQ testa?
+qual branch representa menor signed ou menor unsigned?
 o que CMP faz?
 o que significa #5?
 o que significa [R2]?
+qual é o endereço efetivo de base + índice escalado?
 o que STR grava?
 o que BL salva?
+por que uma chamada aninhada salva LR?
+quanto SP muda após PUSH/POP?
 o que BX LR faz?
 por que R1 << 2 multiplica por 4?
+qual a diferença entre LSR e ASR?
+como os bytes são organizados em little-endian?
+o acesso está naturalmente alinhado?
 ```
 
 Respostas-chave:
@@ -1206,6 +1846,10 @@ SUBS = subtrai e atualiza flags
 BL = chama função e salva retorno em LR
 BX LR = retorna
 <<2 = multiplica por 4
+BLT/BGE = ordem signed
+BLO/BHS = ordem unsigned
+PUSH/POP = salva/restaura valores usando a pilha
+LSR = zeros à esquerda; ASR = replica o sinal
 ```
 
 ---
@@ -1268,7 +1912,7 @@ Não é para voltar para a própria `BL`, senão chamaria a função de novo.
 
 ---
 
-## 30.6 `BX LR` Não Serve Só Para Chamar LR
+## 30.6 `BX LR` Usa `LR` Como Endereço De Retorno
 
 `BX LR` usa o endereço guardado em `LR` para voltar.
 
@@ -1294,6 +1938,35 @@ Não é:
 x + 2
 ```
 
+## 30.8 `BLT` E `BLO` Não São A Mesma Comparação
+
+```text
+BLT -> menor signed, considera N e V
+BLO -> menor unsigned, considera C
+```
+
+Com operandos positivos pequenos, ambos podem dar a mesma decisão. Com MSB igual a 1, podem divergir.
+
+## 30.9 Offset Sem `!` Não Atualiza Automaticamente A Base
+
+```asm
+LDR R1, [R2, #4]
+```
+
+normalmente usa `R2+4` como endereço e mantém `R2`. Só atualize a base quando a sintaxe ou o enunciado indicar writeback/pós-indexação.
+
+## 30.10 `PUSH` E `POP` Precisam Se Equilibrar
+
+Se uma função salva `R4` e `LR`, ela deve restaurar os valores corretos antes de retornar. Restaurar apenas um deles pode deixar `SP` deslocado ou o contexto corrompido.
+
+## 30.11 Endianness Não Muda A Ordem Dos Bits
+
+Little e big-endian tratam da ordem dos **bytes** de valores multibyte na memória, não da numeração dos registradores nem da inversão dos bits dentro de cada byte.
+
+## 30.12 Desalinhado Não Significa Universalmente Proibido
+
+Um acesso de word em endereço não múltiplo de quatro está desalinhado. Ele pode falhar ou apenas custar mais, conforme a arquitetura. Use a informação fornecida pela questão.
+
 ---
 
 # 31. Resumo De Prova
@@ -1308,14 +1981,30 @@ SUBS = subtrai e atualiza flags
 Z=1 = resultado zero
 BEQ = desvia se Z=1
 BNE = desvia se Z=0
+signed: BLT usa N!=V; BGE usa N=V
+unsigned: BLO usa C=0; BHS usa C=1
+em subtração ARM-like, C=1 significa sem borrow
 BL = chama função e salva retorno em LR
 LR = link register
 BX LR = retorna da função
+SP = stack pointer
+PUSH salva e reduz SP na pilha descendente desta aula
+POP restaura e aumenta SP
+outro BL sobrescreve LR; função não folha preserva o retorno externo
+caller-saved = chamador salva se precisar
+callee-saved = função chamada restaura se usar
 LDR R1,[R2] = R1 recebe Mem[R2]
 STR R1,[R2] = Mem[R2] recebe R1
 [Rbase,#offset] = memória em base + offset
-R1 << 2 = R1 * 4
+EA = endereço efetivo calculado antes do acesso
+[Rbase,Rindex,LSL #2] = base + índice*4
+LSL = esquerda com zeros
+LSR = direita com zeros, natural para unsigned
+ASR = direita replicando sinal
 word 32 bits = 4 bytes
+little-endian = byte menos significativo no menor endereço
+big-endian = byte mais significativo no menor endereço
+word naturalmente alinhada = endereço múltiplo de 4
 ```
 
 ---
@@ -1395,6 +2084,97 @@ STR R1, [R2]
 - C) `BL` só funciona com memória DRAM.
 - D) `BL` apaga todas as flags.
 
+## 32.3 Endereço, Shifts E Memória
+
+21. Se `R4=0x2000` e `R1=6`, qual é o endereço efetivo de:
+
+```asm
+LDR R3, [R4, R1, LSL #2]
+```
+
+22. Considere:
+
+```text
+R2=0x1000
+Mem32[0x1008]=25
+```
+
+Após `LDR R1, [R2, #8]`, quais são os valores de `R1` e `R2`?
+
+23. Em 8 bits, calcule e interprete:
+
+```text
+1111 0000 LSR 2
+1111 0000 ASR 2
+```
+
+24. Se `R1=3`, qual é a diferença entre:
+
+```asm
+LDR R3, [R4, R1, LSL #2]
+LSL R1, R1, #2
+```
+
+25. Se `R0=0x12345678` e `R2=0x1000`, qual byte é gravado por `STRB R0, [R2]`?
+
+## 32.4 Flags E Comparações
+
+26. Após comparar `0xFFFFFFFF` com `1` em 32 bits, responda:
+
+- A) Qual é a relação signed?
+- B) Qual é a relação unsigned?
+- C) Qual branch representa cada conclusão?
+
+27. Após `CMP A,B`, qual condição indica `A<B`:
+
+- A) para signed?
+- B) para unsigned?
+
+28. Por que testar apenas `N=1` não é suficiente para decidir "menor signed"?
+
+29. Se `Z=0`, `N=1`, `V=0` e `C=1`, quais branches são tomados: `BEQ`, `BNE`, `BLT`, `BGE`, `BLO`, `BHS`?
+
+## 32.5 Pilha E Chamadas
+
+30. Numa pilha descendente, `SP=0x4000` e cada registrador ocupa quatro bytes. Qual é o `SP` depois de `PUSH {R4,R5,LR}`? E após o `POP` correspondente?
+
+31. Uma função recebeu `R0=7`, executou `BL dobro` e depois precisa retornar ao chamador original. Por que o `LR` externo deve ter sido salvo antes do `BL dobro`?
+
+32. Na convenção didática, quem salva `R2` se o chamador ainda precisar dele? Quem preserva `R6` se a função chamada o utilizar?
+
+## 32.6 Endianness, Alinhamento E Rastreio
+
+33. A word `0xA1B2C3D4` é guardada a partir de `0x1000`. Liste os quatro bytes em ordem crescente de endereço:
+
+- A) em little-endian;
+- B) em big-endian.
+
+34. Classifique os acessos de word como naturalmente alinhados ou desalinhados:
+
+```text
+0x2000
+0x2002
+0x2004
+0x2007
+```
+
+35. Rastreie:
+
+```text
+R4=0x1000
+R1=2
+Mem32[0x1008]=10
+Mem32[0x100C]=99
+```
+
+```asm
+LDR R2, [R4, R1, LSL #2]
+ADD R2, R2, #5
+STR R2, [R4, #12]
+```
+
+Informe o endereço de cada acesso, o valor final de `R2`, `Mem32[0x100C]`, `R4` e `R1`.
+
 ---
 
 # 33. Gabarito
@@ -1419,4 +2199,18 @@ STR R1, [R2]
 18. B.
 19. C. `5 << 2 = 20 = 0x14`; `0x1000 + 0x14 = 0x1014`.
 20. A.
-
+21. `0x2018`, pois `6 LSL 2 = 24 = 0x18` e `0x2000+0x18=0x2018`.
+22. `R1=25`; `R2` continua `0x1000`, pois a forma sem writeback não atualiza a base.
+23. `LSR`: `0011 1100=60`; `ASR`: `1111 1100=-4` em complemento de 2.
+24. No `LDR`, a escala participa apenas do endereço e `R1` permanece 3. No `LSL` separado, `R1` é substituído por 12.
+25. `0x78`, os oito bits menos significativos.
+26. A) `-1<1`, portanto `BLT`; B) `4.294.967.295>1`, portanto `BHI`; C) ambas as conclusões podem ser verdadeiras porque a interpretação é diferente.
+27. A) `N!=V`, condição de `BLT`; B) `C=0`, condição de `BLO/BCC` no modelo ARM-like.
+28. Porque uma subtração signed pode sofrer overflow; `V` deve ser combinado com `N`.
+29. `BNE`, `BLT` e `BHS` são tomados. `BEQ`, `BGE` e `BLO` não são.
+30. Três registradores ocupam 12 bytes: depois do `PUSH`, `SP=0x3FF4`; após o `POP`, `SP=0x4000`.
+31. Porque o `BL dobro` substitui `LR` pelo retorno interno. Sem a cópia externa, a função perde o endereço de retorno ao chamador original.
+32. O chamador salva `R2`, que é caller-saved; a função chamada salva e restaura `R6`, que é callee-saved.
+33. A) little-endian: `D4 C3 B2 A1`; B) big-endian: `A1 B2 C3 D4`.
+34. `0x2000` e `0x2004` alinhados; `0x2002` e `0x2007` desalinhados para word de quatro bytes.
+35. O `LDR` usa `0x1000+(2×4)=0x1008` e lê 10. O `ADD` produz `R2=15`. O `STR` usa `0x100C` e grava 15. Ao final: `R2=15`, `Mem32[0x100C]=15`, `R4=0x1000` e `R1=2`.

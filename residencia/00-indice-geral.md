@@ -34,6 +34,8 @@ A pasta correta para resultados e `03-simulados/resultados/`, dentro da raiz `re
 
 ## Arquivos importantes
 
+- `01-provas-pdf/editais-e-manuais/lista-preliminar-inscricoes-homologadas-ci-inovador-2026.pdf`: lista preliminar oficial de inscritos homologados, publicada em 14/07/2026.
+- `02-roteiros/analise-concorrencia-chances-ci-inovador-2026.md`: analise de inscritos, concorrencia, desempenho nos simulados e faixas de chance para Sistemas Digitais/UFCG.
 - `01-provas-pdf/links-provas-complexas.md`: links oficiais de provas complexas em PDF, incluindo UFSM.
 - `02-roteiros/roteiro-de-treino-pesado.md`: ciclo sugerido de treino com UFSM, Fuvest, Unicamp, ITA e IME.
 - `03-simulados/controle-de-simulados.md`: tabela para registrar desempenho.
