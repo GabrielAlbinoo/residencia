@@ -34,6 +34,8 @@ A pasta correta para resultados e `03-simulados/resultados/`, dentro da raiz `re
 
 ## Arquivos importantes
 
+- `06-resumos/resumos-sistemas-digitais/revisao_de_vespera_ci_inovador_2026.md`: revisao curta para ler no dia anterior, com somente formulas, regras e pegadinhas de maior retorno.
+- `06-resumos/resumos-sistemas-digitais/revisao_final_estilo_prova_ci_inovador_2026.md`: referencia completa das aulas 1 a 36, formulas, pegadinhas da prova anterior e estrategia de tres passadas.
 - `01-provas-pdf/editais-e-manuais/lista-preliminar-inscricoes-homologadas-ci-inovador-2026.pdf`: lista preliminar oficial de inscritos homologados, publicada em 14/07/2026.
 - `02-roteiros/analise-concorrencia-chances-ci-inovador-2026.md`: analise de inscritos, concorrencia, desempenho nos simulados e faixas de chance para Sistemas Digitais/UFCG.
 - `01-provas-pdf/links-provas-complexas.md`: links oficiais de provas complexas em PDF, incluindo UFSM.
