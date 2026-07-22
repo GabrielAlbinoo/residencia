@@ -35,3 +35,5 @@
 | 08/07/2026 | 11:18:33 | 01:40:09 | Simulado 13 - Geral Aulas 1 a 27 - Casca Grossa - Sistemas Digitais (UFCG) | `42/60 (70%)` |
 | 10/07/2026 | 15:21:21 | 01:09:13 | Simulado 14 - Geral Aulas 1 a 27 - Extremo - Sistemas Digitais (UFCG) | `39/50 (78%)` |
 | 16/07/2026 | Nao registrado | Nao registrado | Bloco de ingles da prova CI Inovador 2024 - Questoes 1 a 10 | `6/9 validas (66,7%); questao 10 incompleta sem destaque` |
+| 22/07/2026 | 11:47:03 | 00:27:41 | Simulado 17 - Inglês Instrumental - Nível Difícil | `19/20 (95%)` |
+| 22/07/2026 | 17:09:50 | 01:05:57 | Simulado 18 - Prova Completa - Nível Difícil - Sistemas Digitais (UFCG) | `32/40 (80%)` |

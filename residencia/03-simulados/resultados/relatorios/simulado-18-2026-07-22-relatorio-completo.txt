@@ -1,0 +1,128 @@
+RESULTADO - SIMULADO 18 - PROVA COMPLETA - NÍVEL DIFÍCIL - SISTEMAS DIGITAIS (UFCG)
+Finalizado em: 22/07/2026, 17:09:50
+Tempo executado: 01:05:57
+Nota: 32/40 (80%)
+Respondidas: 35/40
+Marcadas como não soube responder: 5
+
+DESEMPENHO POR BLOCO
+- Bloco 1 - English - Scientific and Technical Reading: 9/10 (90%)
+- Bloco 2 - Sistemas Digitais - Integração I: 9/10 (90%)
+- Bloco 3 - Sistemas Digitais - Integração II: 7/10 (70%)
+- Bloco 4 - Sistemas Digitais - Integração III: 7/10 (70%)
+
+QUESTÕES ERRADAS OU NÃO RESPONDIDAS (8)
+
+Questão 3 - Concession connector
+Enunciado: Read the sentence below.The revised algorithm produced a modest improvement in average accuracy, albeit at the cost of substantially greater memory usage.What relationship does the highlighted word establish?
+Alternativas disponíveis:
+- A) It presents greater memory usage as the cause of lower average accuracy.
+- B) It indicates that memory usage and accuracy improved by the same proportion.
+- C) It introduces an example that confirms the algorithm uses little memory.
+- D) It concedes a disadvantage that qualifies the reported improvement.
+Minha resposta: B) It indicates that memory usage and accuracy improved by the same proportion.
+Resposta correta: D) It concedes a disadvantage that qualifies the reported improvement.
+Explicação: Albeit means 'although' or 'even though'. It introduces a drawback that limits the attractiveness of the accuracy gain.
+
+Questão 12 - ASCII e paridade
+Enunciado: O caractere ASCII padrão '5' é 0x35, cujo código de 7 bits é 0110101. Um enlace acrescenta um bit de paridade par. Qual afirmação está correta?
+Alternativas disponíveis:
+- A) O bit de paridade deve ser 1, e o receptor consegue corrigir qualquer inversão de um bit.
+- B) O bit de paridade deve ser 1, e toda inversão de dois bits também será detectada.
+- C) O bit de paridade deve ser 0; uma inversão isolada será detectada, mas não localizada nem corrigida.
+- D) O bit de paridade deve substituir o MSB porque o ASCII padrão possui obrigatoriamente 8 bits de dados.
+Minha resposta: Não respondida por não saber como resolver; marcada conscientemente para revisão.
+Motivo declarado: deixei em branco porque não sabia como resolver; preciso aprender este procedimento.
+Minha observação: oq é bit de paridade?
+Resposta correta: C) O bit de paridade deve ser 0; uma inversão isolada será detectada, mas não localizada nem corrigida.
+Explicação: O código possui quatro bits 1, total já par, então o bit adicional é 0. Paridade detecta qualquer número ímpar de inversões, mas um único bit de paridade não localiza nem corrige o erro.
+
+Questão 23 - Tag, índice e offset de cache
+Enunciado: Uma cache diretamente mapeada possui 8 KiB de dados, linhas de 32 bytes e endereços de 32 bits endereçados por byte. Despreze metadados. Quantos bits formam, respectivamente, tag, índice e offset?
+Alternativas disponíveis:
+- A) 19, 5, 8.
+- B) 16, 11, 5.
+- C) 19, 8, 5.
+- D) 24, 3, 5.
+Minha resposta: Não respondida por não saber como resolver; marcada conscientemente para revisão.
+Motivo declarado: deixei em branco porque não sabia como resolver; preciso aprender este procedimento.
+Resposta correta: C) 19, 8, 5.
+Explicação: Cada linha tem 2⁵ bytes, então offset=5. Há 8192/32=256=2⁸ linhas, então índice=8. Sobram 32-8-5=19 bits de tag.
+
+Questão 29 - FPU e arredondamento ties-to-even
+Enunciado: Uma FPU deve manter 1.011₂ e descartar exatamente 1000..., de modo que G=1, R=0 e S=0. No modo mais próximo, empate para par, qual resultado deve ser armazenado?
+Alternativas disponíveis:
+- A) 1.011₂, pois todo empate exato é resolvido por truncamento.
+- B) 1.011₂, pois sticky zero impede qualquer incremento no resultado.
+- C) 1.010₂, pois o arredondamento deve zerar diretamente o LSB ímpar.
+- D) 1.100₂, pois no empate o LSB mantido em 1 exige incremento.
+Minha resposta: Não respondida por não saber como resolver; marcada conscientemente para revisão.
+Motivo declarado: deixei em branco porque não sabia como resolver; preciso aprender este procedimento.
+Resposta correta: D) 1.100₂, pois no empate o LSB mantido em 1 exige incremento.
+Explicação: É empate exato. Ties-to-even escolhe o resultado cujo último bit armazenado é 0; como o LSB mantido era 1, incrementa-se 1.011 para 1.100.
+
+Questão 30 - Little-endian, largura e offset
+Enunciado: Em uma máquina little-endian, R0=0x1000 e uma word de 32 bits 0x12345678 foi armazenada a partir desse endereço. Em seguida executa-se LDRB R2,[R0,#2], com extensão por zeros. Qual será R2?
+Alternativas disponíveis:
+- A) 0x00000012.
+- B) 0x00000034.
+- C) 0x00000056.
+- D) 0x12345678.
+Minha resposta: Não respondida por não saber como resolver; marcada conscientemente para revisão.
+Motivo declarado: deixei em branco porque não sabia como resolver; preciso aprender este procedimento.
+Minha observação: little-endian oq é isso???? e isso realmente cairia na prova??
+Resposta correta: B) 0x00000034.
+Explicação: Little-endian armazena, a partir de 0x1000, os bytes 78 56 34 12. O offset 2 seleciona 0x34, e LDRB completa o registrador com zeros.
+
+Questão 32 - Branches signed e unsigned
+Enunciado: Em 8 bits, uma instrução equivalente a CMP 0xFF,0x01 produz 0xFE e flags Z=0,N=1,C=1,V=0, usando a convenção ARM-like em que C=1 significa ausência de borrow. Consideradas independentemente, quais condições de desvio são verdadeiras?
+Alternativas disponíveis:
+- A) Somente BEQ.
+- B) Somente BLT signed.
+- C) Somente BHI unsigned.
+- D) Tanto BLT signed quanto BHI unsigned.
+Minha resposta: Não respondida por não saber como resolver; marcada conscientemente para revisão.
+Motivo declarado: deixei em branco porque não sabia como resolver; preciso aprender este procedimento.
+Minha observação: não conheço blt nem bhi.
+Resposta correta: D) Tanto BLT signed quanto BHI unsigned.
+Explicação: Signed, 0xFF=-1<1 e N≠V, então BLT é verdadeiro. Unsigned, 255>1 e C=1,Z=0, então BHI também é verdadeiro.
+
+Questão 35 - Imediato signed e endereço efetivo
+Enunciado: Uma instrução de load possui imediato de 16 bits 0xFFFC, declarado signed, e registrador base 0x00001000. O processador faz extensão de sinal antes de calcular o endereço. Qual é o endereço efetivo?
+Alternativas disponíveis:
+- A) 0x00000FFC.
+- B) 0x00010FFC.
+- C) 0x00011000.
+- D) 0xFFFF0FFC.
+Minha resposta: D) 0xFFFF0FFC.
+Resposta correta: A) 0x00000FFC.
+Explicação: 0xFFFC em 16 bits signed representa -4. A extensão de sinal preserva esse valor e 0x1000-4=0x0FFC.
+
+Questão 36 - Síntese de FSM com flip-flops D
+Enunciado: Uma FSM usa dois flip-flops D e as equações D0=X XOR Q0, D1=Q0·X e Z=Q1. Partindo de Q1Q0=00, aplique as entradas 1,1,0 em três bordas sucessivas. Qual é a classificação da saída e a sequência de Z observada logo após cada borda?
+Alternativas disponíveis:
+- A) Mealy; 1,0,1.
+- B) Mealy; 0,1,0.
+- C) Moore; 0,1,0.
+- D) Moore; 1,1,0.
+Minha resposta: B) Mealy; 0,1,0.
+Resposta correta: C) Moore; 0,1,0.
+Explicação: Z depende apenas do estado, então é Moore. Estados: 00 --1→ 01 --1→ 10 --0→ 00. Após cada borda, Q1 vale 0,1,0.
+
+QUESTÕES CORRETAS (32)
+1 (Main idea and qualification), 2 (Evidence-based inference), 4 (Reference expression), 5 (Research objective), 6 (Vocabulary in context), 7 (Non-restrictive relative clause), 8 (Evaluative language), 9 (Limits of causal evidence), 10 (Conditional meaning), 11 (Complemento de 2, carry e overflow), 13 (Formas canônicas e minimização), 14 (Decoder ativo baixo e barramento tri-state), 15 (FSM Mealy e rastreamento), 16 (Contadores ring, Johnson e one-hot), 17 (Setup, hold e skew), 18 (Ponto fixo e normalização), 19 (Rede CMOS complementar), 20 (Potência dinâmica), 21 (Organização de memória e banco de registradores), 22 (LUT, HDL e bitstream), 24 (Cache 2-way, LRU e dirty), 25 (Prefetch e padrões de acesso), 26 (Latência e throughput de pipeline), 27 (Load-use hazard e forwarding), 28 (Preditor saturante de 2 bits), 31 (Laço assembly e condição signed), 33 (BL, LR e chamada aninhada), 34 (Datapath e sinais de controle), 37 (Registradores de deslocamento e FIFO), 38 (Gray, checksum, paridade e CRC), 39 (Hazard estático e consenso), 40 (Cache de instruções, controle e pipeline)
+
+OBSERVAÇÕES EM QUESTÕES CORRETAS (6)
+- Questão 8 - Evaluative language: resposta tava em highlight
+- Questão 17 - Setup, hold e skew: o skew nã odeveria ser somado ao tmin não? já q ajuda o de stup?
+- Questão 20 - Potência dinâmica: não pude fazer as contas, mas não conte como erro, apenas não pude resolve eenquanto fazia o simulado)
+- Questão 24 - Cache 2-way, LRU e dirty: como funciona os ways no chache mesmo? são duas linhas por conjuntpo?: levei em conta assim para responder
+- Questão 26 - Latência e throughput de pipeline: eu fiz assim pra chegar
+a primeira instrução demora o pipelinecompleto (10ns) e depois a cada 2 ns uma instrução era concluida então em 19 ciclos as 19 outras instruções eriam concluidas, levando 38ns, pensamento correto? e como faer para ficar algo mais fácil essas questões?
+- Questão 34 - Datapath e sinais de controle: qunado um deles é imediato usa o ALUSrc 1?
+
+PEDIDO PARA REVISÃO COM IA
+Analise meus erros neste simulado de Sistemas Digitais. Para cada questão errada ou não respondida, considere também as alternativas disponíveis e qualquer observação que eu tenha registrado, explique o conceito, resolva passo a passo e proponha 2 exercícios semelhantes com gabarito para eu fixar. Priorize os blocos abaixo de 70% e trate as questões marcadas como 'não soube responder' como prioridade, pois foram deixadas em branco conscientemente para evitar chute.
+Salve uma cópia deste relatório completo em C:/Users/gabrieloliveira/Documents/pessoal/estudos/residencia/03-simulados/resultados/relatorios/, com nome que identifique o número do simulado e a data de realização, para manter meu histórico.
+Salve tudo o que eu precisarei estudar na pasta C:/Users/gabrieloliveira/Documents/pessoal/estudos/residencia/03-simulados/resultados/revisoes/resultados-simulado-18-2026-07-22. Crie nessa pasta pelo menos um arquivo revisao_erros.md com o diagnóstico, as explicações, os exercícios e os gabaritos.
+Atualize também o arquivo C:/Users/gabrieloliveira/Documents/pessoal/estudos/residencia/03-simulados/log_estudos_e_simulados.md, adicionando este simulado à tabela de simulados realizados com data, horário de conclusão, tempo de execução e resultado informados neste relatório. Não altere registros anteriores.
