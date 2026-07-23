@@ -1,0 +1,2077 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Base de Simulado | Sistemas Digitais</title>
+  <style>
+    :root {
+      --bg: #f5f6f2;
+      --surface: #ffffff;
+      --surface-alt: #f1f5f4;
+      --ink: #172320;
+      --muted: #52645f;
+      --line: #d8e0dc;
+      --primary: #006a63;
+      --primary-dark: #004f4b;
+      --primary-soft: #dff2ef;
+      --correct: #167043;
+      --correct-soft: #e1f4e7;
+      --wrong: #b43a31;
+      --wrong-soft: #fde9e6;
+      --warning: #946100;
+      --warning-soft: #fff3d4;
+      --shadow: 0 2px 14px rgba(18, 38, 34, 0.07);
+      --radius: 16px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--bg);
+      font: 16px/1.5 "Segoe UI", Arial, sans-serif;
+    }
+
+    code {
+      padding: 0.12rem 0.36rem;
+      border-radius: 5px;
+      background: #edf1f0;
+      font: 0.95em Consolas, "Courier New", monospace;
+    }
+
+    .hero {
+      padding: 40px 20px 28px;
+      color: #fff;
+      background: linear-gradient(132deg, #013b39, #00766d);
+    }
+
+    .container {
+      width: min(1040px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: clamp(1.7rem, 4vw, 2.4rem);
+      line-height: 1.15;
+    }
+
+    .subtitle {
+      max-width: 760px;
+      margin: 0;
+      color: #d4ece9;
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(125px, 1fr));
+      gap: 10px;
+      margin-top: 24px;
+    }
+
+    .meta-card {
+      padding: 12px 14px;
+      border: 1px solid rgba(255, 255, 255, 0.21);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.09);
+    }
+
+    .meta-card span {
+      display: block;
+      color: #cae6e3;
+      font-size: 0.83rem;
+    }
+
+    .meta-card strong { font-size: 1.05rem; }
+
+    .toolbar {
+      position: sticky;
+      z-index: 10;
+      top: 0;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.97);
+      backdrop-filter: blur(8px);
+    }
+
+    .toolbar-inner {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px 18px;
+      align-items: center;
+      padding: 13px 0;
+    }
+
+    .progress-group {
+      flex: 1 1 310px;
+      min-width: 230px;
+    }
+
+    .progress-label {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 4px 14px;
+      margin-bottom: 6px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 8px;
+      overflow: hidden;
+      border-radius: 99px;
+      background: #e5ebe9;
+    }
+
+    .progress-fill {
+      width: 0;
+      height: 100%;
+      border-radius: inherit;
+      background: var(--primary);
+      transition: width 160ms ease;
+    }
+
+    .toolbar-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .toolbar-timer {
+      display: flex;
+      flex-direction: column;
+      min-width: 103px;
+      padding: 5px 11px;
+      border: 1px solid #cddbd7;
+      border-radius: 9px;
+      color: var(--primary-dark);
+      background: var(--surface-alt);
+      line-height: 1.2;
+    }
+
+    .toolbar-timer span {
+      color: var(--muted);
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.035em;
+    }
+
+    .toolbar-timer strong {
+      font-size: 0.98rem;
+      font-variant-numeric: tabular-nums;
+    }
+
+    button {
+      cursor: pointer;
+      padding: 10px 15px;
+      border: 1px solid transparent;
+      border-radius: 9px;
+      color: #fff;
+      background: var(--primary);
+      font: inherit;
+      font-weight: 600;
+      transition: background 120ms ease, transform 120ms ease;
+    }
+
+    button:hover { background: var(--primary-dark); }
+    button:active { transform: translateY(1px); }
+    button:disabled { cursor: not-allowed; opacity: 0.5; transform: none; }
+
+    .button-secondary {
+      border-color: var(--line);
+      color: var(--primary-dark);
+      background: #fff;
+    }
+
+    .button-secondary:hover { background: var(--surface-alt); }
+
+    .button-warning {
+      border-color: #e6cd96;
+      color: var(--warning);
+      background: var(--warning-soft);
+    }
+
+    .button-warning:hover { background: #ffedc2; }
+
+    main { padding: 25px 0 54px; }
+
+    .notice, .start-panel, .question-navigator {
+      margin-bottom: 20px;
+      padding: 16px 18px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+      box-shadow: var(--shadow);
+    }
+
+    .notice h2, .start-panel h2 {
+      margin: 0 0 7px;
+      font-size: 1.1rem;
+    }
+
+    .notice p, .start-panel p { margin: 6px 0; color: var(--muted); }
+    .start-panel.started { display: none; }
+
+    .question-navigator-head {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 10px 18px;
+      align-items: flex-start;
+      margin-bottom: 14px;
+    }
+
+    .question-navigator h2 {
+      margin: 0 0 4px;
+      font-size: 1.1rem;
+    }
+
+    .question-navigator-description {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .question-nav-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 14px;
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    .question-nav-legend-item {
+      display: inline-flex;
+      gap: 6px;
+      align-items: center;
+      white-space: nowrap;
+    }
+
+    .question-nav-swatch {
+      display: inline-block;
+      width: 18px;
+      height: 18px;
+      border: 2px solid;
+      border-radius: 6px;
+    }
+
+    .question-nav-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .question-nav-item {
+      position: relative;
+      display: inline-flex;
+      width: 44px;
+      height: 42px;
+      padding: 0;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      line-height: 1;
+      transition: transform 120ms ease, box-shadow 120ms ease, background 120ms ease;
+    }
+
+    .question-nav-item:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 3px 8px rgba(18, 38, 34, 0.13);
+    }
+
+    .question-nav-item:focus-visible {
+      outline: 3px solid rgba(0, 106, 99, 0.25);
+      outline-offset: 1px;
+    }
+
+    .question-nav-note {
+      position: absolute;
+      top: 2px;
+      right: 4px;
+      font-size: 0.78rem;
+      line-height: 1;
+    }
+
+    .question-nav-item.status-blank,
+    .question-nav-swatch.status-blank {
+      border-color: #aeb8b5;
+      color: #61706d;
+      background: #eef1f0;
+    }
+
+    .question-nav-item.status-answered,
+    .question-nav-swatch.status-answered {
+      border-color: #377dbf;
+      color: #235b91;
+      background: #e6f1fd;
+    }
+
+    .question-nav-item.status-unknown,
+    .question-nav-swatch.status-unknown {
+      border-color: #d49a24;
+      color: #8a5a00;
+      background: var(--warning-soft);
+    }
+
+    .question-nav-item.status-correct,
+    .question-nav-swatch.status-correct {
+      border-color: var(--correct);
+      color: var(--correct);
+      background: var(--correct-soft);
+    }
+
+    .question-nav-item.status-wrong,
+    .question-nav-swatch.status-wrong {
+      border-color: var(--wrong);
+      color: var(--wrong);
+      background: var(--wrong-soft);
+    }
+
+    .question-navigator-bottom {
+      margin-top: 28px;
+      margin-bottom: 0;
+    }
+
+    .back-to-top {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 15;
+      display: inline-flex;
+      width: 42px;
+      height: 42px;
+      padding: 0;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #bbd8d4;
+      border-radius: 12px;
+      color: var(--primary-dark);
+      background: var(--primary-soft);
+      box-shadow: var(--shadow);
+      font-size: 1.3rem;
+      line-height: 1;
+    }
+
+    .back-to-top:hover {
+      color: #fff;
+      background: var(--primary);
+    }
+
+    .block-heading {
+      margin: 34px 0 15px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #dbe6e3;
+      color: var(--primary-dark);
+      font-size: 1.35rem;
+    }
+
+    .question {
+      margin: 0 0 14px;
+      padding: 20px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+      box-shadow: var(--shadow);
+      scroll-margin-top: 86px;
+    }
+
+    .question:focus {
+      outline: 3px solid rgba(0, 106, 99, 0.22);
+      outline-offset: 2px;
+    }
+
+    .question.correct {
+      border-color: #acd5b8;
+      background: #fcfffd;
+    }
+
+    .question.wrong, .question.unanswered {
+      border-color: #efb9b3;
+      background: #fffdfc;
+    }
+
+    .question.declared-unknown {
+      border-color: #e8cf99;
+      background: #fffefa;
+    }
+
+    .question-title {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      margin-bottom: 12px;
+    }
+
+    .question-copy {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .question-buttons {
+      display: flex;
+      flex: none;
+      gap: 6px;
+      align-items: flex-start;
+    }
+
+    .number {
+      flex: none;
+      min-width: 40px;
+      padding: 4px 7px;
+      border-radius: 8px;
+      color: var(--primary-dark);
+      background: var(--primary-soft);
+      text-align: center;
+      font-weight: 700;
+    }
+
+    .prompt { margin: 0; font-weight: 600; }
+
+    .question-artifacts {
+      display: grid;
+      gap: 12px;
+      margin: 14px 0 16px;
+    }
+
+    .artifact-caption {
+      margin: 0 0 6px;
+      color: var(--muted);
+      font-size: 0.92rem;
+      font-weight: 600;
+    }
+
+    .artifact-table-wrap {
+      max-width: 100%;
+      overflow-x: auto;
+    }
+
+    .artifact-table {
+      border-collapse: collapse;
+      color: var(--ink);
+      background: #fff;
+      font-size: 0.94rem;
+    }
+
+    .artifact-table th, .artifact-table td {
+      min-width: 48px;
+      padding: 7px 12px;
+      border: 1px solid #cbd6d2;
+      text-align: center;
+    }
+
+    .artifact-table th {
+      background: #edf5f3;
+      font-weight: 700;
+    }
+
+    .artifact-table.kmap-table {
+      font-family: Consolas, "Courier New", monospace;
+    }
+
+    .artifact-table.kmap-table th, .artifact-table.kmap-table td {
+      min-width: 58px;
+      height: 43px;
+    }
+
+    .artifact-table.kmap-table .kmap-literal,
+    .artifact-table.kmap-table .kmap-spacer {
+      border: 0;
+      background: transparent;
+      color: var(--primary-dark);
+      font-weight: 700;
+    }
+
+    .artifact-table.kmap-table .kmap-literal-column {
+      height: auto;
+      padding: 2px 12px 5px;
+      font-size: 1rem;
+    }
+
+    .artifact-table.kmap-table .kmap-literal-column-bottom {
+      padding: 5px 12px 2px;
+    }
+
+    .artifact-table.kmap-table .kmap-literal-row-left {
+      padding: 0 11px 0 0;
+      vertical-align: middle;
+      font-size: 1rem;
+    }
+
+    .artifact-table.kmap-table .kmap-literal-row-right {
+      padding: 0 0 0 11px;
+      vertical-align: middle;
+      font-size: 1rem;
+    }
+
+    .artifact-code {
+      overflow-x: auto;
+      margin: 0;
+      padding: 11px 13px;
+      border: 1px solid #d7e1de;
+      border-radius: 8px;
+      color: var(--ink);
+      background: var(--surface-alt);
+      font: 0.94rem/1.5 Consolas, "Courier New", monospace;
+      white-space: pre;
+    }
+
+    .options {
+      display: grid;
+      gap: 8px;
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+
+    .option {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      padding: 10px 12px;
+      border: 1px solid #e3e8e6;
+      border-radius: 9px;
+      transition: background 100ms ease, border-color 100ms ease;
+    }
+
+    .option:hover { background: #f6faf9; }
+
+    .option input {
+      flex: none;
+      width: 17px;
+      height: 17px;
+      margin: 3px 0 0;
+      accent-color: var(--primary);
+    }
+
+    .option.selected { border-color: #9dc9c4; background: #edf8f6; }
+    .option.answer-correct { border-color: #89c29b; background: var(--correct-soft); }
+    .option.answer-wrong { border-color: #df9c96; background: var(--wrong-soft); }
+
+    .question-actions {
+      display: flex;
+      align-items: center;
+      margin-top: 13px;
+    }
+
+    .question-tool-button {
+      flex: none;
+      padding: 6px 11px;
+      font-size: 0.9rem;
+      line-height: 1.25;
+    }
+
+    .unknown-note {
+      display: none;
+      color: var(--warning);
+      font-size: 0.92rem;
+      font-weight: 600;
+    }
+
+    .declared-unknown .unknown-note { display: block; }
+
+    .observation-panel {
+      display: none;
+      margin-top: 12px;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      background: var(--surface-alt);
+    }
+
+    .observation-panel.visible { display: block; }
+
+    .observation-panel label {
+      display: block;
+      margin-bottom: 7px;
+      color: var(--muted);
+      font-size: 0.92rem;
+      font-weight: 600;
+    }
+
+    .observation-panel textarea {
+      display: block;
+      width: 100%;
+      min-height: 82px;
+      padding: 9px 10px;
+      resize: vertical;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      color: var(--ink);
+      background: #fff;
+      font: inherit;
+    }
+
+    .observation-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      margin-top: 9px;
+    }
+
+    .observation-status {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .observation-saved {
+      margin: 0;
+      white-space: pre-wrap;
+    }
+
+    .feedback {
+      display: none;
+      margin-top: 14px;
+      padding: 11px 13px;
+      border-radius: 9px;
+      font-size: 0.95rem;
+    }
+
+    .correct .feedback {
+      display: block;
+      color: var(--correct);
+      background: var(--correct-soft);
+    }
+
+    .wrong .feedback, .unanswered .feedback {
+      display: block;
+      color: var(--wrong);
+      background: var(--wrong-soft);
+    }
+
+    .feedback p { margin: 4px 0; }
+
+    .result {
+      display: none;
+      margin: 0 0 26px;
+      padding: 23px;
+      border: 1px solid #b3d8d4;
+      border-radius: var(--radius);
+      background: var(--surface);
+      box-shadow: var(--shadow);
+    }
+
+    .result.visible { display: block; }
+
+    .score-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .score {
+      min-width: 152px;
+      padding: 16px;
+      border-radius: 12px;
+      color: #fff;
+      background: var(--primary);
+      text-align: center;
+    }
+
+    .score strong {
+      display: block;
+      font-size: 2.25rem;
+      line-height: 1.15;
+    }
+
+    .diagnostic h2 { margin: 0 0 6px; }
+    .diagnostic p { margin: 0; color: var(--muted); }
+
+    .results-table {
+      width: 100%;
+      margin: 16px 0 20px;
+      border-collapse: collapse;
+      font-size: 0.95rem;
+    }
+
+    .results-table th, .results-table td {
+      padding: 9px 10px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+    }
+
+    .results-table th { color: var(--muted); }
+
+    .export-help {
+      margin: 12px 0 0;
+      color: var(--muted);
+      font-size: 0.93rem;
+    }
+
+    .toast {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 20;
+      display: none;
+      padding: 12px 16px;
+      border-radius: 10px;
+      color: #fff;
+      background: var(--primary-dark);
+      box-shadow: var(--shadow);
+    }
+
+    .toast.visible { display: block; }
+
+    @media (max-width: 700px) {
+      .meta-grid { grid-template-columns: repeat(2, minmax(120px, 1fr)); }
+      .question { padding: 16px; }
+      .toolbar-buttons { width: 100%; }
+      .toolbar-buttons button { flex: 1; }
+      .toolbar-timer { flex: 1; }
+      .question-nav-item { width: 41px; height: 39px; }
+    }
+
+    @media print {
+      .toolbar, .result .toolbar-buttons, .toast, .question-actions, .question-navigator, .back-to-top { display: none !important; }
+      body { background: #fff; }
+      .question { break-inside: avoid; box-shadow: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="container">
+      <h1 id="title">Simulado</h1>
+      <p class="subtitle" id="subtitle"></p>
+      <div class="meta-grid" aria-label="Informações do simulado">
+        <div class="meta-card"><span>Questões</span><strong id="questionCount">0 objetivas</strong></div>
+        <div class="meta-card"><span>Tempo sugerido</span><strong id="suggestedTime">-</strong></div>
+        <div class="meta-card"><span>Meta</span><strong id="goal">-</strong></div>
+        <div class="meta-card"><span>Tempo executado</span><strong id="timer">00:00:00</strong></div>
+      </div>
+    </div>
+  </header>
+
+  <div class="toolbar">
+    <div class="container toolbar-inner">
+      <div class="progress-group">
+        <div class="progress-label">
+          <span id="answeredLabel">0 respondidas</span>
+          <span id="saveLabel">Aguardando início</span>
+        </div>
+        <div class="progress-track" aria-hidden="true"><div class="progress-fill" id="progressFill"></div></div>
+      </div>
+      <div class="toolbar-buttons">
+        <div class="toolbar-timer" aria-label="Tempo executado na prova">
+          <span>Tempo</span>
+          <strong id="toolbarTimer">00:00:00</strong>
+        </div>
+        <button type="button" id="finishButton" disabled>Finalizar e corrigir</button>
+        <button type="button" class="button-secondary" id="resetButton">Reiniciar</button>
+      </div>
+    </div>
+  </div>
+
+  <main class="container">
+    <section class="question-navigator" id="questionNavigator" aria-label="Resumo das questões">
+      <div class="question-navigator-head">
+        <div>
+          <h2>Resumo das questões</h2>
+          <p class="question-navigator-description">Clique em um número para ir até a questão. <strong>*</strong> indica OBS salva.</p>
+        </div>
+        <div class="question-nav-legend" id="questionNavLegend" aria-label="Legenda do resumo"></div>
+      </div>
+      <div class="question-nav-grid" id="questionNavGrid"></div>
+    </section>
+
+    <section class="start-panel" id="startPanel">
+      <h2>Pronto para começar?</h2>
+      <p>O cronômetro começa somente ao clicar em <strong>Iniciar prova</strong>. Ele conta o tempo com este arquivo aberto; se você fechar e voltar dias depois, continua do tempo salvo, sem incluir o intervalo fechado.</p>
+      <button type="button" id="startButton">Iniciar prova</button>
+    </section>
+
+    <section class="notice" aria-label="Instrucoes">
+      <h2>Como usar</h2>
+      <p>Escolha uma alternativa quando souber responder. Se não souber, clique em <strong>Não sei</strong> ao lado da questão; isso será registrado no relatório para revisão, em vez de virar chute.</p>
+      <p>Use <strong>OBS</strong> para anotar dúvidas ou raciocínios da questão. A observação só será gravada quando você clicar em <strong>Salvar OBS</strong>.</p>
+      <p>As respostas e o tempo executado ficam salvos neste navegador. O gabarito aparece apenas depois de finalizar.</p>
+      <p>Depois da correção, envie o relatório para a IA: ele já solicita o arquivamento do resultado e a criação de uma pasta própria com tudo o que você precisa revisar.</p>
+    </section>
+
+    <section id="result" class="result" aria-live="polite"></section>
+    <form id="quizForm"></form>
+
+    <section class="question-navigator question-navigator-bottom" id="questionNavigatorBottom" aria-label="Resumo final das questões">
+      <div class="question-navigator-head">
+        <div>
+          <h2>Resumo das questões</h2>
+          <p class="question-navigator-description">Clique em um número para voltar à questão. <strong>*</strong> indica OBS salva.</p>
+        </div>
+        <div class="question-nav-legend" id="questionNavLegendBottom" aria-label="Legenda do resumo final"></div>
+      </div>
+      <div class="question-nav-grid" id="questionNavGridBottom"></div>
+    </section>
+  </main>
+
+  <button type="button" class="back-to-top" id="backToTopButton" aria-label="Voltar ao topo">&uarr;</button>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    "use strict";
+
+    /*
+      BASE PARA OS PRÓXIMOS SIMULADOS
+      1. Duplique este HTML e altere CONFIG, blocks e questions.
+      2. Use uma storageKey exclusiva em cada simulado.
+      3. Não é necessário importar JSON: as questões ficam no próprio HTML.
+
+      MATERIAIS OPCIONAIS DA QUESTÃO
+      Use "artifacts" quando o enunciado precisar de uma tabela ou bloco visual:
+
+      Tabela-verdade:
+      artifacts: [{
+        type: "table",
+        caption: "Tabela fornecida",
+        headers: ["A", "B", "F"],
+        rows: [["0", "0", "0"], ["0", "1", "1"], ["1", "0", "1"], ["1", "1", "1"]]
+      }]
+
+      Mapa de Karnaugh:
+      artifacts: [{
+        type: "table",
+        variant: "kmap",
+        rowVariable: "AB",
+        columnVariable: "CD",
+        rowHeader: true,
+        caption: "Mapa fornecido",
+        headers: ["00", "01", "11", "10"],
+        rows: [["00", "1", "0", "0", "1"], ["01", "0", "0", "0", "0"],
+          ["11", "0", "0", "0", "0"], ["10", "1", "0", "0", "1"]]
+      }]
+
+      Ligações de circuito, sequência temporal ou expressão em várias linhas:
+      artifacts: [{
+        type: "code",
+        caption: "Circuito descrito por sinais",
+        content: "N1 = A AND B\nN2 = C AND D\nF  = N1 OR N2"
+      }]
+
+      Tabelas também servem para estados Moore/Mealy, sinais de temporização,
+      decoders, codificadores e resultados de blocos lógicos.
+    */
+    const CONFIG = {
+      numero: "19",
+      titulo: "Simulado 19 - Conceitual Difícil",
+      subtitulo: "CI Inovador | 10 questões de inglês técnico e 30 questões conceituais de Sistemas Digitais",
+      tempoSugerido: "2 horas e 30 minutos",
+      meta: "34/40 ou mais",
+      storageKey: "simulado_19_conceitual_dificil_40_questoes_v1",
+      nomeRelatorio: "resultado_simulado_19_conceitual_dificil.txt"
+    };
+
+    const letters = ["A", "B", "C", "D", "E"];
+
+    const blocks = [
+      {
+        id: 1,
+        title: "English - Scientific and Technical Reading",
+        review: "08-aulas/aulas-md/36-ingles_instrumental_leitura_tecnica_estilo_prova.md"
+      },
+      {
+        id: 2,
+        title: "Sistemas Digitais - Fundamentos e Circuitos",
+        review: "06-resumos/resumos-sistemas-digitais/revisao_final_estilo_prova_ci_inovador_2026.md"
+      },
+      {
+        id: 3,
+        title: "Sistemas Digitais - Memória e Arquitetura",
+        review: "06-resumos/resumos-sistemas-digitais/revisao_final_estilo_prova_ci_inovador_2026.md"
+      },
+      {
+        id: 4,
+        title: "Sistemas Digitais - Assembly, Pipeline e FPU",
+        review: "06-resumos/resumos-sistemas-digitais/revisao_final_estilo_prova_ci_inovador_2026.md"
+      }
+    ];
+
+    const questions = [
+      {
+        id: 1, block: 1, topic: "Main claim and qualification", lessons: [36], difficulty: "D",
+        prompt: "Read the excerpt.<br><br>A new compiler reduced execution time in most benchmarks. The improvement was not uniform, however: programs dominated by memory latency changed little, and two workloads became slightly slower. The authors therefore recommend profiling applications before enabling the optimization globally.<br><br>Which statement best expresses the main claim?",
+        options: [
+          "The optimization should be enabled globally because most benchmark programs became faster.",
+          "The optimization is often useful, but its benefit depends on workload characteristics.",
+          "Memory latency was eliminated in most programs by the newly introduced compiler pass.",
+          "The two slower workloads prove that compiler optimization cannot improve execution time."
+        ], correct: "B",
+        explanation: "The passage reports a frequent benefit but explicitly limits generalization. B preserves both the result and the qualification."
+      },
+      {
+        id: 2, block: 1, topic: "Evidence-based inference", lessons: [36], difficulty: "D",
+        prompt: "Read the excerpt.<br><br>Nodes that installed the update failed more often during the observation period than nodes that retained the previous version. The updated nodes, however, also handled substantially heavier traffic, and the study did not control for workload.<br><br>Which conclusion is best supported?",
+        options: [
+          "The update necessarily caused every additional failure observed in the updated nodes.",
+          "Traffic volume cannot influence failure rates when two software versions are compared.",
+          "The previous version would have failed equally often under every possible workload.",
+          "The association does not isolate the update as the cause because workload may confound it."
+        ], correct: "D",
+        explanation: "The observation is compatible with an update effect, a workload effect, or both. Without controlling traffic, causality is not isolated."
+      },
+      {
+        id: 3, block: 1, topic: "Contrast connector", lessons: [36], difficulty: "D",
+        prompt: "Read the sentence.<br><br>The prototype met the latency target. <strong>Nevertheless</strong>, the team postponed deployment because its behavior under partial network failure remained uncertain.<br><br>What does the highlighted connector indicate?",
+        options: [
+          "A contrasting consideration prevents the favorable result from settling the decision.",
+          "A direct consequence makes deployment mandatory after the latency target is achieved.",
+          "An example demonstrates that partial network failure improves prototype latency.",
+          "A reformulation explains that deployment and latency are equivalent measurements."
+        ], correct: "A",
+        explanation: "Nevertheless introduces a contrast: meeting one target was favorable, but unresolved failure behavior still blocked deployment."
+      },
+      {
+        id: 4, block: 1, topic: "Reference expression", lessons: [36], difficulty: "D",
+        prompt: "Read the excerpt.<br><br>The controller stores recent measurements in a local buffer and periodic summaries in nonvolatile memory. Because <strong>this record</strong> survives a power interruption, it can support diagnosis after a restart.<br><br>What does the highlighted expression most specifically refer to?",
+        options: [
+          "The controller that collects both recent measurements and periodic summaries.",
+          "The local buffer that temporarily holds the most recent measurements.",
+          "The summaries stored in nonvolatile memory for later examination.",
+          "The power interruption that causes the controller to restart unexpectedly."
+        ], correct: "C",
+        explanation: "Survival across loss of power points specifically to the summaries in nonvolatile memory, not to the volatile local buffer."
+      },
+      {
+        id: 5, block: 1, topic: "Methodological limitation", lessons: [36], difficulty: "D",
+        prompt: "Read the excerpt.<br><br>The proposed detector was evaluated on recordings produced by a single sensor model in one laboratory. Its accuracy exceeded that of the baseline on this dataset.<br><br>Which limitation follows most directly?",
+        options: [
+          "The detector cannot be compared with a baseline unless both use different recordings.",
+          "Its performance on other sensors and environments has not yet been established.",
+          "The observed accuracy must be caused entirely by errors in the baseline detector.",
+          "A laboratory dataset prevents any measurement of detector accuracy from being made."
+        ], correct: "B",
+        explanation: "The narrow evaluation supports a result on that dataset but leaves external validity across sensors and environments unresolved."
+      },
+      {
+        id: 6, block: 1, topic: "Vocabulary in context", lessons: [36], difficulty: "D",
+        prompt: "Read the sentence.<br><br>Variations in supply voltage <strong>account for</strong> much of the timing dispersion observed across otherwise identical devices.<br><br>Which replacement best preserves the meaning of the highlighted expression?",
+        options: [
+          "explain or constitute the source of",
+          "are deliberately ignored when reporting",
+          "occur only after the removal of",
+          "are numerically identical to"
+        ], correct: "A",
+        explanation: "Here, account for means explain or be responsible for a substantial portion of the observed dispersion."
+      },
+      {
+        id: 7, block: 1, topic: "Conditional meaning", lessons: [36], difficulty: "D",
+        prompt: "Read the sentence.<br><br>The archived data may be deleted <strong>provided that</strong> an independently verified copy has been stored at a second site.<br><br>What condition is expressed?",
+        options: [
+          "Deletion is required before an independent copy can be verified at another site.",
+          "Verification is optional whenever the archived data occupy excessive storage space.",
+          "A second site may delete its copy after the original archive has been preserved.",
+          "Deletion is permitted only if a verified independent copy already exists elsewhere."
+        ], correct: "D",
+        explanation: "Provided that introduces a necessary condition for permission: deletion is allowed only after the verified copy exists."
+      },
+      {
+        id: 8, block: 1, topic: "Scientific caution", lessons: [36], difficulty: "D",
+        prompt: "Read the conclusion.<br><br>Within the tested temperature range, the results are consistent with a reduction in leakage after the material treatment. Further measurements are needed before extending this interpretation to long-term operation.<br><br>Why is the wording scientifically cautious?",
+        options: [
+          "It states that the treatment certainly eliminates leakage under every operating condition.",
+          "It rejects the measurements because long-term operation was not included in the experiment.",
+          "It limits the claim to the tested evidence and identifies what remains unverified.",
+          "It treats consistency with an explanation as proof that no alternative explanation exists."
+        ], correct: "C",
+        explanation: "The conclusion neither rejects the evidence nor overgeneralizes it; it states the supported scope and the remaining uncertainty."
+      },
+      {
+        id: 9, block: 1, topic: "Purpose of a control", lessons: [36], difficulty: "D",
+        prompt: "Read the excerpt.<br><br>One set of devices received the new coating, while an otherwise identical set underwent the same handling without receiving the coating. Both sets were then measured under the same conditions.<br><br>What is the main purpose of the second set?",
+        options: [
+          "To separate the coating's effect from effects caused by handling and measurement conditions.",
+          "To guarantee that every coated device produces exactly the same measured output.",
+          "To replace repeated measurements of the devices that received the actual coating.",
+          "To demonstrate that handling has no possible influence on any type of device."
+        ], correct: "A",
+        explanation: "The control experiences the same handling without the treatment, helping isolate the treatment's contribution."
+      },
+      {
+        id: 10, block: 1, topic: "Former and latter", lessons: [36], difficulty: "D",
+        prompt: "Read the excerpt.<br><br>Static analysis examines a program without executing it, whereas dynamic analysis observes an execution with particular inputs. The former can cover paths not taken in a test; <strong>the latter</strong> can reveal behavior that depends on the runtime environment.<br><br>What does the highlighted expression refer to?",
+        options: [
+          "The program paths that were not exercised by a particular test execution.",
+          "The particular inputs supplied to both forms of analysis during compilation.",
+          "The runtime environment in which static analysis examines source code.",
+          "Dynamic analysis, which observes an actual execution of the program."
+        ], correct: "D",
+        explanation: "When two items are contrasted, the former is the first and the latter is the second: dynamic analysis."
+      },
+      {
+        id: 11, block: 2, topic: "Signed, unsigned and flags", lessons: [1, 18, 19], difficulty: "D",
+        prompt: "Dois registradores contêm a mesma sequência de bits. Em uma instrução ela é tratada como signed; em outra, como unsigned. Qual afirmação é correta?",
+        options: [
+          "O armazenamento físico muda automaticamente para indicar se o valor possui ou não sinal.",
+          "A representação unsigned impede carry, enquanto a signed impede overflow aritmético.",
+          "Os bits não mudam; mudam a interpretação, a comparação e a leitura das flags.",
+          "A interpretação signed altera apenas a impressão do valor, nunca o fluxo de controle."
+        ], correct: "C",
+        explanation: "Registradores armazenam bits. A instrução e a interpretação determinam significado, comparação e condição de branch; carry e overflow continuam sendo flags distintas."
+      },
+      {
+        id: 12, block: 2, topic: "Ponto fixo e saturação", lessons: [17, 18], difficulty: "D",
+        prompt: "Em processamento de sinais com ponto fixo, por que a aritmética saturada pode ser preferida à aritmética modular?",
+        options: [
+          "Porque elimina quantização e torna todo resultado exatamente representável no formato escolhido.",
+          "Porque limita estouros aos extremos, evitando que um valor grande mude abruptamente de sinal.",
+          "Porque usa expoente variável e mantém a mesma precisão relativa em qualquer magnitude.",
+          "Porque substitui a necessidade de definir largura, escala e posição do ponto binário."
+        ], correct: "B",
+        explanation: "Na saturação, exceder a faixa prende o resultado ao máximo ou mínimo; no wrap-around, um excesso pode reaparecer com sinal ou magnitude inesperados."
+      },
+      {
+        id: 13, block: 2, topic: "Paridade, checksum e CRC", lessons: [1, 35], difficulty: "D",
+        prompt: "Qual comparação descreve corretamente mecanismos comuns de detecção de erro?",
+        options: [
+          "Paridade simples localiza o bit alterado, enquanto CRC corrige qualquer rajada detectada.",
+          "Checksum garante detectar toda combinação de erros, mas paridade detecta apenas bytes ausentes.",
+          "CRC e paridade produzem a mesma proteção sempre que utilizam a mesma quantidade de bits.",
+          "Paridade detecta qualquer número ímpar de inversões; CRC é especialmente forte contra rajadas."
+        ], correct: "D",
+        explanation: "Paridade simples não localiza nem corrige. CRC usa divisão polinomial e oferece boa detecção de padrões estruturados e rajadas, sem garantir correção."
+      },
+      {
+        id: 14, block: 2, topic: "Don't care e minimização", lessons: [6, 7, 8, 9], difficulty: "D",
+        prompt: "Durante a minimização lógica, como devem ser tratados estados marcados como don't care?",
+        options: [
+          "Podem valer 0 ou 1 conforme ajudar a simplificar, sem obrigação de entrar em agrupamentos.",
+          "Devem sempre valer 1, pois representam combinações fisicamente possíveis ainda não testadas.",
+          "Devem sempre valer 0, pois qualquer uso em agrupamento altera a função especificada.",
+          "Precisam formar grupos exclusivos, separados dos mintermos em que a saída é obrigatoriamente 1."
+        ], correct: "A",
+        explanation: "Don't cares podem ser usados como 0 ou 1 para simplificar, mas podem ser ignorados se não ajudarem."
+      },
+      {
+        id: 15, block: 2, topic: "Hazards combinacionais", lessons: [22, 35], difficulty: "D",
+        prompt: "Uma função combinacional está logicamente correta em regime estável, mas apresenta um pulso breve quando apenas uma entrada muda. Qual interpretação é mais adequada?",
+        options: [
+          "A tabela-verdade está necessariamente errada, pois circuitos equivalentes nunca produzem pulsos transitórios.",
+          "O pulso prova que existe realimentação sequencial e que o circuito precisa receber um clock explícito.",
+          "Atrasos diferentes entre caminhos podem causar hazard; um termo de consenso pode removê-lo.",
+          "O fenômeno ocorre somente em simulação ideal e desaparece quando portas físicas possuem atrasos."
+        ], correct: "C",
+        explanation: "Equivalência booleana descreve valores estáveis. Caminhos com atrasos distintos podem criar glitches; redundância lógica adequada pode cobrir a transição."
+      },
+      {
+        id: 16, block: 2, topic: "Decoder e demultiplexador", lessons: [10], difficulty: "D",
+        prompt: "Qual distinção conceitual entre decoder e demultiplexador é correta?",
+        options: [
+          "O decoder memoriza a entrada selecionada, enquanto o demultiplexador é sempre combinacional.",
+          "O decoder ativa uma saída pela palavra de seleção; o demux encaminha um dado à saída escolhida.",
+          "O demultiplexador converte código binário em one-hot sem possuir uma entrada de dados independente.",
+          "O decoder conecta várias fontes simultaneamente a uma única saída, resolvendo contenção elétrica."
+        ], correct: "B",
+        explanation: "Seletores de decoder identificam uma saída; no demux, além da seleção, existe um dado a ser direcionado para uma das saídas."
+      },
+      {
+        id: 17, block: 2, topic: "Barramento tri-state", lessons: [10, 23], difficulty: "D",
+        prompt: "Em um barramento compartilhado com drivers tri-state, qual condição deve ser garantida pelo controle?",
+        options: [
+          "No máximo um driver deve conduzir por vez; os demais precisam permanecer em alta impedância.",
+          "Todos os drivers devem conduzir o mesmo valor para que a alta impedância seja alcançada.",
+          "Pelo menos dois drivers devem permanecer ativos para impedir que o barramento fique flutuante.",
+          "Cada driver deve alternar rapidamente entre 0 e 1 para representar o estado de alta impedância."
+        ], correct: "A",
+        explanation: "Dois drivers forçando valores opostos provocam contenção. Alta impedância desconecta logicamente os drivers não selecionados."
+      },
+      {
+        id: 18, block: 2, topic: "CMOS pull-up e pull-down", lessons: [20, 21], difficulty: "D",
+        prompt: "Em uma porta CMOS estática complementar corretamente projetada, qual relação existe entre as redes pull-up e pull-down?",
+        options: [
+          "As duas implementam a mesma condição de condução para reforçar simultaneamente 0 e 1 na saída.",
+          "A pull-up usa apenas NMOS e a pull-down usa apenas PMOS para reduzir a resistência equivalente.",
+          "A pull-down determina quando a saída sobe, enquanto a pull-up determina quando ela descarrega.",
+          "Elas são redes duais, concebidas para que uma conduza quando a outra não deve conduzir."
+        ], correct: "D",
+        explanation: "A PDN conecta ao GND quando a condição de saída baixa ocorre; a PUN é dual e conecta ao VDD na condição complementar."
+      },
+      {
+        id: 19, block: 2, topic: "Potência dinâmica e leakage", lessons: [22, 34], difficulty: "D",
+        prompt: "Qual afirmação distingue corretamente potência dinâmica e potência de leakage em CMOS?",
+        options: [
+          "A dinâmica existe apenas com saída constante, enquanto leakage aparece somente durante transições.",
+          "A dinâmica acompanha comutação e carga capacitiva; leakage pode persistir mesmo sem atividade lógica.",
+          "Leakage depende exclusivamente da frequência de clock e desaparece quando a tensão é mantida constante.",
+          "Ambas são eliminadas por clock gating, pois nenhuma corrente permanece com o clock interrompido."
+        ], correct: "B",
+        explanation: "Clock gating reduz comutação e potência dinâmica, mas transistores desligados ainda apresentam correntes de fuga."
+      },
+      {
+        id: 20, block: 2, topic: "Metastabilidade e sincronização", lessons: [12, 14, 15], difficulty: "D",
+        prompt: "Por que dois flip-flops em série são usados ao receber um sinal assíncrono em um domínio de clock?",
+        options: [
+          "Para impedir fisicamente que o primeiro flip-flop entre em metastabilidade em qualquer circunstância.",
+          "Para converter automaticamente um barramento multibit em código Gray antes da amostragem.",
+          "Para dar tempo à metastabilidade do primeiro estágio decair, reduzindo sua propagação adiante.",
+          "Para garantir que pulsos arbitrariamente curtos sejam capturados exatamente uma vez pelo destino."
+        ], correct: "C",
+        explanation: "O sincronizador reduz a probabilidade de a metastabilidade alcançar a lógica seguinte; não a elimina e não resolve sozinho barramentos ou pulsos curtos."
+      },
+      {
+        id: 21, block: 3, topic: "Setup, hold e skew", lessons: [15, 28], difficulty: "D",
+        prompt: "Considere skew positivo definido como clock chegando mais tarde ao flip-flop de destino que ao de origem. Qual efeito típico ele produz?",
+        options: [
+          "Aumenta o tempo disponível para setup, mas torna a condição de hold mais difícil de satisfazer.",
+          "Reduz igualmente as margens de setup e hold, pois ambas dependem do mesmo caminho máximo.",
+          "Ajuda simultaneamente setup e hold, pois o destino sempre amostra depois da mudança dos dados.",
+          "Afeta apenas a frequência máxima, sem qualquer efeito sobre violações de caminho mínimo."
+        ], correct: "A",
+        explanation: "O destino tardio dá mais tempo ao dado do ciclo corrente, ajudando setup; porém mantém aberta por mais tempo a janela do dado antigo, piorando hold."
+      },
+      {
+        id: 22, block: 3, topic: "FSM Moore e Mealy", lessons: [11, 16], difficulty: "D",
+        prompt: "Qual critério distingue corretamente as saídas de máquinas Moore e Mealy?",
+        options: [
+          "Moore usa lógica combinacional, enquanto Mealy só pode usar registradores na saída.",
+          "Mealy não possui estado interno, pois suas saídas são determinadas apenas pelas entradas atuais.",
+          "Moore sempre exige mais estados, independentemente da função e da codificação utilizadas.",
+          "Moore depende apenas do estado; Mealy pode depender do estado e da entrada corrente."
+        ], correct: "D",
+        explanation: "Essa é a distinção definidora. Mealy pode responder imediatamente à entrada; Moore muda a saída quando muda o estado."
+      },
+      {
+        id: 23, block: 3, topic: "Contadores ring e Johnson", lessons: [14, 35], difficulty: "D",
+        prompt: "O que diferencia estruturalmente um contador Johnson de um contador em anel simples?",
+        options: [
+          "O Johnson elimina flip-flops e armazena seus estados apenas em lógica combinacional realimentada.",
+          "O Johnson realimenta o complemento da última saída, produzindo uma sequência distinta do anel one-hot.",
+          "O anel simples sempre percorre todos os estados binários possíveis, enquanto o Johnson possui um único estado.",
+          "O anel depende de carry assíncrono, enquanto o Johnson só funciona com clocks de fases diferentes."
+        ], correct: "B",
+        explanation: "O anel recircula um bit; o Johnson realimenta a saída invertida do último estágio e normalmente produz 2n estados úteis."
+      },
+      {
+        id: 24, block: 3, topic: "FPGA, LUT e bitstream", lessons: [24, 35], difficulty: "D",
+        prompt: "Qual descrição representa melhor a implementação de lógica combinacional em uma FPGA baseada em LUTs?",
+        options: [
+          "A LUT executa instruções assembly sequencialmente e grava cada resultado em memória externa.",
+          "Cada LUT é uma porta física fixa cujo tipo não pode ser alterado após a fabricação do dispositivo.",
+          "Bits de configuração definem a tabela-verdade e o roteamento que conectará os blocos programáveis.",
+          "O bitstream contém somente o código-fonte HDL, interpretado continuamente durante cada ciclo de clock."
+        ], correct: "C",
+        explanation: "A síntese mapeia a função em LUTs e recursos; o bitstream configura conteúdos e interconexões, não executa HDL como programa."
+      },
+      {
+        id: 25, block: 3, topic: "Localidade de memória", lessons: [23, 29, 31], difficulty: "D",
+        prompt: "Qual alternativa caracteriza corretamente localidade temporal e localidade espacial?",
+        options: [
+          "Temporal significa acessar endereços próximos; espacial significa repetir o mesmo dado após muito tempo.",
+          "Temporal ocorre apenas com instruções; espacial ocorre apenas com dados armazenados na pilha.",
+          "Espacial exige acesso simultâneo a todos os bytes de uma linha, e temporal exige escrita repetida.",
+          "Temporal favorece reutilização recente; espacial favorece acessos a endereços vizinhos."
+        ], correct: "D",
+        explanation: "Caches exploram reutilização no tempo e tendência de usar regiões próximas, por exemplo ao percorrer vetores e instruções sequenciais."
+      },
+      {
+        id: 26, block: 3, topic: "Associatividade de cache", lessons: [29, 31], difficulty: "D",
+        prompt: "Ao aumentar a associatividade mantendo capacidade e tamanho de linha, qual efeito é esperado?",
+        options: [
+          "Diminuem conflitos entre blocos que mapeiam no mesmo conjunto, embora o acesso possa ficar mais complexo.",
+          "Desaparecem todas as faltas compulsórias, pois cada bloco passa a existir antes do primeiro acesso.",
+          "O offset deixa de selecionar bytes e passa a escolher qual política de substituição será utilizada.",
+          "A memória principal deixa de ser necessária porque qualquer endereço pode permanecer simultaneamente na cache."
+        ], correct: "A",
+        explanation: "Mais ways oferecem mais posições possíveis dentro do conjunto e reduzem misses de conflito, mas não eliminam misses compulsórios ou de capacidade."
+      },
+      {
+        id: 27, block: 3, topic: "Tag, índice e offset", lessons: [29, 31], difficulty: "D",
+        prompt: "Em um endereço usado para consultar uma cache, qual é o papel conceitual de tag, índice e offset?",
+        options: [
+          "A tag seleciona um byte, o índice valida a linha e o offset identifica a memória principal.",
+          "O offset escolhe o conjunto, a tag escolhe o way e o índice determina se ocorreu miss compulsório.",
+          "O índice localiza o conjunto, a tag identifica o bloco e o offset seleciona dados dentro da linha.",
+          "Os três campos são alternativas exclusivas; cada política de cache utiliza somente um deles."
+        ], correct: "C",
+        explanation: "O índice encontra o conjunto, as tags dizem qual bloco está presente e o offset escolhe byte/palavra dentro da linha encontrada."
+      },
+      {
+        id: 28, block: 3, topic: "Políticas de escrita", lessons: [29, 31], difficulty: "D",
+        prompt: "Qual afirmação distingue corretamente write-through e write-back?",
+        options: [
+          "Write-through mantém linhas dirty até a substituição; write-back atualiza a memória em toda escrita.",
+          "Write-through propaga cada escrita; write-back pode adiar a memória e marcar a linha como dirty.",
+          "Write-back impede hits de escrita, pois todo store precisa buscar novamente a linha na memória.",
+          "As políticas diferem apenas no tratamento de instruções, sem efeito sobre tráfego ou consistência."
+        ], correct: "B",
+        explanation: "Write-through mantém o nível inferior atualizado imediatamente; write-back reduz tráfego ao adiar a escrita, exigindo controle de dirty."
+      },
+      {
+        id: 29, block: 3, topic: "Memória virtual e TLB", lessons: [31], difficulty: "D",
+        prompt: "Qual é a função principal de uma TLB em um sistema com memória virtual paginada?",
+        options: [
+          "Guardar traduções recentes de página virtual para física, evitando consultar toda a tabela em cada acesso.",
+          "Armazenar permanentemente as páginas de processos que não cabem na memória física disponível.",
+          "Substituir a cache de dados e fornecer diretamente os bytes pedidos pela unidade de execução.",
+          "Detectar hazards de pipeline causados por branches e escolher a próxima instrução especulativa."
+        ], correct: "A",
+        explanation: "A TLB é uma cache de traduções. TLB miss pede uma busca na tabela; isso não significa necessariamente page fault."
+      },
+      {
+        id: 30, block: 3, topic: "Page fault", lessons: [31], difficulty: "D",
+        prompt: "Em qual situação ocorre conceitualmente um page fault?",
+        options: [
+          "Quando a cache L1 não contém uma linha, ainda que a página esteja presente e válida na RAM.",
+          "Sempre que a TLB erra, mesmo quando a tabela de páginas contém uma tradução válida.",
+          "Quando duas páginas virtuais diferentes são traduzidas para a mesma linha de cache diretamente mapeada.",
+          "Quando o acesso exige uma página não presente ou viola condições que precisam de tratamento do sistema."
+        ], correct: "D",
+        explanation: "Page fault transfere controle ao sistema operacional por ausência ou proteção. Cache miss e TLB miss podem ser resolvidos sem page fault."
+      },
+      {
+        id: 31, block: 4, topic: "Endianness", lessons: [26, 31], difficulty: "D",
+        prompt: "O que a convenção little-endian altera ao armazenar uma palavra multibyte?",
+        options: [
+          "A ordem dos bits dentro de cada byte, convertendo automaticamente complemento de dois em unsigned.",
+          "A ordem dos bytes nos endereços; operações no registrador continuam usando o mesmo valor lógico.",
+          "A largura da palavra acessada, fazendo toda leitura de byte retornar o byte mais significativo.",
+          "O sentido dos branches, pois comparações signed são invertidas quando os bytes ficam em outra ordem."
+        ], correct: "B",
+        explanation: "Endianness trata da disposição dos bytes na memória. Depois que a palavra é carregada corretamente, sua aritmética não é invertida."
+      },
+      {
+        id: 32, block: 4, topic: "Alinhamento de memória", lessons: [26, 31], difficulty: "D",
+        prompt: "Por que um acesso desalinhado pode exigir tratamento especial do processador?",
+        options: [
+          "Porque um endereço desalinhado sempre pertence a outro processo e deve causar page fault.",
+          "Porque desalinhamento altera o opcode e transforma automaticamente a instrução load em store.",
+          "Porque o dado pode atravessar fronteiras naturais, exigindo múltiplos acessos ou uma exceção.",
+          "Porque apenas endereços alinhados podem ser representados em binário por registradores inteiros."
+        ], correct: "C",
+        explanation: "Dependendo da ISA, hardware junta partes de acessos distintos ou gera exceção. O problema é a posição relativa à largura natural."
+      },
+      {
+        id: 33, block: 4, topic: "CMP e branches", lessons: [25, 26, 31], difficulty: "D",
+        prompt: "Após uma instrução CMP, por que branches signed e unsigned podem discordar usando os mesmos bits?",
+        options: [
+          "Porque CMP grava resultados diferentes no registrador conforme o branch que será executado depois.",
+          "Porque branches unsigned ignoram a subtração e comparam apenas os endereços das instruções.",
+          "Porque branches signed sempre usam zero, enquanto os unsigned sempre usam apenas o bit de sinal.",
+          "Porque signed interpreta N e V; unsigned usa condições de carry/borrow e zero."
+        ], correct: "D",
+        explanation: "As flags são produzidas pela mesma subtração, mas relações signed e unsigned consultam combinações diferentes delas."
+      },
+      {
+        id: 34, block: 4, topic: "Chamada de função e endereço de retorno", lessons: [25, 26, 31], difficulty: "D",
+        prompt: "Uma função chama outra função antes de retornar. Por que ela pode precisar salvar o registrador de link na pilha?",
+        options: [
+          "A nova chamada sobrescreve o endereço de retorno anterior, que será necessário ao terminar a função atual.",
+          "A pilha converte automaticamente todos os argumentos em valores unsigned antes da chamada aninhada.",
+          "O registrador de link contém o opcode da função chamada e precisa ser decodificado somente no retorno.",
+          "Salvar o link impede que qualquer interrupção ocorra enquanto a função mais interna estiver executando."
+        ], correct: "A",
+        explanation: "Uma instrução de chamada atualiza LR. A função não folha preserva seu retorno original antes de executar outra chamada."
+      },
+      {
+        id: 35, block: 4, topic: "Datapath e ALUSrc", lessons: [27, 31], difficulty: "D",
+        prompt: "Em um datapath clássico, por que uma instrução load normalmente ativa ALUSrc para selecionar o imediato?",
+        options: [
+          "Para usar o imediato como dado a ser escrito, sem consultar memória nem registrador base.",
+          "Para transformar o imediato em sinal de clock e habilitar o banco de registradores.",
+          "Para somar o offset estendido ao registrador base e formar o endereço efetivo.",
+          "Para escolher entre comparação signed e unsigned depois que a memória devolve o dado."
+        ], correct: "C",
+        explanation: "A ULA calcula base + offset. O dado carregado vem da memória; o imediato participa da formação do endereço."
+      },
+      {
+        id: 36, block: 4, topic: "Latência e throughput de pipeline", lessons: [31, 35], difficulty: "D",
+        prompt: "Qual afirmação sobre aprofundar um pipeline é conceitualmente correta?",
+        options: [
+          "Sempre reduz simultaneamente a latência individual e o custo de qualquer erro de predição.",
+          "Pode elevar throughput com clock menor, mas aumenta overhead e pode ampliar penalidades de hazards.",
+          "Elimina dependências de dados porque cada instrução passa a ocupar um estágio exclusivo.",
+          "Garante speedup proporcional ao número de estágios, independentemente do balanceamento entre eles."
+        ], correct: "B",
+        explanation: "Mais estágios podem reduzir o caminho por ciclo e melhorar vazão, mas registradores, desbalanceamento e hazards limitam o ganho."
+      },
+      {
+        id: 37, block: 4, topic: "Load-use e forwarding", lessons: [31, 35], difficulty: "D",
+        prompt: "Por que forwarding pode não eliminar completamente um hazard load-use em um pipeline clássico?",
+        options: [
+          "Porque o dado do load pode ficar disponível tarde demais para a instrução imediatamente seguinte.",
+          "Porque forwarding funciona apenas para branches e nunca transporta resultados de instruções aritméticas.",
+          "Porque o load sempre altera o contador de programa e descarta a instrução que o segue.",
+          "Porque qualquer dependência verdadeira exige esvaziar todo o pipeline e reiniciar a busca."
+        ], correct: "A",
+        explanation: "O valor lido costuma surgir ao fim do estágio de memória, depois do momento em que o consumidor imediato precisaria dele em EX."
+      },
+      {
+        id: 38, block: 4, topic: "Stall e flush", lessons: [31, 35], difficulty: "D",
+        prompt: "Qual diferença descreve corretamente stall e flush no pipeline?",
+        options: [
+          "Stall apaga instruções corretas; flush acelera instruções dependentes mantendo todos os registradores ativos.",
+          "Flush congela o pipeline por um ciclo; stall converte instruções especulativas em resultados válidos.",
+          "Os dois termos indicam exatamente a mesma ação, variando apenas entre arquiteturas signed e unsigned.",
+          "Stall retém o avanço necessário; flush invalida instruções que não devem mais produzir efeitos."
+        ], correct: "D",
+        explanation: "Stall espera por uma condição, geralmente segurando estágios; flush transforma trabalho de caminho errado em bolhas sem efeito arquitetural."
+      },
+      {
+        id: 39, block: 4, topic: "Preditor saturante de 2 bits", lessons: [31, 35], difficulty: "D",
+        prompt: "Qual é a principal vantagem de um contador saturante de 2 bits sobre um preditor de 1 bit?",
+        options: [
+          "Ele prevê simultaneamente os dois destinos possíveis e executa ambos sem custo de especulação.",
+          "Um resultado isolado contrário não costuma inverter uma previsão que estava fortemente estabelecida.",
+          "Ele conhece o resultado do branch antes que a condição seja calculada pelo datapath.",
+          "Dois bits são suficientes para armazenar o endereço completo de qualquer destino de desvio."
+        ], correct: "B",
+        explanation: "A histerese evita trocar de direção por uma única exceção, como a saída de um loop normalmente tomado."
+      },
+      {
+        id: 40, block: 4, topic: "FPU e ties-to-even", lessons: [33], difficulty: "D",
+        prompt: "Por que o modo round to nearest, ties to even não simplesmente arredonda todo empate para cima?",
+        options: [
+          "Porque empates nunca ocorrem em operações binárias quando guard, round e sticky estão disponíveis.",
+          "Porque arredondar para cima transformaria automaticamente todo número normal em subnormal.",
+          "Porque escolher o LSB par reduz o viés sistemático que se acumularia ao favorecer sempre uma direção.",
+          "Porque o padrão IEEE 754 exige truncamento em toda operação cujo sticky bit seja igual a zero."
+        ], correct: "C",
+        explanation: "Em empate exato, escolhe-se o representável cujo bit menos significativo retido é 0. Alternar estatisticamente a direção reduz viés acumulado."
+      }
+    ];
+
+    let state = loadState();
+    let timerInterval = null;
+    let sessionAnchor = null;
+    let elapsedAtAnchor = 0;
+    let noteDrafts = {};
+    let openNotes = {};
+
+    function newState() {
+      return {
+        answers: {},
+        unknown: {},
+        notes: {},
+        started: false,
+        finalized: false,
+        elapsedMs: 0,
+        startedAt: null,
+        finalizedAt: null
+      };
+    }
+
+    function loadState() {
+      try {
+        const stored = JSON.parse(localStorage.getItem(CONFIG.storageKey) || "null");
+        if (stored && stored.answers && typeof stored.answers === "object") {
+          return Object.assign(newState(), stored, {
+            unknown: stored.unknown && typeof stored.unknown === "object" ? stored.unknown : {},
+            notes: stored.notes && typeof stored.notes === "object" ? stored.notes : {},
+            elapsedMs: Number(stored.elapsedMs) || 0
+          });
+        }
+      } catch (error) {
+        console.warn("Não foi possível restaurar o progresso.", error);
+      }
+      return newState();
+    }
+
+    function commitElapsed() {
+      if (!state.started || state.finalized || sessionAnchor === null) return;
+      state.elapsedMs = elapsedAtAnchor + (Date.now() - sessionAnchor);
+      elapsedAtAnchor = state.elapsedMs;
+      sessionAnchor = Date.now();
+    }
+
+    function saveState(includeCurrentTime = true) {
+      if (includeCurrentTime) commitElapsed();
+      try {
+        localStorage.setItem(CONFIG.storageKey, JSON.stringify(state));
+        document.getElementById("saveLabel").textContent = state.finalized
+          ? "Simulado finalizado"
+          : state.started ? "Progresso e tempo salvos localmente" : "Aguardando início";
+      } catch (error) {
+        document.getElementById("saveLabel").textContent = "Salvamento indisponível; mantenha a página aberta";
+      }
+    }
+
+    function startTiming() {
+      if (!state.started || state.finalized || timerInterval !== null) return;
+      sessionAnchor = Date.now();
+      elapsedAtAnchor = state.elapsedMs;
+      renderTimer();
+      timerInterval = window.setInterval(function () {
+        saveState();
+        renderTimer();
+      }, 1000);
+    }
+
+    function stopTiming() {
+      commitElapsed();
+      if (timerInterval !== null) {
+        window.clearInterval(timerInterval);
+        timerInterval = null;
+      }
+      sessionAnchor = null;
+    }
+
+    function elapsedMs() {
+      if (state.started && !state.finalized && sessionAnchor !== null) {
+        return elapsedAtAnchor + (Date.now() - sessionAnchor);
+      }
+      return state.elapsedMs;
+    }
+
+    function formatDuration(milliseconds) {
+      const seconds = Math.floor(milliseconds / 1000);
+      const hours = String(Math.floor(seconds / 3600)).padStart(2, "0");
+      const minutes = String(Math.floor((seconds % 3600) / 60)).padStart(2, "0");
+      const remainingSeconds = String(seconds % 60).padStart(2, "0");
+      return hours + ":" + minutes + ":" + remainingSeconds;
+    }
+
+    function formatFolderDate(isoDate) {
+      const date = new Date(isoDate || Date.now());
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, "0");
+      const day = String(date.getDate()).padStart(2, "0");
+      return year + "-" + month + "-" + day;
+    }
+
+    function renderTimer() {
+      const formattedTime = formatDuration(elapsedMs());
+      document.getElementById("timer").textContent = formattedTime;
+      document.getElementById("toolbarTimer").textContent = formattedTime;
+    }
+
+    function plainText(html) {
+      const element = document.createElement("div");
+      element.innerHTML = html;
+      return element.textContent.replace(/\s+/g, " ").trim();
+    }
+
+    function escapeHtml(text) {
+      return String(text).replace(/[&<>"']/g, function (character) {
+        return {
+          "&": "&amp;",
+          "<": "&lt;",
+          ">": "&gt;",
+          "\"": "&quot;",
+          "'": "&#39;"
+        }[character];
+      });
+    }
+
+    function kmapAxes(artifact) {
+      const headers = Array.isArray(artifact.headers) ? artifact.headers : [];
+      const corner = String(headers[0] || "");
+      const embeddedAxes = artifact.variant === "kmap" && corner.includes("/");
+      const pieces = embeddedAxes ? corner.split("/") : [];
+      const row = String(artifact.rowVariable || pieces[0] || "").trim();
+      const column = String(artifact.columnVariable || pieces[1] || "").trim();
+      return {
+        enabled: artifact.variant === "kmap" && Boolean(row) && Boolean(column),
+        embedded: embeddedAxes,
+        row,
+        column
+      };
+    }
+
+    function kmapLiteral(variable, bit) {
+      return bit === "0" ? variable + "'" : variable;
+    }
+
+    function renderArtifacts(question) {
+      const artifacts = Array.isArray(question.artifacts) ? question.artifacts : [];
+      if (!artifacts.length) return "";
+
+      return `<div class="question-artifacts">${artifacts.map(function (artifact) {
+        const caption = artifact.caption
+          ? `<p class="artifact-caption">${escapeHtml(artifact.caption)}</p>`
+          : "";
+
+        if (artifact.type === "table") {
+          const headers = Array.isArray(artifact.headers) ? artifact.headers : [];
+          const rows = Array.isArray(artifact.rows) ? artifact.rows : [];
+          const tableClass = artifact.variant === "kmap" ? " kmap-table" : "";
+          const axes = kmapAxes(artifact);
+          const visibleHeaders = axes.enabled && axes.embedded ? headers.slice(1) : headers;
+          let head;
+          let body;
+          if (axes.enabled && artifact.rowHeader && axes.column.length === 2 && axes.row.length >= 1 && axes.row.length <= 2) {
+            const hasRightLiterals = axes.row.length === 2;
+            const rightSpacer = hasRightLiterals ? `<th class="kmap-spacer"></th>` : "";
+            head = "";
+            body = `<tbody>
+              <tr><th class="kmap-spacer"></th>${visibleHeaders.map(function (cell) {
+                return `<th class="kmap-literal kmap-literal-column">${escapeHtml(kmapLiteral(axes.column[0], cell[0]))}</th>`;
+              }).join("")}${rightSpacer}</tr>
+              ${rows.map(function (row) {
+                return `<tr><th class="kmap-literal kmap-literal-row-left" scope="row">${escapeHtml(kmapLiteral(axes.row[0], row[0][0]))}</th>${row.slice(1).map(function (cell) {
+                  return `<td>${escapeHtml(cell)}</td>`;
+                }).join("")}${hasRightLiterals ? `<th class="kmap-literal kmap-literal-row-right" scope="row">${escapeHtml(kmapLiteral(axes.row[1], row[0][1]))}</th>` : ""}</tr>`;
+              }).join("")}
+              <tr><th class="kmap-spacer"></th>${visibleHeaders.map(function (cell) {
+                return `<th class="kmap-literal kmap-literal-column kmap-literal-column-bottom">${escapeHtml(kmapLiteral(axes.column[1], cell[1]))}</th>`;
+              }).join("")}${rightSpacer}</tr>
+            </tbody>`;
+          } else {
+            head = headers.length
+              ? `<thead><tr>${headers.map(function (cell) {
+                  return `<th scope="col">${escapeHtml(cell)}</th>`;
+                }).join("")}</tr></thead>`
+              : "";
+            body = `<tbody>${rows.map(function (row) {
+              return `<tr>${row.map(function (cell, index) {
+                if (artifact.rowHeader && index === 0) {
+                  return `<th scope="row">${escapeHtml(cell)}</th>`;
+                }
+                return `<td>${escapeHtml(cell)}</td>`;
+              }).join("")}</tr>`;
+            }).join("")}</tbody>`;
+          }
+          return `<div class="question-artifact">${caption}<div class="artifact-table-wrap"><table class="artifact-table${tableClass}">${head}${body}</table></div></div>`;
+        }
+
+        if (artifact.type === "code") {
+          return `<div class="question-artifact">${caption}<pre class="artifact-code">${escapeHtml(artifact.content || "")}</pre></div>`;
+        }
+
+        return "";
+      }).join("")}</div>`;
+    }
+
+    function artifactReportLines(question) {
+      const artifacts = Array.isArray(question.artifacts) ? question.artifacts : [];
+      const lines = [];
+      artifacts.forEach(function (artifact) {
+        if (artifact.type === "table") {
+          lines.push("- " + (artifact.caption || "Tabela") + ":");
+          const axes = kmapAxes(artifact);
+          const headers = Array.isArray(artifact.headers) ? artifact.headers : [];
+          if (axes.enabled) {
+            lines.push("  Linhas: " + axes.row + "; colunas: " + axes.column);
+          }
+          if (headers.length) {
+            lines.push("  " + (axes.enabled && axes.embedded ? headers.slice(1) : headers).join(" | "));
+          }
+          (artifact.rows || []).forEach(function (row) {
+            lines.push("  " + row.join(" | "));
+          });
+        }
+        if (artifact.type === "code") {
+          lines.push("- " + (artifact.caption || "Bloco apresentado") + ":");
+          String(artifact.content || "").split("\n").forEach(function (line) {
+            lines.push("  " + line);
+          });
+        }
+      });
+      return lines;
+    }
+
+    function optionText(question, letter) {
+      if (!letter) return "Não respondida";
+      return letter + ") " + plainText(question.options[letters.indexOf(letter)]);
+    }
+
+    function answerDescription(detail) {
+      if (detail.unknown) {
+        return "Não respondida por não saber como resolver; marcada conscientemente para revisão.";
+      }
+      return optionText(detail.question, detail.selected);
+    }
+
+    function renderMetadata() {
+      document.title = CONFIG.titulo + " | Sistemas Digitais";
+      document.getElementById("title").textContent = CONFIG.titulo;
+      document.getElementById("subtitle").textContent = CONFIG.subtitulo;
+      document.getElementById("questionCount").textContent = questions.length + " objetivas";
+      document.getElementById("suggestedTime").textContent = CONFIG.tempoSugerido;
+      document.getElementById("goal").textContent = CONFIG.meta;
+    }
+
+    function questionNavStatus(question) {
+      if (state.unknown[question.id]) return "unknown";
+      if (!state.answers[question.id]) return "blank";
+      if (!state.finalized) return "answered";
+      return state.answers[question.id] === question.correct ? "correct" : "wrong";
+    }
+
+    function renderQuestionNavigator() {
+      const items = state.finalized
+        ? [
+            ["correct", "Correta"],
+            ["wrong", "Errada"],
+            ["unknown", "Não sei"],
+            ["blank", "Não respondida"]
+          ]
+        : [
+            ["answered", "Respondida"],
+            ["unknown", "Não sei"],
+            ["blank", "Não respondida"]
+          ];
+
+      const legendHtml = items.map(function (item) {
+        return `<span class="question-nav-legend-item"><span class="question-nav-swatch status-${item[0]}"></span>${item[1]}</span>`;
+      }).join("");
+
+      const gridHtml = questions.map(function (question) {
+        const status = questionNavStatus(question);
+        const hasObservation = Boolean(String(state.notes[question.id] || "").trim());
+        const observationText = hasObservation ? ", com OBS salva" : "";
+        return `<button type="button" class="question-nav-item status-${status}" data-nav-question="${question.id}" aria-label="Ir para questão ${question.id}${observationText}">${question.id}${hasObservation ? '<span class="question-nav-note" aria-hidden="true">*</span>' : ""}</button>`;
+      }).join("");
+
+      document.querySelectorAll(".question-nav-legend").forEach(function (legend) {
+        legend.innerHTML = legendHtml;
+      });
+      document.querySelectorAll(".question-nav-grid").forEach(function (grid) {
+        grid.innerHTML = gridHtml;
+      });
+    }
+
+    function handleQuestionNavigatorClick(event) {
+      const button = event.target.closest(".question-nav-item");
+      if (!button) return;
+      const article = document.getElementById("question-" + button.dataset.navQuestion);
+      if (!article) return;
+      article.setAttribute("tabindex", "-1");
+      article.scrollIntoView({ behavior: "smooth", block: "start" });
+      article.focus({ preventScroll: true });
+    }
+
+    function renderQuiz() {
+      const form = document.getElementById("quizForm");
+      form.innerHTML = "";
+      document.getElementById("startPanel").classList.toggle("started", state.started);
+
+      blocks.forEach(function (block) {
+        const heading = document.createElement("h2");
+        heading.className = "block-heading";
+        heading.textContent = "Bloco " + block.id + " - " + block.title;
+        form.appendChild(heading);
+
+        questions.filter(function (question) {
+          return question.block === block.id;
+        }).forEach(function (question) {
+          const article = document.createElement("article");
+          const chosen = state.answers[question.id] || "";
+          const declaredUnknown = Boolean(state.unknown[question.id]);
+          const savedNote = String(state.notes[question.id] || "");
+          const hasDraft = Object.prototype.hasOwnProperty.call(noteDrafts, question.id);
+          const draftNote = hasDraft ? noteDrafts[question.id] : savedNote;
+          const noteIsOpen = Boolean(openNotes[question.id]);
+          const showNotePanel = state.finalized ? Boolean(savedNote) : noteIsOpen;
+          const controlsDisabled = !state.started || state.finalized;
+          article.className = "question" + (declaredUnknown ? " declared-unknown" : "");
+          article.id = "question-" + question.id;
+
+          const options = question.options.map(function (option, index) {
+            const letter = letters[index];
+            const checked = chosen === letter ? " checked" : "";
+            const disabled = controlsDisabled ? " disabled" : "";
+            return `
+              <label class="option${chosen === letter ? " selected" : ""}" data-option="${letter}">
+                <input type="radio" name="question-${question.id}" value="${letter}"${checked}${disabled}>
+                <span><strong>${letter})</strong> ${option}</span>
+              </label>`;
+          }).join("");
+
+          article.innerHTML = `
+            <div class="question-title">
+              <div class="number">${question.id}</div>
+              <div class="question-copy">
+                <p class="prompt">${question.prompt}</p>
+              </div>
+              <div class="question-buttons">
+                <button type="button" class="button-warning question-tool-button unknown-button" data-question="${question.id}"${controlsDisabled ? " disabled" : ""}>Não sei</button>
+                <button type="button" class="button-secondary question-tool-button observation-toggle-button" data-question="${question.id}"${controlsDisabled ? " disabled" : ""}>OBS</button>
+              </div>
+            </div>
+            ${renderArtifacts(question)}
+            <div class="options">${options}</div>
+            <div class="observation-panel${showNotePanel ? " visible" : ""}">
+              <label for="observation-${question.id}">Minha observação sobre esta questão</label>
+              ${state.finalized
+                ? `<p class="observation-saved">${escapeHtml(savedNote)}</p>`
+                : `<textarea id="observation-${question.id}" class="observation-input" data-question="${question.id}" placeholder="Ex.: não entendi por que esta alternativa está errada.">${escapeHtml(draftNote)}</textarea>
+                   <div class="observation-actions">
+                     <button type="button" class="observation-save-button" data-question="${question.id}">Salvar OBS</button>
+                     <span class="observation-status">${savedNote ? "Observação salva." : "Clique em Salvar OBS para gravar."}</span>
+                   </div>`}
+            </div>
+            <div class="question-actions">
+              <span class="unknown-note">Sem chute: esta questão será enviada para revisão.</span>
+            </div>
+            <div class="feedback"></div>`;
+
+          form.appendChild(article);
+        });
+      });
+
+      if (state.finalized) applyCorrection();
+      renderQuestionNavigator();
+      updateProgress();
+    }
+
+    function startQuiz() {
+      if (state.started || state.finalized) return;
+      state.started = true;
+      state.startedAt = new Date().toISOString();
+      saveState(false);
+      startTiming();
+      renderQuiz();
+    }
+
+    function handleAnswerChange(event) {
+      const input = event.target;
+      if (!input.matches("input[type=radio]") || !state.started || state.finalized) return;
+      const id = Number(input.name.replace("question-", ""));
+      state.answers[id] = input.value;
+      delete state.unknown[id];
+      saveState();
+      renderQuiz();
+    }
+
+    function handleUnknownClick(event) {
+      const button = event.target.closest(".unknown-button");
+      if (!button || !state.started || state.finalized) return;
+      const id = Number(button.dataset.question);
+      delete state.answers[id];
+      state.unknown[id] = true;
+      saveState();
+      renderQuiz();
+    }
+
+    function handleObservationToggle(event) {
+      const button = event.target.closest(".observation-toggle-button");
+      if (!button || !state.started || state.finalized) return;
+      const id = Number(button.dataset.question);
+      if (!Object.prototype.hasOwnProperty.call(noteDrafts, id)) {
+        noteDrafts[id] = String(state.notes[id] || "");
+      }
+      openNotes[id] = !openNotes[id];
+      renderQuiz();
+    }
+
+    function handleObservationInput(event) {
+      const input = event.target;
+      if (!input.matches(".observation-input") || state.finalized) return;
+      noteDrafts[Number(input.dataset.question)] = input.value;
+    }
+
+    function handleObservationSave(event) {
+      const button = event.target.closest(".observation-save-button");
+      if (!button || !state.started || state.finalized) return;
+      const id = Number(button.dataset.question);
+      const note = String(noteDrafts[id] || "").trim();
+      if (note) {
+        state.notes[id] = note;
+      } else {
+        delete state.notes[id];
+      }
+      noteDrafts[id] = note;
+      saveState();
+      renderQuiz();
+      showToast(note ? "Observação salva." : "Observação removida.");
+    }
+
+    function counts() {
+      const answered = questions.filter(function (question) {
+        return Boolean(state.answers[question.id]);
+      }).length;
+      const unknown = questions.filter(function (question) {
+        return Boolean(state.unknown[question.id]);
+      }).length;
+      return { answered, unknown, blank: questions.length - answered - unknown };
+    }
+
+    function updateProgress() {
+      const current = counts();
+      const label = current.answered + " de " + questions.length + " respondidas; " +
+        current.unknown + " marcadas como não sei";
+      document.getElementById("answeredLabel").textContent = label;
+      document.getElementById("progressFill").style.width =
+        (((current.answered + current.unknown) / questions.length) * 100) + "%";
+      document.getElementById("finishButton").disabled = !state.started || state.finalized;
+      renderTimer();
+    }
+
+    function getResults() {
+      const details = questions.map(function (question) {
+        const selected = state.answers[question.id] || "";
+        const unknown = Boolean(state.unknown[question.id]);
+        const observation = String(state.notes[question.id] || "").trim();
+        return { question, selected, unknown, observation, correct: selected === question.correct };
+      });
+      const score = details.filter(function (detail) { return detail.correct; }).length;
+      const answered = details.filter(function (detail) { return detail.selected; }).length;
+      const unknown = details.filter(function (detail) { return detail.unknown; }).length;
+      const byBlock = blocks.map(function (block) {
+        const blockDetails = details.filter(function (detail) {
+          return detail.question.block === block.id;
+        });
+        const blockScore = blockDetails.filter(function (detail) { return detail.correct; }).length;
+        return {
+          block,
+          score: blockScore,
+          total: blockDetails.length,
+          percentage: Math.round((blockScore / blockDetails.length) * 100)
+        };
+      });
+      return {
+        details,
+        score,
+        answered,
+        unknown,
+        percentage: Math.round((score / questions.length) * 100),
+        byBlock
+      };
+    }
+
+    function diagnostic(score) {
+      const percentage = Math.round((score / questions.length) * 100);
+      if (percentage >= 90) return "Domínio muito forte: revise os erros pontuais e as questões deixadas em branco.";
+      if (percentage >= 75) return "Bom domínio: corrija os erros e revise os blocos com menor desempenho.";
+      if (percentage >= 60) return "Base razoável, mas instável: revise todo bloco abaixo de 70%.";
+      return "Conteúdo ainda não consolidado: retome as aulas dos blocos com erros antes de novo simulado.";
+    }
+
+    function finishQuiz() {
+      if (!state.started || state.finalized) return;
+      const current = counts();
+      const warnings = [];
+      if (current.unknown) {
+        warnings.push(current.unknown + " questão(ões) marcada(s) como não sei resolver serão prioridade no relatório.");
+      }
+      if (current.blank) {
+        warnings.push(current.blank + " questão(ões) estão em branco sem marcação de dúvida.");
+      }
+      if (warnings.length && !window.confirm(warnings.join("\n") + "\n\nDeseja finalizar mesmo assim?")) {
+        return;
+      }
+      stopTiming();
+      state.finalized = true;
+      state.finalizedAt = new Date().toISOString();
+      saveState(false);
+      renderQuiz();
+      renderResult();
+      document.getElementById("result").scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function applyCorrection() {
+      const results = getResults();
+      results.details.forEach(function (detail) {
+        const article = document.getElementById("question-" + detail.question.id);
+        if (detail.correct) {
+          article.classList.add("correct");
+        } else if (detail.unknown) {
+          article.classList.add("declared-unknown", "unanswered");
+        } else {
+          article.classList.add(detail.selected ? "wrong" : "unanswered");
+        }
+
+        article.querySelectorAll(".option").forEach(function (option) {
+          const letter = option.dataset.option;
+          option.classList.remove("selected");
+          if (letter === detail.question.correct) option.classList.add("answer-correct");
+          if (detail.selected && letter === detail.selected && !detail.correct) {
+            option.classList.add("answer-wrong");
+          }
+        });
+
+        const feedback = article.querySelector(".feedback");
+        if (detail.correct) {
+          feedback.innerHTML = `<p><strong>Correta.</strong> ${detail.question.explanation}</p>`;
+        } else if (detail.unknown) {
+          feedback.innerHTML = `<p><strong>Não respondida por não saber resolver.</strong> Resposta correta: ${optionText(detail.question, detail.question.correct)}.</p><p>${detail.question.explanation}</p>`;
+        } else {
+          feedback.innerHTML = `<p><strong>${detail.selected ? "Incorreta" : "Não respondida"}.</strong> Resposta correta: ${optionText(detail.question, detail.question.correct)}.</p><p>${detail.question.explanation}</p>`;
+        }
+      });
+    }
+
+    function renderResult() {
+      if (!state.finalized) return;
+      const results = getResults();
+      const result = document.getElementById("result");
+      const missed = questions.length - results.score;
+      result.classList.add("visible");
+      result.innerHTML = `
+        <div class="score-row">
+          <div class="score">
+            <strong>${results.score}/${questions.length}</strong>
+            <span>${results.percentage}% de acerto</span>
+          </div>
+          <div class="diagnostic">
+            <h2>Resultado final</h2>
+            <p>${diagnostic(results.score)}</p>
+            <p>${results.answered} respondidas; ${results.unknown} marcadas como não sei; ${missed} erradas ou não respondidas.</p>
+            <p>Tempo executado: ${formatDuration(state.elapsedMs)}.</p>
+          </div>
+        </div>
+        <table class="results-table">
+          <thead><tr><th>Bloco</th><th>Acertos</th><th>Percentual</th><th>Revisar se necessário</th></tr></thead>
+          <tbody>
+            ${results.byBlock.map(function (item) {
+              return `<tr><td>${item.block.id}. ${item.block.title}</td><td>${item.score}/${item.total}</td><td>${item.percentage}%</td><td>${item.percentage < 70 ? item.block.review : "Manter revisão espaçada"}</td></tr>`;
+            }).join("")}
+          </tbody>
+        </table>
+        <div class="toolbar-buttons">
+          <button type="button" id="copyButton">Copiar relatório para IA</button>
+          <button type="button" class="button-secondary" id="downloadButton">Baixar relatório (.txt)</button>
+        </div>
+        <p class="export-help">O relatório inclui alternativas e observações, diferencia resposta errada de questão deixada em branco por não saber resolver e solicita o arquivamento do resultado e a criação da pasta de revisão.</p>`;
+      document.getElementById("copyButton").addEventListener("click", copyReport);
+      document.getElementById("downloadButton").addEventListener("click", downloadReport);
+    }
+
+    function buildReport() {
+      const results = getResults();
+      const completionDate = new Date(state.finalizedAt || Date.now());
+      const dateText = completionDate.toLocaleString("pt-BR");
+      const folderName = "resultados-simulado-" + CONFIG.numero + "-" + formatFolderDate(state.finalizedAt);
+      const wrong = results.details.filter(function (detail) { return !detail.correct; });
+      const correct = results.details.filter(function (detail) { return detail.correct; });
+      const notedCorrect = correct.filter(function (detail) { return detail.observation; });
+      const lines = [
+        "RESULTADO - " + CONFIG.titulo.toUpperCase() + " - SISTEMAS DIGITAIS (UFCG)",
+        "Finalizado em: " + dateText,
+        "Tempo executado: " + formatDuration(state.elapsedMs),
+        "Nota: " + results.score + "/" + questions.length + " (" + results.percentage + "%)",
+        "Respondidas: " + results.answered + "/" + questions.length,
+        "Marcadas como não soube responder: " + results.unknown,
+        "",
+        "DESEMPENHO POR BLOCO"
+      ];
+
+      results.byBlock.forEach(function (item) {
+        lines.push("- Bloco " + item.block.id + " - " + item.block.title + ": " +
+          item.score + "/" + item.total + " (" + item.percentage + "%)" +
+          (item.percentage < 70 ? " | Revisar: " + item.block.review : ""));
+      });
+
+      lines.push("", "QUESTÕES ERRADAS OU NÃO RESPONDIDAS (" + wrong.length + ")");
+      if (!wrong.length) {
+        lines.push("- Nenhuma. Todas as questões foram respondidas corretamente.");
+      } else {
+        wrong.forEach(function (detail) {
+          lines.push("");
+          lines.push("Questão " + detail.question.id + " - " + detail.question.topic);
+          lines.push("Enunciado: " + plainText(detail.question.prompt));
+          const artifactLines = artifactReportLines(detail.question);
+          if (artifactLines.length) {
+            lines.push("Material apresentado:");
+            artifactLines.forEach(function (line) { lines.push(line); });
+          }
+          lines.push("Alternativas disponíveis:");
+          detail.question.options.forEach(function (option, index) {
+            lines.push("- " + letters[index] + ") " + plainText(option));
+          });
+          lines.push("Minha resposta: " + answerDescription(detail));
+          if (detail.unknown) {
+            lines.push("Motivo declarado: deixei em branco porque não sabia como resolver; preciso aprender este procedimento.");
+          }
+          if (detail.observation) {
+            lines.push("Minha observação: " + detail.observation);
+          }
+          lines.push("Resposta correta: " + optionText(detail.question, detail.question.correct));
+          lines.push("Explicação: " + plainText(detail.question.explanation));
+        });
+      }
+
+      lines.push("", "QUESTÕES CORRETAS (" + correct.length + ")");
+      lines.push(correct.length
+        ? correct.map(function (detail) { return detail.question.id + " (" + detail.question.topic + ")"; }).join(", ")
+        : "- Nenhuma.");
+      if (notedCorrect.length) {
+        lines.push("", "OBSERVAÇÕES EM QUESTÕES CORRETAS (" + notedCorrect.length + ")");
+        notedCorrect.forEach(function (detail) {
+          lines.push("- Questão " + detail.question.id + " - " + detail.question.topic + ": " + detail.observation);
+        });
+      }
+      lines.push("", "PEDIDO PARA REVISÃO COM IA");
+      lines.push("Analise meus erros neste simulado de Sistemas Digitais. Para cada questão errada ou não respondida, considere também as alternativas disponíveis e qualquer observação que eu tenha registrado, explique o conceito, resolva passo a passo e proponha 2 exercícios semelhantes com gabarito para eu fixar. Priorize os blocos abaixo de 70% e trate as questões marcadas como 'não soube responder' como prioridade, pois foram deixadas em branco conscientemente para evitar chute.");
+      lines.push("Salve uma cópia deste relatório completo em C:/Users/gabrieloliveira/Documents/pessoal/estudos/residencia/03-simulados/resultados/relatorios/, com nome que identifique o número do simulado e a data de realização, para manter meu histórico.");
+      lines.push("Salve tudo o que eu precisarei estudar na pasta C:/Users/gabrieloliveira/Documents/pessoal/estudos/residencia/03-simulados/resultados/revisoes/" + folderName + ". Crie nessa pasta pelo menos um arquivo revisao_erros.md com o diagnóstico, as explicações, os exercícios e os gabaritos.");
+      lines.push("Atualize também o arquivo C:/Users/gabrieloliveira/Documents/pessoal/estudos/residencia/03-simulados/log_estudos_e_simulados.md, adicionando este simulado à tabela de simulados realizados com data, horário de conclusão, tempo de execução e resultado informados neste relatório. Não altere registros anteriores.");
+      return lines.join("\n");
+    }
+
+    async function copyReport() {
+      const report = buildReport();
+      try {
+        await navigator.clipboard.writeText(report);
+        showToast("Relatório copiado. Pronto para enviar à IA.");
+      } catch (error) {
+        const area = document.createElement("textarea");
+        area.value = report;
+        document.body.appendChild(area);
+        area.select();
+        document.execCommand("copy");
+        area.remove();
+        showToast("Relatório copiado. Pronto para enviar à IA.");
+      }
+    }
+
+    function downloadReport() {
+      const blob = new Blob([buildReport()], { type: "text/plain;charset=utf-8" });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = CONFIG.nomeRelatorio;
+      link.click();
+      URL.revokeObjectURL(link.href);
+      showToast("Relatório baixado.");
+    }
+
+    function resetQuiz() {
+      if (!window.confirm("Apagar respostas, observações, tempo e resultado deste simulado para recomeçar?")) return;
+      stopTiming();
+      try {
+        localStorage.removeItem(CONFIG.storageKey);
+      } catch (error) {
+        console.warn("Não foi possível limpar o progresso salvo.", error);
+      }
+      state = newState();
+      noteDrafts = {};
+      openNotes = {};
+      document.getElementById("result").classList.remove("visible");
+      document.getElementById("result").innerHTML = "";
+      saveState(false);
+      renderQuiz();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    let toastTimer;
+    function showToast(message) {
+      const toast = document.getElementById("toast");
+      toast.textContent = message;
+      toast.classList.add("visible");
+      window.clearTimeout(toastTimer);
+      toastTimer = window.setTimeout(function () {
+        toast.classList.remove("visible");
+      }, 2800);
+    }
+
+    document.getElementById("startButton").addEventListener("click", startQuiz);
+    document.getElementById("finishButton").addEventListener("click", finishQuiz);
+    document.getElementById("resetButton").addEventListener("click", resetQuiz);
+    document.getElementById("questionNavigator").addEventListener("click", handleQuestionNavigatorClick);
+    document.getElementById("questionNavigatorBottom").addEventListener("click", handleQuestionNavigatorClick);
+    document.getElementById("backToTopButton").addEventListener("click", function () {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+    document.getElementById("quizForm").addEventListener("change", handleAnswerChange);
+    document.getElementById("quizForm").addEventListener("click", handleUnknownClick);
+    document.getElementById("quizForm").addEventListener("click", handleObservationToggle);
+    document.getElementById("quizForm").addEventListener("click", handleObservationSave);
+    document.getElementById("quizForm").addEventListener("input", handleObservationInput);
+    window.addEventListener("pagehide", function () { saveState(); });
+
+    renderMetadata();
+    renderQuiz();
+    renderTimer();
+    if (state.started && !state.finalized) startTiming();
+    if (state.finalized) renderResult();
+  </script>
+</body>
+</html>
