@@ -8,9 +8,9 @@
 - Prova: **11/10/2026, das 13h às 17h**.
 - Disponibilidade considerada: **3 horas líquidas por dia, incluindo 30 minutos de questões**.
 - Catálogo auditado: **1.268 vídeos**, individualmente identificados pelo título.
-- Núcleo selecionado: **295 vídeos** (209 específicos e 86 gerais), limitado pela duração real.
+- Núcleo selecionado: **289 vídeos** (203 específicos e 86 gerais), limitado pela duração real.
 - Duração bruta selecionada: **138,0 horas**.
-- Fora da fila principal: **973 vídeos**, sobretudo correções repetitivas, fundamentos dispensados e assuntos de menor retorno.
+- Fora da fila principal: **979 vídeos**, sobretudo correções repetitivas, fundamentos dispensados e assuntos de menor retorno.
 
 ## Base oficial e consequência prática
 
@@ -85,7 +85,7 @@ A seleção não usa mais intervalos genéricos. Cada item diário abaixo é o *
 | Raciocínio Lógico | Aula 10 — Problemas Aritméticos | 34 | 0 | 0 | PDF, diagnóstico ou fim da fila |
 | Raciocínio Lógico | Aula 12 — Matrizes e Determinantes | 38 | 3 | 8 | Seletiva |
 | Raciocínio Lógico | Aula 13 — Sistemas Lineares | 9 | 0 | 2 | PDF, diagnóstico ou fim da fila |
-| Banco de Dados | Aula 01 — Modelagem de dados (conceitual, lógica e física). Metadados. SGBD. Propriedades de banco de dados. Dados Estruturados e não Estruturados. | 10 | 5 | 2 | Seletiva |
+| Banco de Dados | Aula 01 — Modelagem de dados (conceitual, lógica e física). Metadados. SGBD. Propriedades de banco de dados. Dados Estruturados e não Estruturados. | 10 | 4 | 2 | Seletiva |
 | Banco de Dados | Aula 02 — 01 Abordagem relacional. Integridade referencial. Lucas Ianni, Emannuelle Gouveia | 6 | 2 | 0 | Seletiva |
 | Banco de Dados | Aula 03 — 02 Normalização das estruturas de dados. Lucas Ianni, Emannuelle Gouveia | 5 | 2 | 1 | Seletiva |
 | Banco de Dados | Aula 04 — 03 Linguagem de consulta estruturada (SQL). Linguagem de definição de dados (DDL). Linguagem de manipulação de dados (DML). Lucas Ianni, Emannuelle Gouveia | 40 | 4 | 17 | Seletiva |
@@ -102,15 +102,15 @@ A seleção não usa mais intervalos genéricos. Cada item diário abaixo é o *
 | Desenvolvimento de Software | Aula 06 — 05 Spring, SpringCloud e SpringBoot. Swagger. | 16 | 7 | 1 | Seletiva |
 | Desenvolvimento de Software | Aula 07 — 06 Tecnologias e práticas frontend web: HTML | 8 | 2 | 6 | Seletiva |
 | Desenvolvimento de Software | Aula 08 — 07 CSS | 6 | 2 | 4 | Seletiva |
-| Desenvolvimento de Software | Aula 09 — 08 Javascript | 8 | 4 | 4 | Seletiva |
-| Desenvolvimento de Software | Aula 10 — 09 Ajax, frameworks (VueJS, Angular e React). Padrões de frontend. SPA. | 9 | 4 | 5 | Seletiva |
+| Desenvolvimento de Software | Aula 09 — 08 Javascript | 8 | 3 | 4 | Seletiva |
+| Desenvolvimento de Software | Aula 10 — 09 Ajax, frameworks (VueJS, Angular e React). Padrões de frontend. SPA. | 9 | 3 | 5 | Seletiva |
 | Desenvolvimento de Software | Aula 11 — 10 Frameworks JUnit | 8 | 7 | 0 | Seletiva |
 | Desenvolvimento de Software | Aula 12 — 11 Análise estática de código-fonte (clean code e ferramenta SonarQube). | 16 | 7 | 3 | Seletiva |
-| Desenvolvimento de Software | Aula 13 — 12 Ferramenta de Gestão da configuração GIT. | 16 | 5 | 5 | Seletiva |
+| Desenvolvimento de Software | Aula 13 — 12 Ferramenta de Gestão da configuração GIT. | 16 | 4 | 5 | Seletiva |
 | Desenvolvimento de Software | Aula 14 — 13 DevOps. | 17 | 3 | 5 | Seletiva |
 | Desenvolvimento de Software | Aula 15 — 14 Containers | 38 | 3 | 10 | Seletiva |
 | Desenvolvimento de Software | Aula 16 — 15 Microsserviços (orquestração de serviços e API gateway) | 6 | 3 | 1 | Seletiva |
-| Desenvolvimento de Software | Aula 17 — 16 Padrões XML, XSLT | 4 | 3 | 1 | Seletiva |
+| Desenvolvimento de Software | Aula 17 — 16 Padrões XML, XSLT | 4 | 2 | 1 | Seletiva |
 | Desenvolvimento de Software | Aula 18 — 17 JSON. | 3 | 2 | 1 | Seletiva |
 | Desenvolvimento de Software | Aula 19 — 18 Mensageria | 5 | 3 | 1 | Seletiva |
 | Desenvolvimento de Software | Aula 20 — 19 UDDI, REST | 11 | 3 | 5 | Seletiva |
@@ -137,7 +137,7 @@ A seleção não usa mais intervalos genéricos. Cada item diário abaixo é o *
 | Gestão e Governança de TI | Aula 01 — Gerenciamento de projetos: conceitos; áreas de conhecimento, projetos, programas, portfólio, Processos, grupos de processos e área de conhecimento. Gestão de riscos. | 19 | 3 | 0 | Seletiva |
 | Gestão e Governança de TI | Aula 02 — 01 Gerenciamento de serviços (ITIL v4). Conceitos básicos, disciplinas, estrutura e objetivos. | 11 | 3 | 1 | Seletiva |
 | Gestão e Governança de TI | Aula 03 — 02 Governança de TI (COBIT 2019). Conceitos básicos, estrutura e objetivos. | 14 | 3 | 0 | Seletiva |
-| Gestão e Governança de TI | Aula 04 — 03 Conceitos de gestão de processos (BPM) | 7 | 4 | 0 | Seletiva |
+| Gestão e Governança de TI | Aula 04 — 03 Conceitos de gestão de processos (BPM) | 7 | 3 | 0 | Seletiva |
 | Gestão e Governança de TI | Aula 05 — 04 Modelagem de processos de negócio usando BPMN. | 7 | 3 | 0 | Seletiva |
 | Segurança da Informação | Aula 01 — Procedimentos de segurança, conceitos gerais de gerenciamento. Confiabilidade, integridade e disponibilidade. Mecanismos de segurança. Controle de acesso. Protocolo OAuth2. SSO (Single sign- on). Gerência de riscos. Ameaça, vulnerabilidade e impacto. Ciclo de Vida de Desenvolvimento Seguro (SDL – Security Development Lifecycle), OWASP Top 10 (https://owasp.org/wwwproject- topten/). Análise estática e dinâmica de código (SAST – Static Application Security Testing e DAST – Dynamic Application Security Testing”). | 25 | 7 | 0 | Seletiva |
 | Segurança da Informação | Aula 02 — 01 Protocolos HTTPS, SSL/TLS. | 12 | 7 | 0 | Seletiva |
@@ -258,7 +258,7 @@ Nenhum dia ultrapassa 150 minutos de duração bruta dos vídeos. As durações 
 - [Vídeo · 11 min] **Inteligência Artificial · Aula 01** — Inteligência Artificial: Tipos de IA - Aula 3
 - [Vídeo · 26 min] **Engenharia de Software · Aula 12** — Padrões de Projeto - Gof - Motivação, Evolução e Benefícios
 - [Vídeo · 26 min] **Engenharia de Software · Aula 12** — Padrões de Projeto - Gof - Elementos
-- [Vídeo · 16 min] **Desenvolvimento de Software · Aula 02** — Apresentação do Curso e Motivação - esse curso é para você?
+- [Vídeo · 14 min] **Desenvolvimento de Software · Aula 02** — Introdução à Orientação a Objetos
 - **Questões:** 30 minutos no NotebookLM sobre os tópicos do dia, com correção ativa.
 
 #### Dia 11 — 07/08/2026
@@ -274,17 +274,14 @@ Nenhum dia ultrapassa 150 minutos de duração bruta dos vídeos. As durações 
 
 - [Vídeo · 54 min] **Língua Portuguesa · Aula 06** — Análise Sintática - Conceitos Iniciais
 - [Vídeo · 26 min] **Engenharia de Software · Aula 12** — Padrões Estruturais - Façade e Flyweight
-- [Vídeo · 14 min] **Desenvolvimento de Software · Aula 02** — Introdução à Orientação a Objetos
-- [Vídeo · 18 min] **Língua Portuguesa · Aula 06** — Tipos de Sujeito - Parte 01
-- [Vídeo · 27 min] **Desenvolvimento de Software · Aula 03** — Java - Esse curso é para você?
-- [Vídeo · 7 min] **Desenvolvimento de Software · Aula 03** — Cultura POp
+- [Vídeo · 65 min] **Desenvolvimento de Software · Aula 02** — Herança, sobrecarga, sobrescrita e polimorfismo - parte 1
 - **Questões:** 30 minutos no NotebookLM sobre os tópicos do dia, com correção ativa.
 
 #### Dia 13 — 09/08/2026
 
 - [Vídeo · 88 min] **Desenvolvimento de Software · Aula 02** — Classes, métodos, atributos, constructors, encapsulamento e modificadores de visibilidade
+- [Vídeo · 18 min] **Língua Portuguesa · Aula 06** — Tipos de Sujeito - Parte 01
 - [Vídeo · 44 min] **Desenvolvimento de Software · Aula 02** — Herança, sobrecarga, sobrescrita e polimorfismo. - parte 2
-- [Vídeo · 17 min] **Desenvolvimento de Software · Aula 03** — Hello world
 - **Questões:** 30 minutos no NotebookLM sobre os tópicos do dia, com correção ativa.
 
 #### Dia 14 — 10/08/2026
@@ -296,34 +293,35 @@ Nenhum dia ultrapassa 150 minutos de duração bruta dos vídeos. As durações 
 #### Dia 15 — 11/08/2026
 
 - [Vídeo · 70 min] **Língua Portuguesa · Aula 06** — Tipos de Sujeito - Parte 02
-- [Vídeo · 65 min] **Desenvolvimento de Software · Aula 02** — Herança, sobrecarga, sobrescrita e polimorfismo - parte 1
-- [Vídeo · 8 min] **Desenvolvimento de Software · Aula 03** — Arrays
+- [Vídeo · 60 min] **Desenvolvimento de Software · Aula 03** — Características da linguagem Java
+- [Vídeo · 17 min] **Desenvolvimento de Software · Aula 03** — Hello world
 - **Questões:** 30 minutos no NotebookLM sobre os tópicos do dia, com correção ativa.
 
 #### Dia 16 — 12/08/2026
 
 - **Diagnóstico — ortografia, classes e colocação pronominal** (45 min): Resolver 20 questões. Se o acerto ficar abaixo de 80%, usar os PDFs/aulas 02 e 03 de Português.
-- [Vídeo · 60 min] **Desenvolvimento de Software · Aula 03** — Características da linguagem Java
-- [Vídeo · 26 min] **Língua Portuguesa · Aula 06** — Tipos de Sujeito - Parte 03
-- [Vídeo · 21 min] **Língua Portuguesa · Aula 07** — Pontuação - Parte 01
-- [Vídeo · 20 min] **Desenvolvimento de Software · Aula 03** — Strings
-- [Vídeo · 10 min] **Desenvolvimento de Software · Aula 04** — JakartaEE
-- [Vídeo · 8 min] **Desenvolvimento de Software · Aula 06** — Spring Anotações Gerais
+- [Vídeo · 92 min] **Desenvolvimento de Software · Aula 02** — Classes abstratas, Interfaces e Polimorfismo
+- [Vídeo · 47 min] **Desenvolvimento de Software · Aula 03** — Sintaxe
+- [Vídeo · 8 min] **Desenvolvimento de Software · Aula 03** — Arrays
 - **Questões:** 30 minutos no NotebookLM sobre os tópicos do dia, com correção ativa.
 
 #### Dia 17 — 13/08/2026
 
-- [Vídeo · 47 min] **Desenvolvimento de Software · Aula 03** — Sintaxe
-- [Vídeo · 56 min] **Desenvolvimento de Software · Aula 04** — Jakartaee
-- [Vídeo · 30 min] **Língua Portuguesa · Aula 07** — Pontuação - Parte 02
-- [Vídeo · 19 min] **Desenvolvimento de Software · Aula 05** — ORM/JPA/HIBERNATE - Revisão - Parte 02
+- [Vídeo · 26 min] **Língua Portuguesa · Aula 06** — Tipos de Sujeito - Parte 03
+- [Vídeo · 21 min] **Língua Portuguesa · Aula 07** — Pontuação - Parte 01
+- [Vídeo · 20 min] **Desenvolvimento de Software · Aula 03** — Strings
+- [Vídeo · 29 min] **Desenvolvimento de Software · Aula 03** — Collections
+- [Vídeo · 32 min] **Desenvolvimento de Software · Aula 03** — Exceptions
+- [Vídeo · 10 min] **Desenvolvimento de Software · Aula 04** — JakartaEE
+- [Vídeo · 8 min] **Desenvolvimento de Software · Aula 06** — Spring Anotações Gerais
 - **Questões:** 30 minutos no NotebookLM sobre os tópicos do dia, com correção ativa.
 
 #### Dia 18 — 14/08/2026
 
+- [Vídeo · 56 min] **Desenvolvimento de Software · Aula 04** — Jakartaee
+- [Vídeo · 30 min] **Língua Portuguesa · Aula 07** — Pontuação - Parte 02
 - [Vídeo · 43 min] **Língua Portuguesa · Aula 08** — Concordância Verbal -  Parte 01
-- [Vídeo · 63 min] **Desenvolvimento de Software · Aula 05** — ORM/JPA/HIBERNATE - Parte 02 - Entendendo o Gerenciador de Estados do JPA
-- [Vídeo · 42 min] **Desenvolvimento de Software · Aula 05** — ORM/JPA/HIBERNATE - Revisão - Parte 01
+- [Vídeo · 19 min] **Desenvolvimento de Software · Aula 05** — ORM/JPA/HIBERNATE - Revisão - Parte 02
 - **Questões:** 30 minutos no NotebookLM sobre os tópicos do dia, com correção ativa.
 
 #### Dia 19 — 15/08/2026
@@ -334,9 +332,9 @@ Nenhum dia ultrapassa 150 minutos de duração bruta dos vídeos. As durações 
 
 #### Dia 20 — 16/08/2026
 
+- [Vídeo · 63 min] **Desenvolvimento de Software · Aula 05** — ORM/JPA/HIBERNATE - Parte 02 - Entendendo o Gerenciador de Estados do JPA
 - [Vídeo · 62 min] **Desenvolvimento de Software · Aula 05** — ORM/JPA/HIBERNATE - Parte 03 - Mapeamentos e Beans Validations
-- [Vídeo · 54 min] **Língua Portuguesa · Aula 09** — Regência Verbal - Parte 01
-- [Vídeo · 32 min] **Desenvolvimento de Software · Aula 06** — Spring World Boot - Esse curso é para você? Alinhamento!
+- [Vídeo · 18 min] **Desenvolvimento de Software · Aula 06** — Spring MVC
 - **Questões:** 30 minutos no NotebookLM sobre os tópicos do dia, com correção ativa.
 
 #### Dia 21 — 17/08/2026
@@ -345,56 +343,55 @@ Nenhum dia ultrapassa 150 minutos de duração bruta dos vídeos. As durações 
 
 #### Dia 22 — 18/08/2026
 
+- [Vídeo · 42 min] **Desenvolvimento de Software · Aula 05** — ORM/JPA/HIBERNATE - Revisão - Parte 01
+- [Vídeo · 54 min] **Língua Portuguesa · Aula 09** — Regência Verbal - Parte 01
 - [Vídeo · 33 min] **Desenvolvimento de Software · Aula 06** — Spring  - Conceitos Básicos
-- [Vídeo · 18 min] **Desenvolvimento de Software · Aula 06** — Spring MVC
-- [Vídeo · 47 min] **Língua Portuguesa · Aula 09** — Regência Verbal - Parte 02
 - [Vídeo · 12 min] **Língua Portuguesa · Aula 10** — Coesão Textual
-- [Vídeo · 34 min] **Desenvolvimento de Software · Aula 06** — Spring  Boot e Data
+- [Vídeo · 5 min] **Língua Portuguesa · Aula 12** — Falhas na Comunicação
 - **Questões:** 30 minutos no NotebookLM sobre os tópicos do dia, com correção ativa.
 
 #### Dia 23 — 19/08/2026
 
 - **Diagnóstico — tempos e modos verbais** (40 min): Resolver 15 questões. Se o acerto ficar abaixo de 80%, usar o PDF/aula 05 de Português.
+- [Vídeo · 34 min] **Desenvolvimento de Software · Aula 06** — Spring  Boot e Data
+- [Vídeo · 47 min] **Língua Portuguesa · Aula 09** — Regência Verbal - Parte 02
 - [Vídeo · 21 min] **Desenvolvimento de Software · Aula 06** — Spring  Security
 - [Vídeo · 19 min] **Desenvolvimento de Software · Aula 06** — JWT
-- [Vídeo · 57 min] **Desenvolvimento de Software · Aula 11** — Testes de Unidade na Prática com JUnit 5 - Parte 1
-- [Vídeo · 21 min] **Língua Portuguesa · Aula 10** — Coesão Sequencial - Parte 01
-- [Vídeo · 32 min] **Língua Portuguesa · Aula 10** — Coesão Sequencial - Parte 02
+- [Vídeo · 25 min] **Desenvolvimento de Software · Aula 06** — Hands On - Parte 1
 - **Questões:** 30 minutos no NotebookLM sobre os tópicos do dia, com correção ativa.
 
 #### Dia 24 — 20/08/2026
 
+- [Vídeo · 57 min] **Desenvolvimento de Software · Aula 11** — Testes de Unidade na Prática com JUnit 5 - Parte 1
 - [Vídeo · 67 min] **Desenvolvimento de Software · Aula 11** — Testes de Unidade na Prática com JUnit 5 - Parte 2
-- [Vídeo · 51 min] **Desenvolvimento de Software · Aula 11** — Testes de Unidade Conhecendo Mocks, Stubs e Fakes - Parte 1
-- [Vídeo · 14 min] **Desenvolvimento de Software · Aula 11** — Testes de Unidade com JUnit 5 - Revisão - Parte 1
-- [Vídeo · 19 min] **Desenvolvimento de Software · Aula 12** — Revisão - Clean Code - Partes 01 a 03
+- [Vídeo · 21 min] **Língua Portuguesa · Aula 10** — Coesão Sequencial - Parte 01
 - **Questões:** 30 minutos no NotebookLM sobre os tópicos do dia, com correção ativa.
 
 #### Dia 25 — 21/08/2026
 
+- [Vídeo · 32 min] **Língua Portuguesa · Aula 10** — Coesão Sequencial - Parte 02
+- [Vídeo · 51 min] **Desenvolvimento de Software · Aula 11** — Testes de Unidade Conhecendo Mocks, Stubs e Fakes - Parte 1
 - [Vídeo · 40 min] **Desenvolvimento de Software · Aula 11** — Testes de Unidade Conhecendo Mocks, Stubs e Fakes - Parte 2
-- [Vídeo · 40 min] **Desenvolvimento de Software · Aula 11** — Testes de Unidade Conhecendo Mocks, Stubs e Fakes - Parte 3
-- [Vídeo · 32 min] **Desenvolvimento de Software · Aula 11** — Testes de Unidade com JUnit 5 - Revisão - Parte 2
-- [Vídeo · 31 min] **Língua Portuguesa · Aula 10** — Coesão Referencial - Parte 01
+- [Vídeo · 14 min] **Desenvolvimento de Software · Aula 11** — Testes de Unidade com JUnit 5 - Revisão - Parte 1
+- [Vídeo · 13 min] **Língua Portuguesa · Aula 12** — Pragmática
 - **Questões:** 30 minutos no NotebookLM sobre os tópicos do dia, com correção ativa.
 
 #### Dia 26 — 22/08/2026
 
+- [Vídeo · 40 min] **Desenvolvimento de Software · Aula 11** — Testes de Unidade Conhecendo Mocks, Stubs e Fakes - Parte 3
+- [Vídeo · 32 min] **Desenvolvimento de Software · Aula 11** — Testes de Unidade com JUnit 5 - Revisão - Parte 2
+- [Vídeo · 31 min] **Língua Portuguesa · Aula 10** — Coesão Referencial - Parte 01
 - [Vídeo · 42 min] **Língua Portuguesa · Aula 12** — Compreensão e Interpretação de Textos de Gêneros Variados - Recorrência
-- [Vídeo · 26 min] **Desenvolvimento de Software · Aula 12** — Clean Code - Parte 01 - Lidando com os Nomes
-- [Vídeo · 26 min] **Desenvolvimento de Software · Aula 12** — Clean Code - Parte 02 - Lidando com Funções
-- [Vídeo · 48 min] **Desenvolvimento de Software · Aula 12** — Clean Code - Parte 04 - Testes e Talk to Friends not to Strangers
 - **Questões:** 30 minutos no NotebookLM sobre os tópicos do dia, com correção ativa.
 
 #### Dia 27 — 23/08/2026
 
+- [Vídeo · 26 min] **Desenvolvimento de Software · Aula 12** — Clean Code - Parte 01 - Lidando com os Nomes
+- [Vídeo · 26 min] **Desenvolvimento de Software · Aula 12** — Clean Code - Parte 02 - Lidando com Funções
+- [Vídeo · 19 min] **Desenvolvimento de Software · Aula 12** — Revisão - Clean Code - Partes 01 a 03
+- [Vídeo · 48 min] **Desenvolvimento de Software · Aula 12** — Clean Code - Parte 04 - Testes e Talk to Friends not to Strangers
 - [Vídeo · 19 min] **Desenvolvimento de Software · Aula 12** — Clean Code - Parte 05 - S.O.L.I.D - Parte 01
-- [Vídeo · 43 min] **Língua Portuguesa · Aula 12** — Compreensão e Interpretação de Textos de Gêneros Variados - Inferência
-- [Vídeo · 13 min] **Língua Portuguesa · Aula 12** — Pragmática
-- [Vídeo · 21 min] **Desenvolvimento de Software · Aula 12** — Clean Code - Parte 05 - S.O.L.I.D - Parte 02
-- [Vídeo · 16 min] **Desenvolvimento de Software · Aula 12** — Revisão - Clean Code - Parte Final
-- [Vídeo · 29 min] **Desenvolvimento de Software · Aula 10** — S.P.A
-- [Vídeo · 5 min] **Língua Portuguesa · Aula 12** — Falhas na Comunicação
+- [Vídeo · 7 min] **Desenvolvimento de Software · Aula 07** — Revisão Html
 - **Questões:** 30 minutos no NotebookLM sobre os tópicos do dia, com correção ativa.
 
 #### Dia 28 — 24/08/2026
@@ -405,52 +402,51 @@ Nenhum dia ultrapassa 150 minutos de duração bruta dos vídeos. As durações 
 
 #### Dia 29 — 25/08/2026
 
+- [Vídeo · 43 min] **Língua Portuguesa · Aula 12** — Compreensão e Interpretação de Textos de Gêneros Variados - Inferência
+- [Vídeo · 21 min] **Desenvolvimento de Software · Aula 12** — Clean Code - Parte 05 - S.O.L.I.D - Parte 02
+- [Vídeo · 16 min] **Desenvolvimento de Software · Aula 12** — Revisão - Clean Code - Parte Final
+- [Vídeo · 29 min] **Desenvolvimento de Software · Aula 10** — S.P.A
 - [Vídeo · 26 min] **Desenvolvimento de Software · Aula 10** — AngularJS
-- [Vídeo · 46 min] **Desenvolvimento de Software · Aula 10** — React
-- [Vídeo · 48 min] **Raciocínio Lógico · Aula 01** — Estruturas Lógicas - Conceito de Proposição
-- [Vídeo · 28 min] **Desenvolvimento de Software · Aula 10** — Ajax
+- [Vídeo · 10 min] **Raciocínio Lógico · Aula 01** — Estruturas Lógicas - Valor Lógico de Uma Proposição
 - **Questões:** 30 minutos no NotebookLM sobre os tópicos do dia, com correção ativa.
 
 #### Dia 30 — 26/08/2026
 
+- [Vídeo · 46 min] **Desenvolvimento de Software · Aula 10** — React
+- [Vídeo · 48 min] **Raciocínio Lógico · Aula 01** — Estruturas Lógicas - Conceito de Proposição
 - [Vídeo · 32 min] **Desenvolvimento de Software · Aula 07** — HTML
-- [Vídeo · 7 min] **Desenvolvimento de Software · Aula 07** — Revisão Html
-- [Vídeo · 35 min] **Desenvolvimento de Software · Aula 08** — CSS
-- [Vídeo · 30 min] **Desenvolvimento de Software · Aula 08** — Revisão Css
-- [Vídeo · 10 min] **Raciocínio Lógico · Aula 01** — Estruturas Lógicas - Valor Lógico de Uma Proposição
 - [Vídeo · 22 min] **Raciocínio Lógico · Aula 01** — Estruturas Lógicas - Princípios Básicos da Lógica
-- [Vídeo · 13 min] **Desenvolvimento de Software · Aula 09** — O que estudar na Web? HTML, CSS, JS
 - **Questões:** 30 minutos no NotebookLM sobre os tópicos do dia, com correção ativa.
 
 #### Dia 31 — 27/08/2026
 
+- [Vídeo · 35 min] **Desenvolvimento de Software · Aula 08** — CSS
+- [Vídeo · 30 min] **Desenvolvimento de Software · Aula 08** — Revisão Css
 - [Vídeo · 69 min] **Desenvolvimento de Software · Aula 09** — JavaScript Avançado - Parte 01
-- [Vídeo · 45 min] **Desenvolvimento de Software · Aula 09** — JavaScript Avançado - Parte 02
-- [Vídeo · 20 min] **Raciocínio Lógico · Aula 02** — Estruturas Lógicas - Ordem de Precedência dos Conectivos - Parte 01
 - [Vídeo · 11 min] **Desenvolvimento de Software · Aula 13** — GIT - Revisão - Parte 01
 - **Questões:** 30 minutos no NotebookLM sobre os tópicos do dia, com correção ativa.
 
 #### Dia 32 — 28/08/2026
 
+- [Vídeo · 45 min] **Desenvolvimento de Software · Aula 09** — JavaScript Avançado - Parte 02
 - [Vídeo · 37 min] **Desenvolvimento de Software · Aula 09** — Revisão - JavaScript
 - [Vídeo · 47 min] **Desenvolvimento de Software · Aula 13** — GIT - Comandos Básicos - Parte 01
-- [Vídeo · 51 min] **Raciocínio Lógico · Aula 02** — Estruturas Lógicas - Ordem de Precedência dos Conectivos - Parte 02
-- [Vídeo · 15 min] **Desenvolvimento de Software · Aula 13** — GIT - Revisão - Parte 02
+- [Vídeo · 20 min] **Raciocínio Lógico · Aula 02** — Estruturas Lógicas - Ordem de Precedência dos Conectivos - Parte 01
 - **Questões:** 30 minutos no NotebookLM sobre os tópicos do dia, com correção ativa.
 
 #### Dia 33 — 29/08/2026
 
 - [Vídeo · 26 min] **Desenvolvimento de Software · Aula 13** — GIT - Revertendo Perdas e Branches - Parte 02
 - [Vídeo · 60 min] **Desenvolvimento de Software · Aula 13** — GIT - Lidando com os Merges, Gitflow, e Git Stash - Parte 03
-- [Vídeo · 36 min] **Raciocínio Lógico · Aula 02** — Estruturas Lógicas - Número de Linhas de Uma Tabela-verdade
-- [Vídeo · 26 min] **Desenvolvimento de Software · Aula 15** — Teoria Docker - Parte 01
+- [Vídeo · 51 min] **Raciocínio Lógico · Aula 02** — Estruturas Lógicas - Ordem de Precedência dos Conectivos - Parte 02
+- [Vídeo · 9 min] **Raciocínio Lógico · Aula 06** — Definição de Argumento
 - **Questões:** 30 minutos no NotebookLM sobre os tópicos do dia, com correção ativa.
 
 #### Dia 34 — 30/08/2026
 
 - [Vídeo · 81 min] **Desenvolvimento de Software · Aula 14** — Integração Contínua
-- [Vídeo · 46 min] **Raciocínio Lógico · Aula 03** — Negações e Equivalências - Equivalências Lógicas: Construção de Tabelas
-- [Vídeo · 21 min] **Desenvolvimento de Software · Aula 16** — Microsserviços - Comunicação
+- [Vídeo · 33 min] **Desenvolvimento de Software · Aula 14** — Integração Contínua - Na Pratica
+- [Vídeo · 30 min] **Desenvolvimento de Software · Aula 14** — Integração Contínua - Revisão
 - **Questões:** 30 minutos no NotebookLM sobre os tópicos do dia, com correção ativa.
 
 #### Dia 35 — 31/08/2026
@@ -459,30 +455,30 @@ Nenhum dia ultrapassa 150 minutos de duração bruta dos vídeos. As durações 
 
 #### Dia 36 — 01/09/2026
 
-- [Vídeo · 33 min] **Desenvolvimento de Software · Aula 14** — Integração Contínua - Na Pratica
-- [Vídeo · 30 min] **Desenvolvimento de Software · Aula 14** — Integração Contínua - Revisão
+- [Vídeo · 26 min] **Desenvolvimento de Software · Aula 15** — Teoria Docker - Parte 01
+- [Vídeo · 36 min] **Raciocínio Lógico · Aula 02** — Estruturas Lógicas - Número de Linhas de Uma Tabela-verdade
+- [Vídeo · 46 min] **Raciocínio Lógico · Aula 03** — Negações e Equivalências - Equivalências Lógicas: Construção de Tabelas
 - [Vídeo · 26 min] **Desenvolvimento de Software · Aula 15** — Teoria Docker - Parte 02
-- [Vídeo · 26 min] **Desenvolvimento de Software · Aula 15** — Docker na Prática - Parte 01
-- [Vídeo · 29 min] **Raciocínio Lógico · Aula 03** — Negações e Equivalências - Equivalências Lógicas para o Conectivo “se... Então” - Parte 01
+- [Vídeo · 15 min] **Banco de Dados · Aula 01** — Conceitos Básicos de Bancos de Dados - Parte 3
 - **Questões:** 30 minutos no NotebookLM sobre os tópicos do dia, com correção ativa.
 
 #### Dia 37 — 02/09/2026
 
-- [Vídeo · 47 min] **Raciocínio Lógico · Aula 03** — Negações e Equivalências - Equivalências Lógicas para o Conectivo “se... Então” - Parte 02
+- [Vídeo · 26 min] **Desenvolvimento de Software · Aula 15** — Docker na Prática - Parte 01
 - [Vídeo · 26 min] **Desenvolvimento de Software · Aula 16** — Microsserviços - Conceitos Básicos
 - [Vídeo · 26 min] **Desenvolvimento de Software · Aula 16** — Microsserviços - Definições
-- [Vídeo · 26 min] **Desenvolvimento de Software · Aula 17** — Esse curso é para você?
-- [Vídeo · 26 min] **Desenvolvimento de Software · Aula 17** — XML - Teoria
+- [Vídeo · 21 min] **Desenvolvimento de Software · Aula 16** — Microsserviços - Comunicação
+- [Vídeo · 29 min] **Raciocínio Lógico · Aula 03** — Negações e Equivalências - Equivalências Lógicas para o Conectivo “se... Então” - Parte 01
+- [Vídeo · 22 min] **Raciocínio Lógico · Aula 04** — Diagramas Lógicos - Proposições Categóricas: Equivalências - Parte 02
 - **Questões:** 30 minutos no NotebookLM sobre os tópicos do dia, com correção ativa.
 
 #### Dia 38 — 03/09/2026
 
 - **PDF — Data Mining** (35 min): Conteúdo expresso no bloco de BI sem videoaula no catálogo.
-- [Vídeo · 50 min] **Raciocínio Lógico · Aula 04** — Diagramas Lógicos - Proposições Categóricas: Equivalências - Parte Diagramas Lógicos - Proposições Categóricas: Equivalências
-- [Vídeo · 22 min] **Raciocínio Lógico · Aula 04** — Diagramas Lógicos - Proposições Categóricas: Equivalências - Parte 02
+- [Vídeo · 47 min] **Raciocínio Lógico · Aula 03** — Negações e Equivalências - Equivalências Lógicas para o Conectivo “se... Então” - Parte 02
+- [Vídeo · 26 min] **Desenvolvimento de Software · Aula 17** — XML - Teoria
 - [Vídeo · 26 min] **Desenvolvimento de Software · Aula 17** — XML - Revisão
 - [Vídeo · 29 min] **Desenvolvimento de Software · Aula 18** — JSON - Teoria
-- [Vídeo · 9 min] **Raciocínio Lógico · Aula 06** — Definição de Argumento
 - [Vídeo · 13 min] **Raciocínio Lógico · Aula 07** — Raciocínio Crítico - Teoria Parte 01
 - **Questões:** 30 minutos no NotebookLM sobre os tópicos do dia, com correção ativa.
 
@@ -491,9 +487,9 @@ Nenhum dia ultrapassa 150 minutos de duração bruta dos vídeos. As durações 
 - **PDF — Banco de dados em memória** (30 min): Conteúdo expresso no edital sem videoaula no catálogo.
 - [Vídeo · 26 min] **Desenvolvimento de Software · Aula 18** — JSON - Revisão
 - [Vídeo · 26 min] **Desenvolvimento de Software · Aula 19** — Mensageria - Parte 01
+- [Vídeo · 50 min] **Raciocínio Lógico · Aula 04** — Diagramas Lógicos - Proposições Categóricas: Equivalências - Parte Diagramas Lógicos - Proposições Categóricas: Equivalências
 - [Vídeo · 26 min] **Desenvolvimento de Software · Aula 19** — Mensageria - Parte 02
-- [Vídeo · 33 min] **Raciocínio Lógico · Aula 05** — Teoria - Revisão de Conjuntos Numéricos
-- [Vídeo · 34 min] **Raciocínio Lógico · Aula 05** — Teoria - Definição de Sentenças Abertas e Quantificadores
+- [Vídeo · 15 min] **Raciocínio Lógico · Aula 07** — Raciocínio Crítico - Teoria Parte 02
 - **Questões:** 30 minutos no NotebookLM sobre os tópicos do dia, com correção ativa.
 
 #### Dia 40 — 05/09/2026
@@ -503,17 +499,17 @@ Nenhum dia ultrapassa 150 minutos de duração bruta dos vídeos. As durações 
 - [Vídeo · 26 min] **Desenvolvimento de Software · Aula 20** — SOAP, WSDL, UDDI - Parte 1
 - [Vídeo · 26 min] **Desenvolvimento de Software · Aula 20** — SOAP, WSDL, UDDI - Parte 2
 - [Vídeo · 26 min] **Desenvolvimento de Software · Aula 20** — SOAP, WSDL, UDDI - Prática
-- [Vídeo · 26 min] **Desenvolvimento de Software · Aula 21** — Criptomoedas e Blockchain
-- [Vídeo · 15 min] **Banco de Dados · Aula 01** — Conceitos Básicos de Bancos de Dados - Parte 3
+- [Vídeo · 33 min] **Raciocínio Lógico · Aula 05** — Teoria - Revisão de Conjuntos Numéricos
+- [Vídeo · 12 min] **Gestão e Governança de TI · Aula 01** — PMBOK - Aula I - Gerenciamento de Projetos
 - **Questões:** 30 minutos no NotebookLM sobre os tópicos do dia, com correção ativa.
 
 #### Dia 41 — 06/09/2026
 
-- [Vídeo · 32 min] **Raciocínio Lógico · Aula 06** — Argumento Válido e Inválido
+- [Vídeo · 34 min] **Raciocínio Lógico · Aula 05** — Teoria - Definição de Sentenças Abertas e Quantificadores
+- [Vídeo · 26 min] **Desenvolvimento de Software · Aula 21** — Criptomoedas e Blockchain
 - [Vídeo · 26 min] **Desenvolvimento de Software · Aula 22** — Mobile iOS
 - [Vídeo · 26 min] **Desenvolvimento de Software · Aula 22** — Swift - Conceitos Básicos
 - [Vídeo · 26 min] **Desenvolvimento de Software · Aula 22** — Strings
-- [Vídeo · 29 min] **Banco de Dados · Aula 01** — Conceitos Básicos de Bancos de Dados - Parte 1
 - **Questões:** 30 minutos no NotebookLM sobre os tópicos do dia, com correção ativa.
 
 #### Dia 42 — 07/09/2026
@@ -524,12 +520,11 @@ Nenhum dia ultrapassa 150 minutos de duração bruta dos vídeos. As durações 
 
 #### Dia 43 — 08/09/2026
 
+- [Vídeo · 29 min] **Banco de Dados · Aula 01** — Conceitos Básicos de Bancos de Dados - Parte 1
+- [Vídeo · 32 min] **Raciocínio Lógico · Aula 06** — Argumento Válido e Inválido
 - [Vídeo · 31 min] **Banco de Dados · Aula 01** — Conceitos Básicos de Bancos de Dados - Parte 2
-- [Vídeo · 45 min] **Raciocínio Lógico · Aula 06** — Demonstração da Validade de um Argumento
 - [Vídeo · 26 min] **Banco de Dados · Aula 01** — Conceitos Básicos de Bancos de Dados - Parte 4
-- [Vídeo · 12 min] **Banco de Dados · Aula 01** — Conceitos Básicos de Bancos de Dados - Parte 5
-- [Vídeo · 15 min] **Raciocínio Lógico · Aula 07** — Raciocínio Crítico - Teoria Parte 02
-- [Vídeo · 23 min] **Língua Inglesa · Aula 02** — Scanning
+- [Vídeo · 28 min] **Banco de Dados · Aula 03** — Normalização - Parte 01
 - **Questões:** 30 minutos no NotebookLM sobre os tópicos do dia, com correção ativa.
 
 #### Dia 44 — 09/09/2026
@@ -541,36 +536,39 @@ Nenhum dia ultrapassa 150 minutos de duração bruta dos vídeos. As durações 
 
 #### Dia 45 — 10/09/2026
 
-- [Vídeo · 35 min] **Raciocínio Lógico · Aula 12** — Matrizes - Noções Básicas
-- [Vídeo · 28 min] **Banco de Dados · Aula 03** — Normalização - Parte 01
+- [Vídeo · 45 min] **Raciocínio Lógico · Aula 06** — Demonstração da Validade de um Argumento
 - [Vídeo · 29 min] **Banco de Dados · Aula 03** — Normalização - Parte 02
 - [Vídeo · 31 min] **Banco de Dados · Aula 04** — SQL -  Parte 01 - Introdução
-- [Vídeo · 30 min] **Raciocínio Lógico · Aula 12** — Matrizes - Matrizes Especiais
+- [Vídeo · 31 min] **Banco de Dados · Aula 04** — SQL -  Parte 01 - Tipos de Dados
+- [Vídeo · 13 min] **Gestão e Governança de TI · Aula 01** — PMBOK - Aula I - Gerenciamento Organizacional do Projeto
 - **Questões:** 30 minutos no NotebookLM sobre os tópicos do dia, com correção ativa.
 
 #### Dia 46 — 11/09/2026
 
 - **Diagnóstico — significação e substituição** (40 min): Resolver 15 questões. Se o acerto ficar abaixo de 80%, usar o PDF/aula 11 de Português.
-- [Vídeo · 31 min] **Banco de Dados · Aula 04** — SQL -  Parte 01 - Tipos de Dados
 - [Vídeo · 30 min] **Banco de Dados · Aula 04** — SQL -  Parte 01 - Sublinguagens - DDL 1
-- [Vídeo · 40 min] **Raciocínio Lógico · Aula 12** — Matrizes - Representação de uma Matriz Por Lei de Formação
+- [Vídeo · 35 min] **Raciocínio Lógico · Aula 12** — Matrizes - Noções Básicas
 - [Vídeo · 26 min] **Banco de Dados · Aula 04** — SQL -  Parte 01 - Sublinguagens - DDL 2
-- [Vídeo · 18 min] **Segurança da Informação · Aula 03** — ISO 27001/2022 - Parte 01
+- [Vídeo · 30 min] **Banco de Dados · Aula 06** — Bi e Data Warehouse - Parte 01
+- [Vídeo · 30 min] **Banco de Dados · Aula 06** — Bi e Data Warehouse - Parte 03
 - **Questões:** 30 minutos no NotebookLM sobre os tópicos do dia, com correção ativa.
 
 #### Dia 47 — 12/09/2026
 
-- [Vídeo · 30 min] **Banco de Dados · Aula 06** — Bi e Data Warehouse - Parte 01
 - [Vídeo · 34 min] **Banco de Dados · Aula 06** — Bi e Data Warehouse - Parte 02
-- [Vídeo · 30 min] **Banco de Dados · Aula 06** — Bi e Data Warehouse - Parte 03
 - [Vídeo · 29 min] **Banco de Dados · Aula 06** — Bi e Data Warehouse - Parte 04
-- [Vídeo · 30 min] **Banco de Dados · Aula 07** — Modelagem mutidimensional - Parte 01
+- [Vídeo · 40 min] **Raciocínio Lógico · Aula 12** — Matrizes - Representação de uma Matriz Por Lei de Formação
+- [Vídeo · 30 min] **Raciocínio Lógico · Aula 12** — Matrizes - Matrizes Especiais
+- [Vídeo · 18 min] **Segurança da Informação · Aula 03** — ISO 27001/2022 - Parte 01
 - **Questões:** 30 minutos no NotebookLM sobre os tópicos do dia, com correção ativa.
 
 #### Dia 48 — 13/09/2026
 
-- [Vídeo · 75 min] **Língua Inglesa · Aula 01** — Introdução (Parte 01)
-- [Vídeo · 71 min] **Língua Inglesa · Aula 01** — Introdução (Parte 02)
+- [Vídeo · 30 min] **Banco de Dados · Aula 07** — Modelagem mutidimensional - Parte 01
+- [Vídeo · 31 min] **Banco de Dados · Aula 07** — Modelagem mutidimensional - Parte 02
+- [Vídeo · 30 min] **Banco de Dados · Aula 07** — Modelagem mutidimensional - Parte 03
+- [Vídeo · 30 min] **Banco de Dados · Aula 07** — Modelagem mutidimensional - Parte 04
+- [Vídeo · 28 min] **Banco de Dados · Aula 08** — Big Data - Parte 02
 - **Questões:** 30 minutos no NotebookLM sobre os tópicos do dia, com correção ativa.
 
 #### Dia 49 — 14/09/2026
@@ -584,45 +582,42 @@ Nenhum dia ultrapassa 150 minutos de duração bruta dos vídeos. As durações 
 #### Dia 51 — 16/09/2026
 
 - **PDF — Problemas geométricos** (35 min): Conteúdo expresso em Raciocínio Lógico sem videoaula no catálogo.
-- [Vídeo · 31 min] **Banco de Dados · Aula 07** — Modelagem mutidimensional - Parte 02
-- [Vídeo · 30 min] **Banco de Dados · Aula 07** — Modelagem mutidimensional - Parte 03
-- [Vídeo · 30 min] **Banco de Dados · Aula 07** — Modelagem mutidimensional - Parte 04
 - [Vídeo · 36 min] **Banco de Dados · Aula 08** — Big Data - Parte 01
-- [Vídeo · 25 min] **Língua Inglesa · Aula 02** — Skimming
+- [Vídeo · 75 min] **Língua Inglesa · Aula 01** — Introdução (Parte 01)
+- [Vídeo · 36 min] **Banco de Dados · Aula 10** — Bancos de Dados Nosql - Parte 01
 - **Questões:** 30 minutos no NotebookLM sobre os tópicos do dia, com correção ativa.
 
 #### Dia 52 — 17/09/2026
 
 - **Diagnóstico — problemas aritméticos** (45 min): Resolver 20 questões de razão, proporção, regra de três e porcentagem; abrir a aula 10 de RLM somente nos erros.
-- [Vídeo · 28 min] **Banco de Dados · Aula 08** — Big Data - Parte 02
-- [Vídeo · 36 min] **Banco de Dados · Aula 10** — Bancos de Dados Nosql - Parte 01
+- [Vídeo · 71 min] **Língua Inglesa · Aula 01** — Introdução (Parte 02)
 - [Vídeo · 30 min] **Banco de Dados · Aula 10** — Bancos de Dados Nosql - Parte 02
 - [Vídeo · 35 min] **Segurança da Informação · Aula 03** — ISO 27001/2022 - Parte 02
-- [Vídeo · 12 min] **Gestão e Governança de TI · Aula 01** — PMBOK - Aula I - Gerenciamento de Projetos
 - **Questões:** 30 minutos no NotebookLM sobre os tópicos do dia, com correção ativa.
 
 #### Dia 53 — 18/09/2026
 
-- [Vídeo · 31 min] **Língua Inglesa · Aula 02** — Cognatos e Falsos Cognatos
-- [Vídeo · 58 min] **Língua Inglesa · Aula 03** — Tempos Verbais (Parte 01)
+- [Vídeo · 23 min] **Língua Inglesa · Aula 02** — Scanning
+- [Vídeo · 25 min] **Língua Inglesa · Aula 02** — Skimming
 - [Vídeo · 40 min] **Segurança da Informação · Aula 03** — ISO 27002/2022 - Parte 02 - Controle Organizacionais - 5.1 a 5.6
-- [Vídeo · 13 min] **Gestão e Governança de TI · Aula 01** — PMBOK - Aula I - Gerenciamento Organizacional do Projeto
+- [Vídeo · 52 min] **Segurança da Informação · Aula 03** — ISO 27002/2022 - Parte 03 - Controle Organizacionais - 5.7 a 5.12
 - **Questões:** 30 minutos no NotebookLM sobre os tópicos do dia, com correção ativa.
 
 #### Dia 54 — 19/09/2026
 
-- [Vídeo · 52 min] **Segurança da Informação · Aula 03** — ISO 27002/2022 - Parte 03 - Controle Organizacionais - 5.7 a 5.12
 - [Vídeo · 33 min] **Gestão e Governança de TI · Aula 01** — PMBOK - Aula I - Conceitos Básicos
-- [Vídeo · 41 min] **Língua Inglesa · Aula 04** — Definite and Indefinite Articles
+- [Vídeo · 31 min] **Língua Inglesa · Aula 02** — Cognatos e Falsos Cognatos
+- [Vídeo · 58 min] **Língua Inglesa · Aula 03** — Tempos Verbais (Parte 01)
 - [Vídeo · 23 min] **Gestão e Governança de TI · Aula 02** — O que é ITIL 4
 - **Questões:** 30 minutos no NotebookLM sobre os tópicos do dia, com correção ativa.
 
 #### Dia 55 — 20/09/2026
 
-- [Vídeo · 71 min] **Língua Inglesa · Aula 03** — Tempos Verbais (Parte 02)
 - [Vídeo · 26 min] **Gestão e Governança de TI · Aula 02** — Conceitos do Modelo do ITIL 4
 - [Vídeo · 28 min] **Gestão e Governança de TI · Aula 02** — Modelo de Quatro Dimensões da ITIL
+- [Vídeo · 41 min] **Gestão e Governança de TI · Aula 03** — Histórico e Conceitos Iniciais
 - [Vídeo · 9 min] **Gestão e Governança de TI · Aula 03** — Conceito-Chave: Princípios do Framework e Sistemas de Governança
+- [Vídeo · 41 min] **Língua Inglesa · Aula 04** — Definite and Indefinite Articles
 - **Questões:** 30 minutos no NotebookLM sobre os tópicos do dia, com correção ativa.
 
 #### Dia 56 — 21/09/2026
@@ -633,63 +628,63 @@ Nenhum dia ultrapassa 150 minutos de duração bruta dos vídeos. As durações 
 
 #### Dia 57 — 22/09/2026
 
-- [Vídeo · 41 min] **Gestão e Governança de TI · Aula 03** — Histórico e Conceitos Iniciais
-- [Vídeo · 41 min] **Língua Inglesa · Aula 04** — Nouns
-- [Vídeo · 20 min] **Língua Inglesa · Aula 04** — Prefixes and Sufixes
+- [Vídeo · 71 min] **Língua Inglesa · Aula 03** — Tempos Verbais (Parte 02)
 - [Vídeo · 11 min] **Gestão e Governança de TI · Aula 03** — Cascata de Objetivos
 - [Vídeo · 6 min] **Gestão e Governança de TI · Aula 04** — Bpm: Introdução
 - [Vídeo · 8 min] **Gestão e Governança de TI · Aula 04** — Tipos de Processos de Negócio
 - [Vídeo · 9 min] **Gestão e Governança de TI · Aula 04** — Modelagem de Processos
+- [Vídeo · 4 min] **Gestão e Governança de TI · Aula 05** — BPMN Introdução
+- [Vídeo · 41 min] **Língua Inglesa · Aula 04** — Nouns
 - **Questões:** 30 minutos no NotebookLM sobre os tópicos do dia, com correção ativa.
 
 #### Dia 58 — 23/09/2026
 
-- [Vídeo · 3 min] **Gestão e Governança de TI · Aula 04** — Abordagens de Modelagem
-- [Vídeo · 34 min] **Língua Inglesa · Aula 05** — Adjetivos (Parte 01)
-- [Vídeo · 26 min] **Língua Inglesa · Aula 05** — Adjetivos (Parte 02)
-- [Vídeo · 4 min] **Gestão e Governança de TI · Aula 05** — BPMN Introdução
+- [Vídeo · 20 min] **Língua Inglesa · Aula 04** — Prefixes and Sufixes
 - [Vídeo · 4 min] **Gestão e Governança de TI · Aula 05** — Elementos de Fluxos
 - [Vídeo · 2 min] **Gestão e Governança de TI · Aula 05** — Objetos de Dados
 - [Vídeo · 23 min] **Engenharia de Software · Aula 01** — Metodologias de Desenvolvimento - Engenharia de Software e Objetivos
 - [Vídeo · 16 min] **Engenharia de Software · Aula 01** — Metodologias de Desenvolvimento - Histórico e Terminologia
+- [Vídeo · 16 min] **Engenharia de Software · Aula 01** — Metodologias de Desenvolvimento - Modelos de Ciclo de Vida e Fases do Desenvolvimento de Software
+- [Vídeo · 34 min] **Língua Inglesa · Aula 05** — Adjetivos (Parte 01)
+- [Vídeo · 26 min] **Língua Inglesa · Aula 05** — Adjetivos (Parte 02)
 - **Questões:** 30 minutos no NotebookLM sobre os tópicos do dia, com correção ativa.
 
 #### Dia 59 — 24/09/2026
 
-- [Vídeo · 39 min] **Língua Inglesa · Aula 05** — Adverbs
-- [Vídeo · 43 min] **Língua Inglesa · Aula 06** — Pronouns
-- [Vídeo · 16 min] **Engenharia de Software · Aula 01** — Metodologias de Desenvolvimento - Modelos de Ciclo de Vida e Fases do Desenvolvimento de Software
 - [Vídeo · 35 min] **Engenharia de Software · Aula 02** — Métodos Ágeis - Conceitos básicos
+- [Vídeo · 11 min] **Engenharia de Software · Aula 02** — Gestão Ágil de Projetos
+- [Vídeo · 15 min] **Engenharia de Software · Aula 02** — Método Lean
+- [Vídeo · 23 min] **Engenharia de Software · Aula 03** — Scrum
+- [Vídeo · 19 min] **Engenharia de Software · Aula 03** — Scrum - Papéis
+- [Vídeo · 39 min] **Língua Inglesa · Aula 05** — Adverbs
 - **Questões:** 30 minutos no NotebookLM sobre os tópicos do dia, com correção ativa.
 
 #### Dia 60 — 25/09/2026
 
-- [Vídeo · 11 min] **Engenharia de Software · Aula 02** — Gestão Ágil de Projetos
-- [Vídeo · 15 min] **Engenharia de Software · Aula 02** — Método Lean
-- [Vídeo · 23 min] **Engenharia de Software · Aula 03** — Scrum
-- [Vídeo · 17 min] **Língua Inglesa · Aula 06** — Prepositions
-- [Vídeo · 35 min] **Língua Inglesa · Aula 06** — Conjunctions
-- [Vídeo · 19 min] **Engenharia de Software · Aula 03** — Scrum - Papéis
+- [Vídeo · 43 min] **Língua Inglesa · Aula 06** — Pronouns
 - [Vídeo · 12 min] **Engenharia de Software · Aula 03** — Scrum - Desenvolvedores
+- [Vídeo · 31 min] **Engenharia de Software · Aula 04** — Extreme Programming
 - [Vídeo · 13 min] **Engenharia de Software · Aula 05** — Métodos Ágeis: Processos e Técnicas
+- [Vídeo · 22 min] **Engenharia de Software · Aula 05** — Metodologias Ágeis - Kanban
+- [Vídeo · 14 min] **Engenharia de Software · Aula 05** — Metodologias Ágeis - TDD (Test-Driven Development)
 - **Questões:** 30 minutos no NotebookLM sobre os tópicos do dia, com correção ativa.
 
 #### Dia 61 — 26/09/2026
 
-- [Vídeo · 31 min] **Engenharia de Software · Aula 04** — Extreme Programming
-- [Vídeo · 22 min] **Engenharia de Software · Aula 05** — Metodologias Ágeis - Kanban
-- [Vídeo · 47 min] **Língua Inglesa · Aula 07** — Direct Speech And Reported Speech
-- [Vídeo · 49 min] **Língua Inglesa · Aula 07** — Active And Passive Voice
-- **Questões:** 30 minutos no NotebookLM sobre os tópicos do dia, com correção ativa.
-
-#### Dia 62 — 27/09/2026
-
-- [Vídeo · 14 min] **Engenharia de Software · Aula 05** — Metodologias Ágeis - TDD (Test-Driven Development)
+- [Vídeo · 17 min] **Língua Inglesa · Aula 06** — Prepositions
+- [Vídeo · 35 min] **Língua Inglesa · Aula 06** — Conjunctions
 - [Vídeo · 29 min] **Engenharia de Software · Aula 11** — Métricas de Software - Análise de Pontos de Função
 - [Vídeo · 30 min] **Engenharia de Software · Aula 11** — Métricas de Software - Ponto de Função
 - [Vídeo · 10 min] **Engenharia de Software · Aula 11** — Métricas de Software - Objetivos da APF
 - [Vídeo · 8 min] **Engenharia de Software · Aula 13** — Low Code, no Code
-- [Vídeo · 55 min] **Língua Inglesa · Aula 08** — If Clauses (Orações Condicionais)
+- [Vídeo · 10 min] **Engenharia de Software · Aula 14** — Projeto de Interface de Usuário - Conceitos Básicos
+- **Questões:** 30 minutos no NotebookLM sobre os tópicos do dia, com correção ativa.
+
+#### Dia 62 — 27/09/2026
+
+- [Vídeo · 43 min] **Engenharia de Software · Aula 13** — Principíos SOLID
+- [Vídeo · 47 min] **Língua Inglesa · Aula 07** — Direct Speech And Reported Speech
+- [Vídeo · 49 min] **Língua Inglesa · Aula 07** — Active And Passive Voice
 - **Questões:** 30 minutos no NotebookLM sobre os tópicos do dia, com correção ativa.
 
 #### Dia 63 — 28/09/2026
@@ -702,48 +697,47 @@ Nenhum dia ultrapassa 150 minutos de duração bruta dos vídeos. As durações 
 
 #### Dia 65 — 30/09/2026
 
-- [Vídeo · 42 min] **Língua Inglesa · Aula 08** — Quantifiers (Quantificadores/Determinantes)
-- [Vídeo · 43 min] **Engenharia de Software · Aula 13** — Principíos SOLID
-- [Vídeo · 10 min] **Engenharia de Software · Aula 14** — Projeto de Interface de Usuário - Conceitos Básicos
 - [Vídeo · 9 min] **Engenharia de Software · Aula 14** — Projeto de Interface de Usuário - Estilos de UI: Flat Design
 - [Vídeo · 6 min] **Engenharia de Software · Aula 14** — Projeto de Interface de Usuário - Estilos de UI: Metro Design
 - [Vídeo · 9 min] **Engenharia de Software · Aula 15** — Arquitetura da Informação
-- [Vídeo · 29 min] **Atualidades · Aula 01** — Globalização e Desglobalização - Parte 02
+- [Vídeo · 11 min] **Engenharia de Software · Aula 15** — Gestao de Conteúdo
+- [Vídeo · 55 min] **Língua Inglesa · Aula 08** — If Clauses (Orações Condicionais)
+- [Vídeo · 42 min] **Língua Inglesa · Aula 08** — Quantifiers (Quantificadores/Determinantes)
 - **Questões:** 30 minutos no NotebookLM sobre os tópicos do dia, com correção ativa.
 
 #### Dia 66 — 01/10/2026
 
-- [Vídeo · 51 min] **Atualidades · Aula 01** — Globalização e Desglobalização - Parte 01
-- [Vídeo · 11 min] **Engenharia de Software · Aula 15** — Gestao de Conteúdo
 - [Vídeo · 24 min] **Engenharia de Software · Aula 16** — Portais Corporativos - Introdução
 - [Vídeo · 23 min] **Engenharia de Software · Aula 16** — Portais Corporativos - Arquitetura
 - [Vídeo · 11 min] **Engenharia de Software · Aula 16** — Portais Corporativos - Classificações
 - [Vídeo · 19 min] **Engenharia de Software · Aula 17** — Usabilidade - Introdução
+- [Vídeo · 30 min] **Engenharia de Software · Aula 17** — Usabilidade - Princípios Gerais e Recomendações
+- [Vídeo · 29 min] **Atualidades · Aula 01** — Globalização e Desglobalização - Parte 02
 - **Questões:** 30 minutos no NotebookLM sobre os tópicos do dia, com correção ativa.
 
 #### Dia 67 — 02/10/2026
 
-- [Vídeo · 115 min] **Atualidades · Aula 02** — Islamismo, Mundo Árabe e Oriente Médio
+- [Vídeo · 51 min] **Atualidades · Aula 01** — Globalização e Desglobalização - Parte 01
+- [Vídeo · 17 min] **Engenharia de Software · Aula 17** — Usabilidade - Testes de usabilidade
+- [Vídeo · 36 min] **Engenharia de Software · Aula 19** — Intranet e Extranet - Parte 01
+- [Vídeo · 15 min] **Engenharia de Software · Aula 19** — Intranet e Extranet - Parte 02
 - **Questões:** 30 minutos no NotebookLM sobre os tópicos do dia, com correção ativa.
 
 #### Dia 68 — 03/10/2026
 
-- [Vídeo · 44 min] **Atualidades · Aula 08** — Retrospectiva de Atualidades - Fatos Internacionais - Abril de 2026 - Parte I
-- [Vídeo · 30 min] **Engenharia de Software · Aula 17** — Usabilidade - Princípios Gerais e Recomendações
-- [Vídeo · 17 min] **Engenharia de Software · Aula 17** — Usabilidade - Testes de usabilidade
-- [Vídeo · 36 min] **Engenharia de Software · Aula 19** — Intranet e Extranet - Parte 01
+- [Vídeo · 115 min] **Atualidades · Aula 02** — Islamismo, Mundo Árabe e Oriente Médio
 - **Questões:** 30 minutos no NotebookLM sobre os tópicos do dia, com correção ativa.
 
 #### Dia 69 — 04/10/2026
 
-- [Vídeo · 15 min] **Engenharia de Software · Aula 19** — Intranet e Extranet - Parte 02
+- [Vídeo · 44 min] **Atualidades · Aula 08** — Retrospectiva de Atualidades - Fatos Internacionais - Abril de 2026 - Parte I
 - [Vídeo · 61 min] **Atualidades · Aula 08** — Retrospectiva de Atualidades - Fatos Internacionais - Abril de 2026 - Parte II
-- [Vídeo · 53 min] **Atualidades · Aula 10** — Copa do Mundo 2026 - A Copa e Sua Organização
+- [Vídeo · 42 min] **Atualidades · Aula 10** — Copa do Mundo 2026 - Copa do Mundo e Política
 - **Questões:** 30 minutos no NotebookLM sobre os tópicos do dia, com correção ativa.
 
 #### Dia 70 — 05/10/2026
 
-- [Vídeo · 42 min] **Atualidades · Aula 10** — Copa do Mundo 2026 - Copa do Mundo e Política
+- [Vídeo · 53 min] **Atualidades · Aula 10** — Copa do Mundo 2026 - A Copa e Sua Organização
 - [Vídeo · 47 min] **Atualidades · Aula 12** — Atualidades Internacionais - Junho de 2026 - Guerras e Conflitos
 - **Questões:** 30 minutos no NotebookLM sobre os tópicos do dia, com correção ativa.
 
