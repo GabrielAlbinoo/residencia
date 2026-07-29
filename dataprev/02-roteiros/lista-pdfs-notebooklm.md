@@ -1,8 +1,8 @@
 # PDFs do plano DATAPREV para o NotebookLM
 
-Esta lista contém uma apostila principal para cada módulo usado no cronograma de 75 dias.
+Esta lista contém uma apostila principal para cada módulo obrigatório, seletivo ou de diagnóstico usado no cronograma revisado de 75 dias.
 
-**Total:** 78 módulos e 78 PDFs principais.
+**Total:** 100 módulos e 100 PDFs principais.
 
 ## Como baixar
 
@@ -12,11 +12,23 @@ Esta lista contém uma apostila principal para cada módulo usado no cronograma 
 - Não é necessário baixar também a versão `Grifada` ou `Simplificada`: elas repetem o conteúdo da apostila principal.
 - Se a apostila normal ficar grande demais para o fluxo que você montar no NotebookLM, substitua-a pela `Apostila_Simplificada`; não use as duas como fontes no mesmo caderno.
 
-## 1. Atualidades — 3 PDFs
+## Como organizar no NotebookLM
+
+- Crie **um notebook por disciplina**, seguindo as 11 seções desta lista. Não coloque os 100 PDFs em um único notebook.
+- Use o padrão de nome `DATAPREV — 01 Atualidades`, `DATAPREV — 02 IA` e assim por diante.
+- Preserve o número da aula no nome do arquivo para manter a ordem das fontes.
+- Em Português, Desenvolvimento e Engenharia de Software, divida em dois notebooks se o volume ficar lento.
+- Gere questões somente com as fontes da disciplina estudada no dia; isso reduz respostas genéricas e mistura de assuntos.
+- Os 13 materiais da lista complementar só devem entrar quando uma questão ou simulado revelar necessidade.
+
+## 1. Atualidades — 6 PDFs
 
 - [ ] [Aula 01 — Panorama Internacional I](https://drive.google.com/file/d/1M_bqFkCTCXR31U_xuOFHma18Iv2hF3i9/view?usp=drivesdk) — `Aula 01_Apostila.pdf`
+- [ ] [Aula 02 — Panorama Internacional II](https://drive.google.com/file/d/1pQUUDMvffNato-_f_LlYcq7kPtr5Vhbe/view?usp=drivesdk) — `Aula 02_Apostila.pdf`
+- [ ] [Aula 07 — Ecologia e Desenvolvimento Sustentável](https://drive.google.com/file/d/1LM3rbsgJfvws43687rocjdlTdhf6apAK/view?usp=drivesdk) — `Aula 07_Apostila.pdf`
+- [ ] [Aula 08 — Retrospectiva de abril de 2026](https://drive.google.com/file/d/1sVE7pUBl2iEiN6EBySk5un-kxzx4vjaJ/view?usp=drivesdk) — `Aula 08_Apostila.pdf`
+- [ ] [Aula 10 — Retrospectiva de maio de 2026](https://drive.google.com/file/d/13UYPDaQ53zvDhO9G9qlOVJRbShXQhzK7/view?usp=drivesdk) — `Aula 10_Apostila.pdf`
 - [ ] [Aula 12 — Retrospectiva de Atualidades: junho de 2026](https://drive.google.com/file/d/1L6IcsgmJNlQcvXKjlW_VC8bzbZtZpICV/view?usp=drivesdk) — `Aula 12_Apostila.pdf`
-- [ ] [Aula 13 — Simulado de Atualidades: junho de 2026](https://drive.google.com/file/d/1raA5oEHpBoUeuQXu7L3Z_zTKOP6dz-4L/view?usp=drivesdk) — `Aula 13_Apostila.pdf`
 
 ## 2. Inteligência Artificial — 1 PDF
 
@@ -40,9 +52,12 @@ Esta lista contém uma apostila principal para cada módulo usado no cronograma 
 - [ ] [Aula 07 — Discurso direto/indireto e vozes ativa/passiva](https://drive.google.com/file/d/1GMqtnS5oC2-4SXuik0yAqr9LFffWoFIr/view?usp=drivesdk) — `Aula 07_Apostila.pdf`
 - [ ] [Aula 08 — Condicionais e quantificadores](https://drive.google.com/file/d/142_E7nbLyT4hmhJ-rZ3dFQQ_hPIQALVs/view?usp=drivesdk) — `Aula 08_Apostila.pdf`
 
-## 5. Língua Portuguesa — 8 PDFs
+## 5. Língua Portuguesa — 11 PDFs
 
+- [ ] [Aula 02 — Ortografia oficial](https://drive.google.com/file/d/1s-He_VmXG3U_8IGZNJfN3jQvs1OCWSv-/view?usp=drivesdk) — `Aula 02_Apostila.pdf`
+- [ ] [Aula 03 — Classes de palavras e colocação pronominal](https://drive.google.com/file/d/1HLXH2tO7NxGCUeKZorKu_kE5sEbXYWpn/view?usp=drivesdk) — `Aula 03_Apostila.pdf`
 - [ ] [Aula 04 — Preposições e conjunções](https://drive.google.com/file/d/1w1aQV8TILDWBU4VvBySM9c4CFJdYyfIT/view?usp=drivesdk) — `Aula 04_Apostila.pdf`
+- [ ] [Aula 05 — Verbos, tempos e modos](https://drive.google.com/file/d/10tuPJB0gCTRZXFCVoNRGURNcwnjWzAm4/view?usp=drivesdk) — `Aula 05_Apostila.pdf`
 - [ ] [Aula 06 — Morfossintaxe, coordenação e subordinação](https://drive.google.com/file/d/1UOP_bHhbBmP1AeJE9AeEFWyEWdfWyMUZ/view?usp=drivesdk) — `Aula 06_Apostila.pdf`
 - [ ] [Aula 07 — Pontuação](https://drive.google.com/file/d/1ap7FpHz0hi_eWOLl2RvR2BbZUSOjMwcS/view?usp=drivesdk) — `Aula 07_Apostila.pdf`
 - [ ] [Aula 08 — Concordância verbal e nominal](https://drive.google.com/file/d/1ux9hXJudIunzb8wT5vNgHgpujKt7DUgO/view?usp=drivesdk) — `Aula 08_Apostila.pdf`
@@ -51,7 +66,7 @@ Esta lista contém uma apostila principal para cada módulo usado no cronograma 
 - [ ] [Aula 11 — Significação e substituição de palavras](https://drive.google.com/file/d/1PFqVcwNV8XCEpt5MMCPJPldLxJqps32K/view?usp=drivesdk) — `Aula 11_Apostila.pdf`
 - [ ] [Aula 12 — Interpretação, gêneros e reescrita](https://drive.google.com/file/d/1LMF6qm0sm0P-HHddtz3Jq5gA3eeSBlT5/view?usp=drivesdk) — `Aula 12_Apostila.pdf`
 
-## 6. Raciocínio Lógico — 11 PDFs
+## 6. Raciocínio Lógico — 12 PDFs
 
 - [ ] [Aula 01 — Estruturas Lógicas I](https://drive.google.com/file/d/13NVKnMMK-Z3LXFekPH0TUuCO58fY_1YM/view?usp=drivesdk) — `Aula 01_Apostila.pdf`
 - [ ] [Aula 02 — Estruturas Lógicas II](https://drive.google.com/file/d/1PUwAmOyoJTqThvgaHbUSGhVxpSTd-d-_/view?usp=drivesdk) — `Aula 02_Apostila.pdf`
@@ -64,6 +79,7 @@ Esta lista contém uma apostila principal para cada módulo usado no cronograma 
 - [ ] [Aula 09 — Problemas de Lógica II](https://drive.google.com/file/d/1p2LvRkEb882ZNQiB1TXQBSjyaLcu7xg9/view?usp=drivesdk) — `Aula 09_Apostila.pdf`
 - [ ] [Aula 10 — Problemas Aritméticos](https://drive.google.com/file/d/1A6L5q9x0fMhdd7Mo86lI2hmznx5aC77R/view?usp=drivesdk) — `Aula 10_Apostila.pdf`
 - [ ] [Aula 11 — Problemas Geométricos](https://drive.google.com/file/d/1MohROiVmBe9TMBY4jbldp-5f6LlSf5l5/view?usp=drivesdk) — `Aula 11_Apostila.pdf`
+- [ ] [Aula 12 — Matrizes e Determinantes](https://drive.google.com/file/d/1ltYIVUi1sMGNk1xwvRkioH8OXd1uTqkP/view?usp=drivesdk) — `Aula 12_Apostila.pdf`
 
 ## 7. Banco de Dados — 10 PDFs
 
@@ -78,14 +94,20 @@ Esta lista contém uma apostila principal para cada módulo usado no cronograma 
 - [ ] [Aula 10 — NoSQL](https://drive.google.com/file/d/1ZUBhVA-TRmA6Bz9V8c2wqRsOtJT-E795/view?usp=drivesdk) — `Aula 10_Apostila.pdf`
 - [ ] [Aula 11 — Banco de dados em memória](https://drive.google.com/file/d/1n94i6WCZHioYdZHNSLU7BZvqwMIRsvhg/view?usp=drivesdk) — `Aula 11_Apostila.pdf`
 
-## 8. Desenvolvimento de Software — 14 PDFs
+## 8. Desenvolvimento de Software — 21 PDFs
 
 - [ ] [Aula 02 — Orientação a Objetos](https://drive.google.com/file/d/1tqn0GmYvGsrrA57BqkpVrYDGON2wQDhc/view?usp=drivesdk) — `Aula 02_Apostila.pdf`
 - [ ] [Aula 03 — Java](https://drive.google.com/file/d/1gZILud_NLcjiX-O9X-BcPGQo0odUtzv3/view?usp=drivesdk) — `Aula 03_Apostila.pdf`
 - [ ] [Aula 04 — JavaEE, JakartaEE, JSF e PrimeFaces](https://drive.google.com/file/d/1C5-7Y2_Oqh4QaZtJVozdRqYURpbJmVrg/view?usp=drivesdk) — `Aula 04_Apostila.pdf`
 - [ ] [Aula 05 — JPA e Hibernate](https://drive.google.com/file/d/1tv2Ilb5VUxDTA80lBXgXRaPwIEqyIbFl/view?usp=drivesdk) — `Aula 05_Apostila.pdf`
 - [ ] [Aula 06 — Spring, Spring Cloud, Spring Boot e Swagger](https://drive.google.com/file/d/1FVZQfA7_JSgo-m9rlj-IJ-tBBTwuQXpk/view?usp=drivesdk) — `Aula 06_Apostila.pdf`
+- [ ] [Aula 07 — HTML](https://drive.google.com/file/d/1iP3-oyTBUCiQ4TEPy5a9jPjJHcri87sT/view?usp=drivesdk) — `Aula 07_Apostila.pdf`
+- [ ] [Aula 08 — CSS](https://drive.google.com/file/d/1P4RBlmGEkGci7GbTUdD5-LQYLJJVjJyn/view?usp=drivesdk) — `Aula 08_Apostila.pdf`
+- [ ] [Aula 09 — JavaScript](https://drive.google.com/file/d/1gMJ88Jl3yRoDa5rL8Yxlg1JR6qWMlPkJ/view?usp=drivesdk) — `Aula 09_Apostila.pdf`
+- [ ] [Aula 10 — Ajax, Vue, Angular, React, frontend e SPA](https://drive.google.com/file/d/1lWxPSscfhnTRk9-uQ5Vkv_cUUdtBNwD8/view?usp=drivesdk) — `Aula 10_Apostila.pdf`
+- [ ] [Aula 11 — JUnit](https://drive.google.com/file/d/1jyIhvYxbq_Mvx8x-T2ZpmgKWeNwQFN2l/view?usp=drivesdk) — `Aula 11_Apostila.pdf`
 - [ ] [Aula 12 — Clean Code e SonarQube](https://drive.google.com/file/d/1E3B4J5dWbtUMVdaSNTP1YGVUxMiRNawP/view?usp=drivesdk) — `Aula 12_Apostila.pdf`
+- [ ] [Aula 13 — Git](https://drive.google.com/file/d/1_azOdCjTnCrdizPadY_bO3ZkFlc_P94U/view?usp=drivesdk) — `Aula 13_Apostila.pdf`
 - [ ] [Aula 14 — DevOps](https://drive.google.com/file/d/1o4seo2UVAYyizm7YoRlWlBxMMA4zKiQN/view?usp=drivesdk) — `Aula 14_Apostila.pdf`
 - [ ] [Aula 15 — Containers](https://drive.google.com/file/d/1ttCEq1CDGZPuxc8dKSafGr5JFGtPotux/view?usp=drivesdk) — `Aula 15_Apostila.pdf`
 - [ ] [Aula 16 — Microsserviços, orquestração e API Gateway](https://drive.google.com/file/d/1yvX7PRNsi5ZOd-Wfr1ceeLIN0r_YOvx_/view?usp=drivesdk) — `Aula 16_Apostila.pdf`
@@ -94,8 +116,9 @@ Esta lista contém uma apostila principal para cada módulo usado no cronograma 
 - [ ] [Aula 19 — Mensageria](https://drive.google.com/file/d/19VLPrEQiuL4DfEOqPxVPqizykVO-BGXy/view?usp=drivesdk) — `Aula 19_Apostila.pdf`
 - [ ] [Aula 20 — UDDI e REST](https://drive.google.com/file/d/11Rsk1MVTSHA4kLYqnWRvM_QTKNmZemo-/view?usp=drivesdk) — `Aula 20_Apostila.pdf`
 - [ ] [Aula 21 — Blockchain e transações distribuídas](https://drive.google.com/file/d/1sjjUWXQ2N3Cf6t7ysPC3b_qCV3AhylU9/view?usp=drivesdk) — `Aula 21_Apostila.pdf`
+- [ ] [Aula 22 — Desenvolvimento móvel: Android e iOS](https://drive.google.com/file/d/1_xZuIkbjaOkgB1iJ1SodJb5qT1D2oTJi/view?usp=drivesdk) — `Aula 22_Apostila.pdf`
 
-## 9. Engenharia de Software — 11 PDFs
+## 9. Engenharia de Software — 19 PDFs
 
 - [ ] [Aula 01 — Abordagens tradicional e híbrida](https://drive.google.com/file/d/1kNY2tmdwzx29533Bu9WyHG5nb7rnp2lf/view?usp=drivesdk) — `Aula 01_Apostila.pdf`
 - [ ] [Aula 02 — Metodologias Ágeis e Lean](https://drive.google.com/file/d/1vsj94mOuRGvS4WY8gbrhAOIIkTH8Hswi/view?usp=drivesdk) — `Aula 02_Apostila.pdf`
@@ -108,6 +131,14 @@ Esta lista contém uma apostila principal para cada módulo usado no cronograma 
 - [ ] [Aula 09 — Interoperabilidade e SOA](https://drive.google.com/file/d/1iLu8JAcv4SyUioMtkEAyk9dkL3zfp4XC/view?usp=drivesdk) — `Aula 09_Apostila.pdf`
 - [ ] [Aula 10 — Web services e API](https://drive.google.com/file/d/1nqRbqX3t9I8xlthu50YQsmzLEXhSxajb/view?usp=drivesdk) — `Aula 10_Apostila.pdf`
 - [ ] [Aula 11 — Pontos de Função](https://drive.google.com/file/d/1l0KcmW-AEJP2LOZjdxL-R1r0kmpnrokx/view?usp=drivesdk) — `Aula 11_Apostila.pdf`
+- [ ] [Aula 12 — Padrões de desenvolvimento e reuso](https://drive.google.com/file/d/1PrghBA0kAK3b8ldaGGoTj2b-a214ctjy/view?usp=drivesdk) — `Aula 12_Apostila.pdf`
+- [ ] [Aula 13 — Low-code, no-code e design de software](https://drive.google.com/file/d/1h9JtldHnVQgDCEO-L2Y5BcCNyF8SyD0q/view?usp=drivesdk) — `Aula 13_Apostila.pdf`
+- [ ] [Aula 14 — UX e planejamento de interação](https://drive.google.com/file/d/1Ly045CM9gltNfPqj0UtemKcPo52epI10/view?usp=drivesdk) — `Aula 14_Apostila.pdf`
+- [ ] [Aula 15 — Gestão de conteúdo e arquitetura da informação](https://drive.google.com/file/d/1sfSTISYjPh0xptSsaEF7Jns502LjWFKV/view?usp=drivesdk) — `Aula 15_Apostila.pdf`
+- [ ] [Aula 16 — Portais corporativos e workflow](https://drive.google.com/file/d/1xSyZbaR5IKLMOLP9oxcz-Twq8-xq3HbX/view?usp=drivesdk) — `Aula 16_Apostila.pdf`
+- [ ] [Aula 17 — Acessibilidade e usabilidade](https://drive.google.com/file/d/1qTGroCiAojJa7hhzJ_kcTC3ugfDzNwIZ/view?usp=drivesdk) — `Aula 17_Apostila.pdf`
+- [ ] [Aula 18 — Sistemas de suporte à decisão](https://drive.google.com/file/d/1qqUxVbKM_bNHl5UF4Ko-sElzZI4X-oEE/view?usp=drivesdk) — `Aula 18_Apostila.pdf`
+- [ ] [Aula 19 — Internet, extranet, intranet e portal](https://drive.google.com/file/d/1FaXBWMCl5NkDY7VgKp_V6AU4fpUTkcDj/view?usp=drivesdk) — `Aula 19_Apostila.pdf`
 
 ## 10. Gestão e Governança de TI — 5 PDFs
 
@@ -127,20 +158,20 @@ Esta lista contém uma apostila principal para cada módulo usado no cronograma 
 
 | Disciplina | Módulos/PDFs |
 |---|---:|
-| Atualidades | 3 |
+| Atualidades | 6 |
 | Inteligência Artificial | 1 |
 | Legislação | 4 |
 | Língua Inglesa | 8 |
-| Língua Portuguesa | 8 |
-| Raciocínio Lógico | 11 |
+| Língua Portuguesa | 11 |
+| Raciocínio Lógico | 12 |
 | Banco de Dados | 10 |
-| Desenvolvimento de Software | 14 |
-| Engenharia de Software | 11 |
+| Desenvolvimento de Software | 21 |
+| Engenharia de Software | 19 |
 | Gestão e Governança de TI | 5 |
 | Segurança da Informação | 3 |
-| **Total** | **78** |
+| **Total** | **100** |
 
-## Materiais complementares que não estão nesses 78 PDFs
+## Materiais complementares que não estão nesses 100 PDFs
 
 Além das apostilas, o cronograma exige:
 
