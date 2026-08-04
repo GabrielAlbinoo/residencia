@@ -1,0 +1,62 @@
+RESULTADO - SIMULADO 19 - CONCEITUAL DIFÍCIL - SISTEMAS DIGITAIS (UFCG)
+Finalizado em: 24/07/2026, 14:44:36
+Tempo executado: 00:45:08
+Nota: 37/40 (93%)
+Respondidas: 37/40
+Marcadas como não soube responder: 2
+
+DESEMPENHO POR BLOCO
+- Bloco 1 - English - Scientific and Technical Reading: 10/10 (100%)
+- Bloco 2 - Sistemas Digitais - Fundamentos e Circuitos: 9/10 (90%)
+- Bloco 3 - Sistemas Digitais - Memória e Arquitetura: 10/10 (100%)
+- Bloco 4 - Sistemas Digitais - Assembly, Pipeline e FPU: 8/10 (80%)
+
+QUESTÕES ERRADAS OU NÃO RESPONDIDAS (3)
+
+Questão 12 - Ponto fixo e saturação
+Enunciado: Em processamento de sinais com ponto fixo, por que a aritmética saturada pode ser preferida à aritmética modular?
+Alternativas disponíveis:
+- A) Porque elimina quantização e torna todo resultado exatamente representável no formato escolhido.
+- B) Porque limita estouros aos extremos, evitando que um valor grande mude abruptamente de sinal.
+- C) Porque usa expoente variável e mantém a mesma precisão relativa em qualquer magnitude.
+- D) Porque substitui a necessidade de definir largura, escala e posição do ponto binário.
+Minha resposta: Não respondida por não saber como resolver; marcada conscientemente para revisão.
+Motivo declarado: deixei em branco porque não sabia como resolver; preciso aprender este procedimento.
+Resposta correta: B) Porque limita estouros aos extremos, evitando que um valor grande mude abruptamente de sinal.
+Explicação: Na saturação, exceder a faixa prende o resultado ao máximo ou mínimo; no wrap-around, um excesso pode reaparecer com sinal ou magnitude inesperados.
+
+Questão 31 - Endianness
+Enunciado: O que a convenção little-endian altera ao armazenar uma palavra multibyte?
+Alternativas disponíveis:
+- A) A ordem dos bits dentro de cada byte, convertendo automaticamente complemento de dois em unsigned.
+- B) A ordem dos bytes nos endereços; operações no registrador continuam usando o mesmo valor lógico.
+- C) A largura da palavra acessada, fazendo toda leitura de byte retornar o byte mais significativo.
+- D) O sentido dos branches, pois comparações signed são invertidas quando os bytes ficam em outra ordem.
+Minha resposta: Não respondida por não saber como resolver; marcada conscientemente para revisão.
+Motivo declarado: deixei em branco porque não sabia como resolver; preciso aprender este procedimento.
+Minha observação: não acho que esse little endian seja importante estudar agora
+Resposta correta: B) A ordem dos bytes nos endereços; operações no registrador continuam usando o mesmo valor lógico.
+Explicação: Endianness trata da disposição dos bytes na memória. Depois que a palavra é carregada corretamente, sua aritmética não é invertida.
+
+Questão 40 - FPU e ties-to-even
+Enunciado: Por que o modo round to nearest, ties to even não simplesmente arredonda todo empate para cima?
+Alternativas disponíveis:
+- A) Porque empates nunca ocorrem em operações binárias quando guard, round e sticky estão disponíveis.
+- B) Porque arredondar para cima transformaria automaticamente todo número normal em subnormal.
+- C) Porque escolher o LSB par reduz o viés sistemático que se acumularia ao favorecer sempre uma direção.
+- D) Porque o padrão IEEE 754 exige truncamento em toda operação cujo sticky bit seja igual a zero.
+Minha resposta: Não respondida
+Resposta correta: C) Porque escolher o LSB par reduz o viés sistemático que se acumularia ao favorecer sempre uma direção.
+Explicação: Em empate exato, escolhe-se o representável cujo bit menos significativo retido é 0. Alternar estatisticamente a direção reduz viés acumulado.
+
+QUESTÕES CORRETAS (37)
+1 (Main claim and qualification), 2 (Evidence-based inference), 3 (Contrast connector), 4 (Reference expression), 5 (Methodological limitation), 6 (Vocabulary in context), 7 (Conditional meaning), 8 (Scientific caution), 9 (Purpose of a control), 10 (Former and latter), 11 (Signed, unsigned and flags), 13 (Paridade, checksum e CRC), 14 (Don't care e minimização), 15 (Hazards combinacionais), 16 (Decoder e demultiplexador), 17 (Barramento tri-state), 18 (CMOS pull-up e pull-down), 19 (Potência dinâmica e leakage), 20 (Metastabilidade e sincronização), 21 (Setup, hold e skew), 22 (FSM Moore e Mealy), 23 (Contadores ring e Johnson), 24 (FPGA, LUT e bitstream), 25 (Localidade de memória), 26 (Associatividade de cache), 27 (Tag, índice e offset), 28 (Políticas de escrita), 29 (Memória virtual e TLB), 30 (Page fault), 32 (Alinhamento de memória), 33 (CMP e branches), 34 (Chamada de função e endereço de retorno), 35 (Datapath e ALUSrc), 36 (Latência e throughput de pipeline), 37 (Load-use e forwarding), 38 (Stall e flush), 39 (Preditor saturante de 2 bits)
+
+OBSERVAÇÕES EM QUESTÕES CORRETAS (1)
+- Questão 33 - CMP e branches: oq é instrução CMP??
+
+PEDIDO PARA REVISÃO COM IA
+Analise meus erros neste simulado de Sistemas Digitais. Para cada questão errada ou não respondida, considere também as alternativas disponíveis e qualquer observação que eu tenha registrado, explique o conceito, resolva passo a passo e proponha 2 exercícios semelhantes com gabarito para eu fixar. Priorize os blocos abaixo de 70% e trate as questões marcadas como 'não soube responder' como prioridade, pois foram deixadas em branco conscientemente para evitar chute.
+Salve uma cópia deste relatório completo em C:/Users/gabrieloliveira/Documents/pessoal/estudos/residencia/03-simulados/resultados/relatorios/, com nome que identifique o número do simulado e a data de realização, para manter meu histórico.
+Salve tudo o que eu precisarei estudar na pasta C:/Users/gabrieloliveira/Documents/pessoal/estudos/residencia/03-simulados/resultados/revisoes/resultados-simulado-19-2026-07-24. Crie nessa pasta pelo menos um arquivo revisao_erros.md com o diagnóstico, as explicações, os exercícios e os gabaritos.
+Atualize também o arquivo C:/Users/gabrieloliveira/Documents/pessoal/estudos/residencia/03-simulados/log_estudos_e_simulados.md, adicionando este simulado à tabela de simulados realizados com data, horário de conclusão, tempo de execução e resultado informados neste relatório. Não altere registros anteriores.

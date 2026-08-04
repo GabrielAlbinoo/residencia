@@ -37,3 +37,4 @@
 | 16/07/2026 | Nao registrado | Nao registrado | Bloco de ingles da prova CI Inovador 2024 - Questoes 1 a 10 | `6/9 validas (66,7%); questao 10 incompleta sem destaque` |
 | 22/07/2026 | 11:47:03 | 00:27:41 | Simulado 17 - Inglês Instrumental - Nível Difícil | `19/20 (95%)` |
 | 22/07/2026 | 17:09:50 | 01:05:57 | Simulado 18 - Prova Completa - Nível Difícil - Sistemas Digitais (UFCG) | `32/40 (80%)` |
+| 24/07/2026 | 14:44:36 | 00:45:08 | Simulado 19 - Conceitual Dificil - Sistemas Digitais (UFCG) | `37/40 (93%)` |
